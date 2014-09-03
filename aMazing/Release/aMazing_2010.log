@@ -1,10 +1,13 @@
-﻿Build started 2014/9/3 14:33:18.
+﻿Build started 2014/9/4 2:29:48.
      1>Project "E:\Projects\aMazing\aMazing\aMazing_2010.vcxproj" on node 2 (Build target(s)).
      1>InitializeBuildStatus:
          Creating "Release\aMazing.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         D:\Coding\VS2013\VC\bin\CL.exe /c /IDXUT\Core /IDXUT\Optional /Zi /nologo /W0 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D D3DXFX_LARGEADDRESS_HANDLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /arch:SSE2 /fp:fast /Zc:wchar_t /Zc:forScope /openmp- /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt  BlockClass.cpp
-         BlockClass.cpp
+         D:\Coding\VS2013\VC\bin\CL.exe /c /IDXUT\Core /IDXUT\Optional /Zi /nologo /W0 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D D3DXFX_LARGEADDRESS_HANDLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /arch:SSE2 /fp:fast /Zc:wchar_t /Zc:forScope /openmp- /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt  FileTracker.cpp MutableString.cpp ShaderCompilerClass.cpp aMazing.cpp
+         FileTracker.cpp
+         MutableString.cpp
+         ShaderCompilerClass.cpp
+         aMazing.cpp
        ResourceCompile:
          All outputs are up-to-date.
        Link:
@@ -12,7 +15,10 @@
          Release\aMazing.obj
          Release\BlockClass.obj
          Release\CameraClass.obj
+         Release\FileTracker.obj
          Release\InputClass.obj
+         Release\MutableString.obj
+         Release\ShaderCompilerClass.obj
          Generating code
          Finished generating code
          aMazing_2010.vcxproj -> E:\Projects\aMazing\aMazing\Release\aMazing.exe
@@ -23,4 +29,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.34
+Time Elapsed 00:00:07.36

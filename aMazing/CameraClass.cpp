@@ -56,6 +56,11 @@ void CameraClass::Shutdown()
 	m_matrices.Shutdown();
 }
 
+void CameraClass::setPosition(const XMFLOAT3& pos)
+{
+	position = pos;
+}
+
 void CameraClass::setPosition(const XMFLOAT3&& pos)
 {
 	position = pos;
@@ -64,6 +69,11 @@ void CameraClass::setPosition(const XMFLOAT3&& pos)
 XMFLOAT3 CameraClass::getPosition() const 
 {
 	return position;
+}
+
+void CameraClass::setRotation(const XMFLOAT3& rot)
+{
+	rotation = rot;
 }
 
 void CameraClass::setRotation(const XMFLOAT3&& rot)

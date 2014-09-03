@@ -376,7 +376,10 @@
     <ClCompile Include="aMazing.cpp" />
     <ClCompile Include="BlockClass.cpp" />
     <ClCompile Include="CameraClass.cpp" />
+    <ClCompile Include="FileTracker.cpp" />
     <ClCompile Include="InputClass.cpp" />
+    <ClCompile Include="MutableString.cpp" />
+    <ClCompile Include="ShaderCompilerClass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="aMazing.fx" />
@@ -385,11 +388,14 @@
     <ClInclude Include="BlockClass.h" />
     <ClInclude Include="CameraClass.h" />
     <ClInclude Include="Defines.hpp" />
+    <ClInclude Include="FileTracker.h" />
     <ClInclude Include="GPUConstantBuffer.hpp" />
     <ClInclude Include="GPUVerticesBuffer.hpp" />
     <ClInclude Include="InputClass.h" />
     <ClInclude Include="InstanceObj.hpp" />
+    <ClInclude Include="MutableString.h" />
     <CLInclude Include="resource.h" />
+    <ClInclude Include="ShaderCompilerClass.h" />
     <ClInclude Include="vertex.hpp" />
     <ResourceCompile Include="aMazing.rc" />
   </ItemGroup>

@@ -19,12 +19,18 @@
     <ClInclude Include="Defines.hpp" />
     <ClInclude Include="InstanceObj.hpp" />
     <ClInclude Include="CameraClass.h" />
+    <ClInclude Include="FileTracker.h" />
+    <ClInclude Include="MutableString.h" />
+    <ClInclude Include="ShaderCompilerClass.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aMazing.cpp" />
     <ClCompile Include="InputClass.cpp" />
     <ClCompile Include="BlockClass.cpp" />
     <ClCompile Include="CameraClass.cpp" />
+    <ClCompile Include="FileTracker.cpp" />
+    <ClCompile Include="MutableString.cpp" />
+    <ClCompile Include="ShaderCompilerClass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="aMazing.fx">
