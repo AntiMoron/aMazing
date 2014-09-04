@@ -128,7 +128,6 @@ std::string MutableString::getMultiByteString()
 {
 	if (strUpdated == false && wstrUpdated == true)
 	{
-		//change
 		strUpdated = true;
 		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 		str = converter.to_bytes(wstr.c_str());

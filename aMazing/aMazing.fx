@@ -44,5 +44,7 @@ PS_INPUT VS( VS_INPUT input )
 
 float4 PS( PS_INPUT input) : SV_Target
 {
-    return txDiffuse.Sample( samLinear, input.Tex );
+	float4 color = txDiffuse.Sample(samLinear, input.Tex);
+	clip(color.a == 0.0f ? -1 : 1);
+	return color;
 }

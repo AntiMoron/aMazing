@@ -97,14 +97,30 @@ void BlockClass::Shutdown()
 	m_vertices.Shutdown();
 }
 
+
+void BlockClass::setPosition(const XMFLOAT3& val)
+{
+	position = val;
+}
+
 void BlockClass::setPosition(const XMFLOAT3&& val)
 {
 	position = val;
 }
 
+void BlockClass::setRotation(const XMFLOAT3& val)
+{
+	rotation = val;
+}
+
 void BlockClass::setRotation(const XMFLOAT3&& val)
 {
 	rotation = val;
+}
+
+void BlockClass::setScaling(const XMFLOAT3& val)
+{
+	scaling = val;
 }
 
 void BlockClass::setScaling(const XMFLOAT3&& val)

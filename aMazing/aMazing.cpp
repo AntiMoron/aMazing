@@ -15,6 +15,8 @@
 #include "resource.h"
 #include "ShaderCompilerClass.h"
 #include "FileTracker.h"
+#include "WindowClass.h"
+#include "TextureManager.h"
 
 //--------------------------------------------------------------------------------------
 // Global Variables
@@ -34,10 +36,6 @@ ID3D11PixelShader*                  g_pPixelShader = NULL;
 ID3D11InputLayout*                  g_pVertexLayout = NULL;
 ID3D11ShaderResourceView*           g_pTextureRV = NULL;
 ID3D11SamplerState*                 g_pSamplerLinear = NULL;
-XMMATRIX                            g_World;
-XMMATRIX                            g_View;
-XMMATRIX                            g_Projection;
-XMFLOAT4                            g_vMeshColor( 0.7f, 0.7f, 0.7f, 1.0f );
 
 CameraClass camera;
 BlockClass bk;
@@ -131,18 +129,6 @@ HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow )
     return S_OK;
 }
 
-
-//--------------------------------------------------------------------------------------
-// Helper for compiling shaders with D3DX11
-//--------------------------------------------------------------------------------------
-HRESULT CompileShaderFromFile( WCHAR* szFileName, LPCSTR szEntryPoint, LPCSTR szShaderModel, ID3DBlob** ppBlobOut )
-{
-	ShaderCompilerClass cl;
-	cl.compileFromFile(szFileName, szEntryPoint, szShaderModel,ppBlobOut);
-	return S_OK;
-}
-
-
 //--------------------------------------------------------------------------------------
 // Create Direct3D device and swap chain
 //--------------------------------------------------------------------------------------
@@ -154,6 +140,9 @@ HRESULT InitDevice()
     GetClientRect( g_hWnd, &rc );
     UINT width = rc.right - rc.left;
     UINT height = rc.bottom - rc.top;
+
+	WindowClass::getInstance().setWidth(width);
+	WindowClass::getInstance().setHeight(height);
 
     UINT createDeviceFlags = 0;
 #ifdef _DEBUG
@@ -254,14 +243,13 @@ HRESULT InitDevice()
 
     // Compile the vertex shader
     ID3DBlob* pVSBlob = NULL;
-	hr = CompileShaderFromFile( L"aMazing.fx", "VS", "vs_4_0", &pVSBlob );
+	hr = ShaderCompilerClass::compileFromFile(L"aMazing.fx", "VS", "vs_5_0", &pVSBlob);
     if( FAILED( hr ) )
     {
         MessageBox( NULL,
                     L"The FX file cannot be compiled.  Please run this executable from the directory that contains the FX file.", L"Error", MB_OK );
         return hr;
     }
-	printf("[%X]\n",pVSBlob);
     // Create the vertex shader
     hr = g_pd3dDevice->CreateVertexShader( pVSBlob->GetBufferPointer(), pVSBlob->GetBufferSize(), NULL, &g_pVertexShader );
     if( FAILED( hr ) )
@@ -290,7 +278,7 @@ HRESULT InitDevice()
 
     // Compile the pixel shader
     ID3DBlob* pPSBlob = NULL;
-    hr = CompileShaderFromFile( L"aMazing.fx", "PS", "ps_4_0", &pPSBlob );
+	hr = ShaderCompilerClass::compileFromFile(L"aMazing.fx", "PS", "ps_5_0", &pPSBlob);
     if( FAILED( hr ) )
     {
         MessageBox( NULL,
@@ -305,14 +293,21 @@ HRESULT InitDevice()
         return hr;
 
     // Load the Texture
-    hr = D3DX11CreateShaderResourceViewFromFile( g_pd3dDevice, L"seafloor.dds", NULL, NULL, &g_pTextureRV, NULL );
-    if( FAILED( hr ) )
-        return hr;
+	hr = TEXTURE.addTexture(g_pd3dDevice, g_pImmediateContext, L"seafloor.dds");
+
+	if (FAILED(hr))
+		return E_FAIL;
+
+	hr = TEXTURE.addTexture(g_pd3dDevice, g_pImmediateContext,
+		L"leaves.png");
+
+	if (FAILED(hr))
+		return E_FAIL;
 
     // Create the sample state
     D3D11_SAMPLER_DESC sampDesc;
     ZeroMemory( &sampDesc, sizeof(sampDesc) );
-    sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+    sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
     sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
     sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
     sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
@@ -359,8 +354,10 @@ void CleanupDevice()
 LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 {
     PAINTSTRUCT ps;
-    HDC hdc;
-
+	HDC hdc;
+	RECT rc;
+	UINT width; 
+	UINT height;
     switch( message )
     {
         case WM_PAINT:
@@ -397,6 +394,15 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
             PostQuitMessage( 0 );
             break;
 
+		case WM_SIZE:
+			//Update window size
+			GetClientRect(g_hWnd, &rc);
+			width = rc.right - rc.left;
+			height = rc.bottom - rc.top;
+
+			WindowClass::getInstance().setWidth(width);
+			WindowClass::getInstance().setHeight(height);
+			break;
         default:
             return DefWindowProc( hWnd, message, wParam, lParam );
     }
@@ -405,12 +411,9 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
 }
 
 
-//--------------------------------------------------------------------------------------
-// Render a frame
-//--------------------------------------------------------------------------------------
 void Render()
 {
-    // Update our time
+	// Update our time
     static float t = 0.0f;
     if( g_driverType == D3D_DRIVER_TYPE_REFERENCE )
     {
@@ -425,14 +428,6 @@ void Render()
         t = ( dwTimeCur - dwTimeStart ) / 1000.0f;
     }
 
-    // Rotate cube around the origin
-    g_World = XMMatrixRotationY( t );
-
-    // Modify the color
-    g_vMeshColor.x = ( sinf( t * 1.0f ) + 1.0f ) * 0.5f;
-    g_vMeshColor.y = ( cosf( t * 3.0f ) + 1.0f ) * 0.5f;
-    g_vMeshColor.z = ( sinf( t * 5.0f ) + 1.0f ) * 0.5f;
-
     float ClearColor[4] = { 0.0f, 0.125f, 0.3f, 1.0f }; 
     g_pImmediateContext->ClearRenderTargetView( g_pRenderTargetView, ClearColor );
     g_pImmediateContext->ClearDepthStencilView( g_pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0 );
@@ -440,14 +435,17 @@ void Render()
 	
     g_pImmediateContext->VSSetShader( g_pVertexShader, NULL, 0 );
     g_pImmediateContext->PSSetShader( g_pPixelShader, NULL, 0 );
-    g_pImmediateContext->PSSetShaderResources( 0, 1, &g_pTextureRV );
 	g_pImmediateContext->PSSetSamplers(0, 1, &g_pSamplerLinear);
+	TEXTURE.getTexture(1)->bindPS(g_pd3dDevice,g_pImmediateContext,0);
 
-	XMFLOAT3 rot = camera.getRotation();
-	rot.x += 0.0003;
-	camera.setRotation(XMFLOAT3(rot));
 	camera.setPosition(XMFLOAT3(0.0f,0.0f,20.0f));
 	camera.Render(g_pd3dDevice, g_pImmediateContext);
+	
+
+	XMFLOAT3 rot = bk.getRotation();
+	rot.x += 0.003f;
+	rot.y += 0.004f;
+	bk.setRotation(rot);
 	bk.Render(g_pd3dDevice, g_pImmediateContext);
 
     //

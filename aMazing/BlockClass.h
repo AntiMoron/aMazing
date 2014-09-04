@@ -18,8 +18,14 @@ public:
 		ID3D11DeviceContext* context);
 	void Shutdown();
 
+
+	void setPosition(const XMFLOAT3& val);
 	void setPosition(const XMFLOAT3&& val);
+
+	void setRotation(const XMFLOAT3& val);
 	void setRotation(const XMFLOAT3&& val);
+
+	void setScaling(const XMFLOAT3& val);
 	void setScaling(const XMFLOAT3&& val);
 
 	XMFLOAT3 getPosition() const;

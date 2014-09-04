@@ -12,21 +12,21 @@ public:
 	ShaderCompilerClass();
 	~ShaderCompilerClass();
 
-	HRESULT compileFromFile(MutableString& filename,
+	static HRESULT compileFromFile(MutableString& filename,
 		const char* entryPoint,
 		const char* shaderTarget, 
 		ID3DBlob** output);
 
-	HRESULT compileFromFile(MutableString&& filename,
+	static HRESULT compileFromFile(MutableString&& filename,
 		const char* entryPoint,
 		const char* shaderTarget,
 		ID3DBlob** output);
-	HRESULT compileString(MutableString&& str,
+	static HRESULT compileString(MutableString&& str,
 		const char* entryPoint,
 		const char* shaderTarget,
 		ID3DBlob** output);
 
-	HRESULT compileString(MutableString& str, 
+	static HRESULT compileString(MutableString& str,
 		const char* entryPoint,
 		const char* shaderTarget,
 		ID3DBlob** output);

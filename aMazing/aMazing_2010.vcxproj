@@ -380,6 +380,9 @@
     <ClCompile Include="InputClass.cpp" />
     <ClCompile Include="MutableString.cpp" />
     <ClCompile Include="ShaderCompilerClass.cpp" />
+    <ClCompile Include="TextureClass.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="WindowClass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="aMazing.fx" />
@@ -396,7 +399,10 @@
     <ClInclude Include="MutableString.h" />
     <CLInclude Include="resource.h" />
     <ClInclude Include="ShaderCompilerClass.h" />
+    <ClInclude Include="TextureClass.h" />
+    <ClInclude Include="TextureManager.h" />
     <ClInclude Include="vertex.hpp" />
+    <ClInclude Include="WindowClass.h" />
     <ResourceCompile Include="aMazing.rc" />
   </ItemGroup>
   <ItemGroup>

@@ -38,7 +38,7 @@ HRESULT CameraClass::Initialize(ID3D11Device* device,
 	upVector = { upDir.x, upDir.y, upDir.z };
 	m_matriceData.world = XMMatrixIdentity();
 	m_matriceData.view = XMMatrixLookAtLH(posVector, focVector, _upVector);
-	m_matriceData.projection = XMMatrixPerspectiveFovLH(fov, 16.0 / 9, near_far.x, near_far.y);
+	m_matriceData.projection = XMMatrixPerspectiveFovLH(fov, ASPECTRATIO, near_far.x, near_far.y);
 
 	m_matriceData.world = XMMatrixTranspose(m_matriceData.world);
 	m_matriceData.view = XMMatrixTranspose(m_matriceData.view);
@@ -141,7 +141,7 @@ void CameraClass::Render(ID3D11Device* device,
 	upVector = { upDir.x, upDir.y, upDir.z };
 	m_matriceData.world = XMMatrixIdentity();
 	m_matriceData.view = XMMatrixLookAtLH(posVector, focVector, _upVector);
-	m_matriceData.projection = XMMatrixPerspectiveFovLH(fov,16.0/9,near_far.x,near_far.y);
+	m_matriceData.projection = XMMatrixPerspectiveFovLH(fov, ASPECTRATIO, near_far.x, near_far.y);
 
 	m_matriceData.world = XMMatrixTranspose(m_matriceData.world);
 	m_matriceData.view = XMMatrixTranspose(m_matriceData.view);

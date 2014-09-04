@@ -3,6 +3,7 @@
 #include"GPUConstantBuffer.hpp"
 #include<xnamath.h>
 #include<D3DX10math.h>
+#include"WindowClass.h"
 
 class CameraClass
 {

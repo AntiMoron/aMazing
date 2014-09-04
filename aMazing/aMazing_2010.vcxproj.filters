@@ -22,6 +22,9 @@
     <ClInclude Include="FileTracker.h" />
     <ClInclude Include="MutableString.h" />
     <ClInclude Include="ShaderCompilerClass.h" />
+    <ClInclude Include="WindowClass.h" />
+    <ClInclude Include="TextureClass.h" />
+    <ClInclude Include="TextureManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aMazing.cpp" />
@@ -31,6 +34,9 @@
     <ClCompile Include="FileTracker.cpp" />
     <ClCompile Include="MutableString.cpp" />
     <ClCompile Include="ShaderCompilerClass.cpp" />
+    <ClCompile Include="WindowClass.cpp" />
+    <ClCompile Include="TextureClass.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="aMazing.fx">
