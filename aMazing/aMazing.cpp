@@ -1,10 +1,3 @@
-//--------------------------------------------------------------------------------------
-// File: aMazing.cpp
-//
-// This application demonstrates texturing
-//
-// Copyright (c) Microsoft Corporation. All rights reserved.
-//--------------------------------------------------------------------------------------
 #include <windows.h>
 #include <d3d11.h>
 #include <d3dx11.h>
@@ -13,14 +6,11 @@
 #include "CameraClass.h"
 #include "InputClass.h"
 #include "resource.h"
-#include "ShaderCompilerClass.h"
 #include "FileTracker.h"
 #include "WindowClass.h"
 #include "TextureManager.h"
+#include "ShaderManager.h"
 
-//--------------------------------------------------------------------------------------
-// Global Variables
-//--------------------------------------------------------------------------------------
 HINSTANCE                           g_hInst = NULL;
 HWND                                g_hWnd = NULL;
 D3D_DRIVER_TYPE                     g_driverType = D3D_DRIVER_TYPE_NULL;
@@ -31,9 +21,9 @@ IDXGISwapChain*                     g_pSwapChain = NULL;
 ID3D11RenderTargetView*             g_pRenderTargetView = NULL;
 ID3D11Texture2D*                    g_pDepthStencil = NULL;
 ID3D11DepthStencilView*             g_pDepthStencilView = NULL;
-ID3D11VertexShader*                 g_pVertexShader = NULL;
-ID3D11PixelShader*                  g_pPixelShader = NULL;
-ID3D11InputLayout*                  g_pVertexLayout = NULL;
+//ID3D11VertexShader*                 g_pVertexShader = NULL;
+//ID3D11PixelShader*                  g_pPixelShader = NULL;
+//ID3D11InputLayout*                  g_pVertexLayout = NULL;
 ID3D11ShaderResourceView*           g_pTextureRV = NULL;
 ID3D11SamplerState*                 g_pSamplerLinear = NULL;
 
@@ -241,22 +231,22 @@ HRESULT InitDevice()
     vp.TopLeftY = 0;
     g_pImmediateContext->RSSetViewports( 1, &vp );
 
-    // Compile the vertex shader
-    ID3DBlob* pVSBlob = NULL;
-	hr = ShaderCompilerClass::compileFromFile(L"aMazing.fx", "VS", "vs_5_0", &pVSBlob);
-    if( FAILED( hr ) )
-    {
-        MessageBox( NULL,
-                    L"The FX file cannot be compiled.  Please run this executable from the directory that contains the FX file.", L"Error", MB_OK );
-        return hr;
-    }
-    // Create the vertex shader
-    hr = g_pd3dDevice->CreateVertexShader( pVSBlob->GetBufferPointer(), pVSBlob->GetBufferSize(), NULL, &g_pVertexShader );
-    if( FAILED( hr ) )
-    {
-        pVSBlob->Release();
-        return hr;
-    }
+ //   // Compile the vertex shader
+ //   ID3DBlob* pVSBlob = NULL;
+	//hr = ShaderCompilerClass::compileFromFile(L"aMazing.fx", "VS", "vs_5_0", &pVSBlob);
+ //   if( FAILED( hr ) )
+ //   {
+ //       MessageBox( NULL,
+ //                   L"The FX file cannot be compiled.  Please run this executable from the directory that contains the FX file.", L"Error", MB_OK );
+ //       return hr;
+ //   }
+ //   // Create the vertex shader
+ //   hr = g_pd3dDevice->CreateVertexShader( pVSBlob->GetBufferPointer(), pVSBlob->GetBufferSize(), NULL, &g_pVertexShader );
+ //   if( FAILED( hr ) )
+ //   {
+ //       pVSBlob->Release();
+ //       return hr;
+ //   }
 
     // Define the input layout
     D3D11_INPUT_ELEMENT_DESC layout[] =
@@ -267,32 +257,33 @@ HRESULT InitDevice()
     UINT numElements = ARRAYSIZE( layout );
 
     // Create the input layout
-    hr = g_pd3dDevice->CreateInputLayout( layout, numElements, pVSBlob->GetBufferPointer(),
+    /*hr = g_pd3dDevice->CreateInputLayout( layout, numElements, pVSBlob->GetBufferPointer(),
                                           pVSBlob->GetBufferSize(), &g_pVertexLayout );
     pVSBlob->Release();
     if( FAILED( hr ) )
         return hr;
-
+*/
     // Set the input layout
-    g_pImmediateContext->IASetInputLayout( g_pVertexLayout );
+//    g_pImmediateContext->IASetInputLayout( g_pVertexLayout );
 
     // Compile the pixel shader
-    ID3DBlob* pPSBlob = NULL;
-	hr = ShaderCompilerClass::compileFromFile(L"aMazing.fx", "PS", "ps_5_0", &pPSBlob);
-    if( FAILED( hr ) )
-    {
-        MessageBox( NULL,
-                    L"The FX file cannot be compiled.  Please run this executable from the directory that contains the FX file.", L"Error", MB_OK );
-        return hr;
-    }
+ //   ID3DBlob* pPSBlob = NULL;
+	//hr = ShaderCompilerClass::compileFromFile(L"aMazing.fx", "PS", "ps_5_0", &pPSBlob);
+ //   if( FAILED( hr ) )
+ //   {
+ //       MessageBox( NULL,
+ //                   L"The FX file cannot be compiled.  Please run this executable from the directory that contains the FX file.", L"Error", MB_OK );
+ //       return hr;
+ //   }
 
-    // Create the pixel shader
-    hr = g_pd3dDevice->CreatePixelShader( pPSBlob->GetBufferPointer(), pPSBlob->GetBufferSize(), NULL, &g_pPixelShader );
-    pPSBlob->Release();
-    if( FAILED( hr ) )
-        return hr;
+ //   // Create the pixel shader
+ //   hr = g_pd3dDevice->CreatePixelShader( pPSBlob->GetBufferPointer(), pPSBlob->GetBufferSize(), NULL, &g_pPixelShader );
+ //   pPSBlob->Release();
+ //   if( FAILED( hr ) )
+ //       return hr;
 
-    // Load the Texture
+	SHADERS.addPair(g_pd3dDevice,g_pImmediateContext,"aMazing.fx", "aMazing.fx",layout,numElements);
+	// Load the Texture
 	hr = TEXTURE.addTexture(g_pd3dDevice, g_pImmediateContext, L"seafloor.dds");
 
 	if (FAILED(hr))
@@ -334,9 +325,9 @@ void CleanupDevice()
 
     if( g_pSamplerLinear ) g_pSamplerLinear->Release();
     if( g_pTextureRV ) g_pTextureRV->Release();
-    if( g_pVertexLayout ) g_pVertexLayout->Release();
-    if( g_pVertexShader ) g_pVertexShader->Release();
-    if( g_pPixelShader ) g_pPixelShader->Release();
+//    if( g_pVertexLayout ) g_pVertexLayout->Release();
+//    if( g_pVertexShader ) g_pVertexShader->Release();
+//    if( g_pPixelShader ) g_pPixelShader->Release();
     if( g_pDepthStencil ) g_pDepthStencil->Release();
     if( g_pDepthStencilView ) g_pDepthStencilView->Release();
     if( g_pRenderTargetView ) g_pRenderTargetView->Release();
@@ -433,8 +424,9 @@ void Render()
     g_pImmediateContext->ClearDepthStencilView( g_pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0 );
 
 	
-    g_pImmediateContext->VSSetShader( g_pVertexShader, NULL, 0 );
-    g_pImmediateContext->PSSetShader( g_pPixelShader, NULL, 0 );
+//    g_pImmediateContext->VSSetShader( g_pVertexShader, NULL, 0 );
+//    g_pImmediateContext->PSSetShader( g_pPixelShader, NULL, 0 );
+	SHADERS.getPair(0).bindShader(g_pd3dDevice, g_pImmediateContext);
 	g_pImmediateContext->PSSetSamplers(0, 1, &g_pSamplerLinear);
 	TEXTURE.getTexture(1)->bindPS(g_pd3dDevice,g_pImmediateContext,0);
 

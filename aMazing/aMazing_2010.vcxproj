@@ -379,9 +379,14 @@
     <ClCompile Include="FileTracker.cpp" />
     <ClCompile Include="InputClass.cpp" />
     <ClCompile Include="MutableString.cpp" />
+    <ClCompile Include="PixelShaderClass.cpp" />
+    <ClCompile Include="ShaderClass.cpp" />
     <ClCompile Include="ShaderCompilerClass.cpp" />
+    <ClCompile Include="ShaderManager.cpp" />
+    <ClCompile Include="ShaderPair.cpp" />
     <ClCompile Include="TextureClass.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="VertexShaderClass.cpp" />
     <ClCompile Include="WindowClass.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -397,11 +402,16 @@
     <ClInclude Include="InputClass.h" />
     <ClInclude Include="InstanceObj.hpp" />
     <ClInclude Include="MutableString.h" />
+    <ClInclude Include="PixelShaderClass.h" />
     <CLInclude Include="resource.h" />
+    <ClInclude Include="ShaderClass.h" />
     <ClInclude Include="ShaderCompilerClass.h" />
+    <ClInclude Include="ShaderManager.h" />
+    <ClInclude Include="ShaderPair.h" />
     <ClInclude Include="TextureClass.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="vertex.hpp" />
+    <ClInclude Include="VertexShaderClass.h" />
     <ClInclude Include="WindowClass.h" />
     <ResourceCompile Include="aMazing.rc" />
   </ItemGroup>

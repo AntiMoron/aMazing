@@ -21,14 +21,16 @@ public:
 		const char* entryPoint,
 		const char* shaderTarget,
 		ID3DBlob** output);
+
+	
+	static HRESULT compileString(MutableString& str,
+		const char* entryPoint,
+		const char* shaderTarget,
+		ID3DBlob** output);
 	static HRESULT compileString(MutableString&& str,
 		const char* entryPoint,
 		const char* shaderTarget,
 		ID3DBlob** output);
 
-	static HRESULT compileString(MutableString& str,
-		const char* entryPoint,
-		const char* shaderTarget,
-		ID3DBlob** output);
 };
 

@@ -27,7 +27,7 @@ struct PS_INPUT
     float2 Tex : TEXCOORD0;
 };
 
-PS_INPUT VS( VS_INPUT input )
+PS_INPUT VSEntry( VS_INPUT input )
 {
     PS_INPUT output = (PS_INPUT)0;
 
@@ -42,7 +42,7 @@ PS_INPUT VS( VS_INPUT input )
     return output;
 }
 
-float4 PS( PS_INPUT input) : SV_Target
+float4 PSEntry(PS_INPUT input) : SV_Target
 {
 	float4 color = txDiffuse.Sample(samLinear, input.Tex);
 	clip(color.a == 0.0f ? -1 : 1);

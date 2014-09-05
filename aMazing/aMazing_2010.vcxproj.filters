@@ -25,6 +25,11 @@
     <ClInclude Include="WindowClass.h" />
     <ClInclude Include="TextureClass.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="ShaderClass.h" />
+    <ClInclude Include="VertexShaderClass.h" />
+    <ClInclude Include="PixelShaderClass.h" />
+    <ClInclude Include="ShaderPair.h" />
+    <ClInclude Include="ShaderManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aMazing.cpp" />
@@ -37,6 +42,11 @@
     <ClCompile Include="WindowClass.cpp" />
     <ClCompile Include="TextureClass.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="ShaderClass.cpp" />
+    <ClCompile Include="VertexShaderClass.cpp" />
+    <ClCompile Include="PixelShaderClass.cpp" />
+    <ClCompile Include="ShaderPair.cpp" />
+    <ClCompile Include="ShaderManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="aMazing.fx">
