@@ -55,7 +55,6 @@ HRESULT ShaderCompilerClass::compileString(MutableString& str
 	ID3DBlob* errorMsg = nullptr;
 	ID3DBlob* compiled = nullptr;
 	std::string shaderstr = str.getMultiByteString();
-	std::cout << shaderstr << std::endl;
 	hr = D3DCompile(shaderstr.c_str(),
 		shaderstr.length(),
 		nullptr,

@@ -3,6 +3,8 @@
 
 ShaderPair::ShaderPair()
 {
+	pVert = nullptr;
+	pPixl = nullptr;
 }
 
 
@@ -40,6 +42,10 @@ HRESULT ShaderPair::bindShader(ID3D11Device* device,
 	ID3D11DeviceContext* context)
 {
 	HRESULT hr;
+	if (pVert == nullptr || pPixl == nullptr)
+	{
+		return E_FAIL;
+	}
 	hr = pVert->bindShader(device,context);
 	if (FAILED(hr))
 	{

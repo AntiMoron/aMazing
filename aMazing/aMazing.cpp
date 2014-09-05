@@ -428,7 +428,7 @@ void Render()
 //    g_pImmediateContext->PSSetShader( g_pPixelShader, NULL, 0 );
 	SHADERS.getPair(0).bindShader(g_pd3dDevice, g_pImmediateContext);
 	g_pImmediateContext->PSSetSamplers(0, 1, &g_pSamplerLinear);
-	TEXTURE.getTexture(1)->bindPS(g_pd3dDevice,g_pImmediateContext,0);
+	TEXTURE.getTexture(0)->bindPS(g_pd3dDevice,g_pImmediateContext,0);
 
 	camera.setPosition(XMFLOAT3(0.0f,0.0f,20.0f));
 	camera.Render(g_pd3dDevice, g_pImmediateContext);

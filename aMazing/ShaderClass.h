@@ -13,7 +13,7 @@ public:
 	};
 	
 	ShaderClass();
-	virtual ~ShaderClass();
+	~ShaderClass();
 	
 	SHADER_TYPE getType() const;
 private:

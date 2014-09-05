@@ -49,8 +49,8 @@ HRESULT ShaderManager::addPair(ID3D11Device* device,
 	{
 		return hr;
 	}
-	ShaderPair newpair(&v,&p);
-	vec.push_back(newpair);
+	ShaderPair* newpair = new ShaderPair(&v,&p);
+	vec.push_back(*newpair);
 }
 
 ShaderPair& ShaderManager::getPair(const std::size_t index)

@@ -1,10 +1,15 @@
-﻿Build started 2014/9/6 1:07:35.
+﻿Build started 2014/9/6 3:00:07.
      1>Project "E:\Projects\aMazing\aMazing\aMazing_2010.vcxproj" on node 2 (Build target(s)).
      1>InitializeBuildStatus:
          Creating "Release\aMazing.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         D:\Coding\VS2013\VC\bin\CL.exe /c /IDXUT\Core /IDXUT\Optional /Zi /nologo /W0 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D D3DXFX_LARGEADDRESS_HANDLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /arch:SSE2 /fp:fast /Zc:wchar_t /Zc:forScope /openmp- /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt  ShaderManager.cpp aMazing.cpp
-         ShaderManager.cpp
+         D:\Coding\VS2013\VC\bin\CL.exe /c /IDXUT\Core /IDXUT\Optional /Zi /nologo /W0 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D D3DXFX_LARGEADDRESS_HANDLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /arch:SSE2 /fp:fast /Zc:wchar_t /Zc:forScope /openmp- /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt  BlockClass.cpp CameraClass.cpp ShaderPair.cpp TextureClass.cpp TextureManager.cpp VertexShaderClass.cpp aMazing.cpp
+         BlockClass.cpp
+         CameraClass.cpp
+         ShaderPair.cpp
+         TextureClass.cpp
+         TextureManager.cpp
+         VertexShaderClass.cpp
          aMazing.cpp
        ResourceCompile:
          All outputs are up-to-date.
@@ -35,4 +40,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:06.27
+Time Elapsed 00:00:11.56

@@ -12,16 +12,7 @@ VertexShaderClass::VertexShaderClass()
 
 VertexShaderClass::~VertexShaderClass()
 {
-	if (shader != nullptr)
-	{
-		shader->Release();
-		shader = nullptr;
-	}
-	if (layout != nullptr)
-	{
-		layout->Release();
-		layout = nullptr;
-	}
+	Shutdown();
 }
 
 void VertexShaderClass::Shutdown()
@@ -75,7 +66,9 @@ HRESULT VertexShaderClass::createShaderFromFile(ID3D11Device* device,
 	output->Release();
 
 	if (FAILED(hr))
+	{
 		return hr;
+	}
 	isInited = true;
 	return S_OK;
 }
@@ -117,7 +110,9 @@ HRESULT VertexShaderClass::createShaderFromMemory(ID3D11Device* device,
 	output->Release();
 
 	if (FAILED(hr))
+	{
 		return hr;
+	}
 	isInited = true;
 	return S_OK;
 }
@@ -203,7 +198,10 @@ HRESULT VertexShaderClass::createShaderFromMemory(ID3D11Device* device,
 	output->Release();
 
 	if (FAILED(hr))
+	{
 		return hr;
+	}
+
 	isInited = true;
 	return S_OK;
 }
@@ -216,7 +214,7 @@ HRESULT VertexShaderClass::bindShader(ID3D11Device* device,
 		return E_FAIL;
 	}
 
-	context->IASetInputLayout(layout);
 	context->VSSetShader(shader, nullptr, 0);
+	context->IASetInputLayout(layout);
 	return S_OK;
 }
