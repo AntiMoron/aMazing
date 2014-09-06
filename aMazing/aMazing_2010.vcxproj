@@ -386,6 +386,7 @@
     <ClCompile Include="InputClass.cpp" />
     <ClCompile Include="MutableString.cpp" />
     <ClCompile Include="PixelShaderClass.cpp" />
+    <ClCompile Include="RectangleClass.cpp" />
     <ClCompile Include="ShaderClass.cpp" />
     <ClCompile Include="ShaderCompilerClass.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
@@ -407,11 +408,13 @@
     <ClInclude Include="exceptions.h" />
     <ClInclude Include="FileTracker.h" />
     <ClInclude Include="GPUConstantBuffer.hpp" />
+    <ClInclude Include="GPUMutableVerticesBuffer.hpp" />
     <ClInclude Include="GPUVerticesBuffer.hpp" />
     <ClInclude Include="InputClass.h" />
     <ClInclude Include="InstanceObj.hpp" />
     <ClInclude Include="MutableString.h" />
     <ClInclude Include="PixelShaderClass.h" />
+    <ClInclude Include="RectangleClass.h" />
     <CLInclude Include="resource.h" />
     <ClInclude Include="ShaderClass.h" />
     <ClInclude Include="ShaderCompilerClass.h" />

@@ -5,14 +5,14 @@
 #include<D3DX10.h>
 #include<iostream>
 
-template<typename type>
+template<typename source_type>
 class GPUMutableVerticeBuffer
 {
 public:
 	GPUMutableVerticeBuffer()
 	{
-		vertices = nullptr;
-		indices = nullptr;
+		m_vertices = nullptr;
+		m_indices = nullptr;
 		m_vertexCount = -1;
 		m_indexCount = -1;
 		is_inited = false;
@@ -24,24 +24,24 @@ public:
 	
 	HRESULT Shutdown()
 	{
-		if (vertices != nullptr)
+		if (m_vertices != nullptr)
 		{
-			vertices->Release();
-			vertices = nullptr;
+			m_vertices->Release();
+			m_vertices = nullptr;
 		}
-		if (indices != nullptr)
+		if (m_indices != nullptr)
 		{
-			indices->Release();
-			indices = nullptr;
+			m_indices->Release();
+			m_indices = nullptr;
 		}
 		return S_OK;
 	}
 
 	HRESULT Initialize(ID3D11Device* device,
 		ID3D11DeviceContext* context,
-		type* vexticesPtr,
+		source_type* vexticesPtr,
 		std::size_t vertexCount,
-		WORD* indicesPtc = nullptr,
+		WORD* indicesPtr = nullptr,
 		std::size_t indexCount = 0)
 	{
 		HRESULT hr;
@@ -50,13 +50,13 @@ public:
 
 		m_vertexCount = vertexCount;
 		vertDesc.Usage = D3D11_USAGE_DYNAMIC;
-		vertDesc.ByteWidth = sizeof(type)*vertexCount;
+		vertDesc.ByteWidth = sizeof(source_type)*vertexCount;
 		vertDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 		vertDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 		vertDesc.MiscFlags = 0;
 		vertDesc.StructureByteStride = 0;
-		vertexData.pSysMem = (void*)vexticesPtr;
-		hr = device->CreateBuffer(&vertDesc, &vertexData, &m_vertices);
+		verticeData.pSysMem = (void*)vexticesPtr;
+		hr = device->CreateBuffer(&vertDesc, &verticeData, &m_vertices);
 		if (FAILED(hr))
 		{
 			return hr;
@@ -68,7 +68,7 @@ public:
 				return E_FAIL;
 			}
 			D3D11_BUFFER_DESC indexDesc = {};
-			D3D11_SUBRESOURCE_DATA indexData = {};
+			D3D11_SUBRESOURCE_DATA indicesData = {};
 
 			m_indexCount = indexCount;
 			indexDesc.Usage = D3D11_USAGE_DYNAMIC;
@@ -76,11 +76,9 @@ public:
 			indexDesc.CPUAccessFlags = 0;
 			indexDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 
-			indexData.pSysMem = indicesPtr;
-			indexData.SysMemPitch = 0;
-			indexData.SysMemSlicePitch = 0;
+			indicesData.pSysMem = indicesPtr;
 
-			hr = device->CreateBuffer(&indexDesc, &indexData, &m_indices);
+			hr = device->CreateBuffer(&indexDesc, &indicesData, &m_indices);
 			if (FAILED(hr))
 			{
 				return hr;
@@ -92,7 +90,7 @@ public:
 
 	HRESULT UpdateVertices(ID3D11Device* device,
 		ID3D11DeviceContext* context,
-		type* vextices,
+		source_type* vertices,
 		std::size_t vertexCount)
 	{
 		HRESULT hr;
@@ -102,8 +100,8 @@ public:
 		hr = context->Map(m_vertices, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 		if (FAILED(hr))
 			return hr;
-		type* verticesPtr = (type*)mappedResource.pData;
-		memcpy(verticesPtr, (void*)vertices, (sizeof(type)*m_vertexCount));
+		source_type* verticesPtr = (source_type*)mappedResource.pData;
+		memcpy(verticesPtr, (void*)vertices, (sizeof(source_type)* m_vertexCount));
 		context->Unmap(m_vertices, 0);
 		return S_OK;
 	}

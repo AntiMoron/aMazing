@@ -31,6 +31,8 @@
     <ClInclude Include="ShaderPair.h" />
     <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="exceptions.h" />
+    <ClInclude Include="RectangleClass.h" />
+    <ClInclude Include="GPUMutableVerticesBuffer.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aMazing.cpp" />
@@ -49,6 +51,7 @@
     <ClCompile Include="ShaderPair.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="exceptions.cpp" />
+    <ClCompile Include="RectangleClass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
