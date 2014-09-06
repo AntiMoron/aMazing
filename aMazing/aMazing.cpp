@@ -10,6 +10,7 @@
 #include "WindowClass.h"
 #include "TextureManager.h"
 #include "ShaderManager.h"
+#include"RectangleClass.h"
 
 HINSTANCE                           g_hInst = NULL;
 HWND                                g_hWnd = NULL;
@@ -21,12 +22,10 @@ IDXGISwapChain*                     g_pSwapChain = NULL;
 ID3D11RenderTargetView*             g_pRenderTargetView = NULL;
 ID3D11Texture2D*                    g_pDepthStencil = NULL;
 ID3D11DepthStencilView*             g_pDepthStencilView = NULL;
-//ID3D11VertexShader*                 g_pVertexShader = NULL;
-//ID3D11PixelShader*                  g_pPixelShader = NULL;
-//ID3D11InputLayout*                  g_pVertexLayout = NULL;
 ID3D11ShaderResourceView*           g_pTextureRV = NULL;
 ID3D11SamplerState*                 g_pSamplerLinear = NULL;
 
+RectangleClass rec;
 CameraClass camera;
 BlockClass bk;
 
@@ -260,6 +259,7 @@ HRESULT InitDevice()
 	//aditional operations.
 	bk.Initialize(g_pd3dDevice, g_pImmediateContext);
 	camera.Initialize(g_pd3dDevice, g_pImmediateContext);
+	rec.Initialize(g_pd3dDevice, g_pImmediateContext);
 	// Define the input layout
 	D3D11_INPUT_ELEMENT_DESC layout[] =
 	{
@@ -268,8 +268,12 @@ HRESULT InitDevice()
 	};
 	UINT numElements = ARRAYSIZE(layout);
 	SHADERS.addPair(g_pd3dDevice, g_pImmediateContext,
-		"aMazing.fx", "aMazing.fx",
+		"Basic3D.fx", "Basic3D.fx",
 		layout, numElements, "Basic3D");
+
+	SHADERS.addPair(g_pd3dDevice, g_pImmediateContext,
+		"Basic2D.fx", "Basic2D.fx",
+		layout, numElements, "Basic2D");
     return S_OK;
 }
 
@@ -294,6 +298,7 @@ void CleanupDevice()
     if( g_pd3dDevice ) g_pd3dDevice->Release();
 	bk.Shutdown();
 	camera.Shutdown();
+	rec.Shutdown();
 }
 
 
@@ -380,6 +385,8 @@ void Render()
 	bk.setRotation(rot);
 	bk.Render(g_pd3dDevice, g_pImmediateContext);
 
+	SHADERS.getPair("Basic2D").bindShader(g_pd3dDevice, g_pImmediateContext);
+	rec.Render(g_pd3dDevice, g_pImmediateContext,100,100,200,200);
     //
     // Present our back buffer to our front buffer
     //

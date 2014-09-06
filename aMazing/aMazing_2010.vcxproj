@@ -248,6 +248,12 @@
       <Command>
       </Command>
     </PostBuildEvent>
+    <FxCompile>
+      <EntryPointName />
+    </FxCompile>
+    <FxCompile>
+      <ShaderModel>5.0</ShaderModel>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|X64'">
     <ClCompile>
@@ -371,7 +377,6 @@
       </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
-  <ItemGroup />
   <ItemGroup>
     <ClCompile Include="aMazing.cpp" />
     <ClCompile Include="BlockClass.cpp" />
@@ -391,7 +396,9 @@
     <ClCompile Include="WindowClass.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="aMazing.fx" />
+    <None Include="Basic3D.fx">
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BlockClass.h" />
@@ -418,6 +425,9 @@
     <ResourceCompile Include="aMazing.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Basic2D.fx">
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>

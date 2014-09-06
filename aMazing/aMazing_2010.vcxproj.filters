@@ -51,11 +51,6 @@
     <ClCompile Include="exceptions.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="aMazing.fx">
-      <Filter>Shaders</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <CLInclude Include="resource.h">
       <Filter>Resource Files</Filter>
     </CLInclude>
@@ -64,5 +59,11 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Basic2D.fx">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Basic3D.fx">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
