@@ -231,58 +231,6 @@ HRESULT InitDevice()
     vp.TopLeftY = 0;
     g_pImmediateContext->RSSetViewports( 1, &vp );
 
- //   // Compile the vertex shader
- //   ID3DBlob* pVSBlob = NULL;
-	//hr = ShaderCompilerClass::compileFromFile(L"aMazing.fx", "VS", "vs_5_0", &pVSBlob);
- //   if( FAILED( hr ) )
- //   {
- //       MessageBox( NULL,
- //                   L"The FX file cannot be compiled.  Please run this executable from the directory that contains the FX file.", L"Error", MB_OK );
- //       return hr;
- //   }
- //   // Create the vertex shader
- //   hr = g_pd3dDevice->CreateVertexShader( pVSBlob->GetBufferPointer(), pVSBlob->GetBufferSize(), NULL, &g_pVertexShader );
- //   if( FAILED( hr ) )
- //   {
- //       pVSBlob->Release();
- //       return hr;
- //   }
-
-    // Define the input layout
-    D3D11_INPUT_ELEMENT_DESC layout[] =
-    {
-        { "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-        { "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-    };
-    UINT numElements = ARRAYSIZE( layout );
-
-    // Create the input layout
-    /*hr = g_pd3dDevice->CreateInputLayout( layout, numElements, pVSBlob->GetBufferPointer(),
-                                          pVSBlob->GetBufferSize(), &g_pVertexLayout );
-    pVSBlob->Release();
-    if( FAILED( hr ) )
-        return hr;
-*/
-    // Set the input layout
-//    g_pImmediateContext->IASetInputLayout( g_pVertexLayout );
-
-    // Compile the pixel shader
- //   ID3DBlob* pPSBlob = NULL;
-	//hr = ShaderCompilerClass::compileFromFile(L"aMazing.fx", "PS", "ps_5_0", &pPSBlob);
- //   if( FAILED( hr ) )
- //   {
- //       MessageBox( NULL,
- //                   L"The FX file cannot be compiled.  Please run this executable from the directory that contains the FX file.", L"Error", MB_OK );
- //       return hr;
- //   }
-
- //   // Create the pixel shader
- //   hr = g_pd3dDevice->CreatePixelShader( pPSBlob->GetBufferPointer(), pPSBlob->GetBufferSize(), NULL, &g_pPixelShader );
- //   pPSBlob->Release();
- //   if( FAILED( hr ) )
- //       return hr;
-
-	SHADERS.addPair(g_pd3dDevice,g_pImmediateContext,"aMazing.fx", "aMazing.fx",layout,numElements);
 	// Load the Texture
 	hr = TEXTURE.addTexture(g_pd3dDevice, g_pImmediateContext, L"seafloor.dds");
 
@@ -312,6 +260,16 @@ HRESULT InitDevice()
 	//aditional operations.
 	bk.Initialize(g_pd3dDevice, g_pImmediateContext);
 	camera.Initialize(g_pd3dDevice, g_pImmediateContext);
+	// Define the input layout
+	D3D11_INPUT_ELEMENT_DESC layout[] =
+	{
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+	};
+	UINT numElements = ARRAYSIZE(layout);
+	SHADERS.addPair(g_pd3dDevice, g_pImmediateContext,
+		"aMazing.fx", "aMazing.fx",
+		layout, numElements, "Basic3D");
     return S_OK;
 }
 
@@ -404,29 +362,11 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
 
 void Render()
 {
-	// Update our time
-    static float t = 0.0f;
-    if( g_driverType == D3D_DRIVER_TYPE_REFERENCE )
-    {
-        t += ( float )XM_PI * 0.0125f;
-    }
-    else
-    {
-        static DWORD dwTimeStart = 0;
-        DWORD dwTimeCur = GetTickCount();
-        if( dwTimeStart == 0 )
-            dwTimeStart = dwTimeCur;
-        t = ( dwTimeCur - dwTimeStart ) / 1000.0f;
-    }
-
     float ClearColor[4] = { 0.0f, 0.125f, 0.3f, 1.0f }; 
     g_pImmediateContext->ClearRenderTargetView( g_pRenderTargetView, ClearColor );
     g_pImmediateContext->ClearDepthStencilView( g_pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0 );
 
-	
-//    g_pImmediateContext->VSSetShader( g_pVertexShader, NULL, 0 );
-//    g_pImmediateContext->PSSetShader( g_pPixelShader, NULL, 0 );
-	SHADERS.getPair(0).bindShader(g_pd3dDevice, g_pImmediateContext);
+	SHADERS.getPair("Basic3D").bindShader(g_pd3dDevice, g_pImmediateContext);
 	g_pImmediateContext->PSSetSamplers(0, 1, &g_pSamplerLinear);
 	TEXTURE.getTexture(0)->bindPS(g_pd3dDevice,g_pImmediateContext,0);
 

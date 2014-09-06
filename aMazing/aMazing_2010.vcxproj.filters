@@ -30,6 +30,7 @@
     <ClInclude Include="PixelShaderClass.h" />
     <ClInclude Include="ShaderPair.h" />
     <ClInclude Include="ShaderManager.h" />
+    <ClInclude Include="exceptions.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aMazing.cpp" />
@@ -47,6 +48,7 @@
     <ClCompile Include="PixelShaderClass.cpp" />
     <ClCompile Include="ShaderPair.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
+    <ClCompile Include="exceptions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="aMazing.fx">

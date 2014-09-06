@@ -1,25 +1,33 @@
 #include "ShaderPair.h"
 
-
-ShaderPair::ShaderPair()
-{
-	pVert = nullptr;
-	pPixl = nullptr;
-}
-
-
 ShaderPair::~ShaderPair()
 {
 	Shutdown();
 }
 
 ShaderPair::ShaderPair(VertexShaderClass** pv,
-	PixelShaderClass** pp)
+	PixelShaderClass** pp,
+	std::string&& shadername)
 {
 	pVert = *pv;
 	pPixl = *pp;
+	shaderName = shadername;
 }
 
+bool ShaderPair::operator < (const ShaderPair& other)const
+{
+	return shaderName < other.shaderName;
+}
+
+bool ShaderPair::operator < (const std::string& other)const
+{
+	return shaderName < other;
+}
+
+bool ShaderPair::operator == (const std::string& other)const
+{
+	return shaderName == other;
+}
 
 HRESULT ShaderPair::Shutdown()
 {

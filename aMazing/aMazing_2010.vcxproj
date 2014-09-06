@@ -376,6 +376,7 @@
     <ClCompile Include="aMazing.cpp" />
     <ClCompile Include="BlockClass.cpp" />
     <ClCompile Include="CameraClass.cpp" />
+    <ClCompile Include="exceptions.cpp" />
     <ClCompile Include="FileTracker.cpp" />
     <ClCompile Include="InputClass.cpp" />
     <ClCompile Include="MutableString.cpp" />
@@ -396,6 +397,7 @@
     <ClInclude Include="BlockClass.h" />
     <ClInclude Include="CameraClass.h" />
     <ClInclude Include="Defines.hpp" />
+    <ClInclude Include="exceptions.h" />
     <ClInclude Include="FileTracker.h" />
     <ClInclude Include="GPUConstantBuffer.hpp" />
     <ClInclude Include="GPUVerticesBuffer.hpp" />
