@@ -35,6 +35,7 @@
     <ClInclude Include="GPUMutableVerticesBuffer.hpp" />
     <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="BasicObject.h" />
+    <ClInclude Include="D3DClass.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aMazing.cpp" />
@@ -56,6 +57,7 @@
     <ClCompile Include="RectangleClass.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="BasicObject.cpp" />
+    <ClCompile Include="D3DClass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">

@@ -1,7 +1,6 @@
 #include <windows.h>
-#include <d3d11.h>
-#include <d3dx11.h>
 #include <xnamath.h>
+#include"D3DClass.h"
 #include "BlockClass.h"
 #include "CameraClass.h"
 #include "InputClass.h"
@@ -11,38 +10,23 @@
 #include "TextureManager.h"
 #include "ShaderManager.h"
 #include"RectangleClass.h"
+#include"FrameBuffer.h"
 
-HINSTANCE                           g_hInst = NULL;
-HWND                                g_hWnd = NULL;
-D3D_DRIVER_TYPE                     g_driverType = D3D_DRIVER_TYPE_NULL;
-D3D_FEATURE_LEVEL                   g_featureLevel = D3D_FEATURE_LEVEL_11_0;
-ID3D11Device*                       g_pd3dDevice = NULL;
-ID3D11DeviceContext*                g_pImmediateContext = NULL;
-IDXGISwapChain*                     g_pSwapChain = NULL;
-ID3D11RenderTargetView*             g_pRenderTargetView = NULL;
-ID3D11Texture2D*                    g_pDepthStencil = NULL;
-ID3D11DepthStencilView*             g_pDepthStencilView = NULL;
-ID3D11ShaderResourceView*           g_pTextureRV = NULL;
-ID3D11SamplerState*                 g_pSamplerLinear = NULL;
+HINSTANCE g_hInst = NULL;
+HWND g_hWnd = NULL;
 
 RectangleClass rec;
 CameraClass camera;
 BlockClass bk;
+D3DClass d3d;
+//FrameBuffer fbo;
 
-//--------------------------------------------------------------------------------------
-// Forward declarations
-//--------------------------------------------------------------------------------------
 HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow );
 HRESULT InitDevice();
 void CleanupDevice();
 LRESULT CALLBACK    WndProc( HWND, UINT, WPARAM, LPARAM );
 void Render();
 
-
-//--------------------------------------------------------------------------------------
-// Entry point to the program. Initializes everything and goes into a message processing 
-// loop. Idle time is used to render the scene.
-//--------------------------------------------------------------------------------------
 int WINAPI wWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nCmdShow )
 {
 	AllocConsole();
@@ -80,10 +64,6 @@ int WINAPI wWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdL
     return ( int )msg.wParam;
 }
 
-
-//--------------------------------------------------------------------------------------
-// Register class and create window
-//--------------------------------------------------------------------------------------
 HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow )
 {
     // Register class
@@ -118,9 +98,6 @@ HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow )
     return S_OK;
 }
 
-//--------------------------------------------------------------------------------------
-// Create Direct3D device and swap chain
-//--------------------------------------------------------------------------------------
 HRESULT InitDevice()
 {
     HRESULT hr = S_OK;
@@ -132,134 +109,23 @@ HRESULT InitDevice()
 
 	WindowClass::getInstance().setWidth(width);
 	WindowClass::getInstance().setHeight(height);
-
-    UINT createDeviceFlags = 0;
-#ifdef _DEBUG
-    createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
-#endif
-
-    D3D_DRIVER_TYPE driverTypes[] =
-    {
-        D3D_DRIVER_TYPE_HARDWARE,
-        D3D_DRIVER_TYPE_WARP,
-        D3D_DRIVER_TYPE_REFERENCE,
-    };
-    UINT numDriverTypes = ARRAYSIZE( driverTypes );
-
-    D3D_FEATURE_LEVEL featureLevels[] =
-    {
-        D3D_FEATURE_LEVEL_11_0,
-        D3D_FEATURE_LEVEL_10_1,
-        D3D_FEATURE_LEVEL_10_0,
-    };
-    UINT numFeatureLevels = ARRAYSIZE( featureLevels );
-
-    DXGI_SWAP_CHAIN_DESC sd;
-    ZeroMemory( &sd, sizeof( sd ) );
-    sd.BufferCount = 1;
-    sd.BufferDesc.Width = width;
-    sd.BufferDesc.Height = height;
-    sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-    sd.BufferDesc.RefreshRate.Numerator = 60;
-    sd.BufferDesc.RefreshRate.Denominator = 1;
-    sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-    sd.OutputWindow = g_hWnd;
-    sd.SampleDesc.Count = 1;
-    sd.SampleDesc.Quality = 0;
-    sd.Windowed = TRUE;
-
-    for( UINT driverTypeIndex = 0; driverTypeIndex < numDriverTypes; driverTypeIndex++ )
-    {
-        g_driverType = driverTypes[driverTypeIndex];
-        hr = D3D11CreateDeviceAndSwapChain( NULL, g_driverType, NULL, createDeviceFlags, featureLevels, numFeatureLevels,
-                                            D3D11_SDK_VERSION, &sd, &g_pSwapChain, &g_pd3dDevice, &g_featureLevel, &g_pImmediateContext );
-        if( SUCCEEDED( hr ) )
-            break;
-    }
-    if( FAILED( hr ) )
-        return hr;
-
-    // Create a render target view
-    ID3D11Texture2D* pBackBuffer = NULL;
-    hr = g_pSwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&pBackBuffer );
-    if( FAILED( hr ) )
-        return hr;
-
-    hr = g_pd3dDevice->CreateRenderTargetView( pBackBuffer, NULL, &g_pRenderTargetView );
-    pBackBuffer->Release();
-    if( FAILED( hr ) )
-        return hr;
-
-    // Create depth stencil texture
-    D3D11_TEXTURE2D_DESC descDepth;
-    ZeroMemory( &descDepth, sizeof(descDepth) );
-    descDepth.Width = width;
-    descDepth.Height = height;
-    descDepth.MipLevels = 1;
-    descDepth.ArraySize = 1;
-    descDepth.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-    descDepth.SampleDesc.Count = 1;
-    descDepth.SampleDesc.Quality = 0;
-    descDepth.Usage = D3D11_USAGE_DEFAULT;
-    descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;
-    descDepth.CPUAccessFlags = 0;
-    descDepth.MiscFlags = 0;
-    hr = g_pd3dDevice->CreateTexture2D( &descDepth, NULL, &g_pDepthStencil );
-    if( FAILED( hr ) )
-        return hr;
-
-    // Create the depth stencil view
-    D3D11_DEPTH_STENCIL_VIEW_DESC descDSV;
-    ZeroMemory( &descDSV, sizeof(descDSV) );
-    descDSV.Format = descDepth.Format;
-    descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
-    descDSV.Texture2D.MipSlice = 0;
-    hr = g_pd3dDevice->CreateDepthStencilView( g_pDepthStencil, &descDSV, &g_pDepthStencilView );
-    if( FAILED( hr ) )
-        return hr;
-
-    g_pImmediateContext->OMSetRenderTargets( 1, &g_pRenderTargetView, g_pDepthStencilView );
-
-    // Setup the viewport
-    D3D11_VIEWPORT vp;
-    vp.Width = (FLOAT)width;
-    vp.Height = (FLOAT)height;
-    vp.MinDepth = 0.0f;
-    vp.MaxDepth = 1.0f;
-    vp.TopLeftX = 0;
-    vp.TopLeftY = 0;
-    g_pImmediateContext->RSSetViewports( 1, &vp );
-
+	//Initialize all the thing we need to prepare for rendering work.
+	d3d.Initialize(g_hWnd);
+	
 	// Load the Texture
-	hr = TEXTURE.addTexture(g_pd3dDevice, g_pImmediateContext, L"seafloor.dds");
+	hr = TEXTURE.addTexture(d3d.getDevice(), d3d.getContext(), L"seafloor.dds");
 
 	if (FAILED(hr))
 		return E_FAIL;
 
-	hr = TEXTURE.addTexture(g_pd3dDevice, g_pImmediateContext,
+	hr = TEXTURE.addTexture(d3d.getDevice(), d3d.getContext(),
 		L"leaves.png");
 
-	if (FAILED(hr))
-		return E_FAIL;
-
-    // Create the sample state
-    D3D11_SAMPLER_DESC sampDesc;
-    ZeroMemory( &sampDesc, sizeof(sampDesc) );
-    sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
-    sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
-    sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
-    sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-    sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
-    sampDesc.MinLOD = 0;
-    sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
-    hr = g_pd3dDevice->CreateSamplerState( &sampDesc, &g_pSamplerLinear );
-    if( FAILED( hr ) )
-        return hr;
 
 	//aditional operations.
-	bk.Initialize(g_pd3dDevice, g_pImmediateContext);
-	camera.Initialize(g_pd3dDevice, g_pImmediateContext);
-	rec.Initialize(g_pd3dDevice, g_pImmediateContext);
+	bk.Initialize(d3d.getDevice(), d3d.getContext());
+	camera.Initialize(d3d.getDevice(), d3d.getContext());
+	rec.Initialize(d3d.getDevice(), d3d.getContext());
 	// Define the input layout
 	D3D11_INPUT_ELEMENT_DESC layout[] =
 	{
@@ -267,11 +133,11 @@ HRESULT InitDevice()
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 	UINT numElements = ARRAYSIZE(layout);
-	SHADERS.addPair(g_pd3dDevice, g_pImmediateContext,
+	SHADERS.addPair(d3d.getDevice(), d3d.getContext(),
 		"Basic3D.fx", "Basic3D.fx",
 		layout, numElements, "Basic3D");
 
-	SHADERS.addPair(g_pd3dDevice, g_pImmediateContext,
+	SHADERS.addPair(d3d.getDevice(), d3d.getContext(),
 		"Basic2D.fx", "Basic2D.fx",
 		layout, numElements, "Basic2D");
     return S_OK;
@@ -283,19 +149,7 @@ HRESULT InitDevice()
 //--------------------------------------------------------------------------------------
 void CleanupDevice()
 {
-    if( g_pImmediateContext ) g_pImmediateContext->ClearState();
-
-    if( g_pSamplerLinear ) g_pSamplerLinear->Release();
-    if( g_pTextureRV ) g_pTextureRV->Release();
-//    if( g_pVertexLayout ) g_pVertexLayout->Release();
-//    if( g_pVertexShader ) g_pVertexShader->Release();
-//    if( g_pPixelShader ) g_pPixelShader->Release();
-    if( g_pDepthStencil ) g_pDepthStencil->Release();
-    if( g_pDepthStencilView ) g_pDepthStencilView->Release();
-    if( g_pRenderTargetView ) g_pRenderTargetView->Release();
-    if( g_pSwapChain ) g_pSwapChain->Release();
-    if( g_pImmediateContext ) g_pImmediateContext->Release();
-    if( g_pd3dDevice ) g_pd3dDevice->Release();
+	d3d.Shutdown();
 	bk.Shutdown();
 	camera.Shutdown();
 	rec.Shutdown();
@@ -368,26 +222,25 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
 void Render()
 {
     float ClearColor[4] = { 0.0f, 0.125f, 0.3f, 1.0f }; 
-    g_pImmediateContext->ClearRenderTargetView( g_pRenderTargetView, ClearColor );
-    g_pImmediateContext->ClearDepthStencilView( g_pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0 );
+    d3d.getContext()->ClearRenderTargetView( d3d.getRenderTargetView(), ClearColor );
+	d3d.getContext()->ClearDepthStencilView(d3d.getDepthStencilView(), D3D11_CLEAR_DEPTH, 1.0f, 0);
 
-	SHADERS.getPair("Basic3D").bindShader(g_pd3dDevice, g_pImmediateContext);
-	g_pImmediateContext->PSSetSamplers(0, 1, &g_pSamplerLinear);
-	TEXTURE.getTexture(0)->bindPS(g_pd3dDevice,g_pImmediateContext,0);
+	SHADERS.getPair("Basic3D").bindShader(d3d.getDevice(), d3d.getContext());
+	TEXTURE.getTexture(0)->bindPS(d3d.getDevice(),d3d.getContext(),0);
 
 	camera.setPosition(XMFLOAT3(0.0f,0.0f,20.0f));
-	camera.Render(g_pd3dDevice, g_pImmediateContext);
+	camera.Render(d3d.getDevice(), d3d.getContext());
 	
 
 	XMFLOAT3 rot = bk.getRotation();
 	rot.x += 0.003f;
 	rot.y += 0.004f;
 	bk.setRotation(rot);
-	bk.Render(g_pd3dDevice, g_pImmediateContext);
+	bk.Render(d3d.getDevice(), d3d.getContext());
 
-	SHADERS.getPair("Basic2D").bindShader(g_pd3dDevice, g_pImmediateContext);
-	TEXTURE.getTexture(1)->bindPS(g_pd3dDevice, g_pImmediateContext,0);
-	rec.Render(g_pd3dDevice, g_pImmediateContext,0,0,WINWIDTH,WINHEIGHT);
+	SHADERS.getPair("Basic2D").bindShader(d3d.getDevice(), d3d.getContext());
+	TEXTURE.getTexture(1)->bindPS(d3d.getDevice(), d3d.getContext(), 0);
+	rec.Render(d3d.getDevice(), d3d.getContext(), 0, 0, WINWIDTH, WINHEIGHT);
     
-    g_pSwapChain->Present( 1, 0 );//V-Sycn
+    d3d.Present( true );//V-Sync
 }
