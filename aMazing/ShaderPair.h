@@ -10,6 +10,7 @@ public:
 	
 	ShaderPair(VertexShaderClass** pv,
 		PixelShaderClass** pp,std::string && give);
+	ShaderPair(const ShaderPair& other);
 
 	HRESULT Shutdown();
 
@@ -20,7 +21,7 @@ public:
 	bool operator < (const std::string& other)const;
 	bool operator == (const std::string& other)const;
 
-private:
+//private:
 	std::string shaderName;
 	VertexShaderClass* pVert;
 	PixelShaderClass*  pPixl;

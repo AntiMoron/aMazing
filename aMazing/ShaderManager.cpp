@@ -21,7 +21,9 @@ ShaderManager::~ShaderManager()
 {
 	for (auto& param : vec)
 	{
-		param.Shutdown();
+		param->Shutdown();
+		delete param;
+		param = nullptr;
 	}
 	vec.clear();
 }
@@ -48,30 +50,34 @@ HRESULT ShaderManager::addPair(ID3D11Device* device,
 		return hr;
 	}
 	ShaderPair* newpair = new ShaderPair(&v,&p,std::move(shadername));
-	vec.insert(std::upper_bound(vec.begin(),vec.end(),*newpair),*newpair);
+	vec.push_back(newpair);
+	vec.insert(std::upper_bound(vec.begin(), vec.end(), newpair,
+		[&](const ShaderPair* a, const ShaderPair* b)->bool{return (*a) < (*b); })
+		, newpair);
+	return S_OK;
 }
 
 ShaderPair& ShaderManager::getPair(const std::string& str)
 {
-	auto f = [&](const std::string& str)->int
+	auto f = [&](const std::string& str)->long
 	{
-		long l = 0 ,r = str.length() - 1,mid;
+		long l = 0 ,r = vec.size() - 1,mid;
 		while (l <= r)
 		{
 			mid = (l + r) / 2;
-			if (vec[l] == str)
+			if (*vec[l] == str)
 			{
 				return l;
 			}
-			if (vec[r] == str)
+			if (*vec[r] == str)
 			{
 				return r;
 			}
-			if (vec[mid] == str)
+			if (*vec[mid] == str)
 			{
 				return mid;
 			}
-			if (vec[mid] < str)
+			if (*vec[mid] < str)
 			{
 				l = mid + 1;
 			}
@@ -88,5 +94,5 @@ ShaderPair& ShaderManager::getPair(const std::string& str)
 	{
 		throw std::out_of_range("Shader Manager access out of range.");
 	}
-	return vec[index];
+	return *vec[index];
 }

@@ -213,7 +213,6 @@ HRESULT VertexShaderClass::bindShader(ID3D11Device* device,
 	{
 		return E_FAIL;
 	}
-
 	context->VSSetShader(shader, nullptr, 0);
 	context->IASetInputLayout(layout);
 	return S_OK;

@@ -11,6 +11,8 @@ TextureManager::~TextureManager()
 	for (auto& param : m_vec)
 	{
 		param->Shutdown();
+		delete param;
+		param = nullptr;
 	}
 	m_vec.clear();
 }

@@ -19,12 +19,12 @@ public:
 		std::string&& shadername);
 
 	ShaderPair& getPair(const std::string& str);
-private:
+//private:
 	ShaderManager();
 	~ShaderManager();
 
 	static ShaderManager* instance;
-	std::vector<ShaderPair> vec;
+	std::vector<ShaderPair*> vec;
 };
 
 #define SHADERS (ShaderManager::getInstance())
