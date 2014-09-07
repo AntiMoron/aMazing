@@ -18,6 +18,9 @@ HRESULT CameraClass::Initialize(ID3D11Device* device,
 	rotation = { 0.0f, 0.0f, 0.0f };
 	upVector = { 0.0f, 1.0f, 0.0f };
 	
+	forwardDirection = { 0.0f, 0.0f, -1.0f };
+	lefthandDirection = { 1.0f, 0.0f, 0.0f };
+
 	setFov(40);
 	near_far = {0.001f,1000.0f};
 
@@ -74,11 +77,31 @@ XMFLOAT3 CameraClass::getPosition() const
 void CameraClass::setRotation(const XMFLOAT3& rot)
 {
 	rotation = rot;
+	D3DXMATRIX rotationMatrix;
+	D3DXMatrixRotationYawPitchRoll(&rotationMatrix, rotation.z, rotation.y, rotation.x);
+	D3DXVECTOR3 forward = { 0.0f, 0.0f, -1.0f };
+	D3DXVECTOR3 lefthand = { 1.0f, 0.0f, 0.0f };
+	D3DXVec3TransformCoord(&forward, &forward, &rotationMatrix);
+	D3DXVec3Normalize(&forward, &forward);
+	D3DXVec3TransformCoord(&lefthand, &lefthand, &rotationMatrix);
+	D3DXVec3Normalize(&lefthand, &lefthand);
+	forwardDirection = { forward.x, forward.y, forward.z };
+	lefthandDirection = { lefthand.x, lefthand.y, lefthand.z };
 }
 
 void CameraClass::setRotation(const XMFLOAT3&& rot)
 {
 	rotation = rot;
+	D3DXMATRIX rotationMatrix;
+	D3DXMatrixRotationYawPitchRoll(&rotationMatrix, rotation.z, rotation.y, rotation.x);
+	D3DXVECTOR3 forward = { 0.0f, 0.0f, -1.0f };
+	D3DXVECTOR3 lefthand = { 1.0f, 0.0f, 0.0f };
+	D3DXVec3TransformCoord(&forward, &forward, &rotationMatrix);
+	D3DXVec3Normalize(&forward, &forward);
+	D3DXVec3TransformCoord(&lefthand, &lefthand, &rotationMatrix);
+	D3DXVec3Normalize(&lefthand, &lefthand);
+	forwardDirection = { forward.x, forward.y, forward.z };
+	lefthandDirection = { lefthand.x, lefthand.y, lefthand.z };
 }
 
 XMFLOAT3 CameraClass::getRotation() const
@@ -149,4 +172,68 @@ void CameraClass::Render(ID3D11Device* device,
 	m_matrices.UpdateData(&m_matriceData);
 	m_matrices.UpdateGpu(device, context);
 	m_matrices.BindVertexShader(device, context);
+}
+
+void CameraClass::moveLeft(float step)
+{
+	position.x += lefthandDirection.x * step;
+	position.y += lefthandDirection.y * step;
+	position.z += lefthandDirection.z * step;
+}
+
+void CameraClass::moveRight(float step)
+{
+	position.x -= lefthandDirection.x * step;
+	position.y -= lefthandDirection.y * step;
+	position.z -= lefthandDirection.z * step;
+}
+
+void CameraClass::moveForward(float step)
+{
+	position.x += forwardDirection.x * step;
+	position.y += forwardDirection.y * step;
+	position.z += forwardDirection.z * step;
+}
+void CameraClass::moveBackward(float step)
+{
+	position.x -= forwardDirection.x * step;
+	position.y -= forwardDirection.y * step;
+	position.z -= forwardDirection.z * step;
+}
+
+void CameraClass::turnLeft(float step)
+{
+	XMFLOAT3 rot = getRotation();
+	rot.z -= step * 0.017453292f;
+	setRotation(rot);
+}
+void CameraClass::turnRight(float step)
+{
+	XMFLOAT3 rot = getRotation();
+	rot.z += step * 0.017453292f;
+	setRotation(rot);
+}
+void CameraClass::lookUp(float step)
+{
+	XMFLOAT3 rot = getRotation();
+	rot.y += step * 0.017453292f;
+	setRotation(rot);
+}
+void CameraClass::lookDown(float step)
+{
+	XMFLOAT3 rot = getRotation();
+	rot.y -= step * 0.017453292f;
+	setRotation(rot);
+}
+void CameraClass::twistLeft(float step)
+{
+	XMFLOAT3 rot = getRotation();
+	rot.x -= step * 0.017453292f;
+	setRotation(rot);
+}
+void CameraClass::twistRight(float step)
+{
+	XMFLOAT3 rot = getRotation();
+	rot.x += step * 0.017453292f;
+	setRotation(rot);
 }

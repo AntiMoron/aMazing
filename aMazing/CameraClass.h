@@ -31,6 +31,19 @@ public:
 
 	void Render(ID3D11Device* device,
 		ID3D11DeviceContext* context);
+
+
+	void moveLeft(float step);
+	void moveForward(float step);
+	void moveRight(float step);
+	void moveBackward(float step);
+
+	void turnLeft(float step);
+	void turnRight(float step);
+	void lookUp(float step);
+	void lookDown(float step);
+	void twistLeft(float );
+	void twistRight(float);
 private:
 	float fov;
 	XMFLOAT2 near_far;
@@ -38,10 +51,13 @@ private:
 	XMFLOAT3 position; 
 	//camera Position
 	XMFLOAT3 rotation; 
-	// + x conterclockwise,vice versa.
-	// + y down,vice versa.
-	// + z left,vice versa.
+	// - x conterclockwise,vice versa.
+	// - y down,vice versa.
+	// - z left,vice versa.
 	XMFLOAT3 upVector;
+
+	XMFLOAT3 forwardDirection;
+	XMFLOAT3 lefthandDirection;
 	struct cameraMatrices
 	{
 		XMMATRIX world;

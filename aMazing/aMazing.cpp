@@ -175,28 +175,28 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
             break;
 
 		case WM_KEYDOWN:
-			InputClass::GetInst().keys[wParam] = true;
+			INPUT.keys[wParam] = true;
 			break;
 
 		case WM_KEYUP:
-			InputClass::GetInst().keys[wParam] = false;
+			INPUT.keys[wParam] = false;
 			break;
 
 		case WM_LBUTTONDOWN:
-			InputClass::GetInst().keys[VK_LBUTTON] = true;
+			INPUT.keys[VK_LBUTTON] = true;
 			break;
 		case WM_LBUTTONUP:
-			InputClass::GetInst().keys[VK_LBUTTON] = false;
+			INPUT.keys[VK_LBUTTON] = false;
 			break;
 		case WM_RBUTTONDOWN:
-			InputClass::GetInst().keys[VK_RBUTTON] = true;
+			INPUT.keys[VK_RBUTTON] = true;
 			break;
 		case WM_RBUTTONUP:
-			InputClass::GetInst().keys[VK_RBUTTON] = false;
+			INPUT.keys[VK_RBUTTON] = false;
 			break;
 		case WM_MOUSEMOVE:
-			InputClass::GetInst().mouse_x = LOWORD(lParam);
-			InputClass::GetInst().mouse_y = HIWORD(lParam);
+			INPUT.mouse_x = LOWORD(lParam);
+			INPUT.mouse_y = HIWORD(lParam);
 			break;
 
         case WM_DESTROY:
@@ -226,10 +226,40 @@ void Render()
     d3d.getContext()->ClearRenderTargetView( d3d.getRenderTargetView(), ClearColor );
 	d3d.getContext()->ClearDepthStencilView(d3d.getDepthStencilView(), D3D11_CLEAR_DEPTH, 1.0f, 0);
 
+	if (INPUT.keys['W'])
+	{
+		camera.moveForward(0.1f);
+	}
+	if (INPUT.keys['S'])
+	{
+		camera.moveBackward(0.1f);
+	}
+	if (INPUT.keys['A'])
+	{
+		camera.moveLeft(0.1f);
+	}
+	if (INPUT.keys['D'])
+	{
+		camera.moveRight(0.1f);
+	}
+	if (INPUT.keys[VK_LEFT])
+	{
+		camera.turnLeft(1);
+	}
+	if (INPUT.keys[VK_RIGHT])
+	{
+		camera.turnRight(1);
+	}
+	if (INPUT.keys[VK_UP])
+	{
+		camera.lookUp(1);
+	}
+	if (INPUT.keys[VK_DOWN])
+	{
+		camera.lookDown(1);
+	}
 	SHADERS.getPair("Basic3D").bindShader(d3d.getDevice(), d3d.getContext());
 	TEXTURE.getTexture(0)->bindPS(d3d.getDevice(),d3d.getContext(),0);
-
-	camera.setPosition(XMFLOAT3(0.0f,0.0f,20.0f));
 	camera.Render(d3d.getDevice(), d3d.getContext());
 	
 

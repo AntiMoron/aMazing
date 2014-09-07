@@ -13,3 +13,5 @@ private:
 	InputClass();
 	~InputClass();
 };
+
+#define INPUT (InputClass::GetInst())
