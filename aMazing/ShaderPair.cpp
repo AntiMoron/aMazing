@@ -19,7 +19,6 @@ ShaderPair::ShaderPair(const ShaderPair& other)
 	pPixl = other.pPixl;
 	pVert = other.pVert;
 	shaderName = other.shaderName;
-	printf("Copy from %X to %X <%X %X>\n",&other,this,pVert->shader,pVert->layout);
 }
 
 

@@ -19,7 +19,7 @@ RectangleClass rec;
 CameraClass camera;
 BlockClass bk;
 D3DClass d3d;
-//FrameBuffer fbo;
+FrameBuffer fbo;
 
 HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow );
 HRESULT InitDevice();
@@ -121,11 +121,11 @@ HRESULT InitDevice()
 	hr = TEXTURE.addTexture(d3d.getDevice(), d3d.getContext(),
 		L"leaves.png");
 
-
 	//aditional operations.
 	bk.Initialize(d3d.getDevice(), d3d.getContext());
 	camera.Initialize(d3d.getDevice(), d3d.getContext());
 	rec.Initialize(d3d.getDevice(), d3d.getContext());
+	fbo.Initialize(d3d.getDevice(), d3d.getContext());
 	// Define the input layout
 	D3D11_INPUT_ELEMENT_DESC layout[] =
 	{
@@ -149,6 +149,7 @@ HRESULT InitDevice()
 //--------------------------------------------------------------------------------------
 void CleanupDevice()
 {
+	fbo.Shutdown();
 	d3d.Shutdown();
 	bk.Shutdown();
 	camera.Shutdown();
@@ -238,9 +239,16 @@ void Render()
 	bk.setRotation(rot);
 	bk.Render(d3d.getDevice(), d3d.getContext());
 
+	fbo.setRenderTarget(d3d.getDevice(),d3d.getContext(),d3d.getDepthStencilView());
+	fbo.clearRenderTarget(d3d.getDevice(), d3d.getContext(), d3d.getDepthStencilView());
+
+	bk.Render(d3d.getDevice(), d3d.getContext());
+
+	d3d.setRenderTarget();
 	SHADERS.getPair("Basic2D").bindShader(d3d.getDevice(), d3d.getContext());
-	TEXTURE.getTexture(1)->bindPS(d3d.getDevice(), d3d.getContext(), 0);
-	rec.Render(d3d.getDevice(), d3d.getContext(), 0, 0, WINWIDTH, WINHEIGHT);
+//	TEXTURE.getTexture(1)->bindPS(d3d.getDevice(), d3d.getContext(), 0);
+	fbo.bindPS(d3d.getDevice(), d3d.getContext(), 0);
+	rec.Render(d3d.getDevice(), d3d.getContext(), 0, 0, 200, 200);
     
     d3d.Present( true );//V-Sync
 }

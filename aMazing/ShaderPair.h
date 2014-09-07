@@ -21,7 +21,7 @@ public:
 	bool operator < (const std::string& other)const;
 	bool operator == (const std::string& other)const;
 
-//private:
+private:
 	std::string shaderName;
 	VertexShaderClass* pVert;
 	PixelShaderClass*  pPixl;

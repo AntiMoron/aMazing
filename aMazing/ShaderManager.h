@@ -19,7 +19,7 @@ public:
 		std::string&& shadername);
 
 	ShaderPair& getPair(const std::string& str);
-//private:
+private:
 	ShaderManager();
 	~ShaderManager();
 

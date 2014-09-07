@@ -16,6 +16,8 @@ public:
 	ID3D11DeviceContext* getContext();
 	ID3D11RenderTargetView* getRenderTargetView();
 	ID3D11DepthStencilView* getDepthStencilView();
+
+	void setRenderTarget();
 	void Present(bool VSync);
 private:
 	D3D_DRIVER_TYPE                     g_driverType;

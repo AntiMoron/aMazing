@@ -54,7 +54,7 @@ HRESULT D3DClass::Initialize(HWND hwnd)
 	sd.BufferDesc.RefreshRate.Denominator = 1;
 	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	sd.OutputWindow = hwnd;
-	sd.SampleDesc.Count = 1;
+	sd.SampleDesc.Count = 4;
 	sd.SampleDesc.Quality = 0;
 	sd.Windowed = TRUE;
 
@@ -88,7 +88,7 @@ HRESULT D3DClass::Initialize(HWND hwnd)
 	descDepth.MipLevels = 1;
 	descDepth.ArraySize = 1;
 	descDepth.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-	descDepth.SampleDesc.Count = 1;
+	descDepth.SampleDesc.Count = 4;
 	descDepth.SampleDesc.Quality = 0;
 	descDepth.Usage = D3D11_USAGE_DEFAULT;
 	descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;
@@ -102,7 +102,7 @@ HRESULT D3DClass::Initialize(HWND hwnd)
 	D3D11_DEPTH_STENCIL_VIEW_DESC descDSV;
 	ZeroMemory(&descDSV, sizeof(descDSV));
 	descDSV.Format = descDepth.Format;
-	descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+	descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2DMS;
 	descDSV.Texture2D.MipSlice = 0;
 	hr = g_pd3dDevice->CreateDepthStencilView(g_pDepthStencil, &descDSV, &g_pDepthStencilView);
 	if (FAILED(hr))
@@ -204,6 +204,11 @@ ID3D11RenderTargetView* D3DClass::getRenderTargetView()
 ID3D11DepthStencilView* D3DClass::getDepthStencilView()
 {
 	return g_pDepthStencilView;
+}
+
+void D3DClass::setRenderTarget()
+{
+	g_pImmediateContext->OMSetRenderTargets(1, &g_pRenderTargetView, g_pDepthStencilView);
 }
 
 void D3DClass::Present(bool VSync)

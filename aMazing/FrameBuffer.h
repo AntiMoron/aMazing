@@ -18,7 +18,12 @@ public:
 	void setRenderTarget(ID3D11Device* device, ID3D11DeviceContext* context, ID3D11DepthStencilView* depth);
 	void clearRenderTarget(ID3D11Device* device, ID3D11DeviceContext* context, ID3D11DepthStencilView* depth);
 
-	ID3D11ShaderResourceView*& getSRV();
+	void bindVS(ID3D11Device* device,
+		ID3D11DeviceContext* context,
+		unsigned int textureSlot);
+	void bindPS(ID3D11Device* device,
+		ID3D11DeviceContext* context,
+		unsigned int textureSlot);
 
 private:
 	ID3D11Texture2D* m_renderTargetTexture;

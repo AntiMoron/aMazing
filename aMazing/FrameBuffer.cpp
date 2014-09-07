@@ -74,7 +74,16 @@ void FrameBuffer::clearRenderTarget(ID3D11Device* device, ID3D11DeviceContext* c
 	context->ClearDepthStencilView(depth, D3D11_CLEAR_DEPTH, 1.0f, NULL);
 }
 
-ID3D11ShaderResourceView*& FrameBuffer::getSRV()
+void FrameBuffer::bindVS(ID3D11Device* device,
+	ID3D11DeviceContext* context,
+	unsigned int textureSlot)
 {
-	return m_shaderResourceView;
+	context->VSSetShaderResources(textureSlot, 1, &m_shaderResourceView);
+}
+
+void FrameBuffer::bindPS(ID3D11Device* device,
+	ID3D11DeviceContext* context,
+	unsigned int textureSlot)
+{
+	context->PSSetShaderResources(textureSlot, 1, &m_shaderResourceView);
 }

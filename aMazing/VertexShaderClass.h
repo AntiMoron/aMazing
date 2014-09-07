@@ -35,7 +35,7 @@ public:
 
 	HRESULT bindShader(ID3D11Device* device,
 		ID3D11DeviceContext* context);
-//private:
+private:
 	ID3D11VertexShader* shader;
 	ID3D11InputLayout* layout;
 };
