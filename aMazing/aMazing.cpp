@@ -386,9 +386,8 @@ void Render()
 	bk.Render(g_pd3dDevice, g_pImmediateContext);
 
 	SHADERS.getPair("Basic2D").bindShader(g_pd3dDevice, g_pImmediateContext);
-	rec.Render(g_pd3dDevice, g_pImmediateContext,150,100,200,300);
-    //
-    // Present our back buffer to our front buffer
-    //
-    g_pSwapChain->Present( 0, 0 );
+	TEXTURE.getTexture(1)->bindPS(g_pd3dDevice, g_pImmediateContext,0);
+	rec.Render(g_pd3dDevice, g_pImmediateContext,0,0,WINWIDTH,WINHEIGHT);
+    
+    g_pSwapChain->Present( 1, 0 );//V-Sycn
 }

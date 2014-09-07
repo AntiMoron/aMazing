@@ -33,6 +33,8 @@
     <ClInclude Include="exceptions.h" />
     <ClInclude Include="RectangleClass.h" />
     <ClInclude Include="GPUMutableVerticesBuffer.hpp" />
+    <ClInclude Include="FrameBuffer.h" />
+    <ClInclude Include="BasicObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aMazing.cpp" />
@@ -52,6 +54,8 @@
     <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="exceptions.cpp" />
     <ClCompile Include="RectangleClass.cpp" />
+    <ClCompile Include="FrameBuffer.cpp" />
+    <ClCompile Include="BasicObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">

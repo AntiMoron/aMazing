@@ -379,10 +379,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="aMazing.cpp" />
+    <ClCompile Include="BasicObject.cpp" />
     <ClCompile Include="BlockClass.cpp" />
     <ClCompile Include="CameraClass.cpp" />
     <ClCompile Include="exceptions.cpp" />
     <ClCompile Include="FileTracker.cpp" />
+    <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="InputClass.cpp" />
     <ClCompile Include="MutableString.cpp" />
     <ClCompile Include="PixelShaderClass.cpp" />
@@ -402,11 +404,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BasicObject.h" />
     <ClInclude Include="BlockClass.h" />
     <ClInclude Include="CameraClass.h" />
     <ClInclude Include="Defines.hpp" />
     <ClInclude Include="exceptions.h" />
     <ClInclude Include="FileTracker.h" />
+    <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="GPUConstantBuffer.hpp" />
     <ClInclude Include="GPUMutableVerticesBuffer.hpp" />
     <ClInclude Include="GPUVerticesBuffer.hpp" />
