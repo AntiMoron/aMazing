@@ -386,7 +386,7 @@ void Render()
 	bk.Render(g_pd3dDevice, g_pImmediateContext);
 
 	SHADERS.getPair("Basic2D").bindShader(g_pd3dDevice, g_pImmediateContext);
-	rec.Render(g_pd3dDevice, g_pImmediateContext,100,100,200,200);
+	rec.Render(g_pd3dDevice, g_pImmediateContext,150,100,200,300);
     //
     // Present our back buffer to our front buffer
     //

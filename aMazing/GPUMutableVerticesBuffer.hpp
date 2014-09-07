@@ -99,7 +99,9 @@ public:
 		m_vertexCount = vertexCount;
 		hr = context->Map(m_vertices, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 		if (FAILED(hr))
+		{
 			return hr;
+		}
 		source_type* verticesPtr = (source_type*)mappedResource.pData;
 		memcpy(verticesPtr, (void*)vertices, (sizeof(source_type)* m_vertexCount));
 		context->Unmap(m_vertices, 0);

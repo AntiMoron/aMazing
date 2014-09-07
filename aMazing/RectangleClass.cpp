@@ -84,12 +84,15 @@ void RectangleClass::Render(ID3D11Device* device,
 	float left, right, top, bottom;
 	left = (float)(WINWIDTH / -2.0f) + ileft;
 	right = left + (iright - ileft);
-	top = (float)(WINHEIGHT / 2.0f) + itop;
+	top = (float)(WINHEIGHT / 2.0f) - itop;
 	bottom = top - (ibottom - itop);
 	left = 2.0 * left / WINWIDTH;
 	right = 2.0 * right / WINWIDTH;
 	top = 2.0 * top / WINHEIGHT;
 	bottom = 2.0 * bottom / WINHEIGHT;
+
+	printf("%f %f %f %f\n",left,top,right,bottom);
+
 	vertex vertices[6];
 	vertices[0].position.x = left;
 	vertices[0].position.y = top;
