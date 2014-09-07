@@ -50,7 +50,6 @@ HRESULT ShaderManager::addPair(ID3D11Device* device,
 		return hr;
 	}
 	ShaderPair* newpair = new ShaderPair(&v,&p,std::move(shadername));
-	vec.push_back(newpair);
 	vec.insert(std::upper_bound(vec.begin(), vec.end(), newpair,
 		[&](const ShaderPair* a, const ShaderPair* b)->bool{return (*a) < (*b); })
 		, newpair);

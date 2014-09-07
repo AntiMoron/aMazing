@@ -211,6 +211,11 @@ void D3DClass::setRenderTarget()
 	g_pImmediateContext->OMSetRenderTargets(1, &g_pRenderTargetView, g_pDepthStencilView);
 }
 
+void D3DClass::clearDepthStencil()
+{
+	g_pImmediateContext->ClearDepthStencilView(g_pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+}
+
 void D3DClass::Present(bool VSync)
 //Vsync mean whether enable Vertical-Sync
 {

@@ -11,6 +11,9 @@
 #include "ShaderManager.h"
 #include"RectangleClass.h"
 #include"FrameBuffer.h"
+#include"MazeGenerator.h"
+#include"VerticalBlur.hpp"
+#include"HorizontalBlur.hpp"
 
 HINSTANCE g_hInst = NULL;
 HWND g_hWnd = NULL;
@@ -19,7 +22,8 @@ RectangleClass rec;
 CameraClass camera;
 BlockClass bk;
 D3DClass d3d;
-FrameBuffer fbo;
+VerticalBlur vb;
+HorizontalBlur hb;
 
 HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow );
 HRESULT InitDevice();
@@ -113,7 +117,7 @@ HRESULT InitDevice()
 	d3d.Initialize(g_hWnd);
 	
 	// Load the Texture
-	hr = TEXTURE.addTexture(d3d.getDevice(), d3d.getContext(), L"seafloor.dds");
+	hr = TEXTURE.addTexture(d3d.getDevice(), d3d.getContext(), L"glowstone.png");
 
 	if (FAILED(hr))
 		return E_FAIL;
@@ -125,7 +129,8 @@ HRESULT InitDevice()
 	bk.Initialize(d3d.getDevice(), d3d.getContext());
 	camera.Initialize(d3d.getDevice(), d3d.getContext());
 	rec.Initialize(d3d.getDevice(), d3d.getContext());
-	fbo.Initialize(d3d.getDevice(), d3d.getContext());
+	vb.Initialize(d3d.getDevice(), d3d.getContext());
+	hb.Initialize(d3d.getDevice(), d3d.getContext());
 	// Define the input layout
 	D3D11_INPUT_ELEMENT_DESC layout[] =
 	{
@@ -140,7 +145,15 @@ HRESULT InitDevice()
 	SHADERS.addPair(d3d.getDevice(), d3d.getContext(),
 		"Basic2D.fx", "Basic2D.fx",
 		layout, numElements, "Basic2D");
-    return S_OK;
+
+	SHADERS.addPair(d3d.getDevice(), d3d.getContext(),
+		"Shader/hblur/hblur.fx", "Shader/hblur/hblur.fx",
+		layout, numElements, "Hblur");
+
+	SHADERS.addPair(d3d.getDevice(), d3d.getContext(),
+		"Shader/vblur/vblur.fx", "Shader/vblur/vblur.fx",
+		layout, numElements, "Vblur");
+	return S_OK;
 }
 
 
@@ -149,7 +162,8 @@ HRESULT InitDevice()
 //--------------------------------------------------------------------------------------
 void CleanupDevice()
 {
-	fbo.Shutdown();
+	vb.Shutdown();
+	hb.Shutdown();
 	d3d.Shutdown();
 	bk.Shutdown();
 	camera.Shutdown();
@@ -219,6 +233,8 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
     return 0;
 }
 
+Maze* mz = MAZEFACTORY.genMaze(10);
+
 
 void Render()
 {
@@ -258,28 +274,38 @@ void Render()
 	{
 		camera.lookDown(1);
 	}
-	SHADERS.getPair("Basic3D").bindShader(d3d.getDevice(), d3d.getContext());
-	TEXTURE.getTexture(0)->bindPS(d3d.getDevice(),d3d.getContext(),0);
 	camera.Render(d3d.getDevice(), d3d.getContext());
-
 	
+	auto renderFunction = [&](ID3D11Device* device,
+		ID3D11DeviceContext* context)->void{
+		SHADERS.getPair("Basic3D").bindShader(device, context);
+		TEXTURE.getTexture(0)->bindPS(device, context, 0);
+		mz->Render(device, context, &bk);
+	};
+	hb.setRenderTarget(d3d.getDevice(),d3d.getContext(),d3d.getDepthStencilView());
+	hb.Render(d3d.getDevice(),
+		d3d.getContext(),
+		d3d.getDepthStencilView(),
+		renderFunction);
+	hb.bindPS(d3d.getDevice(), d3d.getContext(), 0);
 
-	XMFLOAT3 rot = bk.getRotation();
-	rot.x += 0.003f;
-	rot.y += 0.004f;
-	bk.setRotation(rot);
-	bk.Render(d3d.getDevice(), d3d.getContext());
+	auto renderFunction2 = [&](ID3D11Device* device,
+		ID3D11DeviceContext* context)->void{
+		SHADERS.getPair("Hblur").bindShader(device, context );
+		hb.bindPS(device, context, 0);
+		rec.Render(device, context, 0, 0, WINWIDTH, WINHEIGHT); 
+	};
 
-	fbo.setRenderTarget(d3d.getDevice(),d3d.getContext(),d3d.getDepthStencilView());
-	fbo.clearRenderTarget(d3d.getDevice(), d3d.getContext(), d3d.getDepthStencilView());
-
-	bk.Render(d3d.getDevice(), d3d.getContext());
+	vb.setRenderTarget(d3d.getDevice(), d3d.getContext(), d3d.getDepthStencilView());
+	vb.Render(d3d.getDevice(),
+		d3d.getContext(), 
+		d3d.getDepthStencilView(),
+		renderFunction2);
 
 	d3d.setRenderTarget();
-	SHADERS.getPair("Basic2D").bindShader(d3d.getDevice(), d3d.getContext());
-//	TEXTURE.getTexture(1)->bindPS(d3d.getDevice(), d3d.getContext(), 0);
-	fbo.bindPS(d3d.getDevice(), d3d.getContext(), 0);
-	rec.Render(d3d.getDevice(), d3d.getContext(), 0, 0, 200, 200);
-    
-    d3d.Present( true );//V-Sync
+	SHADERS.getPair("Vblur").bindShader(d3d.getDevice(), d3d.getContext());
+	d3d.clearDepthStencil();
+	rec.Render(d3d.getDevice(), d3d.getContext(), 0, 0, WINWIDTH, WINHEIGHT);
+	
+	d3d.Present(true);//V-Sync
 }

@@ -383,10 +383,13 @@
     <ClCompile Include="BlockClass.cpp" />
     <ClCompile Include="CameraClass.cpp" />
     <ClCompile Include="D3DClass.cpp" />
+    <ClCompile Include="EffectClass.cpp" />
     <ClCompile Include="exceptions.cpp" />
     <ClCompile Include="FileTracker.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="InputClass.cpp" />
+    <ClCompile Include="Maze.cpp" />
+    <ClCompile Include="MazeGenerator.cpp" />
     <ClCompile Include="MutableString.cpp" />
     <ClCompile Include="PixelShaderClass.cpp" />
     <ClCompile Include="RectangleClass.cpp" />
@@ -410,14 +413,18 @@
     <ClInclude Include="CameraClass.h" />
     <ClInclude Include="D3DClass.h" />
     <ClInclude Include="Defines.hpp" />
+    <ClInclude Include="EffectClass.h" />
     <ClInclude Include="exceptions.h" />
     <ClInclude Include="FileTracker.h" />
     <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="GPUConstantBuffer.hpp" />
     <ClInclude Include="GPUMutableVerticesBuffer.hpp" />
     <ClInclude Include="GPUVerticesBuffer.hpp" />
+    <ClInclude Include="HorizontalBlur.hpp" />
     <ClInclude Include="InputClass.h" />
     <ClInclude Include="InstanceObj.hpp" />
+    <ClInclude Include="Maze.h" />
+    <ClInclude Include="MazeGenerator.h" />
     <ClInclude Include="MutableString.h" />
     <ClInclude Include="PixelShaderClass.h" />
     <ClInclude Include="RectangleClass.h" />
@@ -430,6 +437,8 @@
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="vertex.hpp" />
     <ClInclude Include="VertexShaderClass.h" />
+    <ClInclude Include="VerticalBlur.hpp" />
+    <ClInclude Include="VHBlurClass.hpp" />
     <ClInclude Include="WindowClass.h" />
     <ResourceCompile Include="aMazing.rc" />
   </ItemGroup>

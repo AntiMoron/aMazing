@@ -18,6 +18,7 @@ public:
 	ID3D11DepthStencilView* getDepthStencilView();
 
 	void setRenderTarget();
+	void clearDepthStencil();
 	void Present(bool VSync);
 private:
 	D3D_DRIVER_TYPE                     g_driverType;
