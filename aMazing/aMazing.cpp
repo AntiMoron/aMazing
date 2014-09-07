@@ -261,6 +261,7 @@ void Render()
 	SHADERS.getPair("Basic3D").bindShader(d3d.getDevice(), d3d.getContext());
 	TEXTURE.getTexture(0)->bindPS(d3d.getDevice(),d3d.getContext(),0);
 	camera.Render(d3d.getDevice(), d3d.getContext());
+
 	
 
 	XMFLOAT3 rot = bk.getRotation();
