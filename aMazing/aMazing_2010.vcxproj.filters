@@ -112,6 +112,9 @@
     <ClInclude Include="VHBlurClass.hpp">
       <Filter>Engine\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="PrimitivePipeline.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aMazing.cpp" />
@@ -176,6 +179,9 @@
     </ClCompile>
     <ClCompile Include="EffectClass.cpp">
       <Filter>Engine\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="PrimitivePipeline.cpp">
+      <Filter>Engine\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -392,6 +392,7 @@
     <ClCompile Include="MazeGenerator.cpp" />
     <ClCompile Include="MutableString.cpp" />
     <ClCompile Include="PixelShaderClass.cpp" />
+    <ClCompile Include="PrimitivePipeline.cpp" />
     <ClCompile Include="RectangleClass.cpp" />
     <ClCompile Include="ShaderClass.cpp" />
     <ClCompile Include="ShaderCompilerClass.cpp" />
@@ -427,6 +428,7 @@
     <ClInclude Include="MazeGenerator.h" />
     <ClInclude Include="MutableString.h" />
     <ClInclude Include="PixelShaderClass.h" />
+    <ClInclude Include="PrimitivePipeline.h" />
     <ClInclude Include="RectangleClass.h" />
     <CLInclude Include="resource.h" />
     <ClInclude Include="ShaderClass.h" />

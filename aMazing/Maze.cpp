@@ -19,8 +19,7 @@ Maze::~Maze()
 }
 
 void Maze::Render(ID3D11Device* device,
-	ID3D11DeviceContext* context,
-	BlockClass* block)
+	ID3D11DeviceContext* context)
 {
 	for (int i = 0; i<height ; i++)
 	{
@@ -37,10 +36,9 @@ void Maze::Render(ID3D11Device* device,
 			{
 				position = { i * 0.5f, 0.0f, j*0.5f };
 			}
-			block->setRotation(rotation);
-			block->setPosition(position);
-			block->setScaling(scaling);
-			block->Render(device, context);
+			GRAPHICS.RenderBox(position.x, position.y, position.z, 
+				rotation.x, rotation.y, rotation.z,
+				scaling.x, scaling.y, scaling.z );
 		}
 	}
 }

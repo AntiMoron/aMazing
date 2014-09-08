@@ -26,6 +26,8 @@ public:
 		unsigned int textureSlot);
 
 private:
+	void clearDepthBuffer(ID3D11Device* device, ID3D11DeviceContext* context, ID3D11DepthStencilView* depth);
+	friend class EffectClass;
 	ID3D11Texture2D* m_renderTargetTexture;
 	ID3D11RenderTargetView* m_renderTargetView;
 	ID3D11ShaderResourceView* m_shaderResourceView;

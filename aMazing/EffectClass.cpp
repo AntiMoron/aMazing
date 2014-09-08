@@ -31,12 +31,18 @@ HRESULT EffectClass::Shutdown()
 	return S_OK;
 }
 
+void EffectClass::clearRenderTarget(ID3D11Device* device,
+	ID3D11DeviceContext* context,
+	ID3D11DepthStencilView* depth)
+{
+	fbo.clearRenderTarget(device, context, depth);
+}
+
 void EffectClass::setRenderTarget(ID3D11Device* device,
 	ID3D11DeviceContext* context,
 	ID3D11DepthStencilView* depth)
 {
 	fbo.setRenderTarget(device, context, depth);
-	fbo.clearRenderTarget(device, context, depth);
 }
 
 void EffectClass::bindVS(ID3D11Device* device,
@@ -56,4 +62,12 @@ void EffectClass::bindPS(ID3D11Device* device,
 bool EffectClass::isInited()const
 {
 	return is_init;
+}
+
+
+void EffectClass::clearDepthStencil(ID3D11Device* device,
+	ID3D11DeviceContext* context,
+	ID3D11DepthStencilView* depth)
+{
+	fbo.clearDepthBuffer(device, context, depth);
 }

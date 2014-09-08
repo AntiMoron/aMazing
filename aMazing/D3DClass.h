@@ -17,6 +17,9 @@ public:
 	ID3D11RenderTargetView* getRenderTargetView();
 	ID3D11DepthStencilView* getDepthStencilView();
 
+	void EnableDepth();
+	void DisableDepth();
+
 	void setRenderTarget();
 	void clearDepthStencil();
 	void Present(bool VSync);
@@ -31,5 +34,8 @@ private:
 	ID3D11DepthStencilView*             g_pDepthStencilView;
 	ID3D11ShaderResourceView*           g_pTextureRV;
 	ID3D11SamplerState*                 g_pSamplerLinear;
+
+	ID3D11DepthStencilState*			m_depthEnabledStencilState;
+	ID3D11DepthStencilState*			m_depthDisabledStencilState;
 };
 

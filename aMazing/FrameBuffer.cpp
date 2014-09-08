@@ -87,3 +87,8 @@ void FrameBuffer::bindPS(ID3D11Device* device,
 {
 	context->PSSetShaderResources(textureSlot, 1, &m_shaderResourceView);
 }
+
+void FrameBuffer::clearDepthBuffer(ID3D11Device* device, ID3D11DeviceContext* context, ID3D11DepthStencilView* depth)
+{
+	context->ClearDepthStencilView(depth, D3D11_CLEAR_DEPTH, 1.0f, NULL);
+}

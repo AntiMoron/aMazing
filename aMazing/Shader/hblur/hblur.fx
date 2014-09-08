@@ -34,7 +34,7 @@ PS_INPUT VSEntry(VS_INPUT input)
 	PS_INPUT output = (PS_INPUT)0;
 	
 	output.Pos = float4(input.Pos.xy, 0.0f, 1.0f);
-	float texelSize = 1.0f / 600;
+	float texelSize = 1.0f / 800;
 	output.Tex = input.Tex;
 	output.blur1 = input.Tex + float2(texelSize * -4.0f ,0.0f);
 	output.blur2 = input.Tex + float2(texelSize * -3.0f ,0.0f);
@@ -52,7 +52,6 @@ float4 PSEntry(PS_INPUT input) : SV_Target
 {
 	float4 color = txDiffuse.Sample(samLinear, input.Tex);
 	clip(color.a == 0.0f ? -1 : 1);
-
 	float weight0,weight1,weight2,weight3,weight4;
 	float normalization;
 	weight0 = 1.0f;
@@ -78,5 +77,6 @@ float4 PSEntry(PS_INPUT input) : SV_Target
 	color += txDiffuse.Sample(samLinear, input.blur8) * weight3;
 	color += txDiffuse.Sample(samLinear, input.blur9) * weight4;
 	color.a = 1.0f;
+	saturate(color);
 	return color;
 }

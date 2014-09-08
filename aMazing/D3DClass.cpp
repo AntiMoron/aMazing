@@ -13,6 +13,8 @@ D3DClass::D3DClass()
 	g_pDepthStencilView = nullptr;
 	g_pTextureRV = nullptr;
 	g_pSamplerLinear = nullptr;
+	m_depthEnabledStencilState = nullptr;
+	m_depthDisabledStencilState = nullptr;
 }
 
 
@@ -136,8 +138,43 @@ HRESULT D3DClass::Initialize(HWND hwnd)
 	hr = g_pd3dDevice->CreateSamplerState(&sampDesc, &g_pSamplerLinear);
 	if (FAILED(hr))
 		return hr;
-
 	g_pImmediateContext->PSSetSamplers(0, 1, &g_pSamplerLinear);
+
+	D3D11_DEPTH_STENCIL_DESC depthDisabledStencilDesc;
+	ZeroMemory(&depthDisabledStencilDesc, sizeof(depthDisabledStencilDesc));
+
+	// Now create a second depth stencil state which turns off the Z buffer for 2D rendering.  The only difference is 
+	// that DepthEnable is set to false, all other parameters are the same as the other depth stencil state.
+	depthDisabledStencilDesc.DepthEnable = false;
+	depthDisabledStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	depthDisabledStencilDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
+	depthDisabledStencilDesc.StencilEnable = true;
+	depthDisabledStencilDesc.StencilReadMask = 0xFF;
+	depthDisabledStencilDesc.StencilWriteMask = 0xFF;
+	depthDisabledStencilDesc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+	depthDisabledStencilDesc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_INCR;
+	depthDisabledStencilDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+	depthDisabledStencilDesc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+	depthDisabledStencilDesc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+	depthDisabledStencilDesc.BackFace.StencilDepthFailOp = D3D11_STENCIL_OP_DECR;
+	depthDisabledStencilDesc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+	depthDisabledStencilDesc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+
+
+	// Create the state using the device.
+	hr = g_pd3dDevice->CreateDepthStencilState(&depthDisabledStencilDesc, &m_depthDisabledStencilState);
+	if (FAILED(hr))
+	{
+		return false;
+	}
+
+	depthDisabledStencilDesc.DepthEnable = true; 
+	hr = g_pd3dDevice->CreateDepthStencilState(&depthDisabledStencilDesc, &m_depthEnabledStencilState);
+	if (FAILED(hr))
+	{
+		return false;
+	}
+
 	return S_OK;
 }
 HRESULT D3DClass::Shutdown()
@@ -186,6 +223,16 @@ HRESULT D3DClass::Shutdown()
 		g_pd3dDevice->Release();
 		g_pd3dDevice = nullptr;
 	}
+	if (m_depthEnabledStencilState)
+	{
+		m_depthEnabledStencilState->Release();
+		m_depthEnabledStencilState = nullptr;
+	}
+	if (m_depthDisabledStencilState)
+	{
+		m_depthDisabledStencilState->Release();
+		m_depthDisabledStencilState = nullptr;
+	}
 	return S_OK;
 }
 
@@ -193,17 +240,29 @@ ID3D11Device* D3DClass::getDevice()
 {
 	return g_pd3dDevice;
 }
+
 ID3D11DeviceContext* D3DClass::getContext()
 {
 	return g_pImmediateContext;
 }
+
 ID3D11RenderTargetView* D3DClass::getRenderTargetView()
 {
 	return g_pRenderTargetView;
 }
+
 ID3D11DepthStencilView* D3DClass::getDepthStencilView()
 {
 	return g_pDepthStencilView;
+}
+
+void D3DClass::EnableDepth()
+{
+	g_pImmediateContext->OMSetDepthStencilState(m_depthEnabledStencilState, 1);
+}
+void D3DClass::DisableDepth()
+{
+	g_pImmediateContext->OMSetDepthStencilState(m_depthDisabledStencilState, 1);
 }
 
 void D3DClass::setRenderTarget()

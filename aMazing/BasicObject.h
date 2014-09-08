@@ -7,6 +7,7 @@
 #include"InstanceObj.hpp"
 #include"GPUConstantBuffer.hpp"
 #include"GPUVerticesBuffer.hpp"
+#include<memory>
 
 class BasicObject
 {
@@ -18,14 +19,13 @@ public:
 		ID3D11DeviceContext* context);
 
 	void setPosition(const XMFLOAT3& val);
-	void setPosition(const XMFLOAT3&& val);
+	void setPosition(XMFLOAT3&& val);
 
 	void setRotation(const XMFLOAT3& val);
-	void setRotation(const XMFLOAT3&& val);
+	void setRotation(XMFLOAT3&& val);
 
 	void setScaling(const XMFLOAT3& val);
-	void setScaling(const XMFLOAT3&& val);
-
+	void setScaling(XMFLOAT3&& val);
 
 	HRESULT UpdatePRS(ID3D11Device* device,
 		ID3D11DeviceContext* context);
@@ -38,7 +38,7 @@ protected:
 	XMFLOAT3 position;
 	XMFLOAT3 rotation;
 	XMFLOAT3 scaling;
-	PRS	m_prsData;
+	std::unique_ptr<PRS> m_prsData;
 	GPUVerticesBuffer<vertex> m_vertices;
 	GPUConstantBuffer<PRS>	  m_prsBuffer;
 };

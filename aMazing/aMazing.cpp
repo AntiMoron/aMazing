@@ -14,6 +14,8 @@
 #include"MazeGenerator.h"
 #include"VerticalBlur.hpp"
 #include"HorizontalBlur.hpp"
+#include"PrimitivePipeline.h"
+#include"VHBlurClass.hpp"
 
 HINSTANCE g_hInst = NULL;
 HWND g_hWnd = NULL;
@@ -22,8 +24,7 @@ RectangleClass rec;
 CameraClass camera;
 BlockClass bk;
 D3DClass d3d;
-VerticalBlur vb;
-HorizontalBlur hb;
+VHBlurClass blur;
 
 HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow );
 HRESULT InitDevice();
@@ -117,20 +118,25 @@ HRESULT InitDevice()
 	d3d.Initialize(g_hWnd);
 	
 	// Load the Texture
-	hr = TEXTURE.addTexture(d3d.getDevice(), d3d.getContext(), L"glowstone.png");
+	hr = TEXTURE.addTexture(d3d.getDevice(), d3d.getContext(), L"seafloor.dds");
+	if (FAILED(hr))
+		return E_FAIL;
 
+	hr = TEXTURE.addTexture(d3d.getDevice(), d3d.getContext(), L"glowstone.png");
 	if (FAILED(hr))
 		return E_FAIL;
 
 	hr = TEXTURE.addTexture(d3d.getDevice(), d3d.getContext(),
 		L"leaves.png");
+	if (FAILED(hr))
+		return E_FAIL;
 
 	//aditional operations.
 	bk.Initialize(d3d.getDevice(), d3d.getContext());
 	camera.Initialize(d3d.getDevice(), d3d.getContext());
 	rec.Initialize(d3d.getDevice(), d3d.getContext());
-	vb.Initialize(d3d.getDevice(), d3d.getContext());
-	hb.Initialize(d3d.getDevice(), d3d.getContext());
+	blur.Initialize(d3d.getDevice(), d3d.getContext());
+	GRAPHICS.Initialize(&d3d);
 	// Define the input layout
 	D3D11_INPUT_ELEMENT_DESC layout[] =
 	{
@@ -162,12 +168,12 @@ HRESULT InitDevice()
 //--------------------------------------------------------------------------------------
 void CleanupDevice()
 {
-	vb.Shutdown();
-	hb.Shutdown();
+	blur.Shutdown();
 	d3d.Shutdown();
 	bk.Shutdown();
 	camera.Shutdown();
 	rec.Shutdown();
+	GRAPHICS.Shutdown();
 }
 
 
@@ -279,33 +285,21 @@ void Render()
 	auto renderFunction = [&](ID3D11Device* device,
 		ID3D11DeviceContext* context)->void{
 		SHADERS.getPair("Basic3D").bindShader(device, context);
-		TEXTURE.getTexture(0)->bindPS(device, context, 0);
-		mz->Render(device, context, &bk);
+		TEXTURE.getTexture(1)->bindPS(device, context, 0);
+		GRAPHICS.RenderBox(0.0, 0.0, 0.0, 30.0, 40.0, 50.0, 0.1f, 0.1f, 0.1f);
+		//		mz->Render(device, context);
 	};
-	hb.setRenderTarget(d3d.getDevice(),d3d.getContext(),d3d.getDepthStencilView());
-	hb.Render(d3d.getDevice(),
+	
+	blur.Render(d3d.getDevice(),
 		d3d.getContext(),
 		d3d.getDepthStencilView(),
+		1,2,
 		renderFunction);
-	hb.bindPS(d3d.getDevice(), d3d.getContext(), 0);
-
-	auto renderFunction2 = [&](ID3D11Device* device,
-		ID3D11DeviceContext* context)->void{
-		SHADERS.getPair("Hblur").bindShader(device, context );
-		hb.bindPS(device, context, 0);
-		rec.Render(device, context, 0, 0, WINWIDTH, WINHEIGHT); 
-	};
-
-	vb.setRenderTarget(d3d.getDevice(), d3d.getContext(), d3d.getDepthStencilView());
-	vb.Render(d3d.getDevice(),
-		d3d.getContext(), 
-		d3d.getDepthStencilView(),
-		renderFunction2);
 
 	d3d.setRenderTarget();
-	SHADERS.getPair("Vblur").bindShader(d3d.getDevice(), d3d.getContext());
-	d3d.clearDepthStencil();
-	rec.Render(d3d.getDevice(), d3d.getContext(), 0, 0, WINWIDTH, WINHEIGHT);
-	
+	blur.bindPS(d3d.getDevice(), d3d.getContext(),0);
+	SHADERS.getPair("Basic2D").bindShader(d3d.getDevice(), d3d.getContext());
+	GRAPHICS.RenderRectangle(200, 200, WINWIDTH, WINHEIGHT);
+	GRAPHICS.RenderRectangle(0, 0, 200, 200);
 	d3d.Present(true);//V-Sync
 }
