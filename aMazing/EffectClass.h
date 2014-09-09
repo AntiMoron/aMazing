@@ -3,7 +3,7 @@
 #include"ShaderManager.h"
 #include"FrameBuffer.h"
 #include<functional>
-
+#include<memory>
 
 class EffectClass
 {
@@ -41,7 +41,7 @@ public:
 	//void Render
 	//Call the renderFunction function in argument-list to render Objects.
 protected:
-	FrameBuffer fbo;
+	std::unique_ptr<FrameBuffer> fbo;
 	bool is_init;
 private:
 	template<typename T>

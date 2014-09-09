@@ -4,6 +4,7 @@
 #include<xnamath.h>
 #include<D3DX10math.h>
 #include"WindowClass.h"
+#include"Defines.hpp"
 
 class CameraClass
 {

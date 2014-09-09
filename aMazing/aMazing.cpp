@@ -24,7 +24,7 @@ RectangleClass rec;
 CameraClass camera;
 BlockClass bk;
 D3DClass d3d;
-VHBlurClass blur;
+HorizontalBlur blur;
 
 HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow );
 HRESULT InitDevice();
@@ -286,20 +286,17 @@ void Render()
 		ID3D11DeviceContext* context)->void{
 		SHADERS.getPair("Basic3D").bindShader(device, context);
 		TEXTURE.getTexture(1)->bindPS(device, context, 0);
-		GRAPHICS.RenderBox(0.0, 0.0, 0.0, 30.0, 40.0, 50.0, 0.1f, 0.1f, 0.1f);
-		//		mz->Render(device, context);
+		mz->Render(device, context);
 	};
 	
 	blur.Render(d3d.getDevice(),
 		d3d.getContext(),
 		d3d.getDepthStencilView(),
-		1,2,
 		renderFunction);
 
 	d3d.setRenderTarget();
 	blur.bindPS(d3d.getDevice(), d3d.getContext(),0);
 	SHADERS.getPair("Basic2D").bindShader(d3d.getDevice(), d3d.getContext());
-	GRAPHICS.RenderRectangle(200, 200, WINWIDTH, WINHEIGHT);
-	GRAPHICS.RenderRectangle(0, 0, 200, 200);
+	GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 	d3d.Present(true);//V-Sync
 }

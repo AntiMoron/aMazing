@@ -46,6 +46,7 @@ HRESULT CameraClass::Initialize(ID3D11Device* device,
 	m_matriceData.world = XMMatrixTranspose(m_matriceData.world);
 	m_matriceData.view = XMMatrixTranspose(m_matriceData.view);
 	m_matriceData.projection = XMMatrixTranspose(m_matriceData.projection);
+
 	//Update Buffer
 	m_matrices.Initialize(device, context, 0);
 	m_matrices.UpdateData(&m_matriceData);

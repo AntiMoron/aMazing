@@ -21,6 +21,9 @@
     <Filter Include="Engine\System">
       <UniqueIdentifier>{7edd9bc4-69ba-4cbf-ad47-f5d5b9826564}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\math">
+      <UniqueIdentifier>{05c0262d-4670-4af3-bc34-97412fbc1f4d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BlockClass.h">
@@ -114,6 +117,9 @@
     </ClInclude>
     <ClInclude Include="PrimitivePipeline.h">
       <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="math3D.hpp">
+      <Filter>Engine\math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

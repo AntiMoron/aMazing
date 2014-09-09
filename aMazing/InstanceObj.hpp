@@ -8,9 +8,17 @@ class PRS
 {
 public:
 	PRS(){}
-	PRS(const XMMATRIX&& pos,const XMMATRIX&& rot,const XMMATRIX&& sca)
+	PRS(XMFLOAT4X4&& pos, XMFLOAT4X4&& rot, XMFLOAT4X4&& sca)
 		:position(pos),rotation(rot),scaling(sca){}
 	~PRS(){}
+	XMFLOAT4X4 position;
+	XMFLOAT4X4 rotation;
+	XMFLOAT4X4 scaling;
+};
+
+class PRSShaderData
+{
+public:
 	XMMATRIX position;
 	XMMATRIX rotation;
 	XMMATRIX scaling;

@@ -52,7 +52,6 @@ float4 PSEntry(PS_INPUT input) : SV_Target
 {
 	float4 color = txDiffuse.Sample(samLinear, input.Tex);
 	clip(color.a == 0.0f ? -1 : 1);
-
 	float weight0,weight1,weight2,weight3,weight4;
 	float normalization;
 	weight0 = 1.0f;

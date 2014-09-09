@@ -8,6 +8,7 @@
 #include"GPUConstantBuffer.hpp"
 #include"GPUVerticesBuffer.hpp"
 #include<memory>
+#include"Defines.hpp" 
 
 class BasicObject
 {
@@ -40,6 +41,6 @@ protected:
 	XMFLOAT3 scaling;
 	std::unique_ptr<PRS> m_prsData;
 	GPUVerticesBuffer<vertex> m_vertices;
-	GPUConstantBuffer<PRS>	  m_prsBuffer;
+	GPUConstantBuffer<PRSShaderData> m_prsBuffer;
 };
 

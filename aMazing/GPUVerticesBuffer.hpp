@@ -17,7 +17,7 @@ public:
 	}
 	~GPUVerticesBuffer()
 	{
-		;
+		Shutdown();
 	}
 
 	//If the indices pointer is nullptr,then no index buffer would be initialized

@@ -2,6 +2,7 @@
 #include"HorizontalBlur.hpp"
 #include"VerticalBlur.hpp"
 #include"RectangleClass.h"
+#include<memory>
 
 class VHBlurClass : public EffectClass
 {
@@ -13,12 +14,8 @@ public:
 		ID3D11DeviceContext* context)
 	{
 		HRESULT hr;
-		hr = vb.Initialize(device,context);
-		if (FAILED(hr))
-		{
-			return hr;
-		}
-		hr = hb.Initialize(device, context);
+		m_buffer.reset(new FrameBuffer);
+		hr = m_buffer->Initialize(device, context);
 		if (FAILED(hr))
 		{
 			return hr;
@@ -34,9 +31,8 @@ public:
 
 	HRESULT Shutdown()
 	{
+		m_buffer->Shutdown();
 		EffectClass::Shutdown();
-		vb.Shutdown();
-		hb.Shutdown();
 		return S_OK;
 	}
 
@@ -48,26 +44,24 @@ public:
 		unsigned short vBlurCount,
 		func_type_wrapper<std::function<void(ID3D11Device*, ID3D11DeviceContext*)> >::type renderFunction)
 	{
-		setRenderTarget(device, context, depth);
-		clearRenderTarget(device, context, depth);
-		
+		fbo->setRenderTarget(device, context, depth);
+		fbo->clearRenderTarget(device, context, depth);
 		renderFunction(device, context);
-		
-		return;
-		fbo.bindPS(device, context, 0);
-		vb.setRenderTarget(device, context, depth);
-		vb.clearRenderTarget(device, context, depth);
-		SHADERS.getPair("Vblur").bindShader(device, context);
-		GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
+		fbo->bindPS(device, context, 0);
 
-		setRenderTarget(device, context, depth);
-		clearRenderTarget(device, context, depth);
-		vb.bindPS(device, context, 0);
+		m_buffer->setRenderTarget(device, context, depth);
+		m_buffer->clearRenderTarget(device, context, depth);
 		SHADERS.getPair("Hblur").bindShader(device, context);
 		GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
+
+		fbo->clearRenderTarget(device, context, depth);
+		fbo->setRenderTarget(device, context, depth);
+		m_buffer->bindPS(device, context, 0);
+		SHADERS.getPair("Vblur").bindShader(device, context);
+		GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
+		fbo->bindPS(device, context, 0);
 	}
 private:
-	VerticalBlur vb;
-	HorizontalBlur hb;
+	std::unique_ptr<FrameBuffer> m_buffer;
 };
 

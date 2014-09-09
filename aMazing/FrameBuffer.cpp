@@ -3,11 +3,15 @@
 
 FrameBuffer::FrameBuffer()
 {
+	m_renderTargetTexture = nullptr;
+	m_renderTargetView = nullptr;
+	m_shaderResourceView = nullptr;
 }
 
 
 FrameBuffer::~FrameBuffer()
 {
+	Shutdown();
 }
 
 HRESULT FrameBuffer::Initialize(ID3D11Device* device, ID3D11DeviceContext* context)
@@ -24,7 +28,7 @@ HRESULT FrameBuffer::Initialize(ID3D11Device* device, ID3D11DeviceContext* conte
 	textureDesc.MipLevels = 1;
 	textureDesc.ArraySize = 1;
 	textureDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-	textureDesc.SampleDesc.Count = 4;
+	textureDesc.SampleDesc.Count =4;
 	textureDesc.SampleDesc.Quality = 0;
 	textureDesc.Usage = D3D11_USAGE_DEFAULT;
 	textureDesc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;

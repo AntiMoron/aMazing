@@ -3,6 +3,7 @@
 #include"BlockClass.h"
 #include"RectangleClass.h"
 #include<memory>
+#include"Defines.hpp"
 
 class PrimitivePipeline
 {

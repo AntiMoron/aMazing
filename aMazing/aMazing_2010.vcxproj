@@ -424,6 +424,7 @@
     <ClInclude Include="HorizontalBlur.hpp" />
     <ClInclude Include="InputClass.h" />
     <ClInclude Include="InstanceObj.hpp" />
+    <ClInclude Include="math3D.hpp" />
     <ClInclude Include="Maze.h" />
     <ClInclude Include="MazeGenerator.h" />
     <ClInclude Include="MutableString.h" />

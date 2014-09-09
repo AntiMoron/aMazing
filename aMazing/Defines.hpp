@@ -1,5 +1,6 @@
 #pragma once
 
+#define ALIGN16 __declspec(align(16))
 
 #define SAFE_CREATE(varPtr,varType) do{varPtr = nullptr;\
 	varPtr = new varType; }while (0)

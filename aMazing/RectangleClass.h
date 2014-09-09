@@ -7,6 +7,7 @@
 #include"vertex.hpp"
 #include"WindowClass.h"
 #include"GPUMutableVerticesBuffer.hpp"
+#include"Defines.hpp"
 
 class RectangleClass
 {

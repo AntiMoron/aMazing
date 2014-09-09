@@ -12,7 +12,10 @@ public:
 	{
 		m_buffer = nullptr;
 	}
-	~GPUConstantBuffer(){}
+	~GPUConstantBuffer()
+	{
+		Shutdown();
+	}
 	HRESULT Initialize(ID3D11Device* device, ID3D11DeviceContext* context, int startSlot)
 	{
 		HRESULT hr;
