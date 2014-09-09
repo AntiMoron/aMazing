@@ -11,9 +11,9 @@ public:
 
 	MutableString(const MutableString& other);
 	MutableString(const std::string& other);
-	MutableString(const std::string&& other);
+	MutableString(std::string&& other);
 	MutableString(const std::wstring& other);
-	MutableString(const std::wstring&& other);
+	MutableString(std::wstring&& other);
 	MutableString(const char* other);
 	MutableString(const wchar_t* other);
 	

@@ -28,7 +28,7 @@ MutableString::MutableString(const std::string& other)
 	wstrUpdated = false;
 	str = other;
 }
-MutableString::MutableString(const std::string&& other)
+MutableString::MutableString(std::string&& other)
 {
 	strUpdated = true;
 	wstrUpdated = false;
@@ -40,7 +40,7 @@ MutableString::MutableString(const std::wstring& other)
 	wstrUpdated = true;
 	wstr = other;
 }
-MutableString::MutableString(const std::wstring&& other)
+MutableString::MutableString(std::wstring&& other)
 {
 	strUpdated = false;
 	wstrUpdated = true;
