@@ -388,6 +388,7 @@
     <ClCompile Include="FileTracker.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="InputClass.cpp" />
+    <ClCompile Include="LineClass.cpp" />
     <ClCompile Include="Maze.cpp" />
     <ClCompile Include="MazeGenerator.cpp" />
     <ClCompile Include="MutableString.cpp" />
@@ -424,6 +425,7 @@
     <ClInclude Include="HorizontalBlur.hpp" />
     <ClInclude Include="InputClass.h" />
     <ClInclude Include="InstanceObj.hpp" />
+    <ClInclude Include="LineClass.h" />
     <ClInclude Include="math3D.hpp" />
     <ClInclude Include="Maze.h" />
     <ClInclude Include="MazeGenerator.h" />

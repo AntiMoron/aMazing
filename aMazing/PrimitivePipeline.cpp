@@ -29,12 +29,18 @@ HRESULT PrimitivePipeline::Initialize(D3DClass* d3d)
 	ID3D11DeviceContext* context = d3dptr->getContext();
 	blk.reset(new BlockClass);
 	rec.reset(new RectangleClass);
+	line.reset(new LineClass);
 	hr = blk->Initialize(device,context);
 	if (FAILED(hr))
 	{
 		return hr;
 	}
 	hr = rec->Initialize(device, context);
+	if (FAILED(hr))
+	{
+		return hr;
+	}
+	hr = line->Initialize(device, context);
 	if (FAILED(hr))
 	{
 		return hr;
@@ -46,6 +52,7 @@ HRESULT PrimitivePipeline::Shutdown()
 {
 	blk->Shutdown();
 	rec->Shutdown();
+	line->Shutdown();
 	return S_OK;
 }
 
@@ -69,4 +76,13 @@ void PrimitivePipeline::RenderBox(float x, float y, float z,
 	blk->setRotation(XMFLOAT3(rx, ry, rz));
 	blk->setScaling(XMFLOAT3(sx, sy, sz));
 	blk->Render(device, context);
+}
+
+
+void PrimitivePipeline::RenderLine(float sx, float sy, float sz,
+	float ex, float ey, float ez)
+{
+	ID3D11Device* device = d3dptr->getDevice();
+	ID3D11DeviceContext* context = d3dptr->getContext();
+	line->Render(device, context, sx, sy, sz, ex, ey, ez);
 }

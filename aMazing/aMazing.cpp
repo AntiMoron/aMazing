@@ -159,6 +159,10 @@ HRESULT InitDevice()
 	SHADERS.addPair(d3d.getDevice(), d3d.getContext(),
 		"Shader/vblur/vblur.fx", "Shader/vblur/vblur.fx",
 		layout, numElements, "Vblur");
+
+	SHADERS.addPair(d3d.getDevice(), d3d.getContext(),
+		"Shader/wires/line.fx", "Shader/wires/line.fx",
+		layout, numElements, "BasicLine");
 	return S_OK;
 }
 
@@ -282,21 +286,11 @@ void Render()
 	}
 	camera.Render(d3d.getDevice(), d3d.getContext());
 	
-	auto renderFunction = [&](ID3D11Device* device,
-		ID3D11DeviceContext* context)->void{
-		SHADERS.getPair("Basic3D").bindShader(device, context);
-		TEXTURE.getTexture(1)->bindPS(device, context, 0);
-		mz->Render(device, context);
-	};
-	
-	blur.Render(d3d.getDevice(),
-		d3d.getContext(),
-		d3d.getDepthStencilView(),
-		renderFunction);
+	SHADERS.getPair("Basic3D").bindShader(d3d.getDevice(), d3d.getContext());
+	TEXTURE.getTexture(1)->bindPS(d3d.getDevice(), d3d.getContext(), 0);
 
-	d3d.setRenderTarget();
-	blur.bindPS(d3d.getDevice(), d3d.getContext(),0);
-	SHADERS.getPair("Basic2D").bindShader(d3d.getDevice(), d3d.getContext());
-	GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
+	GRAPHICS.RenderLine(0.0, .0, .0, 10.0, 10.0, 10.0);
+	mz->Render(d3d.getDevice(), d3d.getContext());
+
 	d3d.Present(true);//V-Sync
 }

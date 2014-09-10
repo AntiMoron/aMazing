@@ -121,6 +121,9 @@
     <ClInclude Include="math3D.hpp">
       <Filter>Engine\math</Filter>
     </ClInclude>
+    <ClInclude Include="LineClass.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aMazing.cpp" />
@@ -188,6 +191,9 @@
     </ClCompile>
     <ClCompile Include="PrimitivePipeline.cpp">
       <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="LineClass.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

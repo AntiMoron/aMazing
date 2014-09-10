@@ -91,6 +91,7 @@ void BlockClass::Render(ID3D11Device* device,
 	ID3D11DeviceContext* context)
 {
 //Update PRS data
+	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	BasicObject::UpdatePRS(device, context);
 	m_vertices.Render(device,context);
 }

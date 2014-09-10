@@ -146,7 +146,6 @@ public:
 	void Render(ID3D11Device* device,
 		ID3D11DeviceContext* context)
 	{
-		context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		Bind(device, context);
 		if (m_indices != nullptr)
 		{
