@@ -24,6 +24,9 @@
     <Filter Include="Engine\math">
       <UniqueIdentifier>{05c0262d-4670-4af3-bc34-97412fbc1f4d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Animate">
+      <UniqueIdentifier>{063db111-3662-41f2-83dd-5e8418452b92}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BlockClass.h">
@@ -124,6 +127,10 @@
     <ClInclude Include="LineClass.h">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="BoneClass.h" />
+    <ClInclude Include="DepthMap.hpp">
+      <Filter>Engine\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aMazing.cpp" />
@@ -195,6 +202,7 @@
     <ClCompile Include="LineClass.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
+    <ClCompile Include="BoneClass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">

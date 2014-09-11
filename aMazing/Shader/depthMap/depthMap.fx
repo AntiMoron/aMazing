@@ -31,11 +31,11 @@ PS_INPUT VSEntry( VS_INPUT input )
 {
     PS_INPUT output = (PS_INPUT)0;
 
-	output.Pos = input.Pos;
-	output.Pos = mul( output.Pos, Rot);
-	output.Pos = mul( output.Pos, Sca);
-	output.Pos = mul( output.Pos, Pos);
-	output.Pos = mul( output.Pos, World );
+    output.Pos = input.Pos;
+    output.Pos = mul( output.Pos, Rot);
+    output.Pos = mul( output.Pos, Sca);
+    output.Pos = mul( output.Pos, Pos);
+    output.Pos = mul( output.Pos, World );
     output.Pos = mul( output.Pos, View );
     output.Pos = mul( output.Pos, Projection );
     output.Tex = input.Tex;    
@@ -44,8 +44,6 @@ PS_INPUT VSEntry( VS_INPUT input )
 
 float4 PSEntry(PS_INPUT input) : SV_Target
 {
-	float4 color = txDiffuse.Sample(samLinear, input.Tex);
-	clip(color.a == 0.0f ? -1 : 1);
 	float depth = input.Pos.z / input.Pos.w;
 	return float4(depth,depth,depth,1.0f);
 }

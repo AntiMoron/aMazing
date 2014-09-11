@@ -26,24 +26,21 @@ HRESULT EffectClass::Initialize(ID3D11Device* device,
 	return S_OK;
 }
 
-HRESULT EffectClass::Shutdown()
+void EffectClass::Shutdown()
 {
 	fbo->Shutdown();
-	return S_OK;
 }
 
 void EffectClass::clearRenderTarget(ID3D11Device* device,
-	ID3D11DeviceContext* context,
-	ID3D11DepthStencilView* depth)
+	ID3D11DeviceContext* context)
 {
-	fbo->clearRenderTarget(device, context, depth);
+	fbo->clearRenderTarget(device, context);
 }
 
 void EffectClass::setRenderTarget(ID3D11Device* device,
-	ID3D11DeviceContext* context,
-	ID3D11DepthStencilView* depth)
+	ID3D11DeviceContext* context)
 {
-	fbo->setRenderTarget(device, context, depth);
+	fbo->setRenderTarget(device, context);
 }
 
 void EffectClass::bindVS(ID3D11Device* device,
@@ -67,8 +64,7 @@ bool EffectClass::isInited()const
 
 
 void EffectClass::clearDepthStencil(ID3D11Device* device,
-	ID3D11DeviceContext* context,
-	ID3D11DepthStencilView* depth)
+	ID3D11DeviceContext* context)
 {
-	fbo->clearDepthBuffer(device, context, depth);
+	fbo->clearDepthBuffer(device, context);
 }

@@ -13,15 +13,13 @@ public:
 
 	HRESULT Initialize(ID3D11Device* device,
 		ID3D11DeviceContext* context);
-	HRESULT Shutdown();
+	void Shutdown();
 
 	void clearRenderTarget(ID3D11Device* device,
-		ID3D11DeviceContext* context,
-		ID3D11DepthStencilView* depth);
+		ID3D11DeviceContext* context);
 
 	void setRenderTarget(ID3D11Device* device,
-		ID3D11DeviceContext* context,
-		ID3D11DepthStencilView* depth);
+		ID3D11DeviceContext* context);
 
 	void bindVS(ID3D11Device* device,
 		ID3D11DeviceContext* context,
@@ -32,8 +30,7 @@ public:
 		unsigned int textureSlot);
 
 	void clearDepthStencil(ID3D11Device* device,
-		ID3D11DeviceContext* context,
-		ID3D11DepthStencilView* depth);
+		ID3D11DeviceContext* context);
 
 	bool isInited()const;
 

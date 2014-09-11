@@ -381,6 +381,7 @@
     <ClCompile Include="aMazing.cpp" />
     <ClCompile Include="BasicObject.cpp" />
     <ClCompile Include="BlockClass.cpp" />
+    <ClCompile Include="BoneClass.cpp" />
     <ClCompile Include="CameraClass.cpp" />
     <ClCompile Include="D3DClass.cpp" />
     <ClCompile Include="EffectClass.cpp" />
@@ -412,9 +413,11 @@
   <ItemGroup>
     <ClInclude Include="BasicObject.h" />
     <ClInclude Include="BlockClass.h" />
+    <ClInclude Include="BoneClass.h" />
     <ClInclude Include="CameraClass.h" />
     <ClInclude Include="D3DClass.h" />
     <ClInclude Include="Defines.hpp" />
+    <ClInclude Include="DepthMap.hpp" />
     <ClInclude Include="EffectClass.h" />
     <ClInclude Include="exceptions.h" />
     <ClInclude Include="FileTracker.h" />

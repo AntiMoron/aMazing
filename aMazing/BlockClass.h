@@ -1,5 +1,5 @@
 #pragma once
-
+#include"ShaderManager.h"
 #include"BasicObject.h"
 
 class BlockClass : public BasicObject

@@ -127,7 +127,7 @@ void RectangleClass::Render(ID3D11Device* device,
 	vertices[5].position.z = 0.0f;
 	vertices[5].texture.x = 1.0f;
 	vertices[5].texture.y = 1.0f;
-
+	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	verts.UpdateVertices(device,context,vertices,6);
 	verts.Render(device, context);
 }

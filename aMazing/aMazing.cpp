@@ -1,30 +1,25 @@
 #include <windows.h>
-#include <xnamath.h>
-#include"D3DClass.h"
-#include "BlockClass.h"
+#include "D3DClass.h"
 #include "CameraClass.h"
 #include "InputClass.h"
 #include "resource.h"
-#include "FileTracker.h"
 #include "WindowClass.h"
 #include "TextureManager.h"
-#include "ShaderManager.h"
-#include"RectangleClass.h"
-#include"FrameBuffer.h"
-#include"MazeGenerator.h"
-#include"VerticalBlur.hpp"
-#include"HorizontalBlur.hpp"
-#include"PrimitivePipeline.h"
-#include"VHBlurClass.hpp"
+#include "MazeGenerator.h"
+#include "PrimitivePipeline.h"
+#include "DepthMap.hpp"
 
-HINSTANCE g_hInst = NULL;
-HWND g_hWnd = NULL;
+HINSTANCE g_hInst = nullptr;
+HWND g_hWnd = nullptr;
 
 RectangleClass rec;
 CameraClass camera;
 BlockClass bk;
 D3DClass d3d;
-HorizontalBlur blur;
+FrameBuffer blur;
+#define DEVICE (d3d.getDevice())
+#define CONTEXT (d3d.getContext())
+#define DEPTH (d3d.getDepthStencilView())
 
 HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow );
 HRESULT InitDevice();
@@ -118,24 +113,24 @@ HRESULT InitDevice()
 	d3d.Initialize(g_hWnd);
 	
 	// Load the Texture
-	hr = TEXTURE.addTexture(d3d.getDevice(), d3d.getContext(), L"seafloor.dds");
+	hr = TEXTURE.addTexture(DEVICE, CONTEXT, L"seafloor.dds");
 	if (FAILED(hr))
 		return E_FAIL;
 
-	hr = TEXTURE.addTexture(d3d.getDevice(), d3d.getContext(), L"glowstone.png");
+	hr = TEXTURE.addTexture(DEVICE, CONTEXT, L"glowstone.png");
 	if (FAILED(hr))
 		return E_FAIL;
 
-	hr = TEXTURE.addTexture(d3d.getDevice(), d3d.getContext(),
+	hr = TEXTURE.addTexture(DEVICE, CONTEXT,
 		L"leaves.png");
 	if (FAILED(hr))
 		return E_FAIL;
 
 	//aditional operations.
-	bk.Initialize(d3d.getDevice(), d3d.getContext());
-	camera.Initialize(d3d.getDevice(), d3d.getContext());
-	rec.Initialize(d3d.getDevice(), d3d.getContext());
-	blur.Initialize(d3d.getDevice(), d3d.getContext());
+	bk.Initialize(DEVICE, CONTEXT);
+	camera.Initialize(DEVICE, CONTEXT);
+	rec.Initialize(DEVICE, CONTEXT);
+	blur.Initialize(DEVICE, CONTEXT);
 	GRAPHICS.Initialize(&d3d);
 	// Define the input layout
 	D3D11_INPUT_ELEMENT_DESC layout[] =
@@ -144,25 +139,28 @@ HRESULT InitDevice()
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 	UINT numElements = ARRAYSIZE(layout);
-	SHADERS.addPair(d3d.getDevice(), d3d.getContext(),
+	SHADERS.addPair(DEVICE, CONTEXT,
 		"Basic3D.fx", "Basic3D.fx",
 		layout, numElements, "Basic3D");
 
-	SHADERS.addPair(d3d.getDevice(), d3d.getContext(),
+	SHADERS.addPair(DEVICE, CONTEXT,
 		"Basic2D.fx", "Basic2D.fx",
 		layout, numElements, "Basic2D");
 
-	SHADERS.addPair(d3d.getDevice(), d3d.getContext(),
+	SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/hblur/hblur.fx", "Shader/hblur/hblur.fx",
 		layout, numElements, "Hblur");
 
-	SHADERS.addPair(d3d.getDevice(), d3d.getContext(),
+	SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/vblur/vblur.fx", "Shader/vblur/vblur.fx",
 		layout, numElements, "Vblur");
 
-	SHADERS.addPair(d3d.getDevice(), d3d.getContext(),
+	SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/wires/line.fx", "Shader/wires/line.fx",
 		layout, numElements, "BasicLine");
+	SHADERS.addPair(DEVICE, CONTEXT,
+		"Shader/depthMap/depthMap.fx", "Shader/depthMap/depthMap.fx",
+		layout, numElements, "DepthMap");
 	return S_OK;
 }
 
@@ -243,14 +241,8 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
     return 0;
 }
 
-Maze* mz = MAZEFACTORY.genMaze(10);
-
-
-void Render()
+void CameraProc()
 {
-    float ClearColor[4] = { 0.0f, 0.125f, 0.3f, 1.0f }; 
-    d3d.getContext()->ClearRenderTargetView( d3d.getRenderTargetView(), ClearColor );
-	d3d.getContext()->ClearDepthStencilView(d3d.getDepthStencilView(), D3D11_CLEAR_DEPTH, 1.0f, 0);
 
 	if (INPUT.keys['W'])
 	{
@@ -284,13 +276,38 @@ void Render()
 	{
 		camera.lookDown(1);
 	}
-	camera.Render(d3d.getDevice(), d3d.getContext());
-	
-	SHADERS.getPair("Basic3D").bindShader(d3d.getDevice(), d3d.getContext());
-	TEXTURE.getTexture(1)->bindPS(d3d.getDevice(), d3d.getContext(), 0);
+	camera.Render(DEVICE, CONTEXT);
+}
 
-	GRAPHICS.RenderLine(0.0, .0, .0, 10.0, 10.0, 10.0);
-	mz->Render(d3d.getDevice(), d3d.getContext());
+Maze* mz = MAZEFACTORY.genMaze(10);
+
+
+void Render()
+{
+	CameraProc();
+	d3d.clearRenderTarget();
+	auto render = [&](ID3D11Device* device, ID3D11DeviceContext* context)->void
+	{
+		TEXTURE.getTexture(1)->bindPS(device, context, 0);
+		mz->Render(device, context);
+		printf("Render\n");
+	};
+//	printf("%f %f %f\n",camera.getPosition().x,camera.getPosition().y,camera.getPosition().z);
+
+	blur.setRenderTarget(DEVICE, CONTEXT);
+	blur.clearRenderTarget(DEVICE, CONTEXT);
+
+	TEXTURE.getTexture(1)->bindPS(DEVICE, CONTEXT, 0);
+	SHADERS.getPair("Basic3D").bindShader(DEVICE, CONTEXT);
+	mz->Render(DEVICE, CONTEXT);
+
+	blur.bindPS(DEVICE, CONTEXT,0);
+
+	d3d.setRenderTarget();
+	d3d.clearDepthStencil();
+	SHADERS.getPair("Basic2D").bindShader(DEVICE, CONTEXT);
+	TEXTURE.getTexture(0)->bindPS(DEVICE, CONTEXT,0);
+	GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 
 	d3d.Present(true);//V-Sync
 }

@@ -40,14 +40,14 @@ public:
 		func_type_wrapper<std::function<void(ID3D11Device*, ID3D11DeviceContext*)> >::type renderFunction)
 	{
 
-		horiBuffer->setRenderTarget(device, context, depth);
-		horiBuffer->clearRenderTarget(device, context, depth);
+		horiBuffer->setRenderTarget(device, context);
+		horiBuffer->clearRenderTarget(device, context);
 
 		renderFunction(device, context);
 		horiBuffer->bindPS(device, context, 0);
 
-		result->setRenderTarget(device, context, depth);
-		result->clearRenderTarget(device, context, depth);
+		result->setRenderTarget(device, context);
+		result->clearRenderTarget(device, context);
 		SHADERS.getPair("Hblur").bindShader(device, context);
 		GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 	}

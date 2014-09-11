@@ -22,6 +22,7 @@ public:
 	void DisableDepth();
 
 	void setRenderTarget();
+	void clearRenderTarget();
 	void clearDepthStencil();
 	void Present(bool VSync);
 private:
