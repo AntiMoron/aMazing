@@ -9,6 +9,7 @@ class BoneClass
 public:
 	BoneClass();
 	~BoneClass();
+
 private:
 	;
 };

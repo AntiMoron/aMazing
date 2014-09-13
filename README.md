@@ -2,9 +2,17 @@ aMazing
 =======
 
 a maze game.
-```C++
-bool isGame()const
-{
-  return true;
-}
-```
+
+> Game Designs:
+
+> ###### Monsters:
+
+![Alt text](/arts/moster.jpg?raw=true )
+
+> ###### Maze:
+
+![Alt text](/arts/maze.jpg?raw=true )
+
+
+![Alt text](/arts/mazeLine.jpg?raw=true )
+
