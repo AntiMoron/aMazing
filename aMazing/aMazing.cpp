@@ -306,7 +306,6 @@ void Render()
 	d3d.setRenderTarget();
 	d3d.clearDepthStencil();
 	SHADERS.getPair("Basic2D").bindShader(DEVICE, CONTEXT);
-	TEXTURE.getTexture(0)->bindPS(DEVICE, CONTEXT,0);
 	GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 
 	d3d.Present(true);//V-Sync
