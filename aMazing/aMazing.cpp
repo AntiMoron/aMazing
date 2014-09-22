@@ -8,6 +8,7 @@
 #include "MazeGenerator.h"
 #include "PrimitivePipeline.h"
 #include "DepthMap.hpp"
+#include"VHBlurClass.hpp"
 
 HINSTANCE g_hInst = nullptr;
 HWND g_hWnd = nullptr;
@@ -16,7 +17,7 @@ RectangleClass rec;
 CameraClass camera;
 BlockClass bk;
 D3DClass d3d;
-FrameBuffer blur;
+VHBlurClass blur;
 #define DEVICE (d3d.getDevice())
 #define CONTEXT (d3d.getContext())
 #define DEPTH (d3d.getDepthStencilView())
@@ -293,18 +294,12 @@ void Render()
 		printf("Render\n");
 	};
 //	printf("%f %f %f\n",camera.getPosition().x,camera.getPosition().y,camera.getPosition().z);
-
-	blur.setRenderTarget(DEVICE, CONTEXT);
-	blur.clearRenderTarget(DEVICE, CONTEXT);
-
-	TEXTURE.getTexture(1)->bindPS(DEVICE, CONTEXT, 0);
-	SHADERS.getPair("Basic3D").bindShader(DEVICE, CONTEXT);
-	mz->Render(DEVICE, CONTEXT);
-
-	blur.bindPS(DEVICE, CONTEXT,0);
+	blur.Render(DEVICE, CONTEXT, 4,3,render);
 
 	d3d.setRenderTarget();
 	d3d.clearDepthStencil();
+	blur.bindPS(DEVICE, CONTEXT, 0);
+
 	SHADERS.getPair("Basic2D").bindShader(DEVICE, CONTEXT);
 	GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 

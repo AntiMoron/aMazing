@@ -31,6 +31,15 @@ Icon
 # Thumbnails
 ._*
 
+
 # Files that might appear on external disk
 .Spotlight-V100
 .Trashes
+
+aMazing/Release/
+aMazing/Debug/
+*.obj
+*.log
+*.tlog
+*.suo
+*.sdf
