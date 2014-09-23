@@ -41,5 +41,5 @@ aMazing/Debug/
 *.obj
 *.log
 *.tlog
-*.suo
-*.sdf
+aMazing\aMazing_2010.sdf
+aMazing\aMazing_2010.v12.suo
