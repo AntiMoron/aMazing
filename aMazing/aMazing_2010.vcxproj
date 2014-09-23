@@ -379,6 +379,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="aMazing.cpp" />
+    <ClCompile Include="AmbientLight.cpp" />
     <ClCompile Include="BasicObject.cpp" />
     <ClCompile Include="BlockClass.cpp" />
     <ClCompile Include="BoneClass.cpp" />
@@ -388,6 +389,7 @@
     <ClCompile Include="exceptions.cpp" />
     <ClCompile Include="FileTracker.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
+    <ClCompile Include="FunctionType.hpp" />
     <ClCompile Include="InputClass.cpp" />
     <ClCompile Include="LineClass.cpp" />
     <ClCompile Include="Maze.cpp" />
@@ -411,6 +413,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AmbientLight.h" />
     <ClInclude Include="BasicObject.h" />
     <ClInclude Include="BlockClass.h" />
     <ClInclude Include="BoneClass.h" />
@@ -435,12 +438,15 @@
     <ClInclude Include="MutableString.h" />
     <ClInclude Include="PixelShaderClass.h" />
     <ClInclude Include="PrimitivePipeline.h" />
+    <ClInclude Include="ProjectTexture.hpp" />
     <ClInclude Include="RectangleClass.h" />
     <CLInclude Include="resource.h" />
+    <ClInclude Include="ScopeGuard.hpp" />
     <ClInclude Include="ShaderClass.h" />
     <ClInclude Include="ShaderCompilerClass.h" />
     <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="ShaderPair.h" />
+    <ClInclude Include="ShadowMap.hpp" />
     <ClInclude Include="TextureClass.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="vertex.hpp" />

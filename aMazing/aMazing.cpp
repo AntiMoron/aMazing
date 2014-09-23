@@ -7,8 +7,8 @@
 #include "TextureManager.h"
 #include "MazeGenerator.h"
 #include "PrimitivePipeline.h"
-#include "DepthMap.hpp"
-#include"VHBlurClass.hpp"
+#include "AmbientLight.h"
+#include "ShadowMap.hpp"
 
 HINSTANCE g_hInst = nullptr;
 HWND g_hWnd = nullptr;
@@ -17,7 +17,8 @@ RectangleClass rec;
 CameraClass camera;
 BlockClass bk;
 D3DClass d3d;
-VHBlurClass blur;
+AmbientLight ao;
+ShadowMap blur;
 #define DEVICE (d3d.getDevice())
 #define CONTEXT (d3d.getContext())
 #define DEPTH (d3d.getDepthStencilView())
@@ -132,6 +133,7 @@ HRESULT InitDevice()
 	camera.Initialize(DEVICE, CONTEXT);
 	rec.Initialize(DEVICE, CONTEXT);
 	blur.Initialize(DEVICE, CONTEXT);
+	ao.Initialize(DEVICE, CONTEXT);
 	GRAPHICS.Initialize(&d3d);
 	// Define the input layout
 	D3D11_INPUT_ELEMENT_DESC layout[] =
@@ -162,6 +164,12 @@ HRESULT InitDevice()
 	SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/depthMap/depthMap.fx", "Shader/depthMap/depthMap.fx",
 		layout, numElements, "DepthMap");
+	SHADERS.addPair(DEVICE, CONTEXT,
+		"Shader/texture/ProjectionTex.fx", "Shader/texture/ProjectionTex.fx",
+		layout, numElements, "ProjectionTex");
+	SHADERS.addPair(DEVICE, CONTEXT,
+	"Shader/ShadowMap/ShadowMap.fx", "Shader/ShadowMap/ShadowMap.fx",
+		layout, numElements, "ShadowMap");
 	return S_OK;
 }
 
@@ -176,6 +184,7 @@ void CleanupDevice()
 	bk.Shutdown();
 	camera.Shutdown();
 	rec.Shutdown();
+	ao.Shutdown();
 	GRAPHICS.Shutdown();
 }
 
@@ -280,6 +289,7 @@ void CameraProc()
 	camera.Render(DEVICE, CONTEXT);
 }
 
+
 Maze* mz = MAZEFACTORY.genMaze(10);
 
 
@@ -287,20 +297,20 @@ void Render()
 {
 	CameraProc();
 	d3d.clearRenderTarget();
+	ao.Render(DEVICE, CONTEXT);
 	auto render = [&](ID3D11Device* device, ID3D11DeviceContext* context)->void
 	{
 		TEXTURE.getTexture(1)->bindPS(device, context, 0);
 		mz->Render(device, context);
-		printf("Render\n");
 	};
-//	printf("%f %f %f\n",camera.getPosition().x,camera.getPosition().y,camera.getPosition().z);
-	blur.Render(DEVICE, CONTEXT, 4,3,render);
+
+	blur.Render(DEVICE, CONTEXT, render);
 
 	d3d.setRenderTarget();
 	d3d.clearDepthStencil();
 	blur.bindPS(DEVICE, CONTEXT, 0);
 
-	SHADERS.getPair("Basic2D").bindShader(DEVICE, CONTEXT);
+	SHADERS.bindPair("Basic2D",DEVICE,CONTEXT);
 	GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 
 	d3d.Present(true);//V-Sync

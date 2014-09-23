@@ -48,7 +48,7 @@ public:
 		ID3D11DeviceContext* context,
 		unsigned short hBlurCount,
 		unsigned short vBlurCount,
-		func_type_wrapper<std::function<void(ID3D11Device*, ID3D11DeviceContext*)> >::type renderFunction)
+		common_tool::functionType<std::function<void(ID3D11Device*, ID3D11DeviceContext*)> > renderFunction)
 	{
 		m_hbuffer->setRenderTarget(device, context);
 		m_hbuffer->clearRenderTarget(device, context);
@@ -64,13 +64,13 @@ public:
 			m_vbuffer->setRenderTarget(device, context);
 			m_vbuffer->clearRenderTarget(device, context);
 			m_hbuffer->bindPS(device, context, 0);
-			SHADERS.getPair("Vblur").bindShader(device, context);
+			SHADERS.bindPair("Vblur", device, context);
 			GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 
 			m_hbuffer->clearRenderTarget(device, context);
 			m_hbuffer->setRenderTarget(device, context);
 			m_vbuffer->bindPS(device, context, 0);
-			SHADERS.getPair("Hblur").bindShader(device, context);
+			SHADERS.bindPair("Hblur", device, context);
 			GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 		}
 		if (vBlurCount == hBlurCount)
@@ -78,7 +78,7 @@ public:
 			setRenderTarget(device, context);
 			clearRenderTarget(device, context);
 			m_hbuffer->bindPS(device, context, 0);
-			SHADERS.getPair("Basic2D").bindShader(device, context);
+			SHADERS.bindPair("Basic2D", device, context);
 			GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 		}
 
@@ -93,7 +93,7 @@ public:
 					m_hbuffer->setRenderTarget(device, context);
 					m_hbuffer->clearRenderTarget(device, context);
 					bindPS(device, context, 0);
-					SHADERS.getPair("Hblur").bindShader(device, context);
+					SHADERS.bindPair("Hblur", device, context);
 					GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 				}
 				else
@@ -101,7 +101,7 @@ public:
 					setRenderTarget(device, context);
 					clearRenderTarget(device, context);
 					m_hbuffer->bindPS(device, context, 0);
-					SHADERS.getPair("Hblur").bindShader(device, context);
+					SHADERS.bindPair("Hblur", device, context);
 					GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 				}
 			}
@@ -110,7 +110,7 @@ public:
 			setRenderTarget(device, context);
 			clearRenderTarget(device, context);
 			m_hbuffer->bindPS(device, context, 0);
-			SHADERS.getPair("Hblur").bindShader(device, context);
+			SHADERS.bindPair("Hblur", device, context);
 			GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 		}
 		else if (vBlurCount > pairMin)
@@ -123,7 +123,7 @@ public:
 					m_hbuffer->setRenderTarget(device, context);
 					m_hbuffer->clearRenderTarget(device, context);
 					bindPS(device, context, 0);
-					SHADERS.getPair("Vblur").bindShader(device, context);
+					SHADERS.bindPair("Vblur", device, context);
 					GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 				}
 				else
@@ -131,7 +131,7 @@ public:
 					setRenderTarget(device, context);
 					clearRenderTarget(device, context);
 					m_hbuffer->bindPS(device, context, 0);
-					SHADERS.getPair("Vblur").bindShader(device, context);
+					SHADERS.bindPair("Vblur", device, context);
 					GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 				}
 			}
@@ -140,7 +140,7 @@ public:
 			setRenderTarget(device, context);
 			clearRenderTarget(device, context);
 			m_hbuffer->bindPS(device, context, 0);
-			SHADERS.getPair("Vblur").bindShader(device, context);
+			SHADERS.bindPair("Vblur", device, context);
 			GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 		}
 	}

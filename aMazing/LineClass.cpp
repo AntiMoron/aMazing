@@ -80,7 +80,7 @@ void LineClass::Render(ID3D11Device* device,
 		};
 		m_vertices.UpdateVertices(device, context, verts, 2);
 	}
-	SHADERS.getPair("BasicLine").bindShader(device, context);
+	SHADERS.bindPair("BasicLine", device, context);
 	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 	m_color.BindPixelShader(device, context);
 	m_vertices.Render(device, context);

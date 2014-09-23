@@ -49,6 +49,6 @@ Maze* MazeGenerator::genMaze(int dimension)
 	output->height = dimension;
 	output->m_map = new bool[dimension * dimension];
 	memset(output->m_map, 0, sizeof(bool)* dimension * dimension);
-	
+	output->m_map[output->width * output->height / 4] = true;
 	return output;
 }

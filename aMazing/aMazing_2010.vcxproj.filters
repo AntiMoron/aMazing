@@ -131,6 +131,16 @@
     <ClInclude Include="DepthMap.hpp">
       <Filter>Engine\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="AmbientLight.h" />
+    <ClInclude Include="ScopeGuard.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectTexture.hpp">
+      <Filter>Engine\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowMap.hpp">
+      <Filter>Engine\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aMazing.cpp" />
@@ -203,6 +213,10 @@
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="BoneClass.cpp" />
+    <ClCompile Include="FunctionType.hpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="AmbientLight.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">

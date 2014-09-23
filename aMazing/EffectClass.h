@@ -2,7 +2,7 @@
 #include"PrimitivePipeline.h"
 #include"ShaderManager.h"
 #include"FrameBuffer.h"
-#include<functional>
+#include"FunctionType.hpp"
 #include<memory>
 
 class EffectClass
@@ -40,11 +40,5 @@ public:
 protected:
 	std::unique_ptr<FrameBuffer> fbo;
 	bool is_init;
-private:
-	template<typename T>
-	struct func_type_wrapper
-	{
-		typedef T type;
-	};
 };
 

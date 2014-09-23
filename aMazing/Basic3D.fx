@@ -3,16 +3,16 @@ SamplerState samLinear : register( s0 );
 
 cbuffer cameraMatrices : register( b0 )
 {
-	matrix World;
-	matrix View;
+    matrix World;
+    matrix View;
     matrix Projection;
 };
 
 cbuffer PRS : register(b1)
 {
-	matrix Pos;
-	matrix Rot;
-	matrix Sca;
+    matrix Pos;
+    matrix Rot;
+    matrix Sca;
 }
 
 struct VS_INPUT

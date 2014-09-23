@@ -14,6 +14,7 @@ ShaderManager& ShaderManager::getInstance()
 
 ShaderManager::ShaderManager()
 {
+	bind_enabled = true;
 }
 
 
@@ -56,7 +57,9 @@ HRESULT ShaderManager::addPair(ID3D11Device* device,
 	return S_OK;
 }
 
-ShaderPair& ShaderManager::getPair(const std::string& str)
+bool ShaderManager::bindPair(const std::string& str, 
+	ID3D11Device* device, 
+	ID3D11DeviceContext* context)
 {
 	auto f = [&](const std::string& str)->long
 	{
@@ -92,6 +95,32 @@ ShaderPair& ShaderManager::getPair(const std::string& str)
 		|| (index < 0))
 	{
 		throw std::out_of_range("Shader Manager access out of range.");
+		return false;
 	}
-	return *vec[index];
+	if (bind_enabled == true)
+	{
+		vec[index]->bindShader(device, context);
+	}
+	else
+	{
+		return false;
+	}
+	return true;
+}
+
+void ShaderManager::DisableShaderBind()
+{
+	if (bind_enabled == false)
+	{
+		printf("ShaderBinding Already Disabled.\r\n");
+	}
+	bind_enabled = false;
+}
+void ShaderManager::EnableShaderBind()
+{
+	if (bind_enabled == true)
+	{
+		printf("ShaderBinding Already Enabled.\r\n");
+	}
+	bind_enabled = true;
 }

@@ -18,13 +18,19 @@ public:
 		unsigned int layoutCount,
 		std::string&& shadername);
 
-	ShaderPair& getPair(const std::string& str);
+	bool bindPair(const std::string& str,
+		ID3D11Device* device,
+		ID3D11DeviceContext* context);
+	
+	void DisableShaderBind();
+	void EnableShaderBind();
 private:
 	ShaderManager();
 	~ShaderManager();
 
 	static ShaderManager* instance;
 	std::vector<ShaderPair*> vec;
+	bool bind_enabled;
 };
 
 #define SHADERS (ShaderManager::getInstance())

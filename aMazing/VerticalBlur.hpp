@@ -31,10 +31,10 @@ public:
 		return S_OK;
 	}
 
-	template<typename... T>
+	template<typename ...T>
 	void Render(ID3D11Device* device,
 		ID3D11DeviceContext* context,
-		func_type_wrapper<std::function<void(ID3D11Device*, ID3D11DeviceContext*)> >::type renderFunction)
+		common_tool::functionType<std::function<void(ID3D11Device*, ID3D11DeviceContext*)> > renderFunction)
 	{
 		vertBuffer->setRenderTarget(device, context);
 		vertBuffer->clearRenderTarget(device, context);
@@ -44,7 +44,7 @@ public:
 		setRenderTarget(device, context);
 		clearRenderTarget(device, context);
 		vertBuffer->bindPS(device, context, 0);
-		SHADERS.getPair("Vblur").bindShader(device, context);
+		SHADERS.bindPair("Vblur", device, context);
 		GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 	}
 private:

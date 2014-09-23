@@ -25,16 +25,16 @@ void Maze::Render(ID3D11Device* device,
 	{
 		for (int j = 0; j < width; j++)
 		{
-			XMFLOAT3 position = { i * 0.5f, 0.5f, j*0.5f };
+			XMFLOAT3 position = { i * 0.05f, 0.05f, j*0.05f };
 			XMFLOAT3 rotation = { .0f, .0f, .0f };
-			XMFLOAT3 scaling = { 0.5f, 0.5f, 0.5f };
+			XMFLOAT3 scaling = { 0.05f, 0.05f, 0.05f };
 			if (m_map[i * width + j] == true)
 			{
-				position = { i * 0.5f, 0.5f, j*0.5f };
+				position = { i * 0.05f, 0.05f, j*0.05f };
 			}
 			else
 			{
-				position = { i * 0.5f, 0.0f, j*0.5f };
+				position = { i * 0.05f, 0.0f, j*0.05f };
 			}
 			GRAPHICS.RenderBox(position.x, position.y, position.z, 
 				rotation.x, rotation.y, rotation.z,
