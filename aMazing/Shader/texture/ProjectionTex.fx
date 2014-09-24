@@ -16,7 +16,7 @@ cbuffer PRS : register(b1)
     matrix Sca;
 }
 
-cbuffer PRS : register(b2)
+cbuffer LightMatrices: register(b2)
 {
     matrix LightView;
     matrix LightProjection;
