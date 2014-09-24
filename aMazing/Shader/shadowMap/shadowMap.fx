@@ -40,7 +40,7 @@ PS_INPUT VSEntry( VS_INPUT input )
 {
     PS_INPUT output = (PS_INPUT)0;
 
-    output.Pos = input.Pos;
+    output.Pos = float4(input.Pos.xyz,1.0f);
     output.Pos = mul( output.Pos, Rot);
     output.Pos = mul( output.Pos, Sca);
     output.Pos = mul( output.Pos, Pos);
@@ -59,7 +59,7 @@ PS_INPUT VSEntry( VS_INPUT input )
 
 float4 PSEntry(PS_INPUT input) : SV_Target
 {
-	float bias = 0.00000055f;
+	float bias = 0.0000001f;
 	float4 color = txDiffuse.Sample(samLinear, input.Tex);
 	clip(color.a == 0.0f ? -1 : 1);
 
@@ -70,10 +70,10 @@ float4 PSEntry(PS_INPUT input) : SV_Target
 	if((saturate(projectTexCoord.x) == projectTexCoord.x) 
 		&& (saturate(projectTexCoord.y) == projectTexCoord.y))
 	{
-		float4 depthColor = ProTexutre.Sample(samLinear, projectTexCoord);
 		float lightdepth = input.viewPosition.z / input.viewPosition.w;
 		lightdepth = lightdepth - bias;
 		float cameradepth = input.Pos.z / input.Pos.w;
+		float4 depthColor = float4(lightdepth, lightdepth, lightdepth, 1.0f);
 		if (lightdepth < cameradepth)
 			color = depthColor;
 	}

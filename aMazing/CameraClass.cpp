@@ -21,8 +21,8 @@ HRESULT CameraClass::Initialize(ID3D11Device* device,
 	forwardDirection = { 0.0f, 0.0f, -1.0f };
 	lefthandDirection = { 1.0f, 0.0f, 0.0f };
 
-	setFov(40);
-	near_far = {0.001f,1000.0f};
+	setFov(40.0f);
+	near_far = {0.01f,1000.0f};
 
 	D3DXMATRIX rotationMatrix;
 	D3DXVECTOR3 lookDir = D3DXVECTOR3(0.0f, 0.0f, -1.0f);

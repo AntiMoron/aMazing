@@ -256,19 +256,19 @@ void CameraProc()
 
 	if (INPUT.keys['W'])
 	{
-		camera.moveForward(0.1f);
+		camera.moveForward(0.01f);
 	}
 	if (INPUT.keys['S'])
 	{
-		camera.moveBackward(0.1f);
+		camera.moveBackward(0.01f);
 	}
 	if (INPUT.keys['A'])
 	{
-		camera.moveLeft(0.1f);
+		camera.moveLeft(0.01f);
 	}
 	if (INPUT.keys['D'])
 	{
-		camera.moveRight(0.1f);
+		camera.moveRight(0.01f);
 	}
 	if (INPUT.keys[VK_LEFT])
 	{

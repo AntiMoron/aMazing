@@ -21,13 +21,13 @@ HRESULT AmbientLight::Initialize(ID3D11Device* device,
 	target = { .0f, .0f, .0f };
 	position = { -0.1f, -0.1f, -0.1f };
 	setFov(40.0f);
-	near_far = { 0.001f, 1000.0f };
+	near_far = { 0.01f, 1000.0f };
 	AmbientLightMatrices cbData = {};
 	XMVECTOR st = { position.x, position.y, position.z },
 		ed = { target.x, target.y, target.z },
 		up = { 0.0f, 1.0f, 0.0f };
 	cbData.viewMatrix = XMMatrixLookAtLH(st, ed, up);
-	cbData.projectionMatrix = XMMatrixPerspectiveFovLH(fov, ASPECTRATIO, near_far.x, near_far.y);;
+	cbData.projectionMatrix = XMMatrixPerspectiveFovLH(fov, ASPECTRATIO, near_far.x, near_far.y);
 
 	cbData.viewMatrix = XMMatrixTranspose(cbData.viewMatrix);
 	cbData.projectionMatrix = XMMatrixTranspose(cbData.projectionMatrix);
@@ -78,7 +78,7 @@ void AmbientLight::Render(ID3D11Device* device,
 		ed = { target.x, target.y, target.z },
 		up = { 0.0f, 1.0f, 0.0f };
 	cbData.viewMatrix = XMMatrixLookAtLH(st, ed, up);
-	cbData.projectionMatrix = XMMatrixPerspectiveFovLH(fov, ASPECTRATIO, near_far.x, near_far.y);;
+	cbData.projectionMatrix = XMMatrixPerspectiveFovLH(fov, 1.0f, near_far.x, near_far.y);
 
 	cbData.viewMatrix = XMMatrixTranspose(cbData.viewMatrix);
 	cbData.projectionMatrix = XMMatrixTranspose(cbData.projectionMatrix);
