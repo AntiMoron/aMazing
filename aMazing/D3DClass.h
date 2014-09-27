@@ -36,6 +36,7 @@ private:
 	ID3D11DepthStencilView*             g_pDepthStencilView;
 	ID3D11ShaderResourceView*           g_pTextureRV;
 	ID3D11SamplerState*                 g_pSamplerLinear;
+	ID3D11SamplerState*                 g_pSamplerClamp;
 
 	ID3D11DepthStencilState*			m_depthEnabledStencilState;
 	ID3D11DepthStencilState*			m_depthDisabledStencilState;

@@ -9,6 +9,7 @@
 #include "PrimitivePipeline.h"
 #include "AmbientLight.h"
 #include "ShadowMap.hpp"
+#include "DepthMap.hpp"
 
 HINSTANCE g_hInst = nullptr;
 HWND g_hWnd = nullptr;
@@ -87,7 +88,7 @@ HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow )
 
     // Create window
     g_hInst = hInstance;
-    RECT rc = { 0, 0, 640, 480 };
+    RECT rc = { 0, 0, 1366, 768 };
     AdjustWindowRect( &rc, WS_OVERLAPPEDWINDOW, FALSE );
     g_hWnd = CreateWindow( L"aMazingWndClass", L"aMazing by AntiMoron anti2moron@gmail.com", WS_OVERLAPPEDWINDOW,
                            CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, NULL, NULL, hInstance,
@@ -290,17 +291,20 @@ void CameraProc()
 }
 
 
-Maze* mz = MAZEFACTORY.genMaze(10);
+Maze* mz = MAZEFACTORY.genMaze(30);
 
 
 void Render()
 {
 	CameraProc();
 	d3d.clearRenderTarget();
+	/*XMFLOAT3 lp =  camera.getPosition();
+	lp.y = 0.39f;
+	ao.setPosition(lp);*/
 	ao.Render(DEVICE, CONTEXT);
 	auto render = [&](ID3D11Device* device, ID3D11DeviceContext* context)->void
 	{
-		TEXTURE.getTexture(1)->bindPS(device, context, 0);
+		TEXTURE.getTexture(1)->bindPS(DEVICE, CONTEXT, 0);
 		mz->Render(device, context);
 	};
 

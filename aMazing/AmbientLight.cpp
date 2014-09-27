@@ -19,9 +19,9 @@ HRESULT AmbientLight::Initialize(ID3D11Device* device,
 		return hr;
 	}
 	target = { .0f, .0f, .0f };
-	position = { -0.1f, -0.1f, -0.1f };
-	setFov(40.0f);
-	near_far = { 0.01f, 1000.0f };
+	position = { -0.2f, 0.39f, -0.2f };
+	setFov(70.0f);
+	near_far = { 0.0001f, 100.0f };
 	AmbientLightMatrices cbData = {};
 	XMVECTOR st = { position.x, position.y, position.z },
 		ed = { target.x, target.y, target.z },
@@ -55,6 +55,7 @@ float AmbientLight::getFov()const
 void AmbientLight::setPosition(XMFLOAT3 pos)
 {
 	position = pos;
+	printf("%f %f %f\n",pos.x,pos.y,pos.z);
 }
 XMFLOAT3 AmbientLight::getPosition()
 {

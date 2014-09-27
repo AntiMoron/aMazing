@@ -13,6 +13,7 @@ public:
 	~FrameBuffer();
 
 	HRESULT Initialize(ID3D11Device* device, ID3D11DeviceContext* context);
+	HRESULT Initialize(ID3D11Device* device, ID3D11DeviceContext* context,unsigned short imageWidth,unsigned short imageHeight);
 	HRESULT Shutdown();
 
 	void setRenderTarget(ID3D11Device* device, ID3D11DeviceContext* context);

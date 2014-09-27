@@ -9,10 +9,11 @@ public:
 		ID3D11DeviceContext* context)
 	{
 		HRESULT hr;
-		depthBuffer.reset(new DepthMap);
-		hr = depthBuffer->Initialize(device, context);
+		depthBuffer.reset(new FrameBuffer);
+		hr = depthBuffer->Initialize(device, context, 3600, 3600);
 		if (FAILED(hr))
 		{
+			throw;
 			return hr;
 		}
 		hr = EffectClass::Initialize(device, context);
@@ -34,15 +35,32 @@ public:
 		ID3D11DeviceContext* context,
 		common_tool::functionType<std::function<void(ID3D11Device*, ID3D11DeviceContext*)> > renderFunction)
 	{
-		depthBuffer->Render(device, context, renderFunction);
+		depthBuffer->clearRenderTarget(device, context);
+		depthBuffer->setRenderTarget(device, context);
+		SHADERS.bindPair("DepthMap", device, context); 
+		SHADERS.DisableShaderBind();
+		renderFunction(device, context);
+		SHADERS.EnableShaderBind();
+
 		setRenderTarget(device, context);
 		clearRenderTarget(device, context);
+		clearDepthStencil(device, context);
+//#define _DB
+#ifdef _DB
+		depthBuffer->bindPS(device, context, 0);
+		SHADERS.bindPair("Basic2D", device, context);
+		GRAPHICS.RenderRectangle(0,0,WINWIDTH,WINHEIGHT);
+		return;
+#else
 		depthBuffer->bindPS(device, context, 1);
+//		TEXTURE.getTexture(0)->bindPS(device,context,1);
 		SHADERS.bindPair("ShadowMap", device, context);
 		SHADERS.DisableShaderBind();
 		renderFunction(device, context);
 		SHADERS.EnableShaderBind();
+#endif
 	}
 private:
-	std::unique_ptr<DepthMap> depthBuffer;
+	std::unique_ptr<FrameBuffer> depthBuffer;
+//	std::unique_ptr<DepthMap> depthBuffer;
 };

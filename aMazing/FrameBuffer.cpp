@@ -20,6 +20,23 @@ FrameBuffer::~FrameBuffer()
 HRESULT FrameBuffer::Initialize(ID3D11Device* device, ID3D11DeviceContext* context)
 {
 	HRESULT hr;
+	hr = FrameBuffer::Initialize(device, context, WINWIDTH, WINHEIGHT);
+	if (FAILED(hr))
+	{
+		return E_FAIL;
+	}
+	is_inited = true;
+	return S_OK;
+}
+
+HRESULT FrameBuffer::Initialize(ID3D11Device* device, ID3D11DeviceContext* context, unsigned short imageWidth, unsigned short imageHeight)
+{
+	if (isInited() == true)
+	{
+		return E_FAIL;
+	}
+
+	HRESULT hr;
 	D3D11_TEXTURE2D_DESC textureDesc;
 	D3D11_RENDER_TARGET_VIEW_DESC renderTargetViewDesc;
 	D3D11_SHADER_RESOURCE_VIEW_DESC shaderResourceViewDesc;
@@ -62,8 +79,8 @@ HRESULT FrameBuffer::Initialize(ID3D11Device* device, ID3D11DeviceContext* conte
 
 	D3D11_TEXTURE2D_DESC descDepth;
 	ZeroMemory(&descDepth, sizeof(descDepth));
-	descDepth.Width = WINWIDTH;
-	descDepth.Height = WINHEIGHT;
+	descDepth.Width = imageWidth;
+	descDepth.Height = imageHeight;
 	descDepth.MipLevels = 1;
 	descDepth.ArraySize = 1;
 	descDepth.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
@@ -90,6 +107,8 @@ HRESULT FrameBuffer::Initialize(ID3D11Device* device, ID3D11DeviceContext* conte
 	is_inited = true;
 	return S_OK;
 }
+
+
 HRESULT FrameBuffer::Shutdown()
 {
 	SAFE_RELEASE(m_shaderResourceView);
@@ -109,7 +128,7 @@ void FrameBuffer::setRenderTarget(ID3D11Device* device,
 void FrameBuffer::clearRenderTarget(ID3D11Device* device,
 	ID3D11DeviceContext* context)
 {
-	float clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+	float clearColor[] = { 0.3f, 0.3f, 0.3f, 1.0f };
 	context->ClearRenderTargetView(m_renderTargetView, clearColor);
 	context->ClearDepthStencilView(m_depthStencilView, 
 		D3D11_CLEAR_DEPTH, 1.0f, NULL);
@@ -126,6 +145,7 @@ void FrameBuffer::bindPS(ID3D11Device* device,
 	ID3D11DeviceContext* context,
 	unsigned int textureSlot)
 {
+//	context->ResolveSubresource(, );
 	context->PSSetShaderResources(textureSlot, 1, &m_shaderResourceView);
 }
 
@@ -133,4 +153,9 @@ void FrameBuffer::clearDepthBuffer(ID3D11Device* device, ID3D11DeviceContext* co
 {
 	context->ClearDepthStencilView(m_depthStencilView,
 		D3D11_CLEAR_DEPTH, 1.0f, NULL);
+}
+
+bool FrameBuffer::isInited()const
+{
+	return is_inited;
 }

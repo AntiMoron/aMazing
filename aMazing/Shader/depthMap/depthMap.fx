@@ -15,35 +15,40 @@ cbuffer PRS : register(b1)
 	matrix Sca;
 }
 
+cbuffer LightMatrices : register(b2)
+{
+	matrix LightView;
+	matrix LightProjection;
+}
+
+
 struct VS_INPUT
 {
     float4 Pos : POSITION;
-    float2 Tex : TEXCOORD0;
 };
 
 struct PS_INPUT
 {
     float4 Pos : SV_POSITION;
-    float2 Tex : TEXCOORD0;
+    float4 depthPosition : TEXCOORD0;
 };
 
 PS_INPUT VSEntry( VS_INPUT input )
 {
     PS_INPUT output = (PS_INPUT)0;
-
-    output.Pos = input.Pos;
+	input.Pos.w = 1.0f;
+	output.Pos = input.Pos;
     output.Pos = mul( output.Pos, Rot);
     output.Pos = mul( output.Pos, Sca);
     output.Pos = mul( output.Pos, Pos);
     output.Pos = mul( output.Pos, World );
-    output.Pos = mul( output.Pos, View );
-    output.Pos = mul( output.Pos, Projection );
-    output.Tex = input.Tex;    
+	output.Pos = mul(output.Pos, LightView);
+	output.Pos = mul(output.Pos, LightProjection);
+	output.depthPosition = output.Pos;
     return output;
 }
 
 float4 PSEntry(PS_INPUT input) : SV_Target
 {
-	float depth = input.Pos.z / input.Pos.w;
-	return float4(depth,depth,depth,1.0f);
+	return input.depthPosition;
 }
