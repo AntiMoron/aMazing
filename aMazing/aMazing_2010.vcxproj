@@ -389,6 +389,7 @@
     <ClCompile Include="exceptions.cpp" />
     <ClCompile Include="FileTracker.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
+    <ClCompile Include="FrustumClass.cpp" />
     <ClCompile Include="FunctionType.hpp" />
     <ClCompile Include="InputClass.cpp" />
     <ClCompile Include="LineClass.cpp" />
@@ -425,6 +426,7 @@
     <ClInclude Include="exceptions.h" />
     <ClInclude Include="FileTracker.h" />
     <ClInclude Include="FrameBuffer.h" />
+    <ClInclude Include="FrustumClass.h" />
     <ClInclude Include="GPUConstantBuffer.hpp" />
     <ClInclude Include="GPUMutableVerticesBuffer.hpp" />
     <ClInclude Include="GPUVerticesBuffer.hpp" />

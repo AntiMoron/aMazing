@@ -64,7 +64,7 @@ PS_INPUT VSEntry( VS_INPUT input )
 
 float4 PSEntry(PS_INPUT input) : SV_Target
 {
-	float bias = 0.00000028f;
+	float bias = 0.0000005f;
 	float4 color = txDiffuse.Sample(samWrap, input.Tex);
 	clip(color.a == 0.0f ? -1 : 1);
 

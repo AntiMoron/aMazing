@@ -16,6 +16,9 @@ public:
 	HRESULT Initialize(ID3D11Device* device, ID3D11DeviceContext* context,unsigned short imageWidth,unsigned short imageHeight);
 	HRESULT Shutdown();
 
+	HRESULT EnableMultiSampling();
+	HRESULT DisableMultiSampling();
+
 	void setRenderTarget(ID3D11Device* device, ID3D11DeviceContext* context);
 	void clearRenderTarget(ID3D11Device* device, ID3D11DeviceContext* context);
 
@@ -29,9 +32,11 @@ public:
 	bool isInited()const;
 private:
 	bool is_inited;
+	bool multiSampling;
 	void clearDepthBuffer(ID3D11Device* device, ID3D11DeviceContext* context);
 	friend class EffectClass;
 	ID3D11Texture2D* m_renderTargetTexture;
+	ID3D11Texture2D* m_renderTargetTextureMS;//Multi-sampled
 	ID3D11RenderTargetView* m_renderTargetView;
 	ID3D11ShaderResourceView* m_shaderResourceView;
 	ID3D11Texture2D* m_pDepthStencil;

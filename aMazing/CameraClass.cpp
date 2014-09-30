@@ -52,6 +52,9 @@ HRESULT CameraClass::Initialize(ID3D11Device* device,
 	m_matrices.UpdateData(&m_matriceData);
 	m_matrices.UpdateGpu(device, context);
 	m_matrices.BindVertexShader(device, context);
+
+	m_frustum.reset(new FrustumClass);
+	m_frustum->ConstructFrustum(near_far.y,m_matriceData.projection,m_matriceData.view);
 	return S_OK;
 }
 
@@ -163,16 +166,20 @@ void CameraClass::Render(ID3D11Device* device,
 		position.z + lookDir.z };
 	FXMVECTOR _upVector = { upDir.x, upDir.y, upDir.z };
 	upVector = { upDir.x, upDir.y, upDir.z };
+	
 	m_matriceData.world = XMMatrixIdentity();
 	m_matriceData.view = XMMatrixLookAtLH(posVector, focVector, _upVector);
 	m_matriceData.projection = XMMatrixPerspectiveFovLH(fov, ASPECTRATIO, near_far.x, near_far.y);
 
-	m_matriceData.world = XMMatrixTranspose(m_matriceData.world);
-	m_matriceData.view = XMMatrixTranspose(m_matriceData.view);
-	m_matriceData.projection = XMMatrixTranspose(m_matriceData.projection);
-	m_matrices.UpdateData(&m_matriceData);
+	decltype(m_matriceData) shaderMatricesData;
+	shaderMatricesData.world = XMMatrixTranspose(m_matriceData.world);
+	shaderMatricesData.view = XMMatrixTranspose(m_matriceData.view);
+	shaderMatricesData.projection = XMMatrixTranspose(m_matriceData.projection);
+	m_matrices.UpdateData(&shaderMatricesData);
 	m_matrices.UpdateGpu(device, context);
 	m_matrices.BindVertexShader(device, context);
+
+	m_frustum->ConstructFrustum(near_far.y, m_matriceData.projection, m_matriceData.view);
 }
 
 void CameraClass::moveLeft(float step)
@@ -237,4 +244,9 @@ void CameraClass::twistRight(float step)
 	XMFLOAT3 rot = getRotation();
 	rot.x += step * 0.017453292f;
 	setRotation(rot);
+}
+
+FrustumClass* CameraClass::getFrustum()
+{
+	return m_frustum.get();
 }

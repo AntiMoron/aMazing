@@ -1,6 +1,6 @@
 #pragma once
 #include"PrimitivePipeline.h"
-
+#include"CameraClass.h"
 class Maze
 {
 public:
@@ -8,7 +8,8 @@ public:
 	~Maze();
 
 	void Render(ID3D11Device* device,
-		ID3D11DeviceContext* context);
+		ID3D11DeviceContext* context,
+		CameraClass* camera);
 private:
 	friend class MazeGenerator;
 	bool* m_map;

@@ -1,10 +1,11 @@
 #pragma once
 
+#include<memory>
 #include"GPUConstantBuffer.hpp"
 #include<xnamath.h>
-#include<D3DX10math.h>
 #include"WindowClass.h"
 #include"Defines.hpp"
+#include"FrustumClass.h"
 
 class CameraClass
 {
@@ -45,6 +46,8 @@ public:
 	void lookDown(float step);
 	void twistLeft(float );
 	void twistRight(float);
+
+	FrustumClass* getFrustum();
 private:
 	float fov;
 	XMFLOAT2 near_far;
@@ -67,5 +70,6 @@ private:
 	};
 	struct cameraMatrices m_matriceData;
 	GPUConstantBuffer<cameraMatrices> m_matrices;
+	std::unique_ptr<FrustumClass> m_frustum;
 };
 

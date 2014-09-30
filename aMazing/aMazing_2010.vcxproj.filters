@@ -141,6 +141,7 @@
     <ClInclude Include="ShadowMap.hpp">
       <Filter>Engine\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="FrustumClass.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aMazing.cpp" />
@@ -217,6 +218,7 @@
       <Filter>Engine\System</Filter>
     </ClCompile>
     <ClCompile Include="AmbientLight.cpp" />
+    <ClCompile Include="FrustumClass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">

@@ -42,12 +42,14 @@ HRESULT ShaderManager::addPair(ID3D11Device* device,
 	hr = v->createShaderFromFile(device,context,vfilename,layout,layoutCount);
 	if (FAILED(hr))
 	{
+		printf("Error At : %s\n",vfilename.getMultiByteString().c_str());
 		return hr;
 	}
 	PixelShaderClass* p = new PixelShaderClass;
 	hr = p->createShaderFromFile(device,context,pfilename);
 	if (FAILED(hr))
 	{
+		printf("Error At : %s\n", pfilename.getMultiByteString().c_str());
 		return hr;
 	}
 	ShaderPair* newpair = new ShaderPair(&v,&p,std::move(shadername));

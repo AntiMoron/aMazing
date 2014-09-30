@@ -4,11 +4,13 @@
 FrameBuffer::FrameBuffer()
 {
 	is_inited = false;
+	multiSampling = false;
 	m_renderTargetTexture = nullptr;
 	m_renderTargetView = nullptr;
 	m_shaderResourceView = nullptr;
 	m_pDepthStencil = nullptr;
 	m_depthStencilView = nullptr;
+	m_renderTargetTextureMS = nullptr;
 }
 
 
@@ -116,6 +118,24 @@ HRESULT FrameBuffer::Shutdown()
 	SAFE_RELEASE(m_renderTargetView);
 	SAFE_RELEASE(m_pDepthStencil);
 	SAFE_RELEASE(m_depthStencilView);
+	SAFE_RELEASE(m_renderTargetTextureMS);
+	return S_OK;
+}
+
+
+HRESULT FrameBuffer::EnableMultiSampling()
+{
+	if (m_renderTargetTextureMS != nullptr)
+	{
+		return E_FAIL;
+	}
+	multiSampling = true;
+	return S_OK;
+}
+HRESULT FrameBuffer::DisableMultiSampling()
+{
+	; 
+	multiSampling = false;
 	return S_OK;
 }
 
@@ -145,7 +165,11 @@ void FrameBuffer::bindPS(ID3D11Device* device,
 	ID3D11DeviceContext* context,
 	unsigned int textureSlot)
 {
-//	context->ResolveSubresource(, );
+	//context->ResolveSubresource(m_renderTargetTextureMS,
+	//	0,
+	//	m_renderTargetTexture, 
+	//	0, 
+	//	DXGI_FORMAT_R32G32B32A32_FLOAT);
 	context->PSSetShaderResources(textureSlot, 1, &m_shaderResourceView);
 }
 

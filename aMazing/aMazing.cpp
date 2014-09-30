@@ -88,7 +88,7 @@ HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow )
 
     // Create window
     g_hInst = hInstance;
-    RECT rc = { 0, 0, 1366, 768 };
+    RECT rc = { 0, 0, 640, 480 };
     AdjustWindowRect( &rc, WS_OVERLAPPEDWINDOW, FALSE );
     g_hWnd = CreateWindow( L"aMazingWndClass", L"aMazing by AntiMoron anti2moron@gmail.com", WS_OVERLAPPEDWINDOW,
                            CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, NULL, NULL, hInstance,
@@ -144,11 +144,11 @@ HRESULT InitDevice()
 	};
 	UINT numElements = ARRAYSIZE(layout);
 	SHADERS.addPair(DEVICE, CONTEXT,
-		"Basic3D.fx", "Basic3D.fx",
+		"Shader/Basic3D.fx", "Shader/Basic3D.fx",
 		layout, numElements, "Basic3D");
 
 	SHADERS.addPair(DEVICE, CONTEXT,
-		"Basic2D.fx", "Basic2D.fx",
+		"Shader/Basic2D.fx", "Shader/Basic2D.fx",
 		layout, numElements, "Basic2D");
 
 	SHADERS.addPair(DEVICE, CONTEXT,
@@ -170,7 +170,10 @@ HRESULT InitDevice()
 		layout, numElements, "ProjectionTex");
 	SHADERS.addPair(DEVICE, CONTEXT,
 	"Shader/ShadowMap/ShadowMap.fx", "Shader/ShadowMap/ShadowMap.fx",
-		layout, numElements, "ShadowMap");
+	layout, numElements, "ShadowMap");
+	SHADERS.addPair(DEVICE, CONTEXT,
+		"Shader/texture/AA/MSAA4x4.fx", "Shader/texture/AA/MSAA4x4.fx",
+		layout, numElements, "MSAA4x4");
 	return S_OK;
 }
 
@@ -291,7 +294,7 @@ void CameraProc()
 }
 
 
-Maze* mz = MAZEFACTORY.genMaze(30);
+Maze* mz = MAZEFACTORY.genMaze(100);
 
 
 void Render()
@@ -305,7 +308,7 @@ void Render()
 	auto render = [&](ID3D11Device* device, ID3D11DeviceContext* context)->void
 	{
 		TEXTURE.getTexture(1)->bindPS(DEVICE, CONTEXT, 0);
-		mz->Render(device, context);
+		mz->Render(device, context,&camera);
 	};
 
 	blur.Render(DEVICE, CONTEXT, render);
