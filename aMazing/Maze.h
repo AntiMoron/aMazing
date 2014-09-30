@@ -10,6 +10,8 @@ public:
 	void Render(ID3D11Device* device,
 		ID3D11DeviceContext* context,
 		CameraClass* camera);
+
+	bool& get(std::size_t x,std::size_t y);
 private:
 	friend class MazeGenerator;
 	bool* m_map;

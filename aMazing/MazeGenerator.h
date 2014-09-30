@@ -13,6 +13,8 @@ private:
 
 	std::vector<std::vector<int> > MazeGenerator::GenerateWalls(int width, int height);
 
+
+	void genMazeRecuresion(Maze* result,int l, int t, int r, int b);
 	static MazeGenerator* instance;
 };
 

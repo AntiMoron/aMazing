@@ -294,7 +294,7 @@ void CameraProc()
 }
 
 
-Maze* mz = MAZEFACTORY.genMaze(100);
+Maze* mz = MAZEFACTORY.genMaze(60);
 
 
 void Render()
