@@ -134,7 +134,6 @@ HRESULT FrameBuffer::EnableMultiSampling()
 }
 HRESULT FrameBuffer::DisableMultiSampling()
 {
-	; 
 	multiSampling = false;
 	return S_OK;
 }
@@ -148,7 +147,7 @@ void FrameBuffer::setRenderTarget(ID3D11Device* device,
 void FrameBuffer::clearRenderTarget(ID3D11Device* device,
 	ID3D11DeviceContext* context)
 {
-	float clearColor[] = { 0.3f, 0.3f, 0.3f, 1.0f };
+	float clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 	context->ClearRenderTargetView(m_renderTargetView, clearColor);
 	context->ClearDepthStencilView(m_depthStencilView, 
 		D3D11_CLEAR_DEPTH, 1.0f, NULL);

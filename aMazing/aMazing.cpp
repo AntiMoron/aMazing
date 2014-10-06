@@ -10,6 +10,8 @@
 #include "AmbientLight.h"
 #include "ShadowMap.hpp"
 #include "DepthMap.hpp"
+#include "GlowEffect.hpp"
+#include "DepthField.hpp"
 
 HINSTANCE g_hInst = nullptr;
 HWND g_hWnd = nullptr;
@@ -19,7 +21,7 @@ CameraClass camera;
 BlockClass bk;
 D3DClass d3d;
 AmbientLight ao;
-ShadowMap blur;
+DepthField blur;
 #define DEVICE (d3d.getDevice())
 #define CONTEXT (d3d.getContext())
 #define DEPTH (d3d.getDepthStencilView())
@@ -166,6 +168,9 @@ HRESULT InitDevice()
 		"Shader/depthMap/depthMap.fx", "Shader/depthMap/depthMap.fx",
 		layout, numElements, "DepthMap");
 	SHADERS.addPair(DEVICE, CONTEXT,
+		"Shader/depthMap/lightDepthMap.fx", "Shader/depthMap/lightDepthMap.fx",
+		layout, numElements, "LightDepthMap");
+	SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/texture/ProjectionTex.fx", "Shader/texture/ProjectionTex.fx",
 		layout, numElements, "ProjectionTex");
 	SHADERS.addPair(DEVICE, CONTEXT,
@@ -174,6 +179,15 @@ HRESULT InitDevice()
 	SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/texture/AA/MSAA4x4.fx", "Shader/texture/AA/MSAA4x4.fx",
 		layout, numElements, "MSAA4x4");
+	SHADERS.addPair(DEVICE, CONTEXT,
+		"Shader/HighLight/HighLight.fx", "Shader/HighLight/HighLight.fx",
+		layout, numElements, "HighLight");
+	SHADERS.addPair(DEVICE, CONTEXT,
+		"Shader/Glow/GlowMerge.fx", "Shader/Glow/GlowMerge.fx",
+		layout, numElements, "GlowMerge");
+	SHADERS.addPair(DEVICE, CONTEXT,
+		"Shader/DepthField/DepthFieldMerge.fx", "Shader/DepthField/DepthFieldMerge.fx",
+		layout, numElements, "DepthFieldMerge");
 	return S_OK;
 }
 
@@ -257,22 +271,21 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
 
 void CameraProc()
 {
-
 	if (INPUT.keys['W'])
 	{
-		camera.moveForward(0.01f);
+		camera.moveForward(0.001f);
 	}
 	if (INPUT.keys['S'])
 	{
-		camera.moveBackward(0.01f);
+		camera.moveBackward(0.001f);
 	}
 	if (INPUT.keys['A'])
 	{
-		camera.moveLeft(0.01f);
+		camera.moveLeft(0.001f);
 	}
 	if (INPUT.keys['D'])
 	{
-		camera.moveRight(0.01f);
+		camera.moveRight(0.001f);
 	}
 	if (INPUT.keys[VK_LEFT])
 	{

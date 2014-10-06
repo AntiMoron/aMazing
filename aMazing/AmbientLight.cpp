@@ -2,6 +2,7 @@
 
 AmbientLight::AmbientLight()
 {
+	rasterizeState = nullptr;
 }
 
 AmbientLight::~AmbientLight()
@@ -19,7 +20,7 @@ HRESULT AmbientLight::Initialize(ID3D11Device* device,
 		return hr;
 	}
 	target = { .0f, .0f, .0f };
-	position = { -0.2f, 0.39f, -0.2f };
+	position = { 0.2f, 0.39f, 0.2f };
 	setFov(70.0f);
 	near_far = { 0.0001f, 100.0f };
 	AmbientLightMatrices cbData = {};
@@ -35,6 +36,24 @@ HRESULT AmbientLight::Initialize(ID3D11Device* device,
 	matrices->UpdateData(&cbData);
 	matrices->UpdateGpu(device, context);
 	matrices->BindVertexShader(device, context);
+
+
+	D3D11_RASTERIZER_DESC rasterDesc = {};
+	rasterDesc.AntialiasedLineEnable = true;
+	rasterDesc.CullMode = D3D11_CULL_BACK;
+	rasterDesc.FillMode = D3D11_FILL_SOLID;
+	rasterDesc.DepthClipEnable = true;
+	rasterDesc.FrontCounterClockwise = false;
+	//A fixed bias to reply
+//	rasterDesc.DepthBias = -100000;
+	//A maximum depth bias allowed
+//	rasterDesc.DepthBiasClamp = 0.0f;
+	//SlopeScaled Depth Bias
+//	rasterDesc.SlopeScaledDepthBias = 1.0f;
+
+//	float bias = (float)rasterDesc.DepthBias * (100000 / (1 << 24)) + rasterDesc.SlopeScaledDepthBias * rasterDesc.DepthBiasClamp;
+	device->CreateRasterizerState(&rasterDesc, &rasterizeState);
+	context->RSSetState(rasterizeState);
 	return S_OK;
 }
 

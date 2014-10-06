@@ -10,7 +10,7 @@ public:
 	{
 		HRESULT hr;
 		depthBuffer.reset(new FrameBuffer);
-		hr = depthBuffer->Initialize(device, context, 3600, 3600);
+		hr = depthBuffer->Initialize(device, context, 4096, 4096);
 		if (FAILED(hr))
 		{
 			throw;
@@ -37,7 +37,7 @@ public:
 	{
 		depthBuffer->clearRenderTarget(device, context);
 		depthBuffer->setRenderTarget(device, context);
-		SHADERS.bindPair("DepthMap", device, context); 
+		SHADERS.bindPair("LightDepthMap", device, context); 
 		SHADERS.DisableShaderBind();
 		renderFunction(device, context);
 		SHADERS.EnableShaderBind();

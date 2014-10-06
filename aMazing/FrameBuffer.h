@@ -30,11 +30,11 @@ public:
 		unsigned int textureSlot);
 
 	bool isInited()const;
+	void clearDepthBuffer(ID3D11Device* device, ID3D11DeviceContext* context);
 private:
+	friend class EffectClass;
 	bool is_inited;
 	bool multiSampling;
-	void clearDepthBuffer(ID3D11Device* device, ID3D11DeviceContext* context);
-	friend class EffectClass;
 	ID3D11Texture2D* m_renderTargetTexture;
 	ID3D11Texture2D* m_renderTargetTextureMS;//Multi-sampled
 	ID3D11RenderTargetView* m_renderTargetView;

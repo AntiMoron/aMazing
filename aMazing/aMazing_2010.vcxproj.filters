@@ -131,7 +131,6 @@
     <ClInclude Include="DepthMap.hpp">
       <Filter>Engine\Effect</Filter>
     </ClInclude>
-    <ClInclude Include="AmbientLight.h" />
     <ClInclude Include="ScopeGuard.hpp">
       <Filter>Engine\System</Filter>
     </ClInclude>
@@ -141,7 +140,21 @@
     <ClInclude Include="ShadowMap.hpp">
       <Filter>Engine\Effect</Filter>
     </ClInclude>
-    <ClInclude Include="FrustumClass.h" />
+    <ClInclude Include="AmbientLight.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="FrustumClass.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="GlowEffect.hpp">
+      <Filter>Engine\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="HighlightExtractor.hpp">
+      <Filter>Engine\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="DepthField.hpp">
+      <Filter>Engine\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aMazing.cpp" />
@@ -217,8 +230,12 @@
     <ClCompile Include="FunctionType.hpp">
       <Filter>Engine\System</Filter>
     </ClCompile>
-    <ClCompile Include="AmbientLight.cpp" />
-    <ClCompile Include="FrustumClass.cpp" />
+    <ClCompile Include="AmbientLight.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="FrustumClass.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">

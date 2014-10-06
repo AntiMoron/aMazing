@@ -22,7 +22,7 @@ HRESULT CameraClass::Initialize(ID3D11Device* device,
 	lefthandDirection = { 1.0f, 0.0f, 0.0f };
 
 	setFov(40.0f);
-	near_far = { 0.0001f, 100.0f };
+	near_far = { 0.000004f, 100.0f };
 
 	D3DXMATRIX rotationMatrix;
 	D3DXVECTOR3 lookDir = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
@@ -179,7 +179,7 @@ void CameraClass::Render(ID3D11Device* device,
 	m_matrices.UpdateGpu(device, context);
 	m_matrices.BindVertexShader(device, context);
 
-	m_frustum->ConstructFrustum(near_far.y, m_matriceData.projection, m_matriceData.view);
+	m_frustum->ConstructFrustum(near_far.y , m_matriceData.projection, m_matriceData.view);
 }
 
 void CameraClass::moveLeft(float step)
