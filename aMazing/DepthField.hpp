@@ -42,9 +42,9 @@ public:
 
 	void Shutdown()
 	{
+		blur->Shutdown();
 		tex2d->Shutdown();
 		depthMap->Shutdown();
-		blur->Shutdown();
 		EffectClass::Shutdown();
 	}
 

@@ -67,7 +67,7 @@ static const float SAMP_DX = 1.0f / SAMP_SIZE;
 
 float4 PSEntry(PS_INPUT input) : SV_Target
 {
-	float bias = 0.0000013f;
+	float bias = 0.000003;
 	float4 color = txDiffuse.Sample(samWrap, input.Tex);
 	clip(color.a == 0.0f ? -1 : 1);
 
@@ -79,9 +79,9 @@ float4 PSEntry(PS_INPUT input) : SV_Target
 	if ((saturate(projectTexCoord.x) == projectTexCoord.x)
 		&& (saturate(projectTexCoord.y) == projectTexCoord.y))
 	{
-//		return float4(cameradepth, cameradepth, cameradepth,1.0f);
 		float lightdepth = saturate(input.lightDepth.z / input.lightDepth.w) - bias;
-		float dx = ddx(lightdepth);
+//		float dx = ddx(lightdepth);
+//
 		float shadowMapColor0 = ProTexutre.Sample(samClamp, projectTexCoord).r;
 		float shadowMapColor1 = ProTexutre.Sample(samClamp, projectTexCoord + float2(SAMP_DX, 0)).r;
 		float shadowMapColor2 = ProTexutre.Sample(samClamp, projectTexCoord + float2(0, SAMP_DX)).r;
@@ -99,7 +99,7 @@ float4 PSEntry(PS_INPUT input) : SV_Target
 			texelPos.y);
 		if (lightdepth > cameradepth)
 		{
-			color = color * cameradepth;
+			color = color *float4(0.44f,0.57f,0.74f,1.0f) * cameradepth;
 			color.a = 1.0f;
 		}
 	}

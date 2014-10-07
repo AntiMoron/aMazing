@@ -47,6 +47,7 @@ public:
 		tex2d->Shutdown();
 		blur->Shutdown(); 
 		highlight->Shutdown();
+		EffectClass::Shutdown();
 	}
 
 	template<typename ...T>

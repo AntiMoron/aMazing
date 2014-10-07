@@ -16,6 +16,7 @@ public:
 			throw;
 			return hr;
 		}
+
 		hr = EffectClass::Initialize(device, context);
 		if (FAILED(hr))
 		{
@@ -35,8 +36,8 @@ public:
 		ID3D11DeviceContext* context,
 		common_tool::functionType<std::function<void(ID3D11Device*, ID3D11DeviceContext*)> > renderFunction)
 	{
-		depthBuffer->clearRenderTarget(device, context);
 		depthBuffer->setRenderTarget(device, context);
+		depthBuffer->clearRenderTarget(device, context);
 		SHADERS.bindPair("LightDepthMap", device, context); 
 		SHADERS.DisableShaderBind();
 		renderFunction(device, context);
@@ -53,7 +54,6 @@ public:
 		return;
 #else
 		depthBuffer->bindPS(device, context, 1);
-//		TEXTURE.getTexture(0)->bindPS(device,context,1);
 		SHADERS.bindPair("ShadowMap", device, context);
 		SHADERS.DisableShaderBind();
 		renderFunction(device, context);
@@ -62,5 +62,4 @@ public:
 	}
 private:
 	std::unique_ptr<FrameBuffer> depthBuffer;
-//	std::unique_ptr<DepthMap> depthBuffer;
 };

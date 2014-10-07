@@ -8,20 +8,17 @@
 #include "MazeGenerator.h"
 #include "PrimitivePipeline.h"
 #include "AmbientLight.h"
-#include "ShadowMap.hpp"
-#include "DepthMap.hpp"
-#include "GlowEffect.hpp"
-#include "DepthField.hpp"
+#include"aMazingScene.h"
 
 HINSTANCE g_hInst = nullptr;
 HWND g_hWnd = nullptr;
 
-RectangleClass rec;
 CameraClass camera;
 BlockClass bk;
 D3DClass d3d;
 AmbientLight ao;
-DepthField blur;
+aMazingScene scene;
+
 #define DEVICE (d3d.getDevice())
 #define CONTEXT (d3d.getContext())
 #define DEPTH (d3d.getDepthStencilView())
@@ -134,8 +131,7 @@ HRESULT InitDevice()
 	//aditional operations.
 	bk.Initialize(DEVICE, CONTEXT);
 	camera.Initialize(DEVICE, CONTEXT);
-	rec.Initialize(DEVICE, CONTEXT);
-	blur.Initialize(DEVICE, CONTEXT);
+	scene.Initialize(DEVICE, CONTEXT);
 	ao.Initialize(DEVICE, CONTEXT);
 	GRAPHICS.Initialize(&d3d);
 	// Define the input layout
@@ -197,12 +193,11 @@ HRESULT InitDevice()
 //--------------------------------------------------------------------------------------
 void CleanupDevice()
 {
-	blur.Shutdown();
 	d3d.Shutdown();
 	bk.Shutdown();
 	camera.Shutdown();
-	rec.Shutdown();
 	ao.Shutdown();
+	scene.Shutdown();
 	GRAPHICS.Shutdown();
 }
 
@@ -306,32 +301,21 @@ void CameraProc()
 	camera.Render(DEVICE, CONTEXT);
 }
 
-
-Maze* mz = MAZEFACTORY.genMaze(60);
-
-
 void Render()
 {
 	CameraProc();
 	d3d.clearRenderTarget();
-	/*XMFLOAT3 lp =  camera.getPosition();
-	lp.y = 0.39f;
-	ao.setPosition(lp);*/
+	XMFLOAT3 cameraPos = camera.getPosition();
+	cameraPos.y = 0.10;
+	XMFLOAT3 targetPos;
+	targetPos.x = cameraPos.x + 0.02f;
+	targetPos.y = 0.0f;
+	targetPos.z = cameraPos.z + 0.02f;
+	ao.setPosition(cameraPos);
+	ao.setTarget(targetPos);
 	ao.Render(DEVICE, CONTEXT);
-	auto render = [&](ID3D11Device* device, ID3D11DeviceContext* context)->void
-	{
-		TEXTURE.getTexture(1)->bindPS(DEVICE, CONTEXT, 0);
-		mz->Render(device, context,&camera);
-	};
-
-	blur.Render(DEVICE, CONTEXT, render);
-
-	d3d.setRenderTarget();
-	d3d.clearDepthStencil();
-	blur.bindPS(DEVICE, CONTEXT, 0);
-
-	SHADERS.bindPair("Basic2D",DEVICE,CONTEXT);
-	GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
+	
+	scene.Render(&d3d, &camera);
 
 	d3d.Present(true);//V-Sync
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include"PrimitivePipeline.h"
+#include"TextureManager.h"
 #include"CameraClass.h"
 class Maze
 {

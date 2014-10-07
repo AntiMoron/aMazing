@@ -5,6 +5,7 @@ MazeGenerator* MazeGenerator::instance = nullptr;
 
 MazeGenerator::MazeGenerator()
 {
+	srand(time(nullptr));
 }
 
 
@@ -35,26 +36,95 @@ std::vector<std::vector<int> > MazeGenerator::GenerateWalls(int width, int heigh
 	return walls;
 }
 
-void MazeGenerator::genMazeRecuresion(Maze* result,int l, int t, int r, int b)
+void MazeGenerator::genMazeRecuresion(Maze* result, int px, int py)
 {
-	int x, y;
-	int width = r - l;
-	int height = b - t;
-	if (width <= 2 || height <= 2)
-		return;
-	x = l + (rand() % width);
-	y = t + (rand() % height);
+	for (int i = 0;i<result->width;i++)
+	{
+		for (int j = 0;j<result->height;j++)
+		{
+			printf("%d ",result->get(i,j));
+		}
+		printf("\n");
+	}
+	printf("\n");
+	if (!checkPoint(result,px,py))
+	{
+		return ;
+	}
+	if (result->get(px,py) == 0)
+	{
+		return ;
+	}
+	result->get(px, py) = 0;
+	int dir[4] = { 0, 1, 2, 3 };
+	int loop_times = rand() % 10;
+	for (int i = 0; i < loop_times; i++)
+	{
+		int f = rand() % 4;
+		int s = rand() % 4;
+		int t = dir[f];
+		dir[f] = dir[s];
+		dir[s] = t;
+	}
 
-	genMazeRecuresion(result, l, t, x - 1, y - 1);
-	genMazeRecuresion(result, x + 1, t, r, y - 1);
-	genMazeRecuresion(result, l, y + 1, x - 1, b);
-	genMazeRecuresion(result, x + 1, y + 1, r, b);
-
-	int dice = rand() % 4;
-	if (dice != 0){ result->get(x,t + (rand() % (height / 2))) = true; }
-	if (dice != 1){ result->get(l + (rand() % (width / 2)),y) = true; }
-	if (dice != 2){ result->get(x,t + (height & 1) + (height / 2) + (rand() % (height / 2))) = true; }
-	if (dice != 3){ result->get(l + (width & 1) + (width / 2) + (rand() % (width / 2)),y) = true; }
+	for (auto d : dir)
+	{
+		switch (d)
+		{
+		case 0: 
+			px += 1;
+			if (!checkPoint(result, px, py) && (result->get(px, py) != 0))
+				break;
+			if (!checkPoint(result, px + 1, py) && (result->get(px + 1, py) != 0))
+				break;
+			if (!checkPoint(result, px, py + 1) && (result->get(px, py + 1) != 0))
+				break;
+			if (!checkPoint(result, px, py - 1) && (result->get(px, py - 1) != 0))
+				break;
+			result->get(px, py) = 0;
+			genMazeRecuresion(result, px, py);
+			break;
+		case 1:
+			px -= 1;
+			if (!checkPoint(result, px, py) && (result->get(px, py) != 0))
+				break;
+			if (!checkPoint(result, px - 1, py) && (result->get(px - 1, py) != 0))
+				break;
+			if (!checkPoint(result, px, py + 1) && (result->get(px, py + 1) != 0))
+				break;
+			if (!checkPoint(result, px, py - 1) && (result->get(px, py - 1) != 0))
+				break;
+			result->get(px, py) = 0;
+			genMazeRecuresion(result, px, py);
+			break;
+		case 2:
+			py += 1;
+			if (!checkPoint(result, px, py) && (result->get(px, py) != 0))
+				break;
+			if (!checkPoint(result, px, py + 1) && (result->get(px, py + 1) != 0))
+				break;
+			if (!checkPoint(result, px + 1, py) && (result->get(px + 1, py) != 0))
+				break;
+			if (!checkPoint(result, px - 1, py) && (result->get(px - 1, py) != 0))
+				break;
+			result->get(px, py) = 0;
+			genMazeRecuresion(result, px, py);
+			break;
+		case 3:
+			py -= 1;
+			if (!checkPoint(result, px, py) && (result->get(px, py) != 0))
+				break;
+			if (!checkPoint(result, px, py - 1) && (result->get(px, py - 1) != 0))
+				break;
+			if (!checkPoint(result, px + 1, py) && (result->get(px + 1, py) != 0))
+				break;
+			if (!checkPoint(result, px - 1, py) && (result->get(px - 1, py) != 0))
+				break;
+			result->get(px, py) = 0;
+			genMazeRecuresion(result, px, py);
+			break;
+		}
+	}
 }
 
 Maze* MazeGenerator::genMaze(int dimension)
@@ -69,7 +139,35 @@ Maze* MazeGenerator::genMaze(int dimension)
 	output->width = dimension;
 	output->height = dimension;
 	output->m_map = new bool[dimension * dimension];
-	memset(output->m_map, 0, sizeof(bool)* dimension * dimension);
-	genMazeRecuresion(output,0,0,dimension - 1,dimension - 1);
+	for (int i = 0; i<dimension * dimension; i++)
+	{
+		output->m_map[i] = true;
+	}
+	genMazeRecuresion(output, dimension / 2, dimension / 2);
 	return output;
+}
+
+bool MazeGenerator::checkPoint(Maze* ref,const std::pair<int, int>& pt)
+{
+	if (pt.first >= 0 && pt.second >= 0)
+	{
+		if (pt.first < ref->width && (pt.second < ref->height))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+
+bool MazeGenerator::checkPoint(Maze* ref, int a, int b)
+{
+	if (a >= 0 && b >= 0)
+	{
+		if (a < ref->width && (b < ref->height))
+		{
+			return true;
+		}
+	}
+	return false;
 }

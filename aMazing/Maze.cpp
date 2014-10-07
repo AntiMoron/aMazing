@@ -1,6 +1,5 @@
 #include "Maze.h"
 
-
 Maze::Maze()
 {
 	m_map = nullptr;
@@ -20,6 +19,14 @@ Maze::~Maze()
 
 bool& Maze::get(std::size_t x, std::size_t y)
 {
+	if (x < 0 || x >= height)
+	{
+		printf("x");
+	}
+	if (y < 0 || y >= width)
+	{
+		printf("y");
+	}
 	return m_map[x * width + y];
 }
 
@@ -27,15 +34,16 @@ void Maze::Render(ID3D11Device* device,
 	ID3D11DeviceContext* context,
 	CameraClass* camera)
 {
-	int cnt = 0;
-	float blockSize = 0.0005f;
+	float blockSize = 0.005f;
+	float xOffSet = blockSize * width / 2.0f;
+	float yOffSet = blockSize * height / 2.0f;
 	for (int p = 0; p < height; ++p)
 	{
 		for (int k = 0; k < width; ++k)
 		{
-			XMFLOAT3 position = { p * blockSize,
+			XMFLOAT3 position = { p * blockSize - xOffSet,
 				blockSize,
-				k * blockSize};
+				k * blockSize - yOffSet };
 			XMFLOAT3 rotation = { .0f, .0f, .0f };
 			XMFLOAT3 scaling = { blockSize, blockSize, blockSize };
 			if (m_map[p * width + k] == false)
@@ -46,12 +54,14 @@ void Maze::Render(ID3D11Device* device,
 			if (camera->getFrustum()->CheckCube(position.x, position.y, position.z,
 				scaling.x / 2.0f, scaling.y / 2.0f, scaling.z / 2.0f))
 			{
+				if (position.y > 0.0f)
+					TEXTURE.getTexture(1)->bindPS(device, context, 0);
+				else
+					TEXTURE.getTexture(3)->bindPS(device, context, 0);
 				GRAPHICS.RenderBox(position.x, position.y, position.z,
 					rotation.x, rotation.y, rotation.z,
 					scaling.x, scaling.y, scaling.z);
-				++cnt;
 			}
 		}
 	}
-	printf("%d\n", cnt);
 }

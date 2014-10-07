@@ -379,6 +379,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="aMazing.cpp" />
+    <ClCompile Include="aMazingScene.cpp" />
     <ClCompile Include="AmbientLight.cpp" />
     <ClCompile Include="BasicObject.cpp" />
     <ClCompile Include="BlockClass.cpp" />
@@ -414,6 +415,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="aMazingScene.h" />
     <ClInclude Include="AmbientLight.h" />
     <ClInclude Include="BasicObject.h" />
     <ClInclude Include="BlockClass.h" />

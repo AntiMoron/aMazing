@@ -32,9 +32,9 @@ PS_INPUT VSEntry(VS_INPUT input)
 float4 PSEntry(PS_INPUT input) : SV_Target
 {
     float4 color = txDiffuse.Sample(samLinear, input.Tex);
-    clip(((color.r > 0.85f) && 
-        (color.g > 0.85f) && 
-        (color.b > 0.85f) && 
+    clip(((color.r > 0.85f) || 
+        (color.g > 0.85f) || 
+        (color.b > 0.85f) || 
         (color.a > 0.85f)) ? 1 : -1);
     return color;
 }

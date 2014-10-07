@@ -20,8 +20,8 @@ HRESULT AmbientLight::Initialize(ID3D11Device* device,
 		return hr;
 	}
 	target = { .0f, .0f, .0f };
-	position = { 0.2f, 0.39f, 0.2f };
-	setFov(70.0f);
+	position = { 0.02f, 0.19f, 0.02f };
+	setFov(10.0f);
 	near_far = { 0.0001f, 100.0f };
 	AmbientLightMatrices cbData = {};
 	XMVECTOR st = { position.x, position.y, position.z },

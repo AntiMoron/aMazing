@@ -42,6 +42,8 @@ PS_INPUT VSEntry( VS_INPUT input )
     output.Pos = mul( output.Pos, Sca);
     output.Pos = mul( output.Pos, Pos);
     output.Pos = mul( output.Pos, World );
+    output.Pos = mul( output.Pos, LightView );
+    output.Pos = mul( output.Pos, LightProjection );
     output.depthPosition = output.Pos;
     return output;
 }
