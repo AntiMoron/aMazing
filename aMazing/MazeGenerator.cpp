@@ -22,40 +22,8 @@ MazeGenerator& MazeGenerator::getInstance()
 	return *instance;
 }
 
-std::vector<std::vector<int> > MazeGenerator::GenerateWalls(int width, int height)
-{
-	std::vector<std::vector<int> > walls;
-	int i = 0, total = height * width;
-	int wall_temp[4] = { 1, 1, 1, 1 };
-	std::vector<int> wall(wall_temp, wall_temp + sizeof(wall_temp) / sizeof(int));
-
-	for (; i < total; i++) {
-		walls.push_back(wall);
-	}
-
-	return walls;
-}
-
 void MazeGenerator::genMazeRecuresion(Maze* result, int px, int py)
 {
-	for (int i = 0;i<result->width;i++)
-	{
-		for (int j = 0;j<result->height;j++)
-		{
-			printf("%d ",result->get(i,j));
-		}
-		printf("\n");
-	}
-	printf("\n");
-	if (!checkPoint(result,px,py))
-	{
-		return ;
-	}
-	if (result->get(px,py) == 0)
-	{
-		return ;
-	}
-	result->get(px, py) = 0;
 	int dir[4] = { 0, 1, 2, 3 };
 	int loop_times = rand() % 10;
 	for (int i = 0; i < loop_times; i++)
@@ -66,64 +34,61 @@ void MazeGenerator::genMazeRecuresion(Maze* result, int px, int py)
 		dir[f] = dir[s];
 		dir[s] = t;
 	}
-
 	for (auto d : dir)
 	{
+		int pos_x = px;
+		int pos_y = py;
 		switch (d)
 		{
-		case 0: 
+		case 0:
 			px += 1;
-			if (!checkPoint(result, px, py) && (result->get(px, py) != 0))
-				break;
-			if (!checkPoint(result, px + 1, py) && (result->get(px + 1, py) != 0))
-				break;
-			if (!checkPoint(result, px, py + 1) && (result->get(px, py + 1) != 0))
-				break;
-			if (!checkPoint(result, px, py - 1) && (result->get(px, py - 1) != 0))
-				break;
-			result->get(px, py) = 0;
-			genMazeRecuresion(result, px, py);
+			if (checkPoint(result, px, py) && (result->get(px, py) != 0) &&
+				checkPoint(result, px + 1, py) && (result->get(px + 1, py) != 0) &&
+				checkPoint(result, px, py + 1) && (result->get(px, py + 1) != 0) &&
+				checkPoint(result, px, py - 1) && (result->get(px, py - 1) != 0))
+			{
+				result->get(px, py) = 0;
+				genMazeRecuresion(result, px, py);
+			}
 			break;
 		case 1:
 			px -= 1;
-			if (!checkPoint(result, px, py) && (result->get(px, py) != 0))
-				break;
-			if (!checkPoint(result, px - 1, py) && (result->get(px - 1, py) != 0))
-				break;
-			if (!checkPoint(result, px, py + 1) && (result->get(px, py + 1) != 0))
-				break;
-			if (!checkPoint(result, px, py - 1) && (result->get(px, py - 1) != 0))
-				break;
-			result->get(px, py) = 0;
-			genMazeRecuresion(result, px, py);
+			if (checkPoint(result, px, py) && (result->get(px, py) != 0) &&
+				checkPoint(result, px - 1, py) && (result->get(px - 1, py) != 0) &&
+				checkPoint(result, px, py + 1) && (result->get(px, py + 1) != 0) &&
+				checkPoint(result, px, py - 1) && (result->get(px, py - 1) != 0))
+			{
+				result->get(px, py) = 0;
+				genMazeRecuresion(result, px, py);
+			}
 			break;
 		case 2:
 			py += 1;
-			if (!checkPoint(result, px, py) && (result->get(px, py) != 0))
-				break;
-			if (!checkPoint(result, px, py + 1) && (result->get(px, py + 1) != 0))
-				break;
-			if (!checkPoint(result, px + 1, py) && (result->get(px + 1, py) != 0))
-				break;
-			if (!checkPoint(result, px - 1, py) && (result->get(px - 1, py) != 0))
-				break;
-			result->get(px, py) = 0;
-			genMazeRecuresion(result, px, py);
+			if (checkPoint(result, px, py) && (result->get(px, py) != 0) &&
+				checkPoint(result, px, py + 1) && (result->get(px, py + 1) != 0) &&
+				checkPoint(result, px + 1, py) && (result->get(px + 1, py) != 0) &&
+				checkPoint(result, px - 1, py) && (result->get(px - 1, py) != 0))
+			{
+				result->get(px, py) = 0;
+				genMazeRecuresion(result, px, py);
+			}
 			break;
 		case 3:
 			py -= 1;
-			if (!checkPoint(result, px, py) && (result->get(px, py) != 0))
-				break;
-			if (!checkPoint(result, px, py - 1) && (result->get(px, py - 1) != 0))
-				break;
-			if (!checkPoint(result, px + 1, py) && (result->get(px + 1, py) != 0))
-				break;
-			if (!checkPoint(result, px - 1, py) && (result->get(px - 1, py) != 0))
-				break;
-			result->get(px, py) = 0;
-			genMazeRecuresion(result, px, py);
+			if (checkPoint(result, px, py) && (result->get(px, py) != 0) &&
+				checkPoint(result, px, py - 1) && (result->get(px, py - 1) != 0) &&
+				checkPoint(result, px + 1, py) && (result->get(px + 1, py) != 0) &&
+				checkPoint(result, px - 1, py) && (result->get(px - 1, py) != 0))
+			{
+				result->get(px, py) = 0;
+				genMazeRecuresion(result, px, py);
+			}
+			break;
+		default:
 			break;
 		}
+		px = pos_x;
+		py = pos_y;
 	}
 }
 
@@ -143,7 +108,10 @@ Maze* MazeGenerator::genMaze(int dimension)
 	{
 		output->m_map[i] = true;
 	}
+
+	output->get(dimension / 2, dimension / 2) = 0;
 	genMazeRecuresion(output, dimension / 2, dimension / 2);
+
 	return output;
 }
 

@@ -28,7 +28,10 @@ public:
 	bool bindPS(ID3D11Device* device,
 		ID3D11DeviceContext* context, 
 		unsigned int textureSlot);
+
+	bool isInited() const;
 private:
+	bool is_init;
 	ID3D11ShaderResourceView* SRV;
 };
 

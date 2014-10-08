@@ -74,7 +74,6 @@ float AmbientLight::getFov()const
 void AmbientLight::setPosition(XMFLOAT3 pos)
 {
 	position = pos;
-	printf("%f %f %f\n",pos.x,pos.y,pos.z);
 }
 XMFLOAT3 AmbientLight::getPosition()
 {

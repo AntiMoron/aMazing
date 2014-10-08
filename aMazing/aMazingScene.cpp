@@ -15,13 +15,9 @@ HRESULT aMazingScene::Initialize(ID3D11Device* device,
 	ID3D11DeviceContext* context)
 {
 	HRESULT hr;
-	shadowMap.reset(new ShadowMap);
-	hr = shadowMap->Initialize(device,context);
-	if (FAILED(hr))
-	{
-		return hr;
-	}
-
+	//Generate a maze
+	maze.reset(MAZEFACTORY.genMaze(50));
+	
 	glow.reset(new GlowEffect);
 	hr = glow->Initialize(device, context);
 	if (FAILED(hr))
@@ -34,13 +30,10 @@ HRESULT aMazingScene::Initialize(ID3D11Device* device,
 	{
 		return hr;
 	}
-	
-	maze.reset(MAZEFACTORY.genMaze(10));
 	return S_OK;
 }
 void aMazingScene::Shutdown()
 {
-	shadowMap->Shutdown();
 	glow->Shutdown();
 	depthField->Shutdown();
 }
@@ -51,6 +44,9 @@ void aMazingScene::Render(D3DClass* d3dkit, CameraClass* camera)
 	ID3D11DeviceContext* context = d3dkit->getContext();
 	auto mazeRender = [&](ID3D11Device* device,ID3D11DeviceContext* context)
 	{
+		SHADERS.bindPair("Basic2D", device, context);
+		TEXTURE.getTexture(3)->bindPS(device, context, 0);
+		GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 		SHADERS.bindPair("Basic3D", device, context);
 		maze->Render(device, context, camera);
 	};

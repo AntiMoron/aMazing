@@ -115,16 +115,19 @@ HRESULT InitDevice()
 	d3d.Initialize(g_hWnd);
 	
 	// Load the Texture
-	hr = TEXTURE.addTexture(DEVICE, CONTEXT, L"seafloor.dds");
+	hr = TEXTURE.addTexture(DEVICE, CONTEXT, "seafloor.dds");
 	if (FAILED(hr))
 		return E_FAIL;
 
-	hr = TEXTURE.addTexture(DEVICE, CONTEXT, L"glowstone.png");
+	hr = TEXTURE.addTexture(DEVICE, CONTEXT, "glowstone.png");
 	if (FAILED(hr))
 		return E_FAIL;
 
-	hr = TEXTURE.addTexture(DEVICE, CONTEXT,
-		L"leaves.png");
+	hr = TEXTURE.addTexture(DEVICE, CONTEXT, "leaves.png");
+	if (FAILED(hr))
+		return E_FAIL;
+
+	hr = TEXTURE.addTexture(DEVICE, CONTEXT, "sky.png");
 	if (FAILED(hr))
 		return E_FAIL;
 
@@ -199,6 +202,7 @@ void CleanupDevice()
 	ao.Shutdown();
 	scene.Shutdown();
 	GRAPHICS.Shutdown();
+	FreeConsole();
 }
 
 
@@ -306,6 +310,7 @@ void Render()
 	CameraProc();
 	d3d.clearRenderTarget();
 	XMFLOAT3 cameraPos = camera.getPosition();
+	printf("%f %f %f\n",cameraPos.x,cameraPos.y,cameraPos.z);
 	cameraPos.y = 0.10;
 	XMFLOAT3 targetPos;
 	targetPos.x = cameraPos.x + 0.02f;
@@ -315,6 +320,8 @@ void Render()
 	ao.setTarget(targetPos);
 	ao.Render(DEVICE, CONTEXT);
 	
+	cameraPos.y = 0.0064;
+	camera.setPosition(cameraPos);
 	scene.Render(&d3d, &camera);
 
 	d3d.Present(true);//V-Sync

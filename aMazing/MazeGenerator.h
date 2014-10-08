@@ -14,12 +14,9 @@ private:
 	MazeGenerator();
 	~MazeGenerator();
 
-	std::vector<std::vector<int> > MazeGenerator::GenerateWalls(int width, int height);
-
-	void genMazeRecuresion(Maze* result,int px, int py);
 	static MazeGenerator* instance;
+	void genMazeRecuresion(Maze* result, int px, int py);
 private :
-
 	bool checkPoint(Maze* ref, const std::pair<int, int>& pt);
 	bool checkPoint(Maze* ref, int a, int b);
 };

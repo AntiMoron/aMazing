@@ -4,6 +4,7 @@
 TextureClass::TextureClass()
 {
 	SRV = nullptr;
+	is_init = false;
 }
 
 
@@ -45,6 +46,7 @@ bool TextureClass::LoadFile(ID3D11Device* device,
 	{
 		return false;
 	}
+	is_init = true;
 	return true;
 }
 
@@ -70,6 +72,11 @@ bool TextureClass::LoadMemory(ID3D11Device* device,
 	{
 		return false;
 	}
+	if (SRV == nullptr)
+	{
+		return false;
+	}
+	is_init = true;
 	return true;
 }
 
@@ -88,4 +95,9 @@ bool TextureClass::bindPS(ID3D11Device* device,
 {
 	context->PSSetShaderResources(textureSlot, 1, &SRV);
 	return true;
+}
+
+bool TextureClass::isInited()const
+{
+	return is_init;
 }

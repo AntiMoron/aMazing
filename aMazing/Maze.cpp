@@ -21,11 +21,11 @@ bool& Maze::get(std::size_t x, std::size_t y)
 {
 	if (x < 0 || x >= height)
 	{
-		printf("x");
+		throw std::out_of_range("Maze : X index out of range\r\n");
 	}
 	if (y < 0 || y >= width)
 	{
-		printf("y");
+		throw std::out_of_range("Maze : Y index out of range\r\n");
 	}
 	return m_map[x * width + y];
 }
@@ -57,7 +57,7 @@ void Maze::Render(ID3D11Device* device,
 				if (position.y > 0.0f)
 					TEXTURE.getTexture(1)->bindPS(device, context, 0);
 				else
-					TEXTURE.getTexture(3)->bindPS(device, context, 0);
+					TEXTURE.getTexture(0)->bindPS(device, context, 0);
 				GRAPHICS.RenderBox(position.x, position.y, position.z,
 					rotation.x, rotation.y, rotation.z,
 					scaling.x, scaling.y, scaling.z);
