@@ -11,7 +11,7 @@ aMazingScene::~aMazingScene()
 }
 
 
-HRESULT aMazingScene::Initialize(ID3D11Device* device,
+HRESULT aMazingScene::Initialize(HWND hwnd, ID3D11Device* device,
 	ID3D11DeviceContext* context)
 {
 	HRESULT hr;
@@ -30,16 +30,26 @@ HRESULT aMazingScene::Initialize(ID3D11Device* device,
 	{
 		return hr;
 	}
+
+	sound.reset(new SoundClass);
+	hr = sound->Initialize(hwnd, "bgm.ogg");
+	if (FAILED(hr))
+	{
+		E_FAIL;
+	}
 	return S_OK;
 }
+
 void aMazingScene::Shutdown()
 {
 	glow->Shutdown();
 	depthField->Shutdown();
+	sound->Shutdown();
 }
 
 void aMazingScene::Render(D3DClass* d3dkit, CameraClass* camera)
 {
+	sound->Play();
 	ID3D11Device* device = d3dkit->getDevice();
 	ID3D11DeviceContext* context = d3dkit->getContext();
 	auto mazeRender = [&](ID3D11Device* device,ID3D11DeviceContext* context)

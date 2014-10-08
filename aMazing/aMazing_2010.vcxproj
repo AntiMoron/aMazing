@@ -404,6 +404,7 @@
     <ClCompile Include="ShaderCompilerClass.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="ShaderPair.cpp" />
+    <ClCompile Include="SoundClass.cpp" />
     <ClCompile Include="TextureClass.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="VertexShaderClass.cpp" />
@@ -454,6 +455,7 @@
     <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="ShaderPair.h" />
     <ClInclude Include="ShadowMap.hpp" />
+    <ClInclude Include="SoundClass.h" />
     <ClInclude Include="TextureClass.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="vertex.hpp" />

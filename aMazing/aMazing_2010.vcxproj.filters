@@ -156,6 +156,9 @@
       <Filter>Engine\Effect</Filter>
     </ClInclude>
     <ClInclude Include="aMazingScene.h" />
+    <ClInclude Include="SoundClass.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aMazing.cpp" />
@@ -238,6 +241,9 @@
       <Filter>Engine\System</Filter>
     </ClCompile>
     <ClCompile Include="aMazingScene.cpp" />
+    <ClCompile Include="SoundClass.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">

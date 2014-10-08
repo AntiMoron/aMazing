@@ -134,7 +134,7 @@ HRESULT InitDevice()
 	//aditional operations.
 	bk.Initialize(DEVICE, CONTEXT);
 	camera.Initialize(DEVICE, CONTEXT);
-	scene.Initialize(DEVICE, CONTEXT);
+	scene.Initialize(g_hWnd,DEVICE, CONTEXT);
 	ao.Initialize(DEVICE, CONTEXT);
 	GRAPHICS.Initialize(&d3d);
 	// Define the input layout

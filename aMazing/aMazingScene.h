@@ -6,13 +6,15 @@
 #include"GlowEffect.hpp"
 #include"DepthField.hpp"
 #include"MazeGenerator.h"
+#include"SoundClass.h"
 class aMazingScene
 {
 public:
 	aMazingScene();
 	~aMazingScene();
 
-	HRESULT Initialize(ID3D11Device* device,
+	HRESULT Initialize(HWND hwnd,
+		ID3D11Device* device,
 		ID3D11DeviceContext* context);
 	void Shutdown();
 
@@ -22,5 +24,6 @@ private:
 	std::unique_ptr<GlowEffect> glow;
 	std::unique_ptr<DepthField> depthField;
 	std::unique_ptr<Maze> maze;
+	std::unique_ptr<SoundClass> sound;
 };
 

@@ -51,8 +51,8 @@ void Maze::Render(ID3D11Device* device,
 				position.y = 0.0f;
 			}
 			//do frustum test on each block
-			if (camera->getFrustum()->CheckCube(position.x, position.y, position.z,
-				scaling.x / 2.0f, scaling.y / 2.0f, scaling.z / 2.0f))
+//			if (camera->getFrustum()->CheckCube(position.x, position.y, position.z,
+//				scaling.x , scaling.y, scaling.z))
 			{
 				if (position.y > 0.0f)
 					TEXTURE.getTexture(1)->bindPS(device, context, 0);
