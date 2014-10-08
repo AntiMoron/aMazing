@@ -185,6 +185,25 @@ HRESULT D3DClass::Initialize(HWND hwnd)
 		return false;
 	}
 
+
+	D3D11_BLEND_DESC blend_desc;
+	ZeroMemory(&blend_desc, sizeof(blend_desc));
+	blend_desc.RenderTarget[0].BlendEnable = true;
+	blend_desc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	blend_desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	blend_desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	blend_desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	blend_desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+	blend_desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	blend_desc.RenderTarget[0].RenderTargetWriteMask = 0x0f;
+
+	hr = g_pd3dDevice->CreateBlendState(&blend_desc, &AlphaRenderingEnabled);
+	if (FAILED(hr))
+	{
+		return false;
+	}
+	float rgba[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+	g_pImmediateContext->OMSetBlendState(AlphaRenderingEnabled, rgba, 0xffffffff);
 	return S_OK;
 }
 HRESULT D3DClass::Shutdown()

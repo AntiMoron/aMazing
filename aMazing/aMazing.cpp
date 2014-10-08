@@ -153,6 +153,14 @@ HRESULT InitDevice()
 		layout, numElements, "Basic2D");
 
 	SHADERS.addPair(DEVICE, CONTEXT,
+		"Shader/BasicSky.fx", "Shader/BasicSky.fx",
+		layout, numElements, "BasicSky");
+
+	SHADERS.addPair(DEVICE, CONTEXT,
+		"Shader/FireWork.fx", "Shader/FireWork.fx",
+		layout,numElements,"FireWork");
+
+	SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/hblur/hblur.fx", "Shader/hblur/hblur.fx",
 		layout, numElements, "Hblur");
 
@@ -226,11 +234,9 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
 		case WM_KEYDOWN:
 			INPUT.keys[wParam] = true;
 			break;
-
 		case WM_KEYUP:
 			INPUT.keys[wParam] = false;
 			break;
-
 		case WM_LBUTTONDOWN:
 			INPUT.keys[VK_LBUTTON] = true;
 			break;
@@ -272,35 +278,35 @@ void CameraProc()
 {
 	if (INPUT.keys['W'])
 	{
-		camera.moveForward(0.001f);
+		camera.moveForward(0.0001f);
 	}
 	if (INPUT.keys['S'])
 	{
-		camera.moveBackward(0.001f);
+		camera.moveBackward(0.0001f);
 	}
 	if (INPUT.keys['A'])
 	{
-		camera.moveLeft(0.001f);
+		camera.moveLeft(0.0001f);
 	}
 	if (INPUT.keys['D'])
 	{
-		camera.moveRight(0.001f);
+		camera.moveRight(0.0001f);
 	}
 	if (INPUT.keys[VK_LEFT])
 	{
-		camera.turnLeft(1);
+		camera.turnLeft(5);
 	}
 	if (INPUT.keys[VK_RIGHT])
 	{
-		camera.turnRight(1);
+		camera.turnRight(5);
 	}
 	if (INPUT.keys[VK_UP])
 	{
-		camera.lookUp(1);
+		camera.lookUp(2);
 	}
 	if (INPUT.keys[VK_DOWN])
 	{
-		camera.lookDown(1);
+		camera.lookDown(2);
 	}
 	camera.Render(DEVICE, CONTEXT);
 }
@@ -310,8 +316,7 @@ void Render()
 	CameraProc();
 	d3d.clearRenderTarget();
 	XMFLOAT3 cameraPos = camera.getPosition();
-	printf("%f %f %f\n",cameraPos.x,cameraPos.y,cameraPos.z);
-	cameraPos.y = 0.10;
+	cameraPos.y = 0.005;
 	XMFLOAT3 targetPos;
 	targetPos.x = cameraPos.x + 0.02f;
 	targetPos.y = 0.0f;

@@ -27,11 +27,11 @@
     <Filter Include="Engine\Animate">
       <UniqueIdentifier>{063db111-3662-41f2-83dd-5e8418452b92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Collision">
+      <UniqueIdentifier>{b28aaaf4-f87f-4a25-904b-cfd4f57cb56e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BlockClass.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
     <ClInclude Include="MazeGenerator.h" />
     <ClInclude Include="Maze.h" />
     <ClInclude Include="BasicObject.h">
@@ -124,9 +124,6 @@
     <ClInclude Include="math3D.hpp">
       <Filter>Engine\math</Filter>
     </ClInclude>
-    <ClInclude Include="LineClass.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
     <ClInclude Include="BoneClass.h" />
     <ClInclude Include="DepthMap.hpp">
       <Filter>Engine\Effect</Filter>
@@ -159,12 +156,23 @@
     <ClInclude Include="SoundClass.h">
       <Filter>Engine\System</Filter>
     </ClInclude>
+    <ClInclude Include="BlockClass.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="LineClass.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionHeader.h">
+      <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionWorld.hpp">
+      <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="DayNightClass.hpp" />
+    <ClInclude Include="ParticleClass.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aMazing.cpp" />
-    <ClCompile Include="BlockClass.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
     <ClCompile Include="MazeGenerator.cpp" />
     <ClCompile Include="Maze.cpp" />
     <ClCompile Include="BasicObject.cpp">
@@ -227,9 +235,6 @@
     <ClCompile Include="PrimitivePipeline.cpp">
       <Filter>Engine\System</Filter>
     </ClCompile>
-    <ClCompile Include="LineClass.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
     <ClCompile Include="BoneClass.cpp" />
     <ClCompile Include="FunctionType.hpp">
       <Filter>Engine\System</Filter>
@@ -244,6 +249,16 @@
     <ClCompile Include="SoundClass.cpp">
       <Filter>Engine\System</Filter>
     </ClCompile>
+    <ClCompile Include="BlockClass.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="LineClass.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="ContactListener.hpp">
+      <Filter>Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleClass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -258,6 +273,36 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="Basic3D.fx">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\vblur\vblur.fx">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\DepthField\DepthFieldMerge.fx">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\depthMap\depthMap.fx">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\Glow\GlowMerge.fx">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\hblur\hblur.fx">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\HighLight\HighLight.fx">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\depthMap\lightDepthMap.fx">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\wires\line.fx">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\texture\ProjectionTex.fx">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\ShadowMap\shadowMap.fx">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

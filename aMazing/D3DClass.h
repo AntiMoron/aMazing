@@ -40,5 +40,6 @@ private:
 
 	ID3D11DepthStencilState*			m_depthEnabledStencilState;
 	ID3D11DepthStencilState*			m_depthDisabledStencilState;
+	ID3D11BlendState*					AlphaRenderingEnabled;
 };
 

@@ -7,6 +7,8 @@
 #include"DepthField.hpp"
 #include"MazeGenerator.h"
 #include"SoundClass.h"
+#include"CollisionWorld.hpp"
+#include"DayNightClass.hpp"
 class aMazingScene
 {
 public:
@@ -20,10 +22,10 @@ public:
 
 	void Render(D3DClass* d3dkit,CameraClass* camera);
 private:
-	std::unique_ptr<TextureClass> skyColor;
+	std::unique_ptr<DayNightClass> dayTime;
 	std::unique_ptr<GlowEffect> glow;
-	std::unique_ptr<DepthField> depthField;
 	std::unique_ptr<Maze> maze;
 	std::unique_ptr<SoundClass> sound;
+	std::unique_ptr<CollisionWorld> collisionWorld;
 };
 

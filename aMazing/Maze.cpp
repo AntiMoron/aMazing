@@ -1,5 +1,7 @@
 #include "Maze.h"
 
+const float Maze::blockSize = 0.005f;
+
 Maze::Maze()
 {
 	m_map = nullptr;
@@ -34,7 +36,6 @@ void Maze::Render(ID3D11Device* device,
 	ID3D11DeviceContext* context,
 	CameraClass* camera)
 {
-	float blockSize = 0.005f;
 	float xOffSet = blockSize * width / 2.0f;
 	float yOffSet = blockSize * height / 2.0f;
 	for (int p = 0; p < height; ++p)

@@ -15,17 +15,16 @@ HRESULT aMazingScene::Initialize(HWND hwnd, ID3D11Device* device,
 	ID3D11DeviceContext* context)
 {
 	HRESULT hr;
+	//Initialize collision world.
+	//must be called before generating a maze
+	collisionWorld.reset(new CollisionWorld);
+	collisionWorld->Initialize();
+
 	//Generate a maze
-	maze.reset(MAZEFACTORY.genMaze(50));
-	
+	maze.reset(MAZEFACTORY.genMaze(50, collisionWorld.get()));
+
 	glow.reset(new GlowEffect);
 	hr = glow->Initialize(device, context);
-	if (FAILED(hr))
-	{
-		return hr;
-	}
-
-	depthField.reset(new DepthField);
 	if (FAILED(hr))
 	{
 		return hr;
@@ -37,14 +36,34 @@ HRESULT aMazingScene::Initialize(HWND hwnd, ID3D11Device* device,
 	{
 		E_FAIL;
 	}
+
+	dayTime.reset(new DayNightClass);
+	hr = dayTime->Initialize(device, context);
+	if (FAILED(hr))
+	{
+		return E_FAIL;
+	}
 	return S_OK;
 }
 
 void aMazingScene::Shutdown()
 {
-	glow->Shutdown();
-	depthField->Shutdown();
-	sound->Shutdown();
+	if (glow.get() != nullptr)
+	{
+		glow->Shutdown();
+	}
+	if (sound.get() != nullptr)
+	{
+		sound->Shutdown();
+	}
+	if (collisionWorld.get() != nullptr)
+	{
+		collisionWorld->Shutdown();
+	}
+	if (dayTime.get() == nullptr)
+	{
+		dayTime->Shutdown();
+	}
 }
 
 void aMazingScene::Render(D3DClass* d3dkit, CameraClass* camera)
@@ -52,9 +71,17 @@ void aMazingScene::Render(D3DClass* d3dkit, CameraClass* camera)
 	sound->Play();
 	ID3D11Device* device = d3dkit->getDevice();
 	ID3D11DeviceContext* context = d3dkit->getContext();
-	auto mazeRender = [&](ID3D11Device* device,ID3D11DeviceContext* context)
+	dayTime->UpdateTime(device, context);
+
+	XMFLOAT3 pos = camera->getPosition();
+	
+	collisionWorld->updateCameraPos(pos.x, pos.z, camera->getRotation().y);
+
+	collisionWorld->getNewState();
+	
+	auto mazeRender = [&](ID3D11Device* device, ID3D11DeviceContext* context)
 	{
-		SHADERS.bindPair("Basic2D", device, context);
+		SHADERS.bindPair("BasicSky", device, context);
 		TEXTURE.getTexture(3)->bindPS(device, context, 0);
 		GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 		SHADERS.bindPair("Basic3D", device, context);

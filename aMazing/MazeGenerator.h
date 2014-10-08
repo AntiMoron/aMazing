@@ -4,11 +4,12 @@
 #include<cstdio>
 #include<ctime>
 #include"Maze.h"
+#include"CollisionWorld.hpp"
 
 class MazeGenerator
 {
 public:
-	Maze* genMaze(int dimension);
+	Maze* genMaze(int dimension, CollisionWorld* collision);
 	static MazeGenerator& getInstance();
 private:
 	MazeGenerator();

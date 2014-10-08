@@ -36,6 +36,11 @@ HRESULT SoundClass::Initialize(HWND hwnd , MutableString&& path)
 
 HRESULT SoundClass::Shutdown()
 {
+	if (m_soundData != nullptr)
+	{
+		delete m_soundData;
+		m_soundData = nullptr;
+	}
 	return S_OK;
 }
 

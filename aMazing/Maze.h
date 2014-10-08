@@ -2,6 +2,7 @@
 #include"PrimitivePipeline.h"
 #include"TextureManager.h"
 #include"CameraClass.h"
+
 class Maze
 {
 public:
@@ -14,6 +15,7 @@ public:
 
 	bool& get(std::size_t x,std::size_t y);
 private:
+	const static float blockSize;
 	friend class MazeGenerator;
 	bool* m_map;
 	int width, height;

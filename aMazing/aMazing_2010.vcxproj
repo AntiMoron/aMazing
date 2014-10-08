@@ -385,6 +385,7 @@
     <ClCompile Include="BlockClass.cpp" />
     <ClCompile Include="BoneClass.cpp" />
     <ClCompile Include="CameraClass.cpp" />
+    <ClCompile Include="ContactListener.hpp" />
     <ClCompile Include="D3DClass.cpp" />
     <ClCompile Include="EffectClass.cpp" />
     <ClCompile Include="exceptions.cpp" />
@@ -397,6 +398,7 @@
     <ClCompile Include="Maze.cpp" />
     <ClCompile Include="MazeGenerator.cpp" />
     <ClCompile Include="MutableString.cpp" />
+    <ClCompile Include="ParticleClass.cpp" />
     <ClCompile Include="PixelShaderClass.cpp" />
     <ClCompile Include="PrimitivePipeline.cpp" />
     <ClCompile Include="RectangleClass.cpp" />
@@ -422,7 +424,10 @@
     <ClInclude Include="BlockClass.h" />
     <ClInclude Include="BoneClass.h" />
     <ClInclude Include="CameraClass.h" />
+    <ClInclude Include="CollisionHeader.h" />
+    <ClInclude Include="CollisionWorld.hpp" />
     <ClInclude Include="D3DClass.h" />
+    <ClInclude Include="DayNightClass.hpp" />
     <ClInclude Include="Defines.hpp" />
     <ClInclude Include="DepthField.hpp" />
     <ClInclude Include="DepthMap.hpp" />
@@ -444,6 +449,7 @@
     <ClInclude Include="Maze.h" />
     <ClInclude Include="MazeGenerator.h" />
     <ClInclude Include="MutableString.h" />
+    <ClInclude Include="ParticleClass.h" />
     <ClInclude Include="PixelShaderClass.h" />
     <ClInclude Include="PrimitivePipeline.h" />
     <ClInclude Include="ProjectTexture.hpp" />
@@ -471,6 +477,36 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shader\DepthField\DepthFieldMerge.fx">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="Shader\depthMap\depthMap.fx">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="Shader\depthMap\lightDepthMap.fx">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="Shader\Glow\GlowMerge.fx">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="Shader\hblur\hblur.fx">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="Shader\HighLight\HighLight.fx">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="Shader\ShadowMap\shadowMap.fx">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="Shader\texture\ProjectionTex.fx">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="Shader\vblur\vblur.fx">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="Shader\wires\line.fx">
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
