@@ -47,9 +47,9 @@ public:
 			{
 				tn = TIME_DAY - timeNow;
 			}
-			XMFLOAT4 data = { float(tn) / TIME_DAY, 
-				float(tn) / TIME_DAY,
-				float(tn) / TIME_DAY,
+			XMFLOAT4 data = { 2.0f * float(tn) / TIME_DAY,
+				2.0f * float(tn) / TIME_DAY,
+				2.0f * float(tn) / TIME_DAY,
 				1.0f };
 			dayColorAlpha->UpdateData(&data);
 			dayColorAlpha->UpdateGpu(device, context);

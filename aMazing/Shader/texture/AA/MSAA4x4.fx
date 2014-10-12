@@ -5,6 +5,7 @@ SamplerState samLinear : register(s0);
 struct VS_INPUT
 {
 	float4 Pos : POSITION;
+	float4 Nor : NORMAL;
 	float2 Tex : TEXCOORD0;
 };
 

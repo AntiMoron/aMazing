@@ -69,7 +69,7 @@ private:
 			if (IntersectRectangleCircle(rec, camera.get()))
 			{
 				flag = true;
-				printf("hit\n");
+//				printf("hit\n");
 			}
 		}
 	}

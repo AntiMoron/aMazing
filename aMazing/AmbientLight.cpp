@@ -98,11 +98,18 @@ void AmbientLight::Render(ID3D11Device* device,
 		up = { 0.0f, 1.0f, 0.0f };
 	cbData.viewMatrix = XMMatrixLookAtLH(st, ed, up);
 	cbData.projectionMatrix = XMMatrixPerspectiveFovLH(fov, 1.0f, near_far.x, near_far.y);
-
+	cbData.position = { position.x, position.y, position.z, 1.0f };
+	cbData.direction = {
+		target.x - position.x,
+		target.y - position.y,
+		target.z - position.z,
+		1.0f
+	};
 	cbData.viewMatrix = XMMatrixTranspose(cbData.viewMatrix);
 	cbData.projectionMatrix = XMMatrixTranspose(cbData.projectionMatrix);
 
 	matrices->UpdateData(&cbData);
 	matrices->UpdateGpu(device, context);
 	matrices->BindVertexShader(device, context);
+	matrices->BindPixelShader(device, context);
 }

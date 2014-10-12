@@ -5,6 +5,7 @@
 #include<memory>
 #include"WindowClass.h"
 #include"GPUConstantBuffer.hpp"
+#include"CommonUtil.h"
 
 class AmbientLight
 {
@@ -33,6 +34,8 @@ private:
 
 	struct AmbientLightMatrices
 	{
+		XMFLOAT4 direction;
+		XMFLOAT4 position;
 		XMMATRIX viewMatrix;
 		XMMATRIX projectionMatrix;
 	};

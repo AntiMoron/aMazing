@@ -25,8 +25,8 @@ HRESULT LineClass::Initialize(ID3D11Device* device,
 	setLineColor(device, context, 1.0f, 1.0f, 1.0f, 1.0f);
 	
 	vertex verts[] = { 
-		{ XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT2(0.0f, 0.0f) },
-		{ XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT2(0.0f, 0.0f) } 
+		{ XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(), XMFLOAT2(0.0f, 0.0f) },
+		{ XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT3(), XMFLOAT2(0.0f, 0.0f) }
 	};
 	hr = m_vertices.Initialize(device, context, verts, 2);
 	if (FAILED(hr))
@@ -75,8 +75,8 @@ void LineClass::Render(ID3D11Device* device,
 		lastPosY[1] = ey;
 		lastPosZ[1] = ez;	
 		vertex verts[] = {
-			{ XMFLOAT3(sx, sy, sz), XMFLOAT2(0.0f, 0.0f) },
-			{ XMFLOAT3(ex, ey, ez), XMFLOAT2(0.0f, 0.0f) }
+			{ XMFLOAT3(sx, sy, sz),XMFLOAT3(), XMFLOAT2(0.0f, 0.0f) },
+			{ XMFLOAT3(ex, ey, ez), XMFLOAT3(), XMFLOAT2(0.0f, 0.0f) }
 		};
 		m_vertices.UpdateVertices(device, context, verts, 2);
 	}

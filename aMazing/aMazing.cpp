@@ -137,7 +137,8 @@ HRESULT InitDevice()
 	D3D11_INPUT_ELEMENT_DESC layout[] =
 	{
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 	UINT numElements = ARRAYSIZE(layout);
 	SHADERS.addPair(DEVICE, CONTEXT,
@@ -297,14 +298,8 @@ void Render()
 {
 	CameraProc();
 	d3d.clearRenderTarget();
-	XMFLOAT3 cameraPos = scene.getCamera()->getPosition();
-	cameraPos.y = 0.005;
-	XMFLOAT3 targetPos;
-	targetPos.x = cameraPos.x + 0.02f;
-	targetPos.y = 0.0f;
-	targetPos.z = cameraPos.z + 0.02f;
-	ao.setPosition(cameraPos);
-	ao.setTarget(targetPos);
+	ao.setPosition(XMFLOAT3(1.0f, 1.0f, 1.0f));
+	ao.setTarget(XMFLOAT3(0.0f, 0.0f, 0.0f));
 	ao.Render(DEVICE, CONTEXT);
 	
 	scene.Render(&d3d);

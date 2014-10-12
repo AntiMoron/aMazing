@@ -106,7 +106,6 @@ void aMazingScene::Render(D3DClass* d3dkit)
 	};
 
 	glow->Render(device, context, mazeRender);
-	
 	d3dkit->setRenderTarget();
 
 	SHADERS.bindPair("Basic2D", device, context);

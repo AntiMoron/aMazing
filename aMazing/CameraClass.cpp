@@ -226,12 +226,16 @@ void CameraClass::lookUp(float step)
 {
 	XMFLOAT3 rot = getRotation();
 	rot.y += step * 0.017453292f;
+	if (rot.y > 80.0f * 0.017453292f)
+		rot.y = 80.0f * 0.017453292f;
 	setRotation(rot);
 }
 void CameraClass::lookDown(float step)
 {
 	XMFLOAT3 rot = getRotation();
 	rot.y -= step * 0.017453292f;
+	if (rot.y < -80.0f * 0.017453292f)
+		rot.y = -80.0f * 0.017453292f;
 	setRotation(rot);
 }
 void CameraClass::twistLeft(float step)
