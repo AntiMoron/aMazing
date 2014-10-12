@@ -13,11 +13,9 @@
 HINSTANCE g_hInst = nullptr;
 HWND g_hWnd = nullptr;
 
-CameraClass camera;
-BlockClass bk;
 D3DClass d3d;
-AmbientLight ao;
 aMazingScene scene;
+AmbientLight ao;
 
 #define DEVICE (d3d.getDevice())
 #define CONTEXT (d3d.getContext())
@@ -132,11 +130,9 @@ HRESULT InitDevice()
 		return E_FAIL;
 
 	//aditional operations.
-	bk.Initialize(DEVICE, CONTEXT);
-	camera.Initialize(DEVICE, CONTEXT);
-	scene.Initialize(g_hWnd,DEVICE, CONTEXT);
 	ao.Initialize(DEVICE, CONTEXT);
 	GRAPHICS.Initialize(&d3d);
+	scene.Initialize(g_hWnd,DEVICE, CONTEXT);
 	// Define the input layout
 	D3D11_INPUT_ELEMENT_DESC layout[] =
 	{
@@ -205,8 +201,6 @@ HRESULT InitDevice()
 void CleanupDevice()
 {
 	d3d.Shutdown();
-	bk.Shutdown();
-	camera.Shutdown();
 	ao.Shutdown();
 	scene.Shutdown();
 	GRAPHICS.Shutdown();
@@ -276,46 +270,34 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
 
 void CameraProc()
 {
-	if (INPUT.keys['W'])
-	{
-		camera.moveForward(0.0001f);
-	}
-	if (INPUT.keys['S'])
-	{
-		camera.moveBackward(0.0001f);
-	}
-	if (INPUT.keys['A'])
-	{
-		camera.moveLeft(0.0001f);
-	}
-	if (INPUT.keys['D'])
-	{
-		camera.moveRight(0.0001f);
-	}
+	scene.getCamera()->setStep(0.00015f);
+	scene.getCamera()->moveForward(INPUT.keys['W']);
+	scene.getCamera()->moveBackward(INPUT.keys['S']);
+	scene.getCamera()->moveLeftward(INPUT.keys['A']);
+	scene.getCamera()->moveRightward(INPUT.keys['D']);
 	if (INPUT.keys[VK_LEFT])
 	{
-		camera.turnLeft(5);
+		scene.getCamera()->getCamera()->turnLeft(5);
 	}
 	if (INPUT.keys[VK_RIGHT])
 	{
-		camera.turnRight(5);
+		scene.getCamera()->getCamera()->turnRight(5);
 	}
 	if (INPUT.keys[VK_UP])
 	{
-		camera.lookUp(2);
+		scene.getCamera()->getCamera()->lookUp(2);
 	}
 	if (INPUT.keys[VK_DOWN])
 	{
-		camera.lookDown(2);
+		scene.getCamera()->getCamera()->lookDown(2);
 	}
-	camera.Render(DEVICE, CONTEXT);
 }
 
 void Render()
 {
 	CameraProc();
 	d3d.clearRenderTarget();
-	XMFLOAT3 cameraPos = camera.getPosition();
+	XMFLOAT3 cameraPos = scene.getCamera()->getPosition();
 	cameraPos.y = 0.005;
 	XMFLOAT3 targetPos;
 	targetPos.x = cameraPos.x + 0.02f;
@@ -325,9 +307,7 @@ void Render()
 	ao.setTarget(targetPos);
 	ao.Render(DEVICE, CONTEXT);
 	
-	cameraPos.y = 0.0064;
-	camera.setPosition(cameraPos);
-	scene.Render(&d3d, &camera);
+	scene.Render(&d3d);
 
 	d3d.Present(true);//V-Sync
 }

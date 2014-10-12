@@ -66,3 +66,28 @@ void Maze::Render(ID3D11Device* device,
 		}
 	}
 }
+
+std::pair<int,int> Maze::getRandomEmptyCoord()
+{
+	std::pair<int,int> result;
+	int rx = rand() % height;
+	int ry = rand() % width;
+	while(get(rx , ry) == true)
+	{
+		rx = rand() % width;
+		ry = rand() % height;
+	}
+	result.first = rx;
+	result.second = ry;
+	return result;
+}
+
+XMFLOAT2 Maze::getPositionByCoord(std::pair<int,int> coord)
+{
+	XMFLOAT2 result;
+	float xOffSet = blockSize * width / 2.0f;
+	float yOffSet = blockSize * height / 2.0f;
+	result.x = coord.first * blockSize - xOffSet;
+	result.y = coord.second * blockSize - yOffSet;
+	return result;
+}

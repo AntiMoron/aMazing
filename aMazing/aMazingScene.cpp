@@ -23,6 +23,13 @@ HRESULT aMazingScene::Initialize(HWND hwnd, ID3D11Device* device,
 	//Generate a maze
 	maze.reset(MAZEFACTORY.genMaze(50, collisionWorld.get()));
 
+	camera.reset(new WrappedCamera);
+	hr = camera->Initialize(device, context);
+	if (FAILED(hr))
+	{
+		return hr;
+	}
+	
 	glow.reset(new GlowEffect);
 	hr = glow->Initialize(device, context);
 	if (FAILED(hr))
@@ -43,6 +50,11 @@ HRESULT aMazingScene::Initialize(HWND hwnd, ID3D11Device* device,
 	{
 		return E_FAIL;
 	}
+
+	XMFLOAT2 twoDPosition = maze->getPositionByCoord(maze->getRandomEmptyCoord());
+	XMFLOAT3 camerInitialPosition = { twoDPosition.x ,Maze::blockSize , twoDPosition.y};
+	camera->setPosition(camerInitialPosition);
+	camera->setFov(60.0f);
 	return S_OK;
 }
 
@@ -60,22 +72,27 @@ void aMazingScene::Shutdown()
 	{
 		collisionWorld->Shutdown();
 	}
-	if (dayTime.get() == nullptr)
+	if (dayTime.get() != nullptr)
 	{
 		dayTime->Shutdown();
 	}
+	if (camera.get() != nullptr)
+	{
+		camera->Shutdown();
+	}
 }
 
-void aMazingScene::Render(D3DClass* d3dkit, CameraClass* camera)
+void aMazingScene::Render(D3DClass* d3dkit)
 {
 	sound->Play();
 	ID3D11Device* device = d3dkit->getDevice();
 	ID3D11DeviceContext* context = d3dkit->getContext();
+	camera->Render(device, context);
 	dayTime->UpdateTime(device, context);
 
 	XMFLOAT3 pos = camera->getPosition();
 	
-	collisionWorld->updateCameraPos(pos.x, pos.z, camera->getRotation().y);
+	collisionWorld->updateCameraPos(pos.x, pos.z, 0.0f);
 
 	collisionWorld->getNewState();
 	
@@ -85,7 +102,7 @@ void aMazingScene::Render(D3DClass* d3dkit, CameraClass* camera)
 		TEXTURE.getTexture(3)->bindPS(device, context, 0);
 		GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 		SHADERS.bindPair("Basic3D", device, context);
-		maze->Render(device, context, camera);
+		maze->Render(device, context, camera->getCamera());
 	};
 
 	glow->Render(device, context, mazeRender);
@@ -95,4 +112,9 @@ void aMazingScene::Render(D3DClass* d3dkit, CameraClass* camera)
 	SHADERS.bindPair("Basic2D", device, context);
 	glow->bindPS(device, context, 0);
 	GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
+}
+
+WrappedCamera* aMazingScene::getCamera()
+{
+	return camera.get();
 }

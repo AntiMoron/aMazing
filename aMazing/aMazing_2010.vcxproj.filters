@@ -30,6 +30,12 @@
     <Filter Include="Collision">
       <UniqueIdentifier>{b28aaaf4-f87f-4a25-904b-cfd4f57cb56e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Collision\ShapeCategory">
+      <UniqueIdentifier>{0330ea63-0aa7-4b5b-98e0-2ff1b5149fa7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{ce9261df-d94a-4e68-83f4-94c52852c824}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MazeGenerator.h" />
@@ -162,14 +168,36 @@
     <ClInclude Include="LineClass.h">
       <Filter>Engine\System</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionHeader.h">
+    <ClInclude Include="DayNightClass.hpp" />
+    <ClInclude Include="ParticleClass.h" />
+    <ClInclude Include="CollisionCircle.hpp">
+      <Filter>Collision\ShapeCategory</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionRectangle.hpp">
+      <Filter>Collision\ShapeCategory</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionLine.hpp">
+      <Filter>Collision\ShapeCategory</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionTriangle.hpp">
+      <Filter>Collision\ShapeCategory</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionPolygon.h">
+      <Filter>Collision\ShapeCategory</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionShape.hpp">
       <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionIntersection.h">
+      <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="WrappedCamera.h" />
+    <ClInclude Include="CommonUtil.h">
+      <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="CollisionWorld.hpp">
       <Filter>Collision</Filter>
     </ClInclude>
-    <ClInclude Include="DayNightClass.hpp" />
-    <ClInclude Include="ParticleClass.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aMazing.cpp" />
@@ -255,10 +283,14 @@
     <ClCompile Include="LineClass.cpp">
       <Filter>Engine\System</Filter>
     </ClCompile>
-    <ClCompile Include="ContactListener.hpp">
-      <Filter>Collision</Filter>
-    </ClCompile>
     <ClCompile Include="ParticleClass.cpp" />
+    <ClCompile Include="CollisionIntersection.cpp">
+      <Filter>Collision\ShapeCategory</Filter>
+    </ClCompile>
+    <ClCompile Include="WrappedCamera.cpp" />
+    <ClCompile Include="CommonUtil.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">

@@ -22,7 +22,9 @@ void FrustumClass::ConstructFrustum(float screenDepth, XMMATRIX& projectionMatri
 
 	// Create the frustum matrix from the view matrix and updated projection matrix.
 
-	XMMATRIX matrix = viewMatrix * projectionMatrix;
+	XMMATRIX stackViewMatrix = viewMatrix;
+	XMMATRIX stackProjectionMatrix = projectionMatrix;
+	XMMATRIX matrix = stackViewMatrix * stackProjectionMatrix;
 
 	// Calculate near plane of frustum.
 	m_planes[0].m128_f32[0] = matrix._14 + matrix._13;

@@ -60,6 +60,7 @@ private:
 	// - z left,vice versa.
 	XMFLOAT3 upVector;
 
+	XMFLOAT3 speed;
 	XMFLOAT3 forwardDirection;
 	XMFLOAT3 lefthandDirection;
 	struct cameraMatrices

@@ -43,13 +43,14 @@ HRESULT CameraClass::Initialize(ID3D11Device* device,
 	m_matriceData.view = XMMatrixLookAtLH(posVector, focVector, _upVector);
 	m_matriceData.projection = XMMatrixPerspectiveFovLH(fov, ASPECTRATIO, near_far.x, near_far.y);
 
-	m_matriceData.world = XMMatrixTranspose(m_matriceData.world);
-	m_matriceData.view = XMMatrixTranspose(m_matriceData.view);
-	m_matriceData.projection = XMMatrixTranspose(m_matriceData.projection);
+	decltype(m_matriceData) cbData = m_matriceData;
+	cbData.world = XMMatrixTranspose(cbData.world);
+	cbData.view = XMMatrixTranspose(cbData.view);
+	cbData.projection = XMMatrixTranspose(cbData.projection);
 
 	//Update Buffer
 	m_matrices.Initialize(device, context, 0);
-	m_matrices.UpdateData(&m_matriceData);
+	m_matrices.UpdateData(&cbData);
 	m_matrices.UpdateGpu(device, context);
 	m_matrices.BindVertexShader(device, context);
 
@@ -171,10 +172,10 @@ void CameraClass::Render(ID3D11Device* device,
 	m_matriceData.view = XMMatrixLookAtLH(posVector, focVector, _upVector);
 	m_matriceData.projection = XMMatrixPerspectiveFovLH(fov, ASPECTRATIO, near_far.x, near_far.y);
 
-	decltype(m_matriceData) shaderMatricesData;
-	shaderMatricesData.world = XMMatrixTranspose(m_matriceData.world);
-	shaderMatricesData.view = XMMatrixTranspose(m_matriceData.view);
-	shaderMatricesData.projection = XMMatrixTranspose(m_matriceData.projection);
+	decltype(m_matriceData) shaderMatricesData = m_matriceData;
+	shaderMatricesData.world = XMMatrixTranspose(shaderMatricesData.world);
+	shaderMatricesData.view = XMMatrixTranspose(shaderMatricesData.view);
+	shaderMatricesData.projection = XMMatrixTranspose(shaderMatricesData.projection);
 	m_matrices.UpdateData(&shaderMatricesData);
 	m_matrices.UpdateGpu(device, context);
 	m_matrices.BindVertexShader(device, context);

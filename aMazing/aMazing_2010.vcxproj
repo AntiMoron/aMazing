@@ -385,7 +385,8 @@
     <ClCompile Include="BlockClass.cpp" />
     <ClCompile Include="BoneClass.cpp" />
     <ClCompile Include="CameraClass.cpp" />
-    <ClCompile Include="ContactListener.hpp" />
+    <ClCompile Include="CollisionIntersection.cpp" />
+    <ClCompile Include="CommonUtil.cpp" />
     <ClCompile Include="D3DClass.cpp" />
     <ClCompile Include="EffectClass.cpp" />
     <ClCompile Include="exceptions.cpp" />
@@ -411,6 +412,7 @@
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="VertexShaderClass.cpp" />
     <ClCompile Include="WindowClass.cpp" />
+    <ClCompile Include="WrappedCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Basic3D.fx">
@@ -424,8 +426,14 @@
     <ClInclude Include="BlockClass.h" />
     <ClInclude Include="BoneClass.h" />
     <ClInclude Include="CameraClass.h" />
-    <ClInclude Include="CollisionHeader.h" />
+    <ClInclude Include="CollisionCircle.hpp" />
+    <ClInclude Include="CollisionIntersection.h" />
+    <ClInclude Include="CollisionLine.hpp" />
+    <ClInclude Include="CollisionPolygon.h" />
+    <ClInclude Include="CollisionRectangle.hpp" />
+    <ClInclude Include="CollisionTriangle.hpp" />
     <ClInclude Include="CollisionWorld.hpp" />
+    <ClInclude Include="CommonUtil.h" />
     <ClInclude Include="D3DClass.h" />
     <ClInclude Include="DayNightClass.hpp" />
     <ClInclude Include="Defines.hpp" />
@@ -461,6 +469,7 @@
     <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="ShaderPair.h" />
     <ClInclude Include="ShadowMap.hpp" />
+    <ClInclude Include="CollisionShape.hpp" />
     <ClInclude Include="SoundClass.h" />
     <ClInclude Include="TextureClass.h" />
     <ClInclude Include="TextureManager.h" />
@@ -469,6 +478,7 @@
     <ClInclude Include="VerticalBlur.hpp" />
     <ClInclude Include="VHBlurClass.hpp" />
     <ClInclude Include="WindowClass.h" />
+    <ClInclude Include="WrappedCamera.h" />
     <ResourceCompile Include="aMazing.rc" />
   </ItemGroup>
   <ItemGroup>

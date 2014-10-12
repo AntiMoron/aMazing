@@ -9,6 +9,7 @@
 #include"SoundClass.h"
 #include"CollisionWorld.hpp"
 #include"DayNightClass.hpp"
+#include"WrappedCamera.h"
 class aMazingScene
 {
 public:
@@ -19,9 +20,10 @@ public:
 		ID3D11Device* device,
 		ID3D11DeviceContext* context);
 	void Shutdown();
-
-	void Render(D3DClass* d3dkit,CameraClass* camera);
+	void Render(D3DClass* d3dkit);
+	WrappedCamera* getCamera();
 private:
+	std::unique_ptr<WrappedCamera> camera;
 	std::unique_ptr<DayNightClass> dayTime;
 	std::unique_ptr<GlowEffect> glow;
 	std::unique_ptr<Maze> maze;
