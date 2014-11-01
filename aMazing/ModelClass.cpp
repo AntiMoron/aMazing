@@ -147,19 +147,18 @@ void ModelClass::loadBones(const aiScene* pScene)
 			{
 				const aiBone* pBone= pMesh->mBones[j];
 				std::cout << pBone->mName.C_Str() << std::endl;
-				if (boneMapping->find(pBone->mName) != boneMapping->end())
+				if (boneMapping->find(pBone->mName) == boneMapping->end())
 				{
 					boneMapping->insert(std::pair<aiString, std::size_t>(pBone->mName,
 						bones->size()));
 					bones->emplace_back(std::unique_ptr<BoneClass>(new BoneClass));
 					for (int k = 0; k < pBone->mNumWeights; k++)
 					{
-//						bones->back()->weights;
+						bones->back()->weights.push_back(std::move(pBone->mWeights[k]));
 					}
 					bones->back()->boneOffSet = pBone->mOffsetMatrix;
-					pBone->mOffsetMatrix;
+					bones->back()->finalTransformation = bones->back()->boneOffSet;
 				}
-
 			}
 		}
 	}
@@ -312,8 +311,8 @@ bool ModelClass::ReadModelRecursively(const aiScene* pScene,
 		if (boneMapping->find(nodeName) != boneMapping->end())
 		{
 			std::size_t BoneIndex = boneMapping->operator[](nodeName);
-	/*		bones->operator[](BoneIndex).finalTransformation = ParentTransform.Inverse() * currentTransformation *
-				bones->operator[](BoneIndex).BoneOffset;*/
+			bones->operator[](BoneIndex)->finalTransformation = nodeTransformation *
+				bones->operator[](BoneIndex)->boneOffset;
 		}
 
 		//do the recursion
