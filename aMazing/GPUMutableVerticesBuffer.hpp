@@ -73,7 +73,7 @@ public:
 			m_indexCount = indexCount;
 			indexDesc.Usage = D3D11_USAGE_DYNAMIC;
 			indexDesc.ByteWidth = sizeof(WORD)* indexCount;
-			indexDesc.CPUAccessFlags = 0;
+			indexDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 			indexDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 
 			indicesData.pSysMem = indicesPtr;

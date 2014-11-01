@@ -58,7 +58,7 @@ HRESULT aMazingScene::Initialize(HWND hwnd, ID3D11Device* device,
 
 
 	model.reset(new ModelClass);
-	hr = model->Initialize(device, context, "3dmodel/figure.FBX");
+	hr = model->Initialize(device, context, "3dModel/figure.FBX");
 	if (FAILED(hr))
 	{
 		return hr;
@@ -114,7 +114,7 @@ void aMazingScene::Render(D3DClass* d3dkit)
 		TEXTURE.getTexture(3)->bindPS(device, context, 0);
 		GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 		SHADERS.bindPair("Basic3D", device, context);
-		//maze->Render(device, context, camera->getCamera());
+		maze->Render(device, context, camera->getCamera());
 
 		model->setRotation(XMFLOAT3(1.57, 0, 0));
 		model->setScaling(XMFLOAT3(0.001f, 0.001f, 0.001f));
