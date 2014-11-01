@@ -43,7 +43,6 @@ public:
 	void Render(ID3D11Device* device,
 		ID3D11DeviceContext* context);
 private:
-//
 	void loadMeshes(const aiScene* pScene);
 	void loadBones(const aiScene* pScene);
 	aiNodeAnim*  findNodeByName(const aiAnimation* pAnim, const aiString& nodeName);
@@ -52,9 +51,9 @@ private:
 	void calcInterpolatedTranslation(aiVector3D* output, float animationTime, const aiNodeAnim* pNodeAnim);
 	
 	bool is_inited;
-	std::unique_ptr<std::vector<WORD> > indices;
-	std::unique_ptr<std::vector<vertex> > vertices;
 	std::unique_ptr<std::vector<std::unique_ptr<BoneClass> > > bones;
 	std::unique_ptr<std::map<aiString, std::size_t, aiStringLess> > boneMapping;
-	std::unique_ptr<GPUMutableVerticeBuffer<vertex> > vertexBuffer;
+	std::unique_ptr<std::vector<std::unique_ptr<std::vector<WORD> > > > indices;
+	std::unique_ptr<std::vector<std::unique_ptr<std::vector<vertex> > > > vertices;
+	std::unique_ptr<std::vector<std::unique_ptr<GPUMutableVerticeBuffer<vertex> > > > vertexBuffer;
 };

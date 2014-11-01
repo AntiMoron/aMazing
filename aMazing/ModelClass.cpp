@@ -57,11 +57,11 @@ HRESULT ModelClass::Initialize(ID3D11Device* device,
 		return false;
 	};
 	const aiMatrix4x4 transform =  scene->mRootNode->mTransformation;
-	vertices.reset(new std::vector<vertex>);
-	indices.reset(new std::vector<WORD>);
+	vertices.reset(new std::vector<std::unique_ptr<std::vector<vertex> > >);
+	indices.reset(new std::vector<std::unique_ptr<std::vector<WORD> > >);
 	bones.reset(new std::vector<std::unique_ptr<BoneClass> >);
 	boneMapping.reset(new std::map<aiString, std::size_t, aiStringLess>);
-	vertexBuffer.reset(new GPUMutableVerticeBuffer<vertex>);
+	vertexBuffer.reset(new std::vector<std::unique_ptr<GPUMutableVerticeBuffer<vertex> > >);
 	//load the meshes of this model.
 	loadMeshes(scene);
 	//load the bones of this model.
@@ -75,14 +75,17 @@ HRESULT ModelClass::Initialize(ID3D11Device* device,
 		return E_FAIL;
 	}
 
-	hr = vertexBuffer->Initialize(device, context, 
-		vertices->data(), 
-		vertices->size(),
-		indices->data(),
-		indices->size());
-	if (FAILED(hr))
+	for (int i = 0; i < vertices->size(); i++)
 	{
-		return hr;
+		hr = vertexBuffer->at(i)->Initialize(device, context, 
+			vertices->at(i)->data(), 
+			vertices->at(i)->size(),
+			indices->at(i)->data(),
+			indices->at(i)->size());
+		if (FAILED(hr))
+		{
+			return hr;
+		}
 	}
 	return S_OK;
 }
@@ -92,7 +95,13 @@ void ModelClass::Shutdown()
 	BasicObject::Shutdown();
 	if (vertexBuffer.get() != nullptr)
 	{
-		vertexBuffer->Shutdown();
+		for (int i = 0; i < vertexBuffer->size(); i++)
+		{
+			if (vertexBuffer->at(i).get() != nullptr)
+			{
+				vertexBuffer->at(i)->Shutdown();
+			}
+		}
 	}
 }
 
@@ -106,16 +115,26 @@ void ModelClass::loadMeshes(const aiScene* pScene)
 	for (int i = 0; i < pScene->mNumMeshes; i++)
 	{
 		const aiMesh* pMesh = pScene->mMeshes[i];
+		if (pMesh != nullptr)
+		{
+			vertices->push_back(std::unique_ptr<std::vector<vertex> >(new std::vector<vertex>));
+			indices->push_back(std::unique_ptr<std::vector<WORD> >(new std::vector<WORD>));
+			vertexBuffer->push_back(std::unique_ptr<GPUMutableVerticeBuffer<vertex> >(new GPUMutableVerticeBuffer<vertex>));
+		}
+		else
+		{
+			continue;
+		}
 		for (int j = 0; j < pMesh->mNumVertices; j++)
 		{
 			auto& pos = pMesh->mVertices[j];
 			auto& nor = pMesh->mNormals[j];
 			auto& tex = pMesh->mTextureCoords;
-			vertices->push_back(vertex());
-			vertices->back().position = XMFLOAT3{ pos.x, pos.y, pos.z };
-			vertices->back().normal = XMFLOAT3{ nor.x, nor.y, nor.z };
+			vertices->back()->push_back(vertex());
+			vertices->back()->back().position = XMFLOAT3{ pos.x, pos.y, pos.z };
+			vertices->back()->back().normal = XMFLOAT3{ nor.x, nor.y, nor.z };
 			//Problem left.!!!!!!!!!!!!
-			vertices->back().texture = XMFLOAT2{ .0f , .0f};
+			vertices->back()->back().texture = XMFLOAT2{ .0f , .0f};
 		}
 
 		for (int j = 0; j < pMesh->mNumFaces; j++)
@@ -125,9 +144,10 @@ void ModelClass::loadMeshes(const aiScene* pScene)
 				continue;
 			}
 			//push back the indices of meshes.
-			indices->push_back(pMesh->mFaces[j].mIndices[0]);
-			indices->push_back(pMesh->mFaces[j].mIndices[1]);
-			indices->push_back(pMesh->mFaces[j].mIndices[2]);
+			for (int k = 0; k < pMesh->mFaces[j].mNumIndices; k++)
+			{
+				indices->back()->push_back(pMesh->mFaces[j].mIndices[k]);
+			}
 		}
 	}
 }
@@ -339,9 +359,12 @@ void ModelClass::Render(ID3D11Device* device,
 	ID3D11DeviceContext* context)
 {
 	BasicObject::UpdatePRS(device, context);
-	if (vertexBuffer->isInited())
+	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	for (int i = 0; i < vertexBuffer->size(); i++)
 	{
-		context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-		vertexBuffer->Render(device, context);
+		if (vertexBuffer->at(i)->isInited())
+		{
+			vertexBuffer->at(i)->Render(device, context);
+		}
 	}
 }
