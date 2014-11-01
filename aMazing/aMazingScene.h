@@ -10,6 +10,7 @@
 #include"CollisionWorld.hpp"
 #include"DayNightClass.hpp"
 #include"WrappedCamera.h"
+#include"ModelClass.h"
 class aMazingScene
 {
 public:
@@ -29,5 +30,8 @@ private:
 	std::unique_ptr<Maze> maze;
 	std::unique_ptr<SoundClass> sound;
 	std::unique_ptr<CollisionWorld> collisionWorld;
+
+
+	std::unique_ptr<ModelClass> model;
 };
 

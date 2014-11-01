@@ -154,7 +154,8 @@ void ModelClass::loadBones(const aiScene* pScene)
 					bones->emplace_back(std::unique_ptr<BoneClass>(new BoneClass));
 					for (int k = 0; k < pBone->mNumWeights; k++)
 					{
-						bones->back()->weights.push_back(std::move(pBone->mWeights[k]));
+						bones->back()->weights.push_back(
+							std::unique_ptr<aiVertexWeight>(new aiVertexWeight(pBone->mWeights[k])));
 					}
 					bones->back()->boneOffSet = pBone->mOffsetMatrix;
 					bones->back()->finalTransformation = bones->back()->boneOffSet;
@@ -312,7 +313,7 @@ bool ModelClass::ReadModelRecursively(const aiScene* pScene,
 		{
 			std::size_t BoneIndex = boneMapping->operator[](nodeName);
 			bones->operator[](BoneIndex)->finalTransformation = nodeTransformation *
-				bones->operator[](BoneIndex)->boneOffset;
+				bones->operator[](BoneIndex)->boneOffSet;
 		}
 
 		//do the recursion

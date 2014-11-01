@@ -130,7 +130,6 @@
     <ClInclude Include="math3D.hpp">
       <Filter>Engine\math</Filter>
     </ClInclude>
-    <ClInclude Include="BoneClass.h" />
     <ClInclude Include="DepthMap.hpp">
       <Filter>Engine\Effect</Filter>
     </ClInclude>
@@ -198,6 +197,10 @@
     <ClInclude Include="CollisionWorld.hpp">
       <Filter>Collision</Filter>
     </ClInclude>
+    <ClInclude Include="ModelClass.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="BoneClass.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aMazing.cpp" />
@@ -263,7 +266,6 @@
     <ClCompile Include="PrimitivePipeline.cpp">
       <Filter>Engine\System</Filter>
     </ClCompile>
-    <ClCompile Include="BoneClass.cpp" />
     <ClCompile Include="FunctionType.hpp">
       <Filter>Engine\System</Filter>
     </ClCompile>
@@ -290,6 +292,9 @@
     <ClCompile Include="WrappedCamera.cpp" />
     <ClCompile Include="CommonUtil.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelClass.cpp">
+      <Filter>Engine\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -383,7 +383,6 @@
     <ClCompile Include="AmbientLight.cpp" />
     <ClCompile Include="BasicObject.cpp" />
     <ClCompile Include="BlockClass.cpp" />
-    <ClCompile Include="BoneClass.cpp" />
     <ClCompile Include="CameraClass.cpp" />
     <ClCompile Include="CollisionIntersection.cpp" />
     <ClCompile Include="CommonUtil.cpp" />
@@ -398,6 +397,7 @@
     <ClCompile Include="LineClass.cpp" />
     <ClCompile Include="Maze.cpp" />
     <ClCompile Include="MazeGenerator.cpp" />
+    <ClCompile Include="ModelClass.cpp" />
     <ClCompile Include="MutableString.cpp" />
     <ClCompile Include="ParticleClass.cpp" />
     <ClCompile Include="PixelShaderClass.cpp" />
@@ -424,7 +424,7 @@
     <ClInclude Include="AmbientLight.h" />
     <ClInclude Include="BasicObject.h" />
     <ClInclude Include="BlockClass.h" />
-    <ClInclude Include="BoneClass.h" />
+    <ClInclude Include="BoneClass.hpp" />
     <ClInclude Include="CameraClass.h" />
     <ClInclude Include="CollisionCircle.hpp" />
     <ClInclude Include="CollisionIntersection.h" />
@@ -456,6 +456,7 @@
     <ClInclude Include="math3D.hpp" />
     <ClInclude Include="Maze.h" />
     <ClInclude Include="MazeGenerator.h" />
+    <ClInclude Include="ModelClass.h" />
     <ClInclude Include="MutableString.h" />
     <ClInclude Include="ParticleClass.h" />
     <ClInclude Include="PixelShaderClass.h" />
