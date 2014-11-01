@@ -165,8 +165,8 @@ void WrappedCamera::Render(ID3D11Device* device, ID3D11DeviceContext* context)
 	camera->setRotation(walkBias);
 	//force camera position on the ground level
 	XMFLOAT3 pos = camera->getPosition();
-	pos.y = Maze::blockSize * 1.05f;
-	camera->setPosition(pos);
+//	pos.y = Maze::blockSize * 1.05f;
+//	camera->setPosition(pos);
 	camera->Render(device, context);
 	//reset rotation to origin for next calculation
 	camera->setRotation(rotation);

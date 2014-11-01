@@ -1,10 +1,12 @@
 #pragma once
+#include<cmath>
 #include<ctime>
 #include<chrono>
 #include<Windows.h>
 #include<xnamath.h>
 #include<memory>
 #include"GPUConstantBuffer.hpp"
+#include"AmbientLight.h"
 #define TIME_DAY 240
 
 class DayNightClass
@@ -25,6 +27,12 @@ public:
 		{
 			return hr;
 		}
+		ambientLight.reset(new AmbientLight);
+		hr = ambientLight->Initialize(device, context);
+		if (FAILED(hr))
+		{
+			return hr;
+		}
 		return S_OK;
 	}
 	void Shutdown()
@@ -32,6 +40,10 @@ public:
 		if (dayColorAlpha.get() != nullptr)
 		{
 			dayColorAlpha->Shutdown();
+		}
+		if (ambientLight.get() != nullptr)
+		{
+			ambientLight->Shutdown();
 		}
 	}
 	void UpdateTime(ID3D11Device* device,ID3D11DeviceContext* context)
@@ -51,6 +63,13 @@ public:
 				2.0f * float(tn) / TIME_DAY,
 				2.0f * float(tn) / TIME_DAY,
 				1.0f };
+			
+			ambientLight->setPosition(XMFLOAT3(10.0f * std::sin(float(timeNow) / TIME_DAY * 360.0f * 0.017453292f),
+				10.0f,
+				10.0f * std::cos(float(timeNow) / TIME_DAY * 360.0f * 0.017453292f)));
+			ambientLight->setTarget(XMFLOAT3(0.0f, 0.0f, 0.0f));
+			ambientLight->Render(device, context);
+
 			dayColorAlpha->UpdateData(&data);
 			dayColorAlpha->UpdateGpu(device, context);
 			dayColorAlpha->BindPixelShader(device, context);
@@ -67,4 +86,5 @@ private:
 	std::size_t lastTick;
 	std::size_t timeNow;
 	std::unique_ptr<GPUConstantBuffer<XMFLOAT4> > dayColorAlpha;
+	std::unique_ptr<AmbientLight> ambientLight;
 };

@@ -63,7 +63,7 @@ float4 PSEntry(PS_INPUT input) : SV_Target
     if(lightIntensity > 0.0f)
         color += saturate(float4(1.0f,1.0f,1.0f,1.0f) *  lightIntensity);
 	color.a = 1.0f;
-	if (lightIntensity > 0.1f)
+	if (lightIntensity > 0.6f)
 		color = diffuseColor;
 	else
 		color *= diffuseColor;

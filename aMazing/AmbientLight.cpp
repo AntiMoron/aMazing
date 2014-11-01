@@ -73,7 +73,9 @@ float AmbientLight::getFov()const
 
 void AmbientLight::setPosition(XMFLOAT3 pos)
 {
-	position = pos;
+	position.x = pos.x;
+	position.y = pos.y;
+	position.z = pos.z;
 }
 XMFLOAT3 AmbientLight::getPosition()
 {
@@ -82,7 +84,9 @@ XMFLOAT3 AmbientLight::getPosition()
 
 void AmbientLight::setTarget(XMFLOAT3 tar)
 {
-	target = tar;
+	target.x = tar.x;
+	target.y = tar.y;
+	target.z = tar.z;
 }
 XMFLOAT3 AmbientLight::getTarget()
 {

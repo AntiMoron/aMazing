@@ -15,7 +15,6 @@ HWND g_hWnd = nullptr;
 
 D3DClass d3d;
 aMazingScene scene;
-AmbientLight ao;
 
 #define DEVICE (d3d.getDevice())
 #define CONTEXT (d3d.getContext())
@@ -130,7 +129,6 @@ HRESULT InitDevice()
 		return E_FAIL;
 
 	//aditional operations.
-	ao.Initialize(DEVICE, CONTEXT);
 	GRAPHICS.Initialize(&d3d);
 	scene.Initialize(g_hWnd,DEVICE, CONTEXT);
 	// Define the input layout
@@ -202,7 +200,6 @@ HRESULT InitDevice()
 void CleanupDevice()
 {
 	d3d.Shutdown();
-	ao.Shutdown();
 	scene.Shutdown();
 	GRAPHICS.Shutdown();
 	FreeConsole();
@@ -298,9 +295,6 @@ void Render()
 {
 	CameraProc();
 	d3d.clearRenderTarget();
-	ao.setPosition(XMFLOAT3(1.0f, 1.0f, 1.0f));
-	ao.setTarget(XMFLOAT3(0.0f, 0.0f, 0.0f));
-	ao.Render(DEVICE, CONTEXT);
 	
 	scene.Render(&d3d);
 
