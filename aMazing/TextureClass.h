@@ -2,9 +2,12 @@
 
 #include<D3D11.h>
 #include<D3DX11.h>
+#include<D3DX11tex.h>
 #include"GPUConstantBuffer.hpp"
 #include"GPUVerticesBuffer.hpp"
 #include"MutableString.h"
+#include"TgaLoader.hpp"
+#include<xnamath.h>
 
 class TextureClass
 {
@@ -14,11 +17,13 @@ public:
 
 	void Shutdown();
 
-	bool LoadFile(ID3D11Device* device,
+	HRESULT LoadFile(ID3D11Device* device,
 		ID3D11DeviceContext* context,
 		MutableString&& filename);
-	bool LoadMemory(ID3D11Device* device,
+	HRESULT LoadMemory(ID3D11Device* device,
 		ID3D11DeviceContext* context, 
+		std::size_t width,
+		std::size_t height,
 		void* ptr, 
 		std::size_t size);
 

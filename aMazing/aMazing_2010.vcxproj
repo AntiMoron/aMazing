@@ -410,6 +410,7 @@
     <ClCompile Include="SoundClass.cpp" />
     <ClCompile Include="TextureClass.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="TgaLoader.cpp" />
     <ClCompile Include="VertexShaderClass.cpp" />
     <ClCompile Include="WindowClass.cpp" />
     <ClCompile Include="WrappedCamera.cpp" />
@@ -474,6 +475,8 @@
     <ClInclude Include="SoundClass.h" />
     <ClInclude Include="TextureClass.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="TgaData.hpp" />
+    <ClInclude Include="TgaLoader.hpp" />
     <ClInclude Include="vertex.hpp" />
     <ClInclude Include="VertexShaderClass.h" />
     <ClInclude Include="VerticalBlur.hpp" />

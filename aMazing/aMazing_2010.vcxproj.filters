@@ -36,6 +36,9 @@
     <Filter Include="Common">
       <UniqueIdentifier>{ce9261df-d94a-4e68-83f4-94c52852c824}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Data">
+      <UniqueIdentifier>{44962ac5-fdfe-4245-bf6d-b6ce734a2c7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MazeGenerator.h" />
@@ -201,6 +204,12 @@
       <Filter>Engine\System</Filter>
     </ClInclude>
     <ClInclude Include="BoneClass.hpp" />
+    <ClInclude Include="TgaLoader.hpp">
+      <Filter>Engine\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="TgaData.hpp">
+      <Filter>Engine\Data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aMazing.cpp" />
@@ -295,6 +304,9 @@
     </ClCompile>
     <ClCompile Include="ModelClass.cpp">
       <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="TgaLoader.cpp">
+      <Filter>Engine\Data</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

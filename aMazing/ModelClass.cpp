@@ -4,6 +4,7 @@
 ModelClass::ModelClass()
 {
 	is_inited = false;
+	render_time = 0.0f;
 }
 
 
@@ -42,14 +43,14 @@ HRESULT ModelClass::Initialize(ID3D11Device* device,
 		0;
 
 	// 使用导入器导入选定的模型文件 
-	const aiScene* scene = importer.ReadFile(filename.c_str(),
-		ppsteps | /* configurable pp steps */
-		aiProcess_GenSmoothNormals | // generate smooth nor vectors if not existing
-		aiProcess_SplitLargeMeshes | // split large, unrenderable meshes into submeshes
-		aiProcess_Triangulate | // triangulate polygons with more than 3 edges
-		aiProcess_ConvertToLeftHanded | // convert everything to D3D left handed space
-		aiProcess_SortByPType | // make 'clean' meshes which consist of a single typ of primitives
-		0);                //后处理标志，将不同图元放置到不同的模型中去，图片类型可能是点、直线、三角形等
+	scene = importer.ReadFile(filename.c_str(),
+		ppsteps |
+		aiProcess_GenSmoothNormals |
+		aiProcess_SplitLargeMeshes |
+		aiProcess_Triangulate |
+		aiProcess_ConvertToLeftHanded |
+		aiProcess_SortByPType |
+		0);
 	if (!scene)
 	{
 		//导入错误，获取错误信息并进行相应的处理   
@@ -354,11 +355,17 @@ bool ModelClass::isInited()const
 	return is_inited;
 }
 
-
 void ModelClass::Render(ID3D11Device* device,
 	ID3D11DeviceContext* context)
 {
 	BasicObject::UpdatePRS(device, context);
+
+	render_time += 0.003f;
+	if(render_time > 1.0f)
+	{
+		render_time = 0.0f;
+	}
+
 	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	for (int i = 0; i < vertexBuffer->size(); i++)
 	{

@@ -34,7 +34,7 @@ HRESULT TextureManager::addTexture(ID3D11Device* device,
 {
 	TextureClass* texture = new TextureClass;
 	std::string path = filename.getMultiByteString();
-	if (texture->LoadFile(device, context, path) == false)
+	if (FAILED(texture->LoadFile(device, context, path)))
 	{
 		return E_FAIL;
 	}

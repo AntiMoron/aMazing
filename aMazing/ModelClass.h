@@ -20,6 +20,8 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
+#define MAX_BONE 550
+
 #pragma comment(lib,"assimp.lib")
 
 class ModelClass : public BasicObject
@@ -45,15 +47,19 @@ public:
 private:
 	void loadMeshes(const aiScene* pScene);
 	void loadBones(const aiScene* pScene);
+	
 	aiNodeAnim*  findNodeByName(const aiAnimation* pAnim, const aiString& nodeName);
 	void calcInterpolatedScaling(aiVector3D* output,float animationTime,const aiNodeAnim* pNodeAnim);
 	void calcInterpolatedRotation(aiQuaternion* output, float animationTime, const aiNodeAnim* pNodeAnim);
 	void calcInterpolatedTranslation(aiVector3D* output, float animationTime, const aiNodeAnim* pNodeAnim);
 	
 	bool is_inited;
+	const aiScene* scene;
 	std::unique_ptr<std::vector<std::unique_ptr<BoneClass> > > bones;
 	std::unique_ptr<std::map<aiString, std::size_t, aiStringLess> > boneMapping;
 	std::unique_ptr<std::vector<std::unique_ptr<std::vector<WORD> > > > indices;
 	std::unique_ptr<std::vector<std::unique_ptr<std::vector<vertex> > > > vertices;
 	std::unique_ptr<std::vector<std::unique_ptr<GPUMutableVerticeBuffer<vertex> > > > vertexBuffer;
+
+	float render_time;
 };

@@ -128,6 +128,10 @@ HRESULT InitDevice()
 	if (FAILED(hr))
 		return E_FAIL;
 
+	hr = TEXTURE.addTexture(DEVICE, CONTEXT, "3dModel/Diffuse.tga");
+	if (FAILED(hr))
+		return E_FAIL;
+
 	//aditional operations.
 	GRAPHICS.Initialize(&d3d);
 	scene.Initialize(g_hWnd,DEVICE, CONTEXT);
