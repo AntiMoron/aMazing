@@ -40,6 +40,38 @@ namespace TGA
 		{
 			return pColor;
 		}
+
+		void display()
+		{
+			printf("TgaLoader [%p] :\nid:%d\n"
+				"colorMapType:%d\n"
+				"imageType:%d\n"
+				"ColorMapSpecification:\n"
+				"\tfirst entry index:%d\n"
+				"\tcolor map lenth:%d\n"
+				"\tcolor map Entry Size:%d\n"
+				"Image Specification\n"
+				"\tX-origin of Image:%d\n"
+				"\tY-origin of Image:%d\n"
+				"\tImage Width : %d\n"
+				"\tImage Height : %d\n"
+				"\tPixel Depth : %d\n"
+				"\tImage Descriptor : %d\n",
+				this,
+				id,
+				colorMapType,
+				imageType,
+				firstEntryIndex,
+				colorMapLenth,
+				colorMapEntrySize,
+				xOrigin,
+				yOrigin,
+				width,
+				height,
+				pixelDepth,
+				imageDescriptor
+				);
+		}
 	private:
 		friend class TgaLoader;
 		//

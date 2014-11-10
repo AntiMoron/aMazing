@@ -76,34 +76,6 @@ namespace TGA
 			pOut->pixelDepth = temData[16];
 			pOut->imageDescriptor = temData[17];
 
-			printf("id:%d\n"
-				"colorMapType:%d\n"
-				"imageType:%d\n"
-				"ColorMapSpecification:\n"
-				"\tfirst entry index:%d\n"
-				"\tcolor map lenth:%d\n"
-				"\tcolor map Entry Size:%d\n"
-				"Image Specification\n"
-				"\tX-origin of Image:%d\n"
-				"\tY-origin of Image:%d\n"
-				"\tImage Width : %d\n"
-				"\tImage Height : %d\n"
-				"\tPixel Depth : %d\n"
-				"\tImage Descriptor : %d\n",
-				pOut->id,
-				pOut->colorMapType,
-				pOut->imageType,
-				pOut->firstEntryIndex,
-				pOut->colorMapLenth,
-				pOut->colorMapEntrySize,
-				pOut->xOrigin,
-				pOut->yOrigin,
-				pOut->width,
-				pOut->height,
-				pOut->pixelDepth,
-				pOut->imageDescriptor
-				);
-
 			if (pOut->imageType != 10)
 			{
 				if (file_ptr != nullptr)
@@ -138,7 +110,13 @@ namespace TGA
 			//So I didn't process the color map data temporarily.
 			if (pOut->colorMapType != 0)
 			{
-//				int colorBitField = std::min(pOut->colorMapEntrySize / 3, 8);
+				//get min(colorMapEntrySize / 3,8)
+				int colorBitField = pOut->colorMapEntrySize / 3;
+				if (colorBitField > 8)
+				{
+					colorBitField = 8;
+				}
+				;
 			}
 			else
 			{

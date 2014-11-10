@@ -1,5 +1,6 @@
 #include "TextureClass.h"
 
+const TextureClass::chessBoardDatz TextureClass::chessBoardData;
 
 TextureClass::TextureClass()
 {
@@ -12,7 +13,7 @@ TextureClass::~TextureClass()
 {
 	if (SRV != nullptr)
 	{
-		delete SRV;
+		SRV->Release();
 		SRV = nullptr;
 	}
 }
@@ -122,8 +123,31 @@ HRESULT TextureClass::LoadMemory(ID3D11Device* device,
 	{
 		return E_FAIL;
 	}
+	//release the texture2d object
+	if (tex2d != nullptr)
+	{
+		tex2d->Release();
+		tex2d = nullptr;
+	}
 	is_init = true;
 	return S_OK;
+}
+
+HRESULT TextureClass::beChessBoard(ID3D11Device* device,
+	ID3D11DeviceContext* context)
+{
+	HRESULT hr;
+	hr = LoadMemory(device, context,
+		chessBoardWidth,
+		chessBoardHeight,
+		(void*)chessBoardData.chessBoardData,
+		sizeof(unsigned char)*chessBoardWidth * chessBoardHeight * 4);
+	if (FAILED(hr))
+	{
+		return hr;
+	}
+	is_init = true;
+	return hr;
 }
 
 

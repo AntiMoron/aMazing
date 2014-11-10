@@ -128,7 +128,7 @@ HRESULT InitDevice()
 	if (FAILED(hr))
 		return E_FAIL;
 
-	hr = TEXTURE.addTexture(DEVICE, CONTEXT, "3dModel/Diffuse.tga");
+	hr = TEXTURE.addChessBoardTexture(DEVICE, CONTEXT);
 	if (FAILED(hr))
 		return E_FAIL;
 

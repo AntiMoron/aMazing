@@ -42,6 +42,18 @@ HRESULT TextureManager::addTexture(ID3D11Device* device,
 	return S_OK;
 }
 
+HRESULT TextureManager::addChessBoardTexture(ID3D11Device* device,
+	ID3D11DeviceContext* context)
+{
+	TextureClass* texture = new TextureClass;
+	if (FAILED(texture->beChessBoard(device,context)))
+	{
+		return E_FAIL;
+	}
+	m_vec.push_back(texture);
+	return S_OK;
+}
+
 TextureClass* TextureManager::getTexture(std::size_t index)
 //Get the pointer of a texture saved in texture manager class.
 {

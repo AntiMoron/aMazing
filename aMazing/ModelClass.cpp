@@ -58,11 +58,15 @@ HRESULT ModelClass::Initialize(ID3D11Device* device,
 		return false;
 	};
 	const aiMatrix4x4 transform =  scene->mRootNode->mTransformation;
-	vertices.reset(new std::vector<std::unique_ptr<std::vector<vertex> > >);
-	indices.reset(new std::vector<std::unique_ptr<std::vector<WORD> > >);
+	textures.reset(new std::vector<std::unique_ptr<TextureClass> >);
+	textureIndices.reset(new std::vector<std::size_t>);
 	bones.reset(new std::vector<std::unique_ptr<BoneClass> >);
 	boneMapping.reset(new std::map<aiString, std::size_t, aiStringLess>);
+	indices.reset(new std::vector<std::unique_ptr<std::vector<WORD> > >);
+	vertices.reset(new std::vector<std::unique_ptr<std::vector<vertex> > >);
 	vertexBuffer.reset(new std::vector<std::unique_ptr<GPUMutableVerticeBuffer<vertex> > >);
+	//load the texturess of this model.
+	loadTextures(device, context, scene);
 	//load the meshes of this model.
 	loadMeshes(scene);
 	//load the bones of this model.
@@ -102,6 +106,47 @@ void ModelClass::Shutdown()
 			{
 				vertexBuffer->at(i)->Shutdown();
 			}
+		}
+	}
+}
+
+void ModelClass::loadTextures(ID3D11Device* device,
+	ID3D11DeviceContext* context, 
+	const aiScene* pScene)
+{
+	if (!pScene->HasMaterials())
+	{
+		return ;
+	}
+	//load the materials.
+	for (int i = 0; i < pScene->mNumMaterials; i++)
+	{
+		const aiMaterial* mat = pScene->mMaterials[i];
+		int texCount = mat->GetTextureCount(aiTextureType::aiTextureType_DIFFUSE);
+		if (texCount > 0)
+		{
+			aiString filename;
+			mat->GetTexture(aiTextureType::aiTextureType_DIFFUSE, 0, &filename);
+			printf("[%s]\n",filename.C_Str());
+			textures->push_back(std::unique_ptr<TextureClass>(new TextureClass));
+			try
+			{
+				HRESULT hr = textures->back()->LoadFile(device, context, filename.C_Str());
+				if (FAILED(hr))
+				{
+					return ;
+				}
+			}
+			catch (const std::exception& e)
+			{
+				printf("%s\n",e.what());
+				textures->back()->beChessBoard(device, context);
+			}
+		}
+		else
+		{
+			textures->push_back(std::unique_ptr<TextureClass>(new TextureClass));
+			textures->back()->beChessBoard(device, context);
 		}
 	}
 }

@@ -8,6 +8,7 @@
 #include <memory>
 #include <functional>
 #include <map>
+#include <unordered_map>
 #include "MutableString.h"
 #include "BoneClass.hpp"
 #include "GPUVerticesBuffer.hpp"
@@ -16,6 +17,7 @@
 #include "CommonUtil.h"
 #include "BasicObject.h"
 #include "ShaderManager.h"
+#include "TextureClass.h"
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -45,6 +47,9 @@ public:
 	void Render(ID3D11Device* device,
 		ID3D11DeviceContext* context);
 private:
+	void loadTextures(ID3D11Device* device,
+		ID3D11DeviceContext* context,
+		const aiScene* pScene);
 	void loadMeshes(const aiScene* pScene);
 	void loadBones(const aiScene* pScene);
 	
@@ -55,6 +60,8 @@ private:
 	
 	bool is_inited;
 	const aiScene* scene;
+	std::unique_ptr<std::vector<std::size_t> > textureIndices;
+	std::unique_ptr<std::vector<std::unique_ptr<TextureClass> > > textures;
 	std::unique_ptr<std::vector<std::unique_ptr<BoneClass> > > bones;
 	std::unique_ptr<std::map<aiString, std::size_t, aiStringLess> > boneMapping;
 	std::unique_ptr<std::vector<std::unique_ptr<std::vector<WORD> > > > indices;

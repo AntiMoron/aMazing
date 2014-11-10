@@ -200,15 +200,15 @@
     <ClInclude Include="CollisionWorld.hpp">
       <Filter>Collision</Filter>
     </ClInclude>
-    <ClInclude Include="ModelClass.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
     <ClInclude Include="BoneClass.hpp" />
     <ClInclude Include="TgaLoader.hpp">
       <Filter>Engine\Data</Filter>
     </ClInclude>
     <ClInclude Include="TgaData.hpp">
       <Filter>Engine\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelClass.h">
+      <Filter>Engine\Animate</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -302,11 +302,11 @@
     <ClCompile Include="CommonUtil.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="ModelClass.cpp">
-      <Filter>Engine\System</Filter>
-    </ClCompile>
     <ClCompile Include="TgaLoader.cpp">
       <Filter>Engine\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelClass.cpp">
+      <Filter>Engine\Animate</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
