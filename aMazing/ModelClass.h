@@ -49,10 +49,14 @@ public:
 private:
 	void loadTextures(ID3D11Device* device,
 		ID3D11DeviceContext* context,
-		const aiScene* pScene);
+		const aiScene* pScene,
+		const char* modelPath);
 	void loadMeshes(const aiScene* pScene);
 	void loadBones(const aiScene* pScene);
 	
+	std::string getModelLocation(const char* filename);
+
+
 	aiNodeAnim*  findNodeByName(const aiAnimation* pAnim, const aiString& nodeName);
 	void calcInterpolatedScaling(aiVector3D* output,float animationTime,const aiNodeAnim* pNodeAnim);
 	void calcInterpolatedRotation(aiQuaternion* output, float animationTime, const aiNodeAnim* pNodeAnim);
@@ -68,5 +72,6 @@ private:
 	std::unique_ptr<std::vector<std::unique_ptr<std::vector<vertex> > > > vertices;
 	std::unique_ptr<std::vector<std::unique_ptr<GPUMutableVerticeBuffer<vertex> > > > vertexBuffer;
 
+	std::unique_ptr<std::string> modelLocation;
 	float render_time;
 };

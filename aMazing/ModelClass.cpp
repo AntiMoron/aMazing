@@ -57,6 +57,8 @@ HRESULT ModelClass::Initialize(ID3D11Device* device,
 		std::cout << importer.GetErrorString() << std::endl;
 		return false;
 	};
+	//update the fileLocation
+	modelLocation.reset(new std::string(getModelLocation(filename.c_str())));
 	const aiMatrix4x4 transform =  scene->mRootNode->mTransformation;
 	textures.reset(new std::vector<std::unique_ptr<TextureClass> >);
 	textureIndices.reset(new std::vector<std::size_t>);
@@ -66,7 +68,7 @@ HRESULT ModelClass::Initialize(ID3D11Device* device,
 	vertices.reset(new std::vector<std::unique_ptr<std::vector<vertex> > >);
 	vertexBuffer.reset(new std::vector<std::unique_ptr<GPUMutableVerticeBuffer<vertex> > >);
 	//load the texturess of this model.
-	loadTextures(device, context, scene);
+	loadTextures(device, context, scene,string.getMultiByteString().c_str());
 	//load the meshes of this model.
 	loadMeshes(scene);
 	//load the bones of this model.
@@ -112,7 +114,8 @@ void ModelClass::Shutdown()
 
 void ModelClass::loadTextures(ID3D11Device* device,
 	ID3D11DeviceContext* context, 
-	const aiScene* pScene)
+	const aiScene* pScene,
+	const char* modelPath)
 {
 	if (!pScene->HasMaterials())
 	{
@@ -127,11 +130,13 @@ void ModelClass::loadTextures(ID3D11Device* device,
 		{
 			aiString filename;
 			mat->GetTexture(aiTextureType::aiTextureType_DIFFUSE, 0, &filename);
-			printf("[%s]\n",filename.C_Str());
+			std::string filepath = *modelLocation.get();
+			filepath += filename.C_Str();
+			printf("[%s]\n",filepath.c_str());
 			textures->push_back(std::unique_ptr<TextureClass>(new TextureClass));
 			try
 			{
-				HRESULT hr = textures->back()->LoadFile(device, context, filename.C_Str());
+				HRESULT hr = textures->back()->LoadFile(device, context, filepath.c_str());
 				if (FAILED(hr))
 				{
 					return ;
@@ -229,6 +234,19 @@ void ModelClass::loadBones(const aiScene* pScene)
 			}
 		}
 	}
+}
+
+std::string ModelClass::getModelLocation(const char* filename)
+{
+	std::string result;
+	result = filename;
+	while (!result.empty() && 
+		!(result.back() == '/' ||
+		result.back() == '\\'))
+	{
+		result.pop_back();
+	}
+	return std::move(result);
 }
 
 aiNodeAnim* ModelClass::findNodeByName(const aiAnimation* pAnim, const aiString& nodeName)

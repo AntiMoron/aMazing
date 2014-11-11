@@ -116,7 +116,6 @@ namespace TGA
 				{
 					colorBitField = 8;
 				}
-				;
 			}
 			else
 			{
