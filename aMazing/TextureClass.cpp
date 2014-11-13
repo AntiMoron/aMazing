@@ -100,7 +100,7 @@ HRESULT TextureClass::LoadMemory(ID3D11Device* device,
 	D3D11_SUBRESOURCE_DATA resourceData;
 	ZeroMemory(&resourceData, sizeof(resourceData));
 	resourceData.pSysMem = ptr;
-	resourceData.SysMemPitch = height * 4;
+	resourceData.SysMemPitch = width * 4;
 	resourceData.SysMemSlicePitch = width * height * 4;
 	hr = device->CreateTexture2D(&textureDesc,&resourceData,&tex2d);
 	if (FAILED(hr))

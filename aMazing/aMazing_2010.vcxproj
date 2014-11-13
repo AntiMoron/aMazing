@@ -434,6 +434,7 @@
     <ClInclude Include="CollisionRectangle.hpp" />
     <ClInclude Include="CollisionTriangle.hpp" />
     <ClInclude Include="CollisionWorld.hpp" />
+    <ClInclude Include="CommonTemplates.hpp" />
     <ClInclude Include="CommonUtil.h" />
     <ClInclude Include="D3DClass.h" />
     <ClInclude Include="DayNightClass.hpp" />

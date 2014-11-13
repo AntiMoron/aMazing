@@ -1,6 +1,7 @@
 #include"CommonUtil.h"
 
 
+
 float increaseByScale(float val, float scale, float upperBound,float bias)
 {
 	if (val > upperBound - bias)

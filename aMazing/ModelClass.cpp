@@ -176,16 +176,23 @@ void ModelClass::loadMeshes(const aiScene* pScene)
 		{
 			continue;
 		}
+		textureIndices->push_back(pMesh->mMaterialIndex);
 		for (int j = 0; j < pMesh->mNumVertices; j++)
 		{
 			auto& pos = pMesh->mVertices[j];
 			auto& nor = pMesh->mNormals[j];
-			auto& tex = pMesh->mTextureCoords;
+			auto& tex = pMesh->mTextureCoords[0];
 			vertices->back()->push_back(vertex());
 			vertices->back()->back().position = XMFLOAT3{ pos.x, pos.y, pos.z };
 			vertices->back()->back().normal = XMFLOAT3{ nor.x, nor.y, nor.z };
-			//Problem left.!!!!!!!!!!!!
-			vertices->back()->back().texture = XMFLOAT2{ .0f , .0f};
+			if (tex == nullptr)
+			{
+				vertices->back()->back().texture = XMFLOAT2{ 1.0f, 1.0f };
+			}
+			else
+			{
+				vertices->back()->back().texture = XMFLOAT2{tex[j].x, tex[j].y };
+			}
 		}
 
 		for (int j = 0; j < pMesh->mNumFaces; j++)
@@ -434,6 +441,7 @@ void ModelClass::Render(ID3D11Device* device,
 	{
 		if (vertexBuffer->at(i)->isInited())
 		{
+			textures->at(textureIndices->at(i))->bindPS(device, context, 0);
 			vertexBuffer->at(i)->Render(device, context);
 		}
 	}

@@ -8,6 +8,7 @@
 #include<exception>
 #include<algorithm>
 #include"TgaData.hpp"
+#include"CommonUtil.h"
 
 namespace TGA
 {
@@ -188,6 +189,45 @@ namespace TGA
 					}
 				}
 			}
+
+			printf("Image is scaned ordering by %d %d %d\n",
+				pOut->imageDescriptor,
+				pOut->imageDescriptor >> 3 & 0x1, 
+				pOut->imageDescriptor >> 4 & 0x1);
+			if (0 == (pOut->imageDescriptor >> 4 & 0x1))
+			{
+				for (int i = 0; i<pOut->height / 2; i++)
+				{
+					for (int j = 0; j < pOut->width; j++)
+					{
+						aSwap<color4i>(pOut->pColor[std::size_t(pOut->width) * i + j],
+							pOut->pColor[std::size_t(pOut->width) * std::size_t(pOut->height - i - 1) + j]);
+					}
+				}
+			}
+			if (1 == (pOut->imageDescriptor >> 3 & 0x1))
+			{
+				for (int i = 0; i<pOut->width / 2; i++)
+				{
+					for (int j = 0; j < pOut->height; j++)
+					{
+						aSwap<color4i>(pOut->pColor[std::size_t(pOut->height) * i + j],
+							pOut->pColor[std::size_t(pOut->height) * std::size_t(pOut->width - i - 1) + j]);
+					}
+				}
+			}
+/*
+			if (0 == (pOut->imageDescriptor >> 3 & 0x1))
+			{
+				for (int i = 0; i < pOut->height; i++)
+				{
+					for (int j = 0; j < pOut->width / 2; j++)
+					{
+						pOut->pColor[std::size_t(pOut->width) * i + j] = pOut->pColor[std::size_t(pOut->width) * i + pOut->width - j - 1];
+					}
+				}
+			}*/
+
 			if (nullptr != file_ptr)
 			{
 				fclose(file_ptr);

@@ -6,6 +6,7 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+#include"CommonTemplates.hpp"
 
 //将值val按比例增长
 float increaseByScale(float val,float scale,float upperBound,float bias);
@@ -21,7 +22,6 @@ float fadeByValue(float val, float decreasement, float lowerBound);
 
 //将三维向量单位化
 XMFLOAT3 normalize(XMFLOAT3 src);
-
 
 class aiStringLess
 {
