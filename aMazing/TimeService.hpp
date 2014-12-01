@@ -2,7 +2,6 @@
 
 #include <chrono>
 #include <memory>
-#include <iostream>
 #include <functional>
 #include <thread>
 #include <list>
@@ -17,10 +16,10 @@ public:
 			if(!hasTask()) {
 				continue ;
 			}
-			std::size_t nowTime = getTickCount();
+			auto nowTime = std::chrono::high_resolution_clock::now();
 			for(auto it = tasks.begin();it != tasks.end(); ++it) {
 				auto& task = *it;
-				if(nowTime - task.startTime >= task.duration) {
+				if((nowTime - task.startTime) >= task.duration) {
 					task.task();
 					tasks.erase(it);
 				}
@@ -42,21 +41,33 @@ public:
 		return chrono::high_resolution_clock::now();
 	}
 	
-	void preCallBack(std::function<void()> n,std::size_t uSec) {
-		singleTask tk;
-		tk.startTime = getTickCount();
-		tk.duration = uSec;
-		tk.task = n;
-		tasks.push_back(tk);
+	void preCallBackMinutes(std::function<void()> n,std::size_t min) {
+		preCallBackPrototype<std::chrono::minutes> (n,min);
 	}
-
+	void preCallBackSeconds(std::function<void()> n,std::size_t sec) {
+		preCallBackPrototype<std::chrono::seconds> (n,sec);
+	}
+	void preCallBackMilliSec(std::function<void()> n,std::size_t milliSec) {
+		preCallBackPrototype<std::chrono::milliseconds> (n,milliSec);
+	}
+	void preCallBackNanoSec(std::function<void()> n,std::size_t nanoSec) {
+		preCallBackPrototype<std::chrono::nanoseconds> (n,nanoSec);
+	}
 	bool hasTask() const noexcept {
 		return !tasks.empty();
 	}
 private:
+	template<typename C>
+	void preCallBackPrototype(std::function<void()> n,std::size_t duration) {
+		singleTask tk;
+		tk.startTime = std::chrono::high_resolution_clock::now();
+		tk.duration = C(duration);
+		tk.task = n;
+		tasks.push_back(tk);
+	}
 	struct singleTask {
-		std::size_t duration;
-		std::size_t startTime;
+		std::chrono::nanoseconds duration;
+		timePoint startTime;
 		std::function<void()> task;
 	};
 	struct time_wrapper { 
@@ -70,10 +81,11 @@ private:
 	bool isRunning;
 	const static time_wrapper initTime;
 };
+
 /*
 int main() {
 	TimeService ser;
-	ser.preCallBack([]{std::cout<<"testHahaha"<<std::endl;},10000000000);
+	ser.preCallBackSeconds([]{std::cout<<"testHahaha"<<std::endl;},1);
 	std::cout<< ser.getTickCount();
 	return 0;
 }
