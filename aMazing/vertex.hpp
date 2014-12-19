@@ -1,21 +1,22 @@
 #pragma once
+#include<d3d11.h>
+#include<D3DX11.h>
 #include<xnamath.h>
 
-
-class vertex
+class Vertex
 {
 public:
-	vertex()
+	Vertex()
 	{
 		position = { .0f, .0f, .0f };
 		normal = { .0f, .0f, .0f }; 
 		texture = {.0f,.0f}; 
 	}
-	vertex(XMFLOAT3 pos,XMFLOAT3 nor,XMFLOAT2 tex):position(pos),
+	Vertex(XMFLOAT3 pos,XMFLOAT3 nor,XMFLOAT2 tex):position(pos),
 		normal(nor),
 		texture(tex){}
-	~vertex(){}
-	vertex& operator = (const vertex& other)
+	~Vertex(){}
+	Vertex& operator = (const Vertex& other)
 	{
 		position = other.position;
 		normal = other.normal;
@@ -25,4 +26,19 @@ public:
 	XMFLOAT3 position;
 	XMFLOAT3 normal;
 	XMFLOAT2 texture;
+};
+
+class SkinVertex 
+{
+public:
+	SkinVertex()
+	{
+		memset(boneIndices, 0, sizeof(boneIndices));
+		weights = { 0, 0, 0, 0 };
+	}
+	XMFLOAT4 position;
+	XMFLOAT4 normal;
+	XMFLOAT4 texture;
+	XMFLOAT4 weights;
+	unsigned int boneIndices[4];
 };

@@ -3,7 +3,7 @@
 #include<D3D11.h>
 #include<D3DX11.h>
 #include<xnamath.h>
-#include"vertex.hpp"
+#include"Vertex.hpp"
 #include"InstanceObj.hpp"
 #include"GPUConstantBuffer.hpp"
 #include"GPUVerticesBuffer.hpp"
@@ -41,7 +41,7 @@ protected:
 	XMFLOAT3 rotation;
 	XMFLOAT3 scaling;
 	std::unique_ptr<PRS> m_prsData;
-	GPUVerticesBuffer<vertex> m_vertices;
+	GPUVerticesBuffer<Vertex> m_vertices;
 	GPUConstantBuffer<PRSShaderData> m_prsBuffer;
 };
 

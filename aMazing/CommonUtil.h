@@ -7,6 +7,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include"CommonTemplates.hpp"
+#include"CommonDef.hpp"
 
 //将值val按比例增长
 float increaseByScale(float val,float scale,float upperBound,float bias);

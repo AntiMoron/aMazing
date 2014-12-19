@@ -23,7 +23,7 @@ HRESULT RectangleClass::Initialize(ID3D11Device* device,
 	right = 2.0 * right / WINWIDTH;
 	top = 2.0 * top / WINHEIGHT;
 	bottom = 2.0 * bottom / WINHEIGHT;
-	vertex vertices[6];
+	Vertex vertices[6];
 	vertices[0].position.x = left;
 	vertices[0].position.y = top;
 	vertices[0].position.z = 0.0f;
@@ -91,7 +91,7 @@ void RectangleClass::Render(ID3D11Device* device,
 	top = 2.0 * top / WINHEIGHT;
 	bottom = 2.0 * bottom / WINHEIGHT;
 
-	vertex vertices[6];
+	Vertex vertices[6];
 	vertices[0].position.x = left;
 	vertices[0].position.y = top;
 	vertices[0].position.z = 0.0f;

@@ -9,6 +9,7 @@
 #include "PrimitivePipeline.h"
 #include "AmbientLight.h"
 #include"aMazingScene.h"
+#include "CommonUtil.h"
 
 HINSTANCE g_hInst = nullptr;
 HWND g_hWnd = nullptr;
@@ -114,27 +115,26 @@ HRESULT InitDevice()
 	// Load the Texture
 	hr = TEXTURE.addTexture(DEVICE, CONTEXT, "seafloor.dds");
 	if (FAILED(hr))
-		return E_FAIL;
+		return hr;
 
 	hr = TEXTURE.addTexture(DEVICE, CONTEXT, "glowstone.png");
 	if (FAILED(hr))
-		return E_FAIL;
+		return hr;
 
 	hr = TEXTURE.addTexture(DEVICE, CONTEXT, "leaves.png");
 	if (FAILED(hr))
-		return E_FAIL;
+		return hr;
 
 	hr = TEXTURE.addTexture(DEVICE, CONTEXT, "sky.png");
 	if (FAILED(hr))
-		return E_FAIL;
+		return hr;
 
 	hr = TEXTURE.addChessBoardTexture(DEVICE, CONTEXT);
 	if (FAILED(hr))
-		return E_FAIL;
+		return hr;
 
 	//aditional operations.
 	GRAPHICS.Initialize(&d3d);
-	scene.Initialize(g_hWnd,DEVICE, CONTEXT);
 	// Define the input layout
 	D3D11_INPUT_ELEMENT_DESC layout[] =
 	{
@@ -142,58 +142,74 @@ HRESULT InitDevice()
 		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
+
+	D3D11_INPUT_ELEMENT_DESC animLayout[] =
+	{
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "WEIGHTS", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 48, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "BONEINDICES", 0, DXGI_FORMAT_R32G32B32A32_UINT, 0, 60, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+	};
+
+	UINT animElements = ARRAYSIZE(animLayout);
 	UINT numElements = ARRAYSIZE(layout);
-	SHADERS.addPair(DEVICE, CONTEXT,
+	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/Basic3D.fx", "Shader/Basic3D.fx",
-		layout, numElements, "Basic3D");
+		layout, numElements, "Basic3D"));
 
-	SHADERS.addPair(DEVICE, CONTEXT,
+	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/Basic2D.fx", "Shader/Basic2D.fx",
-		layout, numElements, "Basic2D");
+		layout, numElements, "Basic2D"));
 
-	SHADERS.addPair(DEVICE, CONTEXT,
+	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/BasicSky.fx", "Shader/BasicSky.fx",
-		layout, numElements, "BasicSky");
+		layout, numElements, "BasicSky"));
 
-	SHADERS.addPair(DEVICE, CONTEXT,
+	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/FireWork.fx", "Shader/FireWork.fx",
-		layout,numElements,"FireWork");
+		layout,numElements,"FireWork"));
 
-	SHADERS.addPair(DEVICE, CONTEXT,
+	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/hblur/hblur.fx", "Shader/hblur/hblur.fx",
-		layout, numElements, "Hblur");
+		layout, numElements, "Hblur"));
 
-	SHADERS.addPair(DEVICE, CONTEXT,
+	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/vblur/vblur.fx", "Shader/vblur/vblur.fx",
-		layout, numElements, "Vblur");
+		layout, numElements, "Vblur"));
 
-	SHADERS.addPair(DEVICE, CONTEXT,
+	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/wires/line.fx", "Shader/wires/line.fx",
-		layout, numElements, "BasicLine");
-	SHADERS.addPair(DEVICE, CONTEXT,
+		layout, numElements, "BasicLine"));
+	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/depthMap/depthMap.fx", "Shader/depthMap/depthMap.fx",
-		layout, numElements, "DepthMap");
-	SHADERS.addPair(DEVICE, CONTEXT,
+		layout, numElements, "DepthMap"));
+	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/depthMap/lightDepthMap.fx", "Shader/depthMap/lightDepthMap.fx",
-		layout, numElements, "LightDepthMap");
-	SHADERS.addPair(DEVICE, CONTEXT,
+		layout, numElements, "LightDepthMap"));
+	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/texture/ProjectionTex.fx", "Shader/texture/ProjectionTex.fx",
-		layout, numElements, "ProjectionTex");
-	SHADERS.addPair(DEVICE, CONTEXT,
+		layout, numElements, "ProjectionTex"));
+	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 	"Shader/ShadowMap/ShadowMap.fx", "Shader/ShadowMap/ShadowMap.fx",
-	layout, numElements, "ShadowMap");
-	SHADERS.addPair(DEVICE, CONTEXT,
+	layout, numElements, "ShadowMap"));
+	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/texture/AA/MSAA4x4.fx", "Shader/texture/AA/MSAA4x4.fx",
-		layout, numElements, "MSAA4x4");
-	SHADERS.addPair(DEVICE, CONTEXT,
+		layout, numElements, "MSAA4x4"));
+	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/HighLight/HighLight.fx", "Shader/HighLight/HighLight.fx",
-		layout, numElements, "HighLight");
-	SHADERS.addPair(DEVICE, CONTEXT,
+		layout, numElements, "HighLight"));
+	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/Glow/GlowMerge.fx", "Shader/Glow/GlowMerge.fx",
-		layout, numElements, "GlowMerge");
-	SHADERS.addPair(DEVICE, CONTEXT,
+		layout, numElements, "GlowMerge"));
+	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/DepthField/DepthFieldMerge.fx", "Shader/DepthField/DepthFieldMerge.fx",
-		layout, numElements, "DepthFieldMerge");
+		layout, numElements, "DepthFieldMerge"));
+	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
+		"Shader/skinAnim/skinAnim.fx", "Shader/skinAnim/skinAnim.fx",
+		animLayout, animElements, "SkinAnim"));
+
+	scene.Initialize(g_hWnd, DEVICE, CONTEXT);
 	return S_OK;
 }
 
@@ -206,6 +222,7 @@ void CleanupDevice()
 	d3d.Shutdown();
 	scene.Shutdown();
 	GRAPHICS.Shutdown();
+	TGA::TgaLoader::Shutdown();
 	FreeConsole();
 }
 

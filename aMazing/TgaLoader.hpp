@@ -216,17 +216,6 @@ namespace TGA
 					}
 				}
 			}
-/*
-			if (0 == (pOut->imageDescriptor >> 3 & 0x1))
-			{
-				for (int i = 0; i < pOut->height; i++)
-				{
-					for (int j = 0; j < pOut->width / 2; j++)
-					{
-						pOut->pColor[std::size_t(pOut->width) * i + j] = pOut->pColor[std::size_t(pOut->width) * i + pOut->width - j - 1];
-					}
-				}
-			}*/
 
 			if (nullptr != file_ptr)
 			{

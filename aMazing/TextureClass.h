@@ -50,9 +50,9 @@ private:
 			{
 				for (int j = 0; j < chessBoardHeight; j++)
 				{
-					if (((i & 0x20) ^ (j & 0x20)) == 0)
+					if (((i & 0x40) ^ (j & 0x40)) == 0)
 					{
-						chessBoardData[(chessBoardWidth * j + i) * 4] = 0;
+						chessBoardData[(chessBoardWidth * j + i) * 4] = 255;
 						chessBoardData[(chessBoardWidth * j + i) * 4 + 1] = 0;
 						chessBoardData[(chessBoardWidth * j + i) * 4 + 2] = 0;
 						chessBoardData[(chessBoardWidth * j + i) * 4 + 3] = 255;
@@ -60,7 +60,7 @@ private:
 					else
 					{
 						chessBoardData[(chessBoardWidth * j + i) * 4] = 255;
-						chessBoardData[(chessBoardWidth * j + i) * 4 + 1] = 0;
+						chessBoardData[(chessBoardWidth * j + i) * 4 + 1] = 255;
 						chessBoardData[(chessBoardWidth * j + i) * 4 + 2] = 255;
 						chessBoardData[(chessBoardWidth * j + i) * 4 + 3] = 255;
 					}

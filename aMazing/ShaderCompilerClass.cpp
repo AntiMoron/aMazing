@@ -18,9 +18,21 @@ HRESULT ShaderCompilerClass::compileFromFile(MutableString& filename,
 	ID3DBlob** output)
 {
 	FileTracker ft;
-	ft.LoadFile(filename);
+	if (false == ft.LoadFile(filename))
+	{
+		return E_FAIL;
+	}
 	MutableString stringFromFile = ft.getContext();
-	compileString(stringFromFile, entryPoint, shaderTarget, output);
+	HRESULT hr;
+	hr = compileString(stringFromFile, entryPoint, shaderTarget, output);
+	if (FAILED(hr))
+	{
+		return hr;
+	}
+	if (output == nullptr)
+	{
+		return E_FAIL;
+	}
 	return S_OK;
 }
 

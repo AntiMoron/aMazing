@@ -44,7 +44,6 @@ float increaseByValue(float val,float increasement,float upperBound)
 	return val;
 }
 
-
 XMFLOAT3 normalize(XMFLOAT3 src)
 {
 	float length = src.x * src.x;

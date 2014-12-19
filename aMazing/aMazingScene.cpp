@@ -115,7 +115,8 @@ void aMazingScene::Render(D3DClass* d3dkit)
 		GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 		SHADERS.bindPair("Basic3D", device, context);
 		maze->Render(device, context, camera->getCamera());
-
+		//bind shader which skin animation need.
+		SHADERS.bindPair("SkinAnim", device, context);
 		model->setRotation(XMFLOAT3(1.57, 0, 0));
 		model->setScaling(XMFLOAT3(0.001f, 0.001f, 0.001f));
 		model->Render(device, context);

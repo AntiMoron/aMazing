@@ -24,7 +24,7 @@ HRESULT LineClass::Initialize(ID3D11Device* device,
 
 	setLineColor(device, context, 1.0f, 1.0f, 1.0f, 1.0f);
 	
-	vertex verts[] = { 
+	Vertex verts[] = { 
 		{ XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(), XMFLOAT2(0.0f, 0.0f) },
 		{ XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT3(), XMFLOAT2(0.0f, 0.0f) }
 	};
@@ -74,7 +74,7 @@ void LineClass::Render(ID3D11Device* device,
 		lastPosX[1] = ex;
 		lastPosY[1] = ey;
 		lastPosZ[1] = ez;	
-		vertex verts[] = {
+		Vertex verts[] = {
 			{ XMFLOAT3(sx, sy, sz),XMFLOAT3(), XMFLOAT2(0.0f, 0.0f) },
 			{ XMFLOAT3(ex, ey, ez), XMFLOAT3(), XMFLOAT2(0.0f, 0.0f) }
 		};

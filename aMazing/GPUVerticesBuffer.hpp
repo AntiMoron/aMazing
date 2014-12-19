@@ -48,7 +48,7 @@ public:
 			printf("Vertex Buffer Create Failed\r\n");
 			return hr;
 		}
-		// Set vertex buffer
+		// Set Vertex buffer
 		UINT stride = sizeof(source_type);
 		UINT offset = 0;
 		context->IASetVertexBuffers(0, 1, &m_vertices, &stride, &offset);

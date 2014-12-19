@@ -33,7 +33,7 @@ HRESULT BasicObject::Initialize(ID3D11Device* device,
 	XMStoreFloat4x4(&(m_prsData->rotation), prsData.rotation);
 	XMStoreFloat4x4(&(m_prsData->scaling), prsData.scaling);
 
-	hr = m_prsBuffer.Initialize(device, context, 1);	//PRS info is bind to vertex shader slot 1
+	hr = m_prsBuffer.Initialize(device, context, 1);	//PRS info is bind to Vertex shader slot 1
 	if (FAILED(hr))
 	{
 		return hr;

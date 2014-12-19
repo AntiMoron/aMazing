@@ -3,7 +3,7 @@
 //to make object instance.
 //gives Position Rotation Scaling
 #include<xnamath.h>
-#include"vertex.hpp"
+#include"Vertex.hpp"
 class PRS
 {
 public:

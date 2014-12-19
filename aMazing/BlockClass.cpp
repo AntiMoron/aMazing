@@ -14,7 +14,7 @@ HRESULT BlockClass::Initialize(ID3D11Device* device,
 	ID3D11DeviceContext* context)
 {
 	HRESULT hr = E_FAIL;
-	vertex vertices[36];
+	Vertex vertices[36];
 	XMFLOAT3 pos[] = { 
 		XMFLOAT3(-0.5f, -0.5f, 0.5f),
 		XMFLOAT3(-0.5f, -0.5f, -0.5f),

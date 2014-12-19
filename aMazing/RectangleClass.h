@@ -4,7 +4,7 @@
 #include<D3DX11.h>
 #include<D3DX10math.h>
 #include<xnamath.h>
-#include"vertex.hpp"
+#include"Vertex.hpp"
 #include"WindowClass.h"
 #include"GPUMutableVerticesBuffer.hpp"
 #include"Defines.hpp"
@@ -26,6 +26,6 @@ public:
 		unsigned short right,
 		unsigned short bottom);
 private:
-	GPUMutableVerticeBuffer<vertex> verts;
+	GPUMutableVerticeBuffer<Vertex> verts;
 };
 

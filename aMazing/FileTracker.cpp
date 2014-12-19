@@ -27,6 +27,7 @@ bool FileTracker::LoadFile(MutableString& filename)
 	fp = fopen(path.c_str(), "r");
 	if (fp == nullptr)
 	{
+		printf("Open File Failed. File not found.\r\n");
 		return false;
 	}
 	char ch;

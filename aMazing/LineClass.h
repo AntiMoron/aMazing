@@ -1,7 +1,7 @@
 #pragma once
 #include<D3D11.h>
 #include<D3DX11.h>
-#include"vertex.hpp"
+#include"Vertex.hpp"
 #include"GPUConstantBuffer.hpp"
 #include"GPUMutableVerticesBuffer.hpp"
 #include"ShaderManager.h"
@@ -32,6 +32,6 @@ private:
 	float r, g, b, a;
 	float lastPosX[2],lastPosY[2],lastPosZ[2];
 	GPUConstantBuffer<XMFLOAT4> m_color;
-	GPUMutableVerticeBuffer<vertex> m_vertices;
+	GPUMutableVerticeBuffer<Vertex> m_vertices;
 };
 

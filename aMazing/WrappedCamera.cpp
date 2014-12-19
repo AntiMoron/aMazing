@@ -154,7 +154,9 @@ void WrappedCamera::Render(ID3D11Device* device, ID3D11DeviceContext* context)
 		angle = fadeByScale(angle, 0.6, 0.0f, 0.01f);
 	}
 	walkBias.y = 0.03f * sin(0.017453292f * angle * 2.0f) *  sin(0.017453292f * angle* 2.0f);
-	walkBias.z = 0.01f * sin(0.017453292f * angle) * sin(0.017453292f * angle);
+	walkBias.z = 0.001f * sin(0.017453292f * angle) * sin(0.017453292f * angle);
+	
+	walkBias.y = 0.0f;
 
 	camera->moveForward(_speed.x);
 	camera->moveLeft(_speed.z);

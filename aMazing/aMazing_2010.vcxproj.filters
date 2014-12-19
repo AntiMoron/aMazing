@@ -106,9 +106,6 @@
     <ClInclude Include="TextureManager.h">
       <Filter>Engine\System</Filter>
     </ClInclude>
-    <ClInclude Include="vertex.hpp">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
     <ClInclude Include="VertexShaderClass.h">
       <Filter>Engine\System</Filter>
     </ClInclude>
@@ -213,6 +210,16 @@
     <ClInclude Include="CommonTemplates.hpp">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="FogClass.h" />
+    <ClInclude Include="vertex.hpp">
+      <Filter>Engine\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="BonesBindData.hpp">
+      <Filter>Engine\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonDef.hpp">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aMazing.cpp" />
@@ -311,6 +318,7 @@
     <ClCompile Include="ModelClass.cpp">
       <Filter>Engine\Animate</Filter>
     </ClCompile>
+    <ClCompile Include="FogClass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -321,12 +329,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Basic2D.fx">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Basic3D.fx">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="Shader\vblur\vblur.fx">
       <Filter>Shaders</Filter>
     </None>
@@ -355,6 +357,15 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="Shader\ShadowMap\shadowMap.fx">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\Basic2D.fx">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\Basic3D.fx">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\skinAnim\skinAnim.fx">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
