@@ -68,8 +68,6 @@ HRESULT ModelClass::Initialize(ID3D11Device* device,
 	vertexBuffer.reset(new std::vector<std::unique_ptr<GPUMutableVerticeBuffer<SkinVertex> > >);
 	boneTransformations.reset(new GPUConstantBuffer<BonesBindData>);
 	boneTransformations->Initialize(device, context, 3);
-	//must this order of calling functions.
-
 	//load the texturess of this model.
 	loadTextures(device, context, scene, string.getMultiByteString().c_str());
 	//load the bones of this model.
@@ -181,7 +179,6 @@ void ModelClass::loadMeshes(const aiScene* pScene)
 			{
 				vindex2Weight.insert(std::pair<size_t, std::vector<std::pair<unsigned char, float> > >(id, {}));
 			}
-			//insert weight count
 			vindex2Weight[id].push_back(std::pair<unsigned char,float>(cur,weights[r]->mWeight));
 		}
 	}
@@ -218,8 +215,8 @@ void ModelClass::loadMeshes(const aiScene* pScene)
 			auto& nor = pMesh->mNormals[j];
 			auto& tex = pMesh->mTextureCoords[0];
 			vertices->back()->push_back(SkinVertex());
-			vertices->back()->back().position = XMFLOAT4{ pos.x, pos.y, pos.z, 0.0f };
-			vertices->back()->back().normal = XMFLOAT4{ nor.x, nor.y, nor.z, 0.0f };
+			vertices->back()->back().position = XMFLOAT4{ pos.x, pos.y, pos.z, 1.0f };
+			vertices->back()->back().normal = XMFLOAT4{ nor.x, nor.y, nor.z, 1.0f };
 			if (tex == nullptr)
 			{
 				vertices->back()->back().texture = XMFLOAT4{ 1.0f, 1.0f, 0.0f, 0.0f }; 
@@ -500,8 +497,7 @@ bool ModelClass::ReadModelRecursively(const aiScene* pScene,
 		if (boneMapping->find(nodeName) != boneMapping->end())
 		{
 			std::size_t BoneIndex = boneMapping->operator[](nodeName);
-			bones->operator[](BoneIndex)->finalTransformation = nodeTransformation *
-				bones->operator[](BoneIndex)->offsetMatrix;
+			bones->at(BoneIndex)->finalTransformation = bones->operator[](BoneIndex)->offsetMatrix * nodeTransformation;
 		}
 
 		//do the recursion

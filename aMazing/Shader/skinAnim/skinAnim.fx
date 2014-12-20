@@ -30,11 +30,11 @@ cbuffer boneData : register(b3)
 
 struct VS_INPUT
 {
+	uint4 boneIndices : BONEINDICES;
+	float4 Weights : WEIGHTS;
 	float4 Pos : POSITION;
 	float4 Nor : NORMAL;
-	float2 Tex : TEXCOORD0;
-	float3 Weights : WEIGHTS;
-	uint4 boneIndices : BONEINDICES;
+	float4 Tex : TEXCOORD0;
 };
 
 struct PS_INPUT
@@ -51,11 +51,10 @@ PS_INPUT VSEntry(VS_INPUT input)
 		input.boneIndices[1], 
 		input.boneIndices[2], 
 		input.boneIndices[3]);
-	matrix boneTransform = input.Weights.r * bones[boneIndices[0]]
-		+ input.Weights.g * bones[boneIndices[1]]
-		+ input.Weights.b * bones[boneIndices[2]]
-		+ (1.0f - input.Weights.r - input.Weights.g - input.Weights.b) *
-		bones[boneIndices[3]];
+	matrix boneTransform = (input.Weights.r * bones[boneIndices[0]])
+		+ (input.Weights.g * bones[boneIndices[1]])
+		+ (input.Weights.b * bones[boneIndices[2]])
+		+ (input.Weights.a * bones[boneIndices[3]]);
 	output.Pos = input.Pos;
 	output.Pos = mul(output.Pos, boneTransform);
 	output.Pos = mul(output.Pos, Rot);
@@ -65,7 +64,7 @@ PS_INPUT VSEntry(VS_INPUT input)
 	output.Pos = mul(output.Pos, View);
 	output.Pos = mul(output.Pos, Projection);
 	output.Nor = normalize(mul(input.Nor, boneTransform));
-	output.Tex = input.Tex;
+	output.Tex = input.Tex.xy;
 	return output;
 }
 

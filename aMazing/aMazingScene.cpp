@@ -58,7 +58,7 @@ HRESULT aMazingScene::Initialize(HWND hwnd, ID3D11Device* device,
 
 
 	model.reset(new ModelClass);
-	hr = model->Initialize(device, context, "3dModel/figure.FBX");
+	hr = model->Initialize(device, context, "3dModel/figure.fbx");
 	if (FAILED(hr))
 	{
 		return hr;

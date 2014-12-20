@@ -36,9 +36,9 @@ public:
 		memset(boneIndices, 0, sizeof(boneIndices));
 		weights = { 0, 0, 0, 0 };
 	}
+	unsigned int boneIndices[4];
+	XMFLOAT4 weights;
 	XMFLOAT4 position;
 	XMFLOAT4 normal;
 	XMFLOAT4 texture;
-	XMFLOAT4 weights;
-	unsigned int boneIndices[4];
 };
