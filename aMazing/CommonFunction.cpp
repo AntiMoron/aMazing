@@ -1,8 +1,6 @@
-#include"CommonUtil.h"
-
-
-
-float increaseByScale(float val, float scale, float upperBound,float bias)
+#include"CommonFunction.hpp"
+//将值val按比例增长
+float CommonFunction::increaseByScale(float val, float scale, float upperBound, float bias)
 {
 	if (val > upperBound - bias)
 	{
@@ -11,7 +9,8 @@ float increaseByScale(float val, float scale, float upperBound,float bias)
 	return val * scale;
 }
 
-float fadeByScale(float val, float scale, float lowerBound,float bias)
+//将值val按比例衰减
+float CommonFunction::fadeByScale(float val, float scale, float lowerBound, float bias)
 {
 	if (val > 0 && val < lowerBound + bias)
 	{
@@ -24,7 +23,8 @@ float fadeByScale(float val, float scale, float lowerBound,float bias)
 	return val * scale;
 }
 
-float fadeByValue(float val, float decreasement, float lowerBound)
+//将值val按照数值减少
+float CommonFunction::fadeByValue(float val, float decreasement, float lowerBound)
 {
 	val -= decreasement;
 	if (val < lowerBound)
@@ -34,7 +34,8 @@ float fadeByValue(float val, float decreasement, float lowerBound)
 	return val;
 }
 
-float increaseByValue(float val,float increasement,float upperBound)
+//将值val按数值增长
+float CommonFunction::increaseByValue(float val, float increasement, float upperBound)
 {
 	val += increasement;
 	if (val > upperBound)
@@ -44,23 +45,17 @@ float increaseByValue(float val,float increasement,float upperBound)
 	return val;
 }
 
-XMFLOAT3 normalize(XMFLOAT3 src)
+//将三维向量单位化
+XMFLOAT3 CommonFunction::normalize(XMFLOAT3 src)
 {
 	float length = src.x * src.x;
 	length += src.y * src.y;
 	length += src.z * src.z;
-	length = sqrt(length);
+	length = std::sqrt(length);
 	if (length == 0.0f)
 		return src;
 	src.x /= length;
 	src.y /= length;
 	src.z /= length;
 	return src;
-}
-
-bool aiStringLess::operator()(const aiString& aiA, const aiString& aiB)const
-{
-	std::string a = aiA.C_Str();
-	std::string b = aiB.C_Str();
-	return a < b;
 }

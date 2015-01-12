@@ -1,6 +1,6 @@
 #pragma once
 #include<memory>
-#include"CommonUtil.h"
+#include"CommonUtil.hpp"
 #include"CameraClass.h"
 #include"Maze.h"
 class WrappedCamera
@@ -12,7 +12,6 @@ public:
 	XMFLOAT3 getSpeed();
 	XMFLOAT3 getPosition();
 	HRESULT Initialize(ID3D11Device* device,ID3D11DeviceContext* context);
-	void Shutdown();
 
 	void setFov(float _fov);
 	void setPosition(XMFLOAT3 pos);

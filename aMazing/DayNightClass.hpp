@@ -35,17 +35,6 @@ public:
 		}
 		return S_OK;
 	}
-	void Shutdown()
-	{
-		if (dayColorAlpha.get() != nullptr)
-		{
-			dayColorAlpha->Shutdown();
-		}
-		if (ambientLight.get() != nullptr)
-		{
-			ambientLight->Shutdown();
-		}
-	}
 	void UpdateTime(ID3D11Device* device,ID3D11DeviceContext* context)
 	{
 		std::size_t t = GetTickCount();

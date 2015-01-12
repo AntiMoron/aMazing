@@ -1,7 +1,5 @@
 #include "PrimitivePipeline.h"
 
-PrimitivePipeline* PrimitivePipeline::instance = nullptr;
-
 PrimitivePipeline::PrimitivePipeline()
 {
 }
@@ -11,14 +9,10 @@ PrimitivePipeline::~PrimitivePipeline()
 {
 }
 
-
 PrimitivePipeline& PrimitivePipeline::getInstance()
 {
-	if (instance == nullptr)
-	{
-		instance = new PrimitivePipeline;
-	}
-	return *instance;
+	static PrimitivePipeline instance;
+	return instance;
 }
 
 HRESULT PrimitivePipeline::Initialize(D3DClass* d3d)
@@ -46,14 +40,6 @@ HRESULT PrimitivePipeline::Initialize(D3DClass* d3d)
 		return hr;
 	}
 	return S_OK; 
-}
-
-HRESULT PrimitivePipeline::Shutdown()
-{
-	blk->Shutdown();
-	rec->Shutdown();
-	line->Shutdown();
-	return S_OK;
 }
 
 void PrimitivePipeline::RenderRectangle(unsigned short l, unsigned short t,

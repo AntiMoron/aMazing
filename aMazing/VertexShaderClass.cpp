@@ -12,11 +12,6 @@ VertexShaderClass::VertexShaderClass()
 
 VertexShaderClass::~VertexShaderClass()
 {
-	Shutdown();
-}
-
-void VertexShaderClass::Shutdown()
-{
 	if (shader != nullptr)
 	{
 		shader->Release();

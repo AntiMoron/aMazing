@@ -12,7 +12,6 @@ public:
 	
 	HRESULT Initialize(ID3D11Device* device,
 		ID3D11DeviceContext* context);
-	void Shutdown();
 
 	void setFogColor(XMFLOAT3 color);
 	void setFogNearDist(float val_near);
@@ -21,7 +20,7 @@ public:
 	void Render(ID3D11Device* device,
 		ID3D11DeviceContext* context);
 private:
-	bool is_inited;
+	volatile bool is_inited;
 	struct FOG_DESC
 	{
 		float nearDist;

@@ -15,11 +15,68 @@ D3DClass::D3DClass()
 	g_pSamplerLinear = nullptr;
 	m_depthEnabledStencilState = nullptr;
 	m_depthDisabledStencilState = nullptr;
+	frameCounter = 0;
+	framePerSecond = 0;
+	lastTime = clock.now();
 }
 
 
 D3DClass::~D3DClass()
 {
+	if (g_pImmediateContext)
+	{
+		g_pImmediateContext->ClearState();
+	}
+	if (g_pSamplerLinear)
+	{
+		g_pSamplerLinear->Release();
+		g_pSamplerLinear = nullptr;
+	}
+	if (g_pTextureRV)
+	{
+		g_pTextureRV->Release();
+		g_pTextureRV = nullptr;
+	}
+	if (g_pDepthStencil)
+	{
+		g_pDepthStencil->Release();
+		g_pDepthStencil = nullptr;
+	}
+	if (g_pDepthStencilView)
+	{
+		g_pDepthStencilView->Release();
+		g_pDepthStencilView = nullptr;
+	}
+	if (g_pRenderTargetView)
+	{
+		g_pRenderTargetView->Release();
+		g_pRenderTargetView = nullptr;
+	}
+	if (g_pSwapChain)
+	{
+		g_pSwapChain->Release();
+		g_pSwapChain = nullptr;
+	}
+	if (g_pImmediateContext)
+	{
+		g_pImmediateContext->Release();
+		g_pImmediateContext = nullptr;
+	}
+	if (g_pd3dDevice)
+	{
+		g_pd3dDevice->Release();
+		g_pd3dDevice = nullptr;
+	}
+	if (m_depthEnabledStencilState)
+	{
+		m_depthEnabledStencilState->Release();
+		m_depthEnabledStencilState = nullptr;
+	}
+	if (m_depthDisabledStencilState)
+	{
+		m_depthDisabledStencilState->Release();
+		m_depthDisabledStencilState = nullptr;
+	}
 }
 
 HRESULT D3DClass::Initialize(HWND hwnd)
@@ -206,64 +263,6 @@ HRESULT D3DClass::Initialize(HWND hwnd)
 	g_pImmediateContext->OMSetBlendState(AlphaRenderingEnabled, rgba, 0xffffffff);
 	return S_OK;
 }
-HRESULT D3DClass::Shutdown()
-{
-	if (g_pImmediateContext)
-	{
-		g_pImmediateContext->ClearState();
-	}
-	if (g_pSamplerLinear)
-	{
-		g_pSamplerLinear->Release();
-		g_pSamplerLinear = nullptr;
-	}
-	if (g_pTextureRV)
-	{
-		g_pTextureRV->Release();
-		g_pTextureRV = nullptr;
-	}
-	if (g_pDepthStencil)
-	{
-		g_pDepthStencil->Release();
-		g_pDepthStencil = nullptr;
-	}
-	if (g_pDepthStencilView)
-	{
-		g_pDepthStencilView->Release();
-		g_pDepthStencilView = nullptr;
-	}
-	if (g_pRenderTargetView)
-	{
-		g_pRenderTargetView->Release();
-		g_pRenderTargetView = nullptr;
-	}
-	if (g_pSwapChain)
-	{
-		g_pSwapChain->Release();
-		g_pSwapChain = nullptr;
-	}
-	if (g_pImmediateContext)
-	{
-		g_pImmediateContext->Release();
-		g_pImmediateContext = nullptr;
-	}
-	if (g_pd3dDevice)
-	{
-		g_pd3dDevice->Release();
-		g_pd3dDevice = nullptr;
-	}
-	if (m_depthEnabledStencilState)
-	{
-		m_depthEnabledStencilState->Release();
-		m_depthEnabledStencilState = nullptr;
-	}
-	if (m_depthDisabledStencilState)
-	{
-		m_depthDisabledStencilState->Release();
-		m_depthDisabledStencilState = nullptr;
-	}
-	return S_OK;
-}
 
 ID3D11Device* D3DClass::getDevice()
 {
@@ -314,8 +313,25 @@ void D3DClass::clearDepthStencil()
 void D3DClass::Present(bool VSync)
 //Vsync mean whether enable Vertical-Sync
 {
+	auto nowTime = clock.now();
+	static const size_t singleCount = std::chrono::seconds(1).count();
+	if (std::chrono::duration_cast<std::chrono::seconds>(nowTime - lastTime).count() >= singleCount)
+	{
+		framePerSecond = frameCounter;
+		frameCounter = 0;
+		lastTime = nowTime;
+	}
+	else
+	{
+		++frameCounter;
+	}
 	if (VSync == true)
 		g_pSwapChain->Present(1, 0);
 	else
 		g_pSwapChain->Present(0, 0);
+}
+
+size_t D3DClass::getFps()
+{
+	return framePerSecond;
 }

@@ -385,7 +385,7 @@
     <ClCompile Include="BlockClass.cpp" />
     <ClCompile Include="CameraClass.cpp" />
     <ClCompile Include="CollisionIntersection.cpp" />
-    <ClCompile Include="CommonUtil.cpp" />
+    <ClCompile Include="CommonFunction.cpp" />
     <ClCompile Include="D3DClass.cpp" />
     <ClCompile Include="EffectClass.cpp" />
     <ClCompile Include="exceptions.cpp" />
@@ -400,6 +400,7 @@
     <ClCompile Include="MazeGenerator.cpp" />
     <ClCompile Include="ModelClass.cpp" />
     <ClCompile Include="MutableString.cpp" />
+    <ClCompile Include="ParamException.cpp" />
     <ClCompile Include="ParticleClass.cpp" />
     <ClCompile Include="PixelShaderClass.cpp" />
     <ClCompile Include="PrimitivePipeline.cpp" />
@@ -411,7 +412,6 @@
     <ClCompile Include="SoundClass.cpp" />
     <ClCompile Include="TextureClass.cpp" />
     <ClCompile Include="TextureManager.cpp" />
-    <ClCompile Include="TgaLoader.cpp" />
     <ClCompile Include="VertexShaderClass.cpp" />
     <ClCompile Include="WindowClass.cpp" />
     <ClCompile Include="WrappedCamera.cpp" />
@@ -432,8 +432,11 @@
     <ClInclude Include="CollisionTriangle.hpp" />
     <ClInclude Include="CollisionWorld.hpp" />
     <ClInclude Include="CommonDef.hpp" />
+    <ClInclude Include="CommonDxSupport.hpp" />
+    <ClInclude Include="CommonFunction.hpp" />
+    <ClInclude Include="CommonHelper.hpp" />
     <ClInclude Include="CommonTemplates.hpp" />
-    <ClInclude Include="CommonUtil.h" />
+    <ClInclude Include="CommonUtil.hpp" />
     <ClInclude Include="D3DClass.h" />
     <ClInclude Include="DayNightClass.hpp" />
     <ClInclude Include="Defines.hpp" />
@@ -465,6 +468,7 @@
     <ClInclude Include="ProjectTexture.hpp" />
     <ClInclude Include="RectangleClass.h" />
     <CLInclude Include="resource.h" />
+    <ClInclude Include="SceneAnimNode.hpp" />
     <ClInclude Include="ScopeGuard.hpp" />
     <ClInclude Include="ShaderClass.h" />
     <ClInclude Include="ShaderCompilerClass.h" />

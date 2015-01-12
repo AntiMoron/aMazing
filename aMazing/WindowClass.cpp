@@ -1,7 +1,5 @@
 #include "WindowClass.h"
 
-WindowClass* WindowClass::wnd_instance = nullptr;
-
 WindowClass::WindowClass()
 {
 }
@@ -13,57 +11,74 @@ WindowClass::~WindowClass()
 
 WindowClass& WindowClass::getInstance()
 {
-	if (wnd_instance == nullptr)
-	{
-		wnd_instance = new WindowClass;
-	}
-	return *wnd_instance;
+	static WindowClass instance;
+	return instance;
 }
 
 
 void WindowClass::setWidth(unsigned short width)
 {
-	wnd_width = width;
+	wndWidth = width;
 }
 
 void WindowClass::setHeight(unsigned short height)
 {
-	wnd_height = height;
+	wndHeight = height;
 }
 
 unsigned short WindowClass::getWidth()
 {
-	return wnd_width;
+	return wndWidth;
 }
 
 unsigned short WindowClass::getHeight()
 {
-	return wnd_height;
+	return wndHeight;
 }
 
 float WindowClass::getAspectRatio()
 {
 	float result = 4 / 3.0f;
-	if (wnd_width == wnd_height)
+	if (wndWidth == wndHeight)
 	{
 		return 1.0f;
 	}
 
-	if (wnd_width > wnd_height)
+	if (wndWidth > wndHeight)
 	{
-		if (wnd_height == 0)
+		if (wndHeight == 0)
 		{
-			wnd_height = wnd_width;
+			wndHeight = wndWidth;
 		}
-		result = wnd_width / wnd_height;
+		result = wndWidth / wndHeight;
 	}
 	else
 	{
-		if (wnd_width == 0)
+		if (wndWidth == 0)
 		{
-			wnd_width = wnd_height;
+			wndWidth = wndHeight;
 		}
-		result = wnd_height / wnd_width;
+		result = wndHeight / wndWidth;
 	}
 	return result;
+}
+
+unsigned short WindowClass::getResolutionWidth()
+{
+	return resolutionWidth;
+}
+
+unsigned short WindowClass::getResolutionHeight()
+{
+	return resolutionHeight;
+}
+
+void WindowClass::setResolutionWidth(unsigned short width)
+{
+	resolutionWidth = width;
+}
+
+void WindowClass::setResolutionHeight(unsigned short height)
+{
+	resolutionHeight = height;
 }

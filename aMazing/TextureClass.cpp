@@ -1,6 +1,6 @@
 #include "TextureClass.h"
 
-const TextureClass::chessBoardDatz TextureClass::chessBoardData;
+const TextureClass::wrappedColorDatz TextureClass::defaultData;
 
 TextureClass::TextureClass()
 {
@@ -10,15 +10,6 @@ TextureClass::TextureClass()
 
 
 TextureClass::~TextureClass()
-{
-	if (SRV != nullptr)
-	{
-		SRV->Release();
-		SRV = nullptr;
-	}
-}
-
-void TextureClass::Shutdown()
 {
 	if (SRV != nullptr)
 	{
@@ -138,10 +129,10 @@ HRESULT TextureClass::beChessBoard(ID3D11Device* device,
 {
 	HRESULT hr;
 	hr = LoadMemory(device, context,
-		chessBoardWidth,
-		chessBoardHeight,
-		(void*)chessBoardData.chessBoardData,
-		sizeof(unsigned char)*chessBoardWidth * chessBoardHeight * 4);
+		defaultWidth,
+		defaultHeight,
+		(void*)defaultData.chessBoardData,
+		sizeof(unsigned char) * defaultWidth * defaultHeight * 4);
 	if (FAILED(hr))
 	{
 		return hr;

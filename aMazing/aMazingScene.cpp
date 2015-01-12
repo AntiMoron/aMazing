@@ -66,34 +66,6 @@ HRESULT aMazingScene::Initialize(HWND hwnd, ID3D11Device* device,
 	return S_OK;
 }
 
-void aMazingScene::Shutdown()
-{
-	if (glow.get() != nullptr)
-	{
-		glow->Shutdown();
-	}
-	if (sound.get() != nullptr)
-	{
-		sound->Shutdown();
-	}
-	if (collisionWorld.get() != nullptr)
-	{
-		collisionWorld->Shutdown();
-	}
-	if (dayTime.get() != nullptr)
-	{
-		dayTime->Shutdown();
-	}
-	if (camera.get() != nullptr)
-	{
-		camera->Shutdown();
-	}
-	if (model.get() != nullptr)
-	{
-		model->Shutdown();
-	}
-}
-
 void aMazingScene::Render(D3DClass* d3dkit)
 {
 	sound->Play();

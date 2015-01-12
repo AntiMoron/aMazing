@@ -1,8 +1,8 @@
 #pragma once
-#include <d3d11.h>
-#include <d3dx11.h>
+#include "CommonDxSupport.hpp"
 #include "WindowClass.h"
 #include "Defines.hpp"
+#include <chrono>
 
 class D3DClass
 {
@@ -11,7 +11,6 @@ public:
 	~D3DClass();
 
 	HRESULT Initialize(HWND hwnd);
-	HRESULT Shutdown();
 
 	ID3D11Device* getDevice();
 	ID3D11DeviceContext* getContext();
@@ -25,6 +24,8 @@ public:
 	void clearRenderTarget();
 	void clearDepthStencil();
 	void Present(bool VSync);
+
+	size_t getFps();
 private:
 	D3D_DRIVER_TYPE                     g_driverType;
 	D3D_FEATURE_LEVEL                   g_featureLevel;
@@ -41,5 +42,9 @@ private:
 	ID3D11DepthStencilState*			m_depthEnabledStencilState;
 	ID3D11DepthStencilState*			m_depthDisabledStencilState;
 	ID3D11BlendState*					AlphaRenderingEnabled;
+	std::chrono::high_resolution_clock  clock;
+	std::chrono::time_point<std::chrono::high_resolution_clock> lastTime;
+	size_t								framePerSecond;
+	size_t								frameCounter;
 };
 

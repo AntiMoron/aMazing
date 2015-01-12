@@ -18,15 +18,6 @@ PixelShaderClass::~PixelShaderClass()
 	}
 }
 
-void PixelShaderClass::Shutdown()
-{
-	if (shader != nullptr)
-	{
-		shader->Release();
-		shader = nullptr;
-	}
-}
-
 HRESULT PixelShaderClass::createShaderFromFile(ID3D11Device* device,
 	ID3D11DeviceContext* context,
 	MutableString & filename)

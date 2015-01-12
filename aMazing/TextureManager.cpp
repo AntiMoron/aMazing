@@ -8,13 +8,6 @@ TextureManager::TextureManager()
 
 TextureManager::~TextureManager()
 {
-	for (auto& param : m_vec)
-	{
-		param->Shutdown();
-		delete param;
-		param = nullptr;
-	}
-	m_vec.clear();
 }
 
 
@@ -38,7 +31,7 @@ HRESULT TextureManager::addTexture(ID3D11Device* device,
 	{
 		return E_FAIL;
 	}
-	m_vec.push_back(texture);
+	m_vec.push_back(std::unique_ptr<TextureClass>(texture));
 	return S_OK;
 }
 
@@ -50,7 +43,7 @@ HRESULT TextureManager::addChessBoardTexture(ID3D11Device* device,
 	{
 		return E_FAIL;
 	}
-	m_vec.push_back(texture);
+	m_vec.push_back(std::unique_ptr<TextureClass>(texture));
 	return S_OK;
 }
 
@@ -61,5 +54,5 @@ TextureClass* TextureManager::getTexture(std::size_t index)
 	{
 		return nullptr;
 	}
-	return m_vec[index];
+	return m_vec[index].get();
 }

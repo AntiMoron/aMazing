@@ -15,7 +15,6 @@ public:
 
 	HRESULT Initialize(ID3D11Device* device,
 		ID3D11DeviceContext* context);
-	void Shutdown();
 
 	void setPosition(const XMFLOAT3& pos);
 	void setPosition(const XMFLOAT3&& pos);

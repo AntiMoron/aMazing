@@ -56,14 +56,15 @@ PS_INPUT VSEntry(VS_INPUT input)
 		+ (input.Weights.b * bones[boneIndices[2]])
 		+ (input.Weights.a * bones[boneIndices[3]]);
 	output.Pos = input.Pos;
-	output.Pos = mul(output.Pos, boneTransform);
+//	output.Pos = mul(output.Pos, boneTransform);
 	output.Pos = mul(output.Pos, Rot);
 	output.Pos = mul(output.Pos, Sca);
 	output.Pos = mul(output.Pos, Pos);
 	output.Pos = mul(output.Pos, World);
 	output.Pos = mul(output.Pos, View);
 	output.Pos = mul(output.Pos, Projection);
-	output.Nor = normalize(mul(input.Nor, boneTransform));
+	output.Nor = input.Nor;
+//	output.Nor = normalize(mul(input.Nor, boneTransform));
 	output.Tex = input.Tex.xy;
 	return output;
 }

@@ -2,7 +2,16 @@
 
 ShaderPair::~ShaderPair()
 {
-	Shutdown();
+	if (pVert != nullptr)
+	{
+		delete pVert;
+		pVert = nullptr;
+	}
+	if (pPixl != nullptr)
+	{
+		delete pPixl;
+		pPixl = nullptr;
+	}
 }
 
 ShaderPair::ShaderPair(VertexShaderClass** pv,
@@ -35,23 +44,6 @@ bool ShaderPair::operator < (const std::string& other)const
 bool ShaderPair::operator == (const std::string& other)const
 {
 	return shaderName == other;
-}
-
-HRESULT ShaderPair::Shutdown()
-{
-	if (pVert != nullptr)
-	{
-		pVert->Shutdown();
-		delete pVert;
-		pVert = nullptr;
-	}
-	if (pPixl != nullptr)
-	{
-		pPixl->Shutdown();
-		delete pPixl;
-		pPixl = nullptr;
-	}
-	return S_OK;
 }
 
 HRESULT ShaderPair::bindShader(ID3D11Device* device,

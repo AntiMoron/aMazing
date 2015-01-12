@@ -14,7 +14,11 @@ public:
 	}
 	~GPUConstantBuffer()
 	{
-		Shutdown();
+		if (m_buffer != nullptr)
+		{
+			m_buffer->Release();
+			m_buffer = nullptr;
+		}
 	}
 	HRESULT Initialize(ID3D11Device* device, ID3D11DeviceContext* context, int startSlot)
 	{
@@ -35,15 +39,6 @@ public:
 		return S_OK;
 	}
 
-	HRESULT Shutdown()
-	{
-		if (m_buffer != nullptr)
-		{
-			m_buffer->Release();
-			m_buffer = nullptr;
-		}
-		return S_OK;
-	}
 	HRESULT UpdateData(source_type* p)
 	{
 		memcpy(&m_data, p, sizeof(source_type));

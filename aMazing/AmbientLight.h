@@ -1,11 +1,9 @@
 #pragma once
-#include<D3D11.h>
-#include<D3DX11.h>
-#include<xnamath.h>
+#include"CommonDxSupport.hpp"
 #include<memory>
 #include"WindowClass.h"
 #include"GPUConstantBuffer.hpp"
-#include"CommonUtil.h"
+#include"CommonUtil.hpp"
 
 class AmbientLight
 {
@@ -15,7 +13,6 @@ public:
 
 	HRESULT Initialize(ID3D11Device* device, 
 		ID3D11DeviceContext* context);
-	void Shutdown();
 
 	void setFov(const float ang);
 	float getFov()const;

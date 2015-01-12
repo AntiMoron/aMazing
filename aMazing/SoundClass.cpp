@@ -8,6 +8,11 @@ SoundClass::SoundClass()
 
 SoundClass::~SoundClass()
 {
+	if (m_soundData != nullptr)
+	{
+		delete m_soundData;
+		m_soundData = nullptr;
+	}
 }
 
 
@@ -32,16 +37,6 @@ HRESULT SoundClass::Initialize(HWND hwnd , MutableString&& path)
 	}
 	(*m_soundData)->stop();
 	return hr;
-}
-
-HRESULT SoundClass::Shutdown()
-{
-	if (m_soundData != nullptr)
-	{
-		delete m_soundData;
-		m_soundData = nullptr;
-	}
-	return S_OK;
 }
 
 bool SoundClass::Play()

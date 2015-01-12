@@ -1,6 +1,5 @@
 #pragma once
-#include<D3D11.h>
-#include<D3DX11.h>
+#include"CommonDxSupport.hpp"
 #include"Vertex.hpp"
 #include"GPUConstantBuffer.hpp"
 #include"GPUMutableVerticesBuffer.hpp"
@@ -23,12 +22,9 @@ public:
 		ID3D11DeviceContext* context,
 		float sx,float sy,float sz,
 		float ex,float ey,float ez);
-
-	void Shutdown();
-
 	bool isInited()const;
 private:
-	bool is_inited;
+	volatile bool is_inited;
 	float r, g, b, a;
 	float lastPosX[2],lastPosY[2],lastPosZ[2];
 	GPUConstantBuffer<XMFLOAT4> m_color;

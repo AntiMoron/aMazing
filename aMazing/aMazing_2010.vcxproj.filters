@@ -39,6 +39,9 @@
     <Filter Include="Engine\Data">
       <UniqueIdentifier>{44962ac5-fdfe-4245-bf6d-b6ce734a2c7e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\exception">
+      <UniqueIdentifier>{fbe56c71-30fd-4a5b-9124-1f5b28cb30b4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MazeGenerator.h" />
@@ -191,9 +194,6 @@
       <Filter>Collision</Filter>
     </ClInclude>
     <ClInclude Include="WrappedCamera.h" />
-    <ClInclude Include="CommonUtil.h">
-      <Filter>Common</Filter>
-    </ClInclude>
     <ClInclude Include="CollisionWorld.hpp">
       <Filter>Collision</Filter>
     </ClInclude>
@@ -218,6 +218,19 @@
       <Filter>Engine\Data</Filter>
     </ClInclude>
     <ClInclude Include="CommonDef.hpp">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneAnimNode.hpp" />
+    <ClInclude Include="CommonUtil.hpp">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonHelper.hpp">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonFunction.hpp">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonDxSupport.hpp">
       <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
@@ -309,16 +322,16 @@
       <Filter>Collision\ShapeCategory</Filter>
     </ClCompile>
     <ClCompile Include="WrappedCamera.cpp" />
-    <ClCompile Include="CommonUtil.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="TgaLoader.cpp">
-      <Filter>Engine\Data</Filter>
-    </ClCompile>
     <ClCompile Include="ModelClass.cpp">
       <Filter>Engine\Animate</Filter>
     </ClCompile>
     <ClCompile Include="FogClass.cpp" />
+    <ClCompile Include="ParamException.cpp">
+      <Filter>Engine\exception</Filter>
+    </ClCompile>
+    <ClCompile Include="CommonFunction.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">

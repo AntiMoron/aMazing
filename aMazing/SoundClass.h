@@ -19,7 +19,6 @@ public:
 	~SoundClass();
 
 	HRESULT Initialize(HWND hwnd, MutableString&& path);
-	HRESULT Shutdown();
 
 	bool Play();
 	bool Stop();

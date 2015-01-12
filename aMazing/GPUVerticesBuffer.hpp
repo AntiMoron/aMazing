@@ -17,7 +17,8 @@ public:
 	}
 	~GPUVerticesBuffer()
 	{
-		Shutdown();
+		SAFE_RELEASE(m_vertices);
+		SAFE_RELEASE(m_index);
 	}
 
 	//If the indices pointer is nullptr,then no index buffer would be initialized
@@ -74,13 +75,6 @@ public:
 		}
 
 		m_inited = true;
-		return S_OK;
-	}
-
-	HRESULT Shutdown()
-	{
-		SAFE_RELEASE(m_vertices);
-		SAFE_RELEASE(m_index);
 		return S_OK;
 	}
 

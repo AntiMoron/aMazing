@@ -21,7 +21,6 @@ public:
 	HRESULT Initialize(HWND hwnd,
 		ID3D11Device* device,
 		ID3D11DeviceContext* context);
-	void Shutdown();
 	void Render(D3DClass* d3dkit);
 	WrappedCamera* getCamera();
 private:

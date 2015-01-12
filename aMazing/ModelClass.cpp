@@ -5,12 +5,70 @@ ModelClass::ModelClass()
 {
 	is_inited = false;
 	render_time = 0.0f;
+	animIndexCached = false;
+	mCurrentAnimIndex = 0;
+	ZeroMemory(&identityMatrix,sizeof(identityMatrix));
+	identityMatrix.a1 = 1.0f;
+	identityMatrix.b2 = 1.0f;
+	identityMatrix.c3 = 1.0f;
+	identityMatrix.d4 = 1.0f;
 }
 
 
 ModelClass::~ModelClass()
 {
 	importer->FreeScene();
+}
+
+// Retrieves the most recent local transformation matrix for the given node. 
+const aiMatrix4x4& ModelClass::GetLocalTransform(const aiNode* node) const
+{
+	auto it = mNodesByName->find(node);
+	if (it == mNodesByName->end())
+	{
+		return identityMatrix;
+	}
+
+	return it->second->localTransform;
+}
+
+// ------------------------------------------------------------------------------------------------
+// Retrieves the most recent global transformation matrix for the given node. 
+const aiMatrix4x4& ModelClass::GetGlobalTransform(const aiNode* node) const
+{
+	auto it = mNodesByName->find(node);
+	if (it == mNodesByName->end())
+		return identityMatrix;
+
+	return it->second->globalTransform;
+}
+
+void ModelClass::setAnimIndex(std::size_t animIndex)
+{
+	if (animIndexCached == true && 
+		mCurrentAnimIndex == animIndex)
+	{
+		return ;
+	}
+	//invalid animation index
+	if (animIndex > scene->mNumAnimations)
+	{
+		return ;
+	}
+	//cache the animation index
+	mCurrentAnimIndex = animIndex;
+
+	rootNode.reset(createNodeTree(scene->mRootNode, nullptr));
+}
+
+SceneAnimNode* ModelClass::createNodeTree(aiNode* pNode, SceneAnimNode* parent)
+{
+	SceneAnimNode* internalNode = new SceneAnimNode(pNode->mName.data);
+	internalNode->parent.reset(parent);
+	(*mNodesByName)[pNode] = internalNode;
+	//copy its transformation
+	internalNode->localTransform = pNode->mTransformation;
+	return nullptr;
 }
 
 HRESULT ModelClass::Initialize(ID3D11Device* device,
@@ -53,7 +111,8 @@ HRESULT ModelClass::Initialize(ID3D11Device* device,
 		0);
 	if (scene == nullptr)
 	{
-		//导入错误，获取错误信息并进行相应的处理   
+		//failed on loading asset. 
+		//if so get error message & output to console.
 		std::cout << importer->GetErrorString() << std::endl;
 		return false;
 	};
@@ -61,8 +120,11 @@ HRESULT ModelClass::Initialize(ID3D11Device* device,
 	modelLocation.reset(new std::string(getModelLocation(filename.c_str())));
 	textures.reset(new std::vector<std::unique_ptr<TextureClass> >);
 	textureIndices.reset(new std::vector<std::size_t>);
-	bones.reset(new std::vector<std::unique_ptr<BoneClass> >);
-	boneMapping.reset(new std::map<aiString, std::size_t, aiStringLess>);
+
+	mNodesByName.reset(new std::map<const aiNode*, SceneAnimNode*>);
+	mBoneNodesByName.reset(new std::map<aiString, aiNode*, aiStringLess>);
+	//bones.reset(new std::vector<std::unique_ptr<BoneClass> >);
+	//boneMapping.reset(new std::map<aiString, std::size_t, aiStringLess>);
 	indices.reset(new std::vector<std::unique_ptr<std::vector<WORD> > >);
 	vertices.reset(new std::vector<std::unique_ptr<std::vector<SkinVertex> > >);
 	vertexBuffer.reset(new std::vector<std::unique_ptr<GPUMutableVerticeBuffer<SkinVertex> > >);
@@ -98,21 +160,6 @@ HRESULT ModelClass::Initialize(ID3D11Device* device,
 		}
 	}
 	return S_OK;
-}
-
-void ModelClass::Shutdown()
-{
-	BasicObject::Shutdown();
-	if (vertexBuffer.get() != nullptr)
-	{
-		for (int i = 0; i < vertexBuffer->size(); i++)
-		{
-			if (vertexBuffer->at(i).get() != nullptr)
-			{
-				vertexBuffer->at(i)->Shutdown();
-			}
-		}
-	}
 }
 
 void ModelClass::loadTextures(ID3D11Device* device,
@@ -169,7 +216,7 @@ void ModelClass::loadMeshes(const aiScene* pScene)
 	//the index and weight for each vertex   pair<boneIndex,weight>
 	std::unordered_map<std::size_t, std::vector<std::pair<unsigned char,float> > > vindex2Weight;
 	//pre-process bone datas
-	for (std::size_t cur = 0; cur < bones->size(); ++cur)
+	/*for (std::size_t cur = 0; cur < bones->size(); ++cur)
 	{
 		auto& weights = (*bones)[cur]->weights;
 		for (std::size_t r = 0; r < weights.size(); ++r)
@@ -181,7 +228,7 @@ void ModelClass::loadMeshes(const aiScene* pScene)
 			}
 			vindex2Weight[id].push_back(std::pair<unsigned char,float>(cur,weights[r]->mWeight));
 		}
-	}
+	}*/
 	//sort weight data for each vertex.the top4 will be used
 	for (auto& entry : vindex2Weight)
 	{
@@ -270,38 +317,52 @@ void ModelClass::loadBones(const aiScene* pScene)
 	{
 		return;
 	}
-	std::vector<std::size_t> meshBaseIndices;
-	meshBaseIndices.push_back(0);
-	for (std::size_t cur = 1; cur <pScene->mNumMeshes; ++cur)
-	{
-		auto lastIndex = meshBaseIndices.back();
-		meshBaseIndices.push_back(lastIndex + pScene->mMeshes[cur]->mNumVertices);
-	}
 
-	for (std::size_t i = 0; i < pScene->mNumMeshes; i++)
+	for (std::size_t i = 0; i < pScene->mNumMeshes; ++i)
 	{
 		const aiMesh* pMesh = pScene->mMeshes[i];
-		if (false != pMesh->HasBones())
+		for (std::size_t n = 0; n < pMesh->mNumBones; ++n)
 		{
-			for (int j = 0; j < pMesh->mNumBones; j++)
-			{
-				const aiBone* pBone= pMesh->mBones[j];
-				std::cout << pBone->mName.C_Str() << std::endl;
-				if (boneMapping->find(pBone->mName) == boneMapping->end())
-				{
-					boneMapping->insert(std::pair<aiString, std::size_t>(pBone->mName,
-						bones->size()));
-					bones->emplace_back(std::unique_ptr<BoneClass>(new BoneClass));
-					for (int k = 0; k < pBone->mNumWeights; k++)
-					{
-						bones->back()->weights.push_back(std::unique_ptr<aiVertexWeight>(new aiVertexWeight(pBone->mWeights[k])));
-						bones->back()->weights.back()->mVertexId += meshBaseIndices[i];
-					}
-					bones->back()->offsetMatrix = pBone->mOffsetMatrix;
-				}
-			}
+			const auto bone = pMesh->mBones[n];
+			(*mBoneNodesByName)[bone->mName] = pScene->mRootNode->FindNode(bone->mName);
 		}
 	}
+
+	////get base vertex index of each mesh.
+	//std::vector<std::size_t> meshBaseIndices;
+	//meshBaseIndices.push_back(0);
+	//for (std::size_t cur = 1; cur <pScene->mNumMeshes; ++cur)
+	//{
+	//	auto lastIndex = meshBaseIndices.back();
+	//	meshBaseIndices.push_back(lastIndex + pScene->mMeshes[cur]->mNumVertices);
+	//}
+
+	//for (std::size_t i = 0; i < pScene->mNumMeshes; i++)
+	//{
+	//	const aiMesh* pMesh = pScene->mMeshes[i];
+	//	if (false != pMesh->HasBones())
+	//	{
+	//		for (int j = 0; j < pMesh->mNumBones; j++)
+	//		{
+	//			const aiBone* pBone= pMesh->mBones[j];
+	//			std::cout << pBone->mName.C_Str() << std::endl;
+	//			if (boneMapping->find(pBone->mName) == boneMapping->end())
+	//			{
+	//				boneMapping->insert(std::pair<aiString, std::size_t>(pBone->mName,
+	//					bones->size()));
+	//				bones->emplace_back(std::unique_ptr<BoneClass>(new BoneClass));
+	//				for (int k = 0; k < pBone->mNumWeights; k++)
+	//				{
+	//					bones->back()->weights.push_back(std::unique_ptr<aiVertexWeight>(new aiVertexWeight(pBone->mWeights[k])));
+	//					bones->back()->weights.back()->mVertexId += meshBaseIndices[i];
+	//				}
+	//				bones->back()->offsetMatrix = pBone->mOffsetMatrix;
+	//				//offsetMatrix converts vertex from mesh space to bind space here.We need 'bind space to mesh space'
+	//				bones->back()->offsetMatrix.Inverse();
+	//			}
+	//		}
+	//	}
+	//}
 }
 
 std::string ModelClass::getModelLocation(const char* filename)
@@ -430,13 +491,13 @@ void ModelClass::bindBonesToGPU(ID3D11Device* device,
 	float animationTime)
 {
 	const aiMatrix4x4 transform = scene->mRootNode->mTransformation;
-	ReadModelRecursively(scene, animationTime, scene->mRootNode, transform);
+//	ReadModelRecursively(scene, animationTime, scene->mRootNode, transform);
 	BonesBindData boneCbData = {};
-	for (std::size_t cur = 0; cur < bones->size(); ++cur)
-	{
-		boneCbData.boneMatrices[cur] = bones->at(cur)->finalTransformation.Transpose();
+//	for (std::size_t cur = 0; cur < bones->size(); ++cur)
+//	{
+//		boneCbData.boneMatrices[cur] = bones->at(cur)->finalTransformation.Transpose();
 //		boneCbData.boneMatrices[cur] = bones->at(cur)->finalTransformation;
-	}
+//	}
 	boneTransformations->UpdateData(&boneCbData);
 	boneTransformations->UpdateGpu(device, context);
 	boneTransformations->BindVertexShader(device, context);
@@ -454,12 +515,7 @@ bool ModelClass::ReadModelRecursively(const aiScene* pScene,
 		const aiAnimation* pAnimation = pScene->mAnimations[i];
 		const aiNodeAnim* pNodeAnim = findNodeByName(pAnimation, nodeName);
 		//identify the transform matrix
-		aiMatrix4x4 nodeTransformation;
-		ZeroMemory(&nodeTransformation,sizeof(nodeTransformation));
-		nodeTransformation.a1 = 1.0f;
-		nodeTransformation.b2 = 1.0f;
-		nodeTransformation.c3 = 1.0f;
-		nodeTransformation.d4 = 1.0f;
+		aiMatrix4x4 nodeTransformation = identityMatrix;
 
 		//if can't find the corresponding NodeAnim of this node then continue;
 		if (pNodeAnim != nullptr)
@@ -492,12 +548,14 @@ bool ModelClass::ReadModelRecursively(const aiScene* pScene,
 				nodeTransformation.c1, nodeTransformation.c2, nodeTransformation.c3, nodeTransformation.c4, 
 				nodeTransformation.d1, nodeTransformation.d2, nodeTransformation.d3, nodeTransformation.d4);*/
 		}
-
-		aiMatrix4x4 currentTransformation = ParentTransform * nodeTransformation;
+		//get the toRoot matrix
+		aiMatrix4x4 globalTransform = ParentTransform;
+//		globalTransform.Inverse();
+		aiMatrix4x4 currentTransformation = globalTransform * nodeTransformation;
 		if (boneMapping->find(nodeName) != boneMapping->end())
 		{
 			std::size_t BoneIndex = boneMapping->operator[](nodeName);
-			bones->at(BoneIndex)->finalTransformation = bones->operator[](BoneIndex)->offsetMatrix * nodeTransformation;
+			bones->at(BoneIndex)->finalTransformation = currentTransformation * bones->operator[](BoneIndex)->offsetMatrix;
 		}
 
 		//do the recursion

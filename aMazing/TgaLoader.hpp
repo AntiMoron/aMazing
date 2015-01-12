@@ -8,38 +8,21 @@
 #include<exception>
 #include<algorithm>
 #include"TgaData.hpp"
-#include"CommonUtil.h"
+#include"CommonUtil.hpp"
 
 namespace TGA
 {
 	class TgaLoader
 	{
+	private:
+		TgaLoader(){}
+		~TgaLoader(){}
 	public:
-		TgaLoader()
-		{
-		}
-		~TgaLoader()
-		{
-		}
-
-		//make sure your program is going to exit or you don't need to load any tga anymore.
-		static void Shutdown()
-		{
-			if (nullptr != instance)
-			{
-				delete instance;
-				instance = nullptr;
-			}
-		}
-
 		//Use this method to get a tgaLoader
 		static TgaLoader& getLoader()
 		{
-			if (nullptr == instance)
-			{
-				instance = new TgaLoader;
-			}
-			return (*instance);
+			static TgaLoader instance;
+			return instance;
 		}
 		//LoadTgaFile
 		bool loadFile(const char* filename, TgaData* pOut)
@@ -277,8 +260,6 @@ namespace TGA
 			}
 			return true;
 		}
-
-		static TgaLoader* instance;
 	};
 }
 

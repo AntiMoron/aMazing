@@ -20,10 +20,6 @@ public:
 		return S_OK;
 	}
 
-	void Shutdown()
-	{
-	}
-
 	void updateCameraPos(float centerX, float centerZ, float rotation)
 	{
 		camera->setCenter(XMFLOAT2(centerX, centerZ));
@@ -48,7 +44,7 @@ public:
 			XMFLOAT2(centerX - extX, centerZ - extZ),
 			XMFLOAT2(centerX + extX, centerZ + extZ) };
 		box->setPoints(data);
-		rectangles.push_back(box);
+		rectangles.push_back(std::unique_ptr<CollisionRectangle>(box));
 		return true;
 	}
 
@@ -64,16 +60,15 @@ private:
 	void CALLBACK contactHandler()
 	{
 		bool flag = false;
-		for (auto rec : rectangles)
+		for (auto& rec : rectangles)
 		{
-			if (IntersectRectangleCircle(rec, camera.get()))
+			if (IntersectRectangleCircle(rec.get(), camera.get()))
 			{
 				flag = true;
 //				printf("hit\n");
 			}
 		}
 	}
-
-	std::unique_ptr<CollisionCircle> camera;
-	std::vector<CollisionRectangle*> rectangles;
+	std::shared_ptr<CollisionCircle> camera;
+	std::vector<std::unique_ptr<CollisionRectangle> > rectangles;
 };

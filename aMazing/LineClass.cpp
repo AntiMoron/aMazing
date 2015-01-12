@@ -9,7 +9,6 @@ LineClass::LineClass()
 
 LineClass::~LineClass()
 {
-	Shutdown();
 }
 
 HRESULT LineClass::Initialize(ID3D11Device* device,
@@ -84,12 +83,6 @@ void LineClass::Render(ID3D11Device* device,
 	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 	m_color.BindPixelShader(device, context);
 	m_vertices.Render(device, context);
-}
-
-void LineClass::Shutdown()
-{
-	m_color.Shutdown();
-	m_vertices.Shutdown();
 }
 
 bool LineClass::isInited() const

@@ -1,8 +1,6 @@
 #pragma once
 
-#include<D3D11.h>
-#include<D3DX11.h>
-#include<D3DX10.h>
+#include"CommonDxSupport.hpp"
 #include<iostream>
 
 template<typename source_type>
@@ -19,11 +17,6 @@ public:
 	}
 	~GPUMutableVerticeBuffer()
 	{
-		Shutdown();
-	}
-	
-	HRESULT Shutdown()
-	{
 		if (m_vertices != nullptr)
 		{
 			m_vertices->Release();
@@ -34,9 +27,8 @@ public:
 			m_indices->Release();
 			m_indices = nullptr;
 		}
-		return S_OK;
 	}
-
+	
 	HRESULT Initialize(ID3D11Device* device,
 		ID3D11DeviceContext* context,
 		source_type* vexticesPtr,
@@ -159,7 +151,7 @@ public:
 
 
 private:
-	bool is_inited;
+	volatile bool is_inited;
 	std::size_t m_vertexCount;
 	std::size_t m_indexCount;
 	ID3D11Buffer* m_vertices;

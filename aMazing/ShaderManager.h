@@ -28,8 +28,7 @@ private:
 	ShaderManager();
 	~ShaderManager();
 
-	static ShaderManager* instance;
-	std::vector<ShaderPair*> vec;
+	std::vector<std::shared_ptr<ShaderPair> > vec;
 	bool bind_enabled;
 };
 

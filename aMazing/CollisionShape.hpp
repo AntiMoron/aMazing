@@ -1,5 +1,5 @@
 #pragma once
-#include<D3D11.h>
+#include"CommonDxSupport.hpp"
 #include<vector>
 #include<xnamath.h>
 class CollisionShape

@@ -57,12 +57,6 @@ HRESULT BasicObject::Initialize(ID3D11Device* device,
 	return S_OK;
 }
 
-void BasicObject::Shutdown()
-{
-	m_vertices.Shutdown();
-	m_prsBuffer.Shutdown();
-}
-
 void BasicObject::setPosition(const XMFLOAT3& val)
 {
 	position = val;

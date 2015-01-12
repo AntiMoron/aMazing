@@ -9,8 +9,6 @@ public:
 	VertexShaderClass();
 	~VertexShaderClass();
 
-	void Shutdown();
-
 	HRESULT createShaderFromFile(ID3D11Device* device,
 		ID3D11DeviceContext* context,
 		MutableString & filename,

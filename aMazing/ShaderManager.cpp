@@ -1,15 +1,9 @@
 #include "ShaderManager.h"
 
-
-ShaderManager* ShaderManager::instance = nullptr;
-
 ShaderManager& ShaderManager::getInstance()
 {
-	if (instance == nullptr)
-	{
-		instance = new ShaderManager;
-	}
-	return *instance;
+	static ShaderManager instance;
+	return instance;
 }
 
 ShaderManager::ShaderManager()
@@ -18,16 +12,7 @@ ShaderManager::ShaderManager()
 }
 
 
-ShaderManager::~ShaderManager()
-{
-	for (auto& param : vec)
-	{
-		param->Shutdown();
-		delete param;
-		param = nullptr;
-	}
-	vec.clear();
-}
+ShaderManager::~ShaderManager(){}
 
 HRESULT ShaderManager::addPair(ID3D11Device* device,
 	ID3D11DeviceContext* context, 
@@ -52,9 +37,9 @@ HRESULT ShaderManager::addPair(ID3D11Device* device,
 		printf("Error At : %s\n", pfilename.getMultiByteString().c_str());
 		return hr;
 	}
-	ShaderPair* newpair = new ShaderPair(&v,&p,std::move(shadername));
+	std::shared_ptr<ShaderPair> newpair(new ShaderPair(&v,&p,std::move(shadername)));
 	vec.insert(std::upper_bound(vec.begin(), vec.end(), newpair,
-		[&](const ShaderPair* a, const ShaderPair* b)->bool{return (*a) < (*b); })
+		[&](const std::shared_ptr<ShaderPair>& a,const std::shared_ptr<ShaderPair>& b)->bool{return (*a) < (*b); })
 		, newpair);
 	return S_OK;
 }

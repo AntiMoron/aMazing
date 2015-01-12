@@ -16,13 +16,18 @@ FrameBuffer::FrameBuffer()
 
 FrameBuffer::~FrameBuffer()
 {
-	Shutdown();
+	SAFE_RELEASE(m_shaderResourceView);
+	SAFE_RELEASE(m_renderTargetTexture);
+	SAFE_RELEASE(m_renderTargetView);
+	SAFE_RELEASE(m_pDepthStencil);
+	SAFE_RELEASE(m_depthStencilView);
+	SAFE_RELEASE(m_renderTargetTextureMS);
 }
 
 HRESULT FrameBuffer::Initialize(ID3D11Device* device, ID3D11DeviceContext* context)
 {
 	HRESULT hr;
-	hr = FrameBuffer::Initialize(device, context, WINWIDTH, WINHEIGHT);
+	hr = FrameBuffer::Initialize(device, context, RESWIDTH, RESHEIGHT);
 	if (FAILED(hr))
 	{
 		return E_FAIL;
@@ -45,8 +50,8 @@ HRESULT FrameBuffer::Initialize(ID3D11Device* device, ID3D11DeviceContext* conte
 	ZeroMemory(&textureDesc, sizeof(textureDesc));
 	ZeroMemory(&renderTargetViewDesc, sizeof(renderTargetViewDesc));
 	ZeroMemory(&shaderResourceViewDesc, sizeof(shaderResourceViewDesc));
-	textureDesc.Width = WINWIDTH;
-	textureDesc.Height = WINHEIGHT;
+	textureDesc.Width = imageWidth;
+	textureDesc.Height = imageHeight;
 	textureDesc.MipLevels = 1;
 	textureDesc.ArraySize = 1;
 	textureDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
@@ -107,18 +112,6 @@ HRESULT FrameBuffer::Initialize(ID3D11Device* device, ID3D11DeviceContext* conte
 		return hr;
 
 	is_inited = true;
-	return S_OK;
-}
-
-
-HRESULT FrameBuffer::Shutdown()
-{
-	SAFE_RELEASE(m_shaderResourceView);
-	SAFE_RELEASE(m_renderTargetTexture);
-	SAFE_RELEASE(m_renderTargetView);
-	SAFE_RELEASE(m_pDepthStencil);
-	SAFE_RELEASE(m_depthStencilView);
-	SAFE_RELEASE(m_renderTargetTextureMS);
 	return S_OK;
 }
 

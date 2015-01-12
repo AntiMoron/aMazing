@@ -57,10 +57,6 @@ HRESULT AmbientLight::Initialize(ID3D11Device* device,
 	return S_OK;
 }
 
-void AmbientLight::Shutdown()
-{
-	matrices->Shutdown();
-}
 void AmbientLight::setFov(const float ang)
 {
 	fov = ang * 0.017453292f;

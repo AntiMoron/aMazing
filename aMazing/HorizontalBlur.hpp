@@ -31,12 +31,6 @@ public:
 		return S_OK;
 	}
 
-	void Shutdown()
-	{
-		horiBuffer->Shutdown();
-		EffectClass::Shutdown();
-	}
-
 	template<typename... T>
 	void Render(ID3D11Device* device,
 		ID3D11DeviceContext* context,

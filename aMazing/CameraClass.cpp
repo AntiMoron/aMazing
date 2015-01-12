@@ -59,11 +59,6 @@ HRESULT CameraClass::Initialize(ID3D11Device* device,
 	return S_OK;
 }
 
-void CameraClass::Shutdown()
-{
-	m_matrices.Shutdown();
-}
-
 void CameraClass::setPosition(const XMFLOAT3& pos)
 {
 	position = pos;

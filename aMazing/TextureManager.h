@@ -22,7 +22,7 @@ private:
 	TextureManager();
 	~TextureManager();
 	
-	std::vector<TextureClass*> m_vec;
+	std::vector<std::unique_ptr<TextureClass> > m_vec;
 };
 
 #define TEXTURE (TextureManager::getInstance())

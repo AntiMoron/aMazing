@@ -1,6 +1,6 @@
 #include "WrappedCamera.h"
 
-
+using namespace CommonFunction;
 WrappedCamera::WrappedCamera()
 {
 	speed.x = 0.0f;
@@ -61,10 +61,6 @@ HRESULT WrappedCamera::Initialize(ID3D11Device* device, ID3D11DeviceContext* con
 		return hr;
 	}
 	return S_OK;
-}
-void WrappedCamera::Shutdown()
-{
-	camera->Shutdown();
 }
 
 void WrappedCamera::setStep(float _step)

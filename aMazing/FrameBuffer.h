@@ -1,8 +1,6 @@
 #pragma once
 
-#include<D3D11.h>
-#include<D3DX11.h>
-#include<xnamath.h>
+#include"CommonDxSupport.hpp"
 #include"WindowClass.h"
 #include"Defines.hpp"
 
@@ -14,7 +12,6 @@ public:
 
 	HRESULT Initialize(ID3D11Device* device, ID3D11DeviceContext* context);
 	HRESULT Initialize(ID3D11Device* device, ID3D11DeviceContext* context,unsigned short imageWidth,unsigned short imageHeight);
-	HRESULT Shutdown();
 
 	HRESULT EnableMultiSampling();
 	HRESULT DisableMultiSampling();
@@ -33,7 +30,7 @@ public:
 	void clearDepthBuffer(ID3D11Device* device, ID3D11DeviceContext* context);
 private:
 	friend class EffectClass;
-	bool is_inited;
+	volatile bool is_inited;
 	bool multiSampling;
 	ID3D11Texture2D* m_renderTargetTexture;
 	ID3D11Texture2D* m_renderTargetTextureMS;//Multi-sampled
