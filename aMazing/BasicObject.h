@@ -40,7 +40,6 @@ protected:
 	XMFLOAT3 rotation;
 	XMFLOAT3 scaling;
 	std::unique_ptr<PRS> m_prsData;
-	GPUVerticesBuffer<Vertex> m_vertices;
 	GPUConstantBuffer<PRSShaderData> m_prsBuffer;
 };
 

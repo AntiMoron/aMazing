@@ -22,7 +22,7 @@ public:
 	}
 
 	//If the indices pointer is nullptr,then no index buffer would be initialized
-	HRESULT Initialize(ID3D11Device* device, ID3D11DeviceContext* context, source_type* verticesData, int verticesCount, WORD* indices = nullptr, UINT indicesCount = -1)
+	HRESULT Initialize(ID3D11Device* device, ID3D11DeviceContext* context, source_type* verticesData, int verticesCount, WORD* indices = nullptr, std::size_t indicesCount = 0)
 	{
 		HRESULT hr = S_OK;
 		m_inited = false;

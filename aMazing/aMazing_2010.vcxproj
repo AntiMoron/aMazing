@@ -382,7 +382,6 @@
     <ClCompile Include="aMazingScene.cpp" />
     <ClCompile Include="AmbientLight.cpp" />
     <ClCompile Include="BasicObject.cpp" />
-    <ClCompile Include="BlockClass.cpp" />
     <ClCompile Include="CameraClass.cpp" />
     <ClCompile Include="CollisionIntersection.cpp" />
     <ClCompile Include="CommonFunction.cpp" />
@@ -398,6 +397,7 @@
     <ClCompile Include="LineClass.cpp" />
     <ClCompile Include="Maze.cpp" />
     <ClCompile Include="MazeGenerator.cpp" />
+    <ClCompile Include="StaticMesh.hpp" />
     <ClCompile Include="ModelClass.cpp" />
     <ClCompile Include="MutableString.cpp" />
     <ClCompile Include="ParamException.cpp" />
@@ -419,8 +419,9 @@
   <ItemGroup>
     <ClInclude Include="aMazingScene.h" />
     <ClInclude Include="AmbientLight.h" />
+    <ClInclude Include="AnimEvaluator.hpp" />
     <ClInclude Include="BasicObject.h" />
-    <ClInclude Include="BlockClass.h" />
+    <ClInclude Include="BlockClass.hpp" />
     <ClInclude Include="BoneClass.hpp" />
     <ClInclude Include="BonesBindData.hpp" />
     <ClInclude Include="CameraClass.h" />
@@ -468,6 +469,7 @@
     <ClInclude Include="ProjectTexture.hpp" />
     <ClInclude Include="RectangleClass.h" />
     <CLInclude Include="resource.h" />
+    <ClInclude Include="SceneAnimator.hpp" />
     <ClInclude Include="SceneAnimNode.hpp" />
     <ClInclude Include="ScopeGuard.hpp" />
     <ClInclude Include="ShaderClass.h" />

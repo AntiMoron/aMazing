@@ -164,9 +164,6 @@
     <ClInclude Include="SoundClass.h">
       <Filter>Engine\System</Filter>
     </ClInclude>
-    <ClInclude Include="BlockClass.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
     <ClInclude Include="LineClass.h">
       <Filter>Engine\System</Filter>
     </ClInclude>
@@ -232,6 +229,15 @@
     </ClInclude>
     <ClInclude Include="CommonDxSupport.hpp">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneAnimator.hpp">
+      <Filter>Engine\Animate</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimEvaluator.hpp">
+      <Filter>Engine\Animate</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockClass.hpp">
+      <Filter>Engine\System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -311,9 +317,6 @@
     <ClCompile Include="SoundClass.cpp">
       <Filter>Engine\System</Filter>
     </ClCompile>
-    <ClCompile Include="BlockClass.cpp">
-      <Filter>Engine\System</Filter>
-    </ClCompile>
     <ClCompile Include="LineClass.cpp">
       <Filter>Engine\System</Filter>
     </ClCompile>
@@ -331,6 +334,9 @@
     </ClCompile>
     <ClCompile Include="CommonFunction.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticMesh.hpp">
+      <Filter>Engine\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

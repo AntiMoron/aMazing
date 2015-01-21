@@ -1,7 +1,7 @@
 #pragma once
 #include<memory>
 #include"D3DClass.h"
-#include"BlockClass.h"
+#include"BlockClass.hpp"
 #include"RectangleClass.h"
 #include"Defines.hpp"
 #include"LineClass.h"
