@@ -47,10 +47,11 @@ struct PS_INPUT
 PS_INPUT VSEntry(VS_INPUT input)
 {
 	PS_INPUT output = (PS_INPUT)0;
-	uint4 boneIndices = uint4(input.boneIndices[0],
-		input.boneIndices[1], 
-		input.boneIndices[2], 
-		input.boneIndices[3]);
+	//uint4 boneIndices = uint4(input.boneIndices & 0xff000000,
+	//	input.boneIndices & 0xff0000, 
+	//	input.boneIndices & 0xff00,
+	//	input.boneIndices & 0xff);
+	uint4 boneIndices = input.boneIndices;
 	matrix boneTransform = (input.Weights.r * bones[boneIndices[0]])
 		+ (input.Weights.g * bones[boneIndices[1]])
 		+ (input.Weights.b * bones[boneIndices[2]])
@@ -64,7 +65,7 @@ PS_INPUT VSEntry(VS_INPUT input)
 	output.Pos = mul(output.Pos, View);
 	output.Pos = mul(output.Pos, Projection);
 	output.Nor = input.Nor;
-	output.Nor = normalize(mul(input.Nor, boneTransform));
+//	output.Nor = normalize(mul(input.Nor, boneTransform));
 	output.Tex = input.Tex.xy;
 	return output;
 }

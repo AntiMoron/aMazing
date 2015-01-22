@@ -239,6 +239,9 @@
     <ClInclude Include="BlockClass.hpp">
       <Filter>Engine\System</Filter>
     </ClInclude>
+    <ClInclude Include="MutableMesh.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aMazing.cpp" />

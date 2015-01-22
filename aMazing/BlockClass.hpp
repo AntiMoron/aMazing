@@ -12,6 +12,12 @@ public:
 		ID3D11DeviceContext* context)
 	{
 		HRESULT hr = E_FAIL;
+		//Initialize PRS & PRS buffer
+		hr = BasicObject::Initialize(device, context);
+		if (FAILED(hr))
+		{
+			return hr;
+		}
 		Vertex vertices[36];
 		XMFLOAT3 pos[] = {
 			XMFLOAT3(-0.5f, -0.5f, 0.5f),
@@ -74,12 +80,6 @@ public:
 		{
 			return hr;
 		}
-		//Initialize PRS & PRS buffer
-		hr = BasicObject::Initialize(device, context);
-		if (FAILED(hr))
-		{
-			return hr;
-		}
 		return S_OK;
 	}
 
@@ -94,5 +94,5 @@ public:
 	}
 
 private:
-	StaticMesh<Vertex> verticesMesh;
+	GPUVerticesBuffer<Vertex> verticesMesh;
 };

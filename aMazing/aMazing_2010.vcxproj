@@ -462,6 +462,7 @@
     <ClInclude Include="Maze.h" />
     <ClInclude Include="MazeGenerator.h" />
     <ClInclude Include="ModelClass.h" />
+    <ClInclude Include="MutableMesh.hpp" />
     <ClInclude Include="MutableString.h" />
     <ClInclude Include="ParticleClass.h" />
     <ClInclude Include="PixelShaderClass.h" />

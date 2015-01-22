@@ -4,7 +4,7 @@
 #include"GPUMutableVerticesBuffer.hpp"
 
 template<typename T>
-class MutableMesh : public BasicObject
+class MutableMesh
 {
 public:
 	MutableMesh(){}
@@ -18,11 +18,6 @@ public:
 		std::size_t indexCount = 0)
 	{
 		HRESULT hr;
-		hr = BasicObject::Initialize(device, context);
-		if (FAILED(hr))
-		{
-			return hr;
-		}
 		hr = vertices.Initialize(device, context,vertices,vertexCount,indices,indexCount);
 		if (FAILED(hr))
 		{
@@ -46,7 +41,6 @@ public:
 
 	void Render(ID3D11Device* device, ID3D11DeviceContext* context)
 	{
-		BasicObject::UpdatePRS(device, context);
 		vertices.Render(device, context);
 	}
 private:

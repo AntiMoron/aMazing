@@ -3,7 +3,7 @@
 #include"GPUVerticesBuffer.hpp"
 
 template<typename T>
-class StaticMesh : public BasicObject
+class StaticMesh
 {
 public:
 	StaticMesh(){}
@@ -17,11 +17,6 @@ public:
 		std::size_t indicesCount = 0)
 	{
 		HRESULT hr;
-		hr = BasicObject::Initialize(device, context);
-		if (FAILED(hr))
-		{
-			return hr;
-		}
 		hr = vertices.Initialize(device,context,verticesData,verticesCount,indices,indicesCount);
 		if (FAILED(hr))
 		{
@@ -32,7 +27,6 @@ public:
 
 	void Render(ID3D11Device* device, ID3D11DeviceContext* context)
 	{
-		BasicObject::UpdatePRS(device, context);
 		vertices.Render(device,context);
 	}
 private:

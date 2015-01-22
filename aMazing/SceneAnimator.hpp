@@ -151,7 +151,7 @@ public:
 			throw;
 		}
 		size_t meshIndex = pNode->mMeshes[pMeshIndex];
-		if (meshIndex < mScene->mNumMeshes)
+		if (meshIndex >= mScene->mNumMeshes)
 		{
 			throw;
 		}
