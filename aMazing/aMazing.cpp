@@ -28,9 +28,11 @@ void Render();
 
 int WINAPI wWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nCmdShow )
 {
+#ifdef ENABLE_CONSOLE
 	AllocConsole();
 	FILE * m_new_stdout_file;
 	freopen_s(&m_new_stdout_file, "CONOUT$", "w+t", stdout);
+#endif
     UNREFERENCED_PARAMETER( hPrevInstance );
     UNREFERENCED_PARAMETER( lpCmdLine );
 
@@ -218,7 +220,9 @@ HRESULT InitDevice()
 //--------------------------------------------------------------------------------------
 void CleanupDevice()
 {
+#ifdef ENABLE_CONSOLE
 	FreeConsole();
+#endif
 }
 
 
