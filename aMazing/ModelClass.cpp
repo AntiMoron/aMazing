@@ -275,6 +275,13 @@ bool ModelClass::isInited()const
 void ModelClass::Render(ID3D11Device* device,
 	ID3D11DeviceContext* context)
 {
+	BasicObject::UpdatePRS(device, context);
+
+	render_time += 0.001f;
+	if (render_time > 1.81804f)
+	{
+		render_time = 1.81800f;
+	}
 	Render(device, context, nullptr);
 }
 
@@ -286,14 +293,6 @@ void ModelClass::Render(ID3D11Device* device,
 	ID3D11DeviceContext* context,
 	aiNode* pNode)
 {
-	BasicObject::UpdatePRS(device, context);
-
-	render_time += 0.00001f;
-	if(render_time > 10.0f)
-	{
-		render_time = 0.0f;
-	}
-
 	if (pNode == nullptr)
 	{
 		pNode = scene->mRootNode;
