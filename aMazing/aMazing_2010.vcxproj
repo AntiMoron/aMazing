@@ -458,6 +458,7 @@
     <ClInclude Include="InputClass.h" />
     <ClInclude Include="InstanceObj.hpp" />
     <ClInclude Include="LineClass.h" />
+    <ClInclude Include="MaterialType.hpp" />
     <ClInclude Include="math3D.hpp" />
     <ClInclude Include="Maze.h" />
     <ClInclude Include="MazeGenerator.h" />

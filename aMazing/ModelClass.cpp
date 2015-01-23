@@ -17,6 +17,7 @@ ModelClass::~ModelClass()
 {
 	importer->FreeScene();
 }
+
 HRESULT ModelClass::Initialize(ID3D11Device* device,
 	ID3D11DeviceContext* context,
 	MutableString&& string)
@@ -277,10 +278,10 @@ void ModelClass::Render(ID3D11Device* device,
 {
 	BasicObject::UpdatePRS(device, context);
 
-	render_time += 0.001f;
-	if (render_time > 1.81804f)
+	render_time += 0.01f;
+	if (render_time > 20.0f)
 	{
-		render_time = 1.81800f;
+		render_time = 0.0f;
 	}
 	Render(device, context, nullptr);
 }

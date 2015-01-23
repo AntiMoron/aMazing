@@ -242,6 +242,9 @@
     <ClInclude Include="MutableMesh.hpp">
       <Filter>Engine\System</Filter>
     </ClInclude>
+    <ClInclude Include="MaterialType.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aMazing.cpp" />
@@ -324,9 +327,6 @@
       <Filter>Engine\System</Filter>
     </ClCompile>
     <ClCompile Include="ParticleClass.cpp" />
-    <ClCompile Include="CollisionIntersection.cpp">
-      <Filter>Collision\ShapeCategory</Filter>
-    </ClCompile>
     <ClCompile Include="WrappedCamera.cpp" />
     <ClCompile Include="ModelClass.cpp">
       <Filter>Engine\Animate</Filter>
@@ -340,6 +340,9 @@
     </ClCompile>
     <ClCompile Include="StaticMesh.hpp">
       <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionIntersection.cpp">
+      <Filter>Collision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

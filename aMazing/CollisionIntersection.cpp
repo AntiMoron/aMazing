@@ -1,7 +1,5 @@
 #include"CollisionIntersection.h"
 
-
-
 bool IntersectLineCircle(CollisionLine* line, CollisionCircle* circle)
 {
 	XMFLOAT2 center = circle->getCenter();
