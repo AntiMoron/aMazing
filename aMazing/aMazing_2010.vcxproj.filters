@@ -42,308 +42,324 @@
     <Filter Include="Engine\exception">
       <UniqueIdentifier>{fbe56c71-30fd-4a5b-9124-1f5b28cb30b4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\material">
+      <UniqueIdentifier>{f27cdde6-baab-4f7b-b631-e00299fcb095}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\render">
+      <UniqueIdentifier>{c85d85ba-6998-477e-87d2-58a8c5d8a512}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MazeGenerator.h" />
-    <ClInclude Include="Maze.h" />
-    <ClInclude Include="BasicObject.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraClass.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="D3DClass.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="Defines.hpp">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="exceptions.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="FileTracker.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="FrameBuffer.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="GPUConstantBuffer.hpp">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="GPUMutableVerticesBuffer.hpp">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="GPUVerticesBuffer.hpp">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="InputClass.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="InstanceObj.hpp">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="MutableString.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="PixelShaderClass.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="RectangleClass.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderClass.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderCompilerClass.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderManager.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderPair.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureClass.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureManager.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="VertexShaderClass.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="WindowClass.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="EffectClass.h">
-      <Filter>Engine\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="HorizontalBlur.hpp">
-      <Filter>Engine\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="VerticalBlur.hpp">
-      <Filter>Engine\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="VHBlurClass.hpp">
-      <Filter>Engine\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="PrimitivePipeline.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="math3D.hpp">
-      <Filter>Engine\math</Filter>
-    </ClInclude>
-    <ClInclude Include="DepthMap.hpp">
-      <Filter>Engine\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="ScopeGuard.hpp">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="ProjectTexture.hpp">
-      <Filter>Engine\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="ShadowMap.hpp">
-      <Filter>Engine\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="AmbientLight.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="FrustumClass.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="GlowEffect.hpp">
-      <Filter>Engine\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="HighlightExtractor.hpp">
-      <Filter>Engine\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="DepthField.hpp">
-      <Filter>Engine\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="aMazingScene.h" />
-    <ClInclude Include="SoundClass.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="LineClass.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="DayNightClass.hpp" />
-    <ClInclude Include="ParticleClass.h" />
-    <ClInclude Include="CollisionCircle.hpp">
+    <ClInclude Include="code\collision\shapecategory\CollisionCircle.hpp">
       <Filter>Collision\ShapeCategory</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionRectangle.hpp">
+    <ClInclude Include="code\collision\shapecategory\CollisionLine.hpp">
       <Filter>Collision\ShapeCategory</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionLine.hpp">
+    <ClInclude Include="code\collision\shapecategory\CollisionPolygon.h">
       <Filter>Collision\ShapeCategory</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionTriangle.hpp">
+    <ClInclude Include="code\collision\shapecategory\CollisionTriangle.hpp">
       <Filter>Collision\ShapeCategory</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionPolygon.h">
-      <Filter>Collision\ShapeCategory</Filter>
-    </ClInclude>
-    <ClInclude Include="CollisionShape.hpp">
+    <ClInclude Include="code\collision\CollisionIntersection.h">
       <Filter>Collision</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionIntersection.h">
+    <ClInclude Include="code\collision\CollisionShape.hpp">
       <Filter>Collision</Filter>
     </ClInclude>
-    <ClInclude Include="WrappedCamera.h" />
-    <ClInclude Include="CollisionWorld.hpp">
+    <ClInclude Include="code\collision\CollisionWorld.hpp">
       <Filter>Collision</Filter>
     </ClInclude>
-    <ClInclude Include="BoneClass.hpp" />
-    <ClInclude Include="TgaLoader.hpp">
-      <Filter>Engine\Data</Filter>
+    <ClInclude Include="code\common\CommonDef.hpp">
+      <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="TgaData.hpp">
-      <Filter>Engine\Data</Filter>
+    <ClInclude Include="code\common\CommonDxSupport.hpp">
+      <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="ModelClass.h">
+    <ClInclude Include="code\common\CommonFunction.hpp">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="code\common\CommonHelper.hpp">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="code\common\CommonTemplates.hpp">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="code\common\CommonUtil.hpp">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\animate\AnimEvaluator.hpp">
       <Filter>Engine\Animate</Filter>
     </ClInclude>
-    <ClInclude Include="CommonTemplates.hpp">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="FogClass.h" />
-    <ClInclude Include="vertex.hpp">
-      <Filter>Engine\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="BonesBindData.hpp">
-      <Filter>Engine\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="CommonDef.hpp">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneAnimNode.hpp" />
-    <ClInclude Include="CommonUtil.hpp">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="CommonHelper.hpp">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="CommonFunction.hpp">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="CommonDxSupport.hpp">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneAnimator.hpp">
+    <ClInclude Include="code\engine\animate\ModelClass.h">
       <Filter>Engine\Animate</Filter>
     </ClInclude>
-    <ClInclude Include="AnimEvaluator.hpp">
+    <ClInclude Include="code\engine\animate\SceneAnimator.hpp">
       <Filter>Engine\Animate</Filter>
     </ClInclude>
-    <ClInclude Include="BlockClass.hpp">
+    <ClInclude Include="code\engine\animate\SceneAnimNode.hpp">
+      <Filter>Engine\Animate</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\data\BonesBindData.hpp">
+      <Filter>Engine\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\data\TgaData.hpp">
+      <Filter>Engine\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\data\TgaLoader.hpp">
+      <Filter>Engine\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\data\vertex.hpp">
+      <Filter>Engine\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\effect\DepthField.hpp">
+      <Filter>Engine\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\effect\DepthMap.hpp">
+      <Filter>Engine\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\effect\EffectClass.hpp">
+      <Filter>Engine\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\effect\GlowEffect.hpp">
+      <Filter>Engine\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\effect\HighlightExtractor.hpp">
+      <Filter>Engine\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\effect\HorizontalBlur.hpp">
+      <Filter>Engine\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\effect\ProjectTexture.hpp">
+      <Filter>Engine\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\effect\ShadowMap.hpp">
+      <Filter>Engine\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\effect\VerticalBlur.hpp">
+      <Filter>Engine\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\effect\VHBlurClass.hpp">
+      <Filter>Engine\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\effect\Fog.hpp">
+      <Filter>Engine\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\AmbientLight.h">
       <Filter>Engine\System</Filter>
     </ClInclude>
-    <ClInclude Include="MutableMesh.hpp">
+    <ClInclude Include="code\engine\system\BasicObject.h">
       <Filter>Engine\System</Filter>
     </ClInclude>
-    <ClInclude Include="MaterialType.hpp">
+    <ClInclude Include="code\engine\system\BasicPrimitive.hpp">
       <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\BlockClass.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\CameraClass.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\D3DClass.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\Defines.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\exceptions.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\FrameBuffer.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\FrustumClass.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\FunctionType.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\GPUConstantBuffer.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\GPUMutableVerticesBuffer.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\GPUVerticesBuffer.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\InputClass.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\InstanceObj.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\LineClass.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\MaterialType.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\MutableMesh.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\MutableString.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\ParticleClass.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\PixelShaderClass.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\PrimitivePipeline.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\RectangleClass.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\ScopeGuard.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\ShaderClass.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\ShaderCompilerClass.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\ShaderManager.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\ShaderPair.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\StaticMesh.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\TextureManager.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\TimeService.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\VertexShaderClass.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\WindowClass.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\SoundClass.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\TextureClass.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\aMazingScene.h" />
+    <ClInclude Include="code\DayNightClass.hpp" />
+    <ClInclude Include="code\Maze.h" />
+    <ClInclude Include="code\MazeGenerator.h" />
+    <ClInclude Include="code\Resource.h" />
+    <ClInclude Include="code\WrappedCamera.h" />
+    <ClInclude Include="code\engine\system\FileTracker.h">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\collision\shapecategory\CollisionRectangle.hpp">
+      <Filter>Collision\ShapeCategory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="aMazing.cpp" />
-    <ClCompile Include="MazeGenerator.cpp" />
-    <ClCompile Include="Maze.cpp" />
-    <ClCompile Include="BasicObject.cpp">
-      <Filter>Engine\System</Filter>
+    <ClCompile Include="code\collision\CollisionIntersection.cpp">
+      <Filter>Collision</Filter>
     </ClCompile>
-    <ClCompile Include="CameraClass.cpp">
-      <Filter>Engine\System</Filter>
+    <ClCompile Include="code\common\CommonFunction.cpp">
+      <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="D3DClass.cpp">
-      <Filter>Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="exceptions.cpp">
-      <Filter>Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="FileTracker.cpp">
-      <Filter>Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="FrameBuffer.cpp">
-      <Filter>Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="InputClass.cpp">
-      <Filter>Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="MutableString.cpp">
-      <Filter>Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="PixelShaderClass.cpp">
-      <Filter>Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="RectangleClass.cpp">
-      <Filter>Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderClass.cpp">
-      <Filter>Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderCompilerClass.cpp">
-      <Filter>Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderManager.cpp">
-      <Filter>Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderPair.cpp">
-      <Filter>Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureClass.cpp">
-      <Filter>Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureManager.cpp">
-      <Filter>Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="VertexShaderClass.cpp">
-      <Filter>Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowClass.cpp">
-      <Filter>Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="EffectClass.cpp">
-      <Filter>Engine\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="PrimitivePipeline.cpp">
-      <Filter>Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="FunctionType.hpp">
-      <Filter>Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="AmbientLight.cpp">
-      <Filter>Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="FrustumClass.cpp">
-      <Filter>Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="aMazingScene.cpp" />
-    <ClCompile Include="SoundClass.cpp">
-      <Filter>Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="LineClass.cpp">
-      <Filter>Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleClass.cpp" />
-    <ClCompile Include="WrappedCamera.cpp" />
-    <ClCompile Include="ModelClass.cpp">
+    <ClCompile Include="code\engine\animate\ModelClass.cpp">
       <Filter>Engine\Animate</Filter>
     </ClCompile>
-    <ClCompile Include="FogClass.cpp" />
-    <ClCompile Include="ParamException.cpp">
+    <ClCompile Include="code\engine\exception\ParamException.cpp">
       <Filter>Engine\exception</Filter>
     </ClCompile>
-    <ClCompile Include="CommonFunction.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="StaticMesh.hpp">
+    <ClCompile Include="code\engine\system\AmbientLight.cpp">
       <Filter>Engine\System</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionIntersection.cpp">
-      <Filter>Collision</Filter>
+    <ClCompile Include="code\engine\system\BasicObject.cpp">
+      <Filter>Engine\System</Filter>
     </ClCompile>
+    <ClCompile Include="code\engine\system\CameraClass.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\D3DClass.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\exceptions.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\FileTracker.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\FrameBuffer.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\FrustumClass.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\InputClass.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\LineClass.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\MutableString.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\ParticleClass.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\PixelShaderClass.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\PrimitivePipeline.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\RectangleClass.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\ShaderClass.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\ShaderCompilerClass.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\ShaderManager.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\ShaderPair.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\SoundClass.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\TextureClass.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\TextureManager.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\TimeService.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\VertexShaderClass.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\WindowClass.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="code\aMazing.cpp" />
+    <ClCompile Include="code\aMazingScene.cpp" />
+    <ClCompile Include="code\Maze.cpp" />
+    <ClCompile Include="code\MazeGenerator.cpp" />
+    <ClCompile Include="code\WrappedCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -392,6 +408,12 @@
     </None>
     <None Include="Shader\skinAnim\skinAnim.fx">
       <Filter>Shaders</Filter>
+    </None>
+    <None Include="code\engine\material\BRIEF">
+      <Filter>Engine\material</Filter>
+    </None>
+    <None Include="code\engine\render\BRIEF">
+      <Filter>Engine\render</Filter>
     </None>
   </ItemGroup>
 </Project>
