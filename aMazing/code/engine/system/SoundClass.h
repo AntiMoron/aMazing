@@ -1,4 +1,5 @@
 #pragma once
+#include<memory>
 #include<Windows.h>
 #include<mmsystem.h>
 #include<dsound.h>
@@ -24,7 +25,6 @@ public:
 	bool Stop();
 private:
 	HWND m_hWnd;
-	OutputStreamPtr* m_soundData;
-	AudioDevicePtr* m_audioDevice;
+	std::unique_ptr<OutputStreamPtr> m_soundData;
 };
 
