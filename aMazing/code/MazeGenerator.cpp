@@ -1,4 +1,4 @@
-#include "MazeGenerator.h"
+#include "MazeGenerator.hpp"
 
 
 MazeGenerator* MazeGenerator::instance = nullptr;

@@ -1,5 +1,5 @@
-#include "MutableString.h"
-
+#include "MutableString.hpp"
+using namespace aMazing;
 
 MutableString::MutableString()
 {

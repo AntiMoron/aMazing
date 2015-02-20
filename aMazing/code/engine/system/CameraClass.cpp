@@ -1,5 +1,5 @@
-#include "CameraClass.h"
-
+#include "CameraClass.hpp"
+using namespace aMazing;
 
 CameraClass::CameraClass()
 {

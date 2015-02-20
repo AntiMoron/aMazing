@@ -1,4 +1,4 @@
-#include "aMazingScene.h"
+#include "aMazingScene.hpp"
 
 
 aMazingScene::aMazingScene()

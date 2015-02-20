@@ -3,7 +3,7 @@
 #include<cmath>
 #include<string>
 
-namespace CommonFunction{
+namespace aMazing{
 	//将值val按比例增长
 	float increaseByScale(float val, float scale, float upperBound, float bias);
 	//将值val按比例衰减

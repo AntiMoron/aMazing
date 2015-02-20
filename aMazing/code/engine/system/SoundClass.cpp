@@ -1,5 +1,5 @@
-#include "SoundClass.h"
-
+#include "SoundClass.hpp"
+using namespace aMazing;
 SoundClass::SoundClass(){}
 SoundClass::~SoundClass(){}
 

@@ -1,6 +1,7 @@
-#include "WrappedCamera.h"
+#include "WrappedCamera.hpp"
 
-using namespace CommonFunction;
+using namespace aMazing;
+
 WrappedCamera::WrappedCamera()
 {
 	speed.x = 0.0f;

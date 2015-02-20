@@ -1,6 +1,7 @@
 #include"CommonFunction.hpp"
+
 //将值val按比例增长
-float CommonFunction::increaseByScale(float val, float scale, float upperBound, float bias)
+float aMazing::increaseByScale(float val, float scale, float upperBound, float bias)
 {
 	if (val > upperBound - bias)
 	{
@@ -10,7 +11,7 @@ float CommonFunction::increaseByScale(float val, float scale, float upperBound, 
 }
 
 //将值val按比例衰减
-float CommonFunction::fadeByScale(float val, float scale, float lowerBound, float bias)
+float aMazing::fadeByScale(float val, float scale, float lowerBound, float bias)
 {
 	if (val > 0 && val < lowerBound + bias)
 	{
@@ -24,7 +25,7 @@ float CommonFunction::fadeByScale(float val, float scale, float lowerBound, floa
 }
 
 //将值val按照数值减少
-float CommonFunction::fadeByValue(float val, float decreasement, float lowerBound)
+float aMazing::fadeByValue(float val, float decreasement, float lowerBound)
 {
 	val -= decreasement;
 	if (val < lowerBound)
@@ -35,7 +36,7 @@ float CommonFunction::fadeByValue(float val, float decreasement, float lowerBoun
 }
 
 //将值val按数值增长
-float CommonFunction::increaseByValue(float val, float increasement, float upperBound)
+float aMazing::increaseByValue(float val, float increasement, float upperBound)
 {
 	val += increasement;
 	if (val > upperBound)
@@ -46,7 +47,7 @@ float CommonFunction::increaseByValue(float val, float increasement, float upper
 }
 
 //将三维向量单位化
-XMFLOAT3 CommonFunction::normalize(XMFLOAT3 src)
+XMFLOAT3 aMazing::normalize(XMFLOAT3 src)
 {
 	float length = src.x * src.x;
 	length += src.y * src.y;
@@ -59,3 +60,4 @@ XMFLOAT3 CommonFunction::normalize(XMFLOAT3 src)
 	src.z /= length;
 	return src;
 }
+

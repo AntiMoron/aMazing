@@ -1,11 +1,11 @@
 #pragma once
-#include"../system/PrimitivePipeline.h"
-#include"../system/ShaderManager.h"
-#include"../system/FrameBuffer.h"
+#include"../system/PrimitivePipeline.hpp"
+#include"../system/ShaderManager.hpp"
+#include"../system/FrameBuffer.hpp"
 #include"../../common/CommonUtil.hpp"
 #include<functional>
 #include<memory>
-
+using namespace aMazing;
 class EffectClass
 {
 public:
@@ -61,16 +61,15 @@ public:
 		fbo->clearDepthBuffer(device, context);
 	}
 
-	bool isInited()const
+	const bool isInited()const
 	{
 		return is_init;
 	}
-
 
 	//void Render
 	//Call the renderFunction function in argument-list to render Objects.
 protected:
 	std::unique_ptr<FrameBuffer> fbo;
-	bool is_init;
+	volatile bool is_init;
 };
 

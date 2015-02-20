@@ -1,5 +1,5 @@
-#include "VertexShaderClass.h"
-
+#include "VertexShaderClass.hpp"
+using namespace aMazing;
 
 VertexShaderClass::VertexShaderClass()
 {

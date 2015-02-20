@@ -1,5 +1,5 @@
-#include "TextureClass.h"
-
+#include "TextureClass.hpp"
+using namespace aMazing;
 const TextureClass::wrappedColorDatz TextureClass::defaultData;
 
 TextureClass::TextureClass()

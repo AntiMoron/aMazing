@@ -1,4 +1,5 @@
-#include "TextureManager.h"
+#include "TextureManager.hpp"
+using namespace aMazing;
 
 TextureManager::TextureManager()
 {

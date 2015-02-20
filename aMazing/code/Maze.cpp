@@ -1,4 +1,4 @@
-#include "Maze.h"
+#include "Maze.hpp"
 
 const float Maze::blockSize = 0.005f;
 
@@ -34,7 +34,7 @@ bool& Maze::get(std::size_t x, std::size_t y)
 
 void Maze::Render(ID3D11Device* device,
 	ID3D11DeviceContext* context,
-	CameraClass* camera)
+	aMazing::CameraClass* camera)
 {
 	float xOffSet = blockSize * width / 2.0f;
 	float yOffSet = blockSize * height / 2.0f;

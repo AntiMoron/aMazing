@@ -1,4 +1,5 @@
-#include "ShaderPair.h"
+#include "ShaderPair.hpp"
+using namespace aMazing;
 
 ShaderPair::~ShaderPair()
 {

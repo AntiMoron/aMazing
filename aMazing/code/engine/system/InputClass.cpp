@@ -1,5 +1,5 @@
-#include "InputClass.h"
-
+#include "InputClass.hpp"
+using namespace aMazing;
 InputClass* InputClass::instance = nullptr;
 
 InputClass& InputClass::GetInst()

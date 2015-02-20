@@ -1,4 +1,5 @@
-#include "ShaderManager.h"
+#include "ShaderManager.hpp"
+using namespace aMazing;
 
 ShaderManager& ShaderManager::getInstance()
 {

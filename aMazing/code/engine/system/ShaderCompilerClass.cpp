@@ -1,5 +1,5 @@
-#include "ShaderCompilerClass.h"
-
+#include "ShaderCompilerClass.hpp"
+using namespace aMazing;
 
 ShaderCompilerClass::ShaderCompilerClass()
 {

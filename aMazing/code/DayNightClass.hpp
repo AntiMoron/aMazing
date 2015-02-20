@@ -6,7 +6,7 @@
 #include<xnamath.h>
 #include<memory>
 #include"engine/system/GPUConstantBuffer.hpp"
-#include"engine/system/AmbientLight.h"
+#include"engine/system/AmbientLight.hpp"
 #define TIME_DAY 240
 
 class DayNightClass

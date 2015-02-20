@@ -1,5 +1,5 @@
-#include "D3DClass.h"
-
+#include "D3DClass.hpp"
+using namespace aMazing;
 
 D3DClass::D3DClass()
 {

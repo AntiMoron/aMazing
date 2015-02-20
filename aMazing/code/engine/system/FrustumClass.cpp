@@ -1,5 +1,5 @@
-#include "FrustumClass.h"
-
+#include "FrustumClass.hpp"
+using namespace aMazing;
 
 FrustumClass::FrustumClass(void)
 {

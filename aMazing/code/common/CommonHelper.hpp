@@ -3,13 +3,17 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-class aiStringLess
+
+namespace aMazing
 {
-public:
-	bool operator()(const aiString& aiA, const aiString& aiB)const
+	class aiStringLess
 	{
-		std::string a = aiA.C_Str();
-		std::string b = aiB.C_Str();
-		return a < b;
-	}
-};
+	public:
+		bool operator()(const aiString& aiA, const aiString& aiB)const
+		{
+			std::string a = aiA.C_Str();
+			std::string b = aiB.C_Str();
+			return a < b;
+		}
+	};
+}

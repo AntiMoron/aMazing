@@ -1,6 +1,5 @@
-#include "LineClass.h"
-
-
+#include "LineClass.hpp"
+using namespace aMazing;
 LineClass::LineClass()
 {
 	is_inited = false;

@@ -1,5 +1,5 @@
-#include "FrameBuffer.h"
-
+#include "FrameBuffer.hpp"
+using namespace aMazing;
 
 FrameBuffer::FrameBuffer()
 {

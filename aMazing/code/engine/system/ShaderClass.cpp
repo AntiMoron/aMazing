@@ -1,5 +1,5 @@
-#include "ShaderClass.h"
-
+#include "ShaderClass.hpp"
+using namespace aMazing;
 
 ShaderClass::ShaderClass()
 {

@@ -48,6 +48,9 @@
     <Filter Include="Engine\render">
       <UniqueIdentifier>{c85d85ba-6998-477e-87d2-58a8c5d8a512}</UniqueIdentifier>
     </Filter>
+    <Filter Include="util">
+      <UniqueIdentifier>{3e2e7826-5c7c-45a7-bb55-c2d52ce4d15e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\collision\shapecategory\CollisionCircle.hpp">
@@ -90,9 +93,6 @@
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\animate\AnimEvaluator.hpp">
-      <Filter>Engine\Animate</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\animate\ModelClass.h">
       <Filter>Engine\Animate</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\animate\SceneAnimator.hpp">
@@ -146,34 +146,13 @@
     <ClInclude Include="code\engine\effect\Fog.hpp">
       <Filter>Engine\Effect</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\system\AmbientLight.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\BasicObject.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
     <ClInclude Include="code\engine\system\BasicPrimitive.hpp">
       <Filter>Engine\System</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\system\BlockClass.hpp">
       <Filter>Engine\System</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\system\CameraClass.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\D3DClass.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
     <ClInclude Include="code\engine\system\Defines.hpp">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\exceptions.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\FrameBuffer.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\FrustumClass.h">
       <Filter>Engine\System</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\system\FunctionType.hpp">
@@ -188,13 +167,7 @@
     <ClInclude Include="code\engine\system\GPUVerticesBuffer.hpp">
       <Filter>Engine\System</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\system\InputClass.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
     <ClInclude Include="code\engine\system\InstanceObj.hpp">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\LineClass.h">
       <Filter>Engine\System</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\system\MaterialType.hpp">
@@ -203,69 +176,112 @@
     <ClInclude Include="code\engine\system\MutableMesh.hpp">
       <Filter>Engine\System</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\system\MutableString.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\ParticleClass.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\PixelShaderClass.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\PrimitivePipeline.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\RectangleClass.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
     <ClInclude Include="code\engine\system\ScopeGuard.hpp">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\ShaderClass.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\ShaderCompilerClass.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\ShaderManager.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\ShaderPair.h">
       <Filter>Engine\System</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\system\StaticMesh.hpp">
       <Filter>Engine\System</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\system\TextureManager.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
     <ClInclude Include="code\engine\system\TimeService.hpp">
       <Filter>Engine\System</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\system\VertexShaderClass.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\WindowClass.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\SoundClass.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\TextureClass.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="code\aMazingScene.h" />
     <ClInclude Include="code\DayNightClass.hpp" />
-    <ClInclude Include="code\Maze.h" />
-    <ClInclude Include="code\MazeGenerator.h" />
     <ClInclude Include="code\Resource.h" />
-    <ClInclude Include="code\WrappedCamera.h" />
-    <ClInclude Include="code\engine\system\FileTracker.h">
-      <Filter>Engine\System</Filter>
-    </ClInclude>
     <ClInclude Include="code\collision\shapecategory\CollisionRectangle.hpp">
       <Filter>Collision\ShapeCategory</Filter>
     </ClInclude>
+    <ClInclude Include="code\engine\material\MaterialPipeline.hpp">
+      <Filter>Engine\material</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\render\RenderPipeline.hpp">
+      <Filter>Engine\render</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\RenderComponents.hpp" />
+    <ClInclude Include="code\util\any.hpp">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\animate\ModelClass.hpp">
+      <Filter>Engine\Animate</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\exception\MemoryException.hpp">
+      <Filter>Engine\exception</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\exception\ParamException.hpp">
+      <Filter>Engine\exception</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\LineClass.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\MutableString.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\ParticleClass.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\ShaderCompilerClass.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\ShaderClass.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\PrimitivePipeline.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\PixelShaderClass.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\RectangleClass.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\ShaderManager.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\TextureManager.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\TextureClass.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\SoundClass.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\ShaderPair.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\CameraClass.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\FileTracker.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\aMazingScene.hpp" />
+    <ClInclude Include="code\engine\system\FrustumClass.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\VertexShaderClass.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\WindowClass.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\InputClass.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\D3DClass.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\BasicObject.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\AmbientLight.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\FrameBuffer.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\WrappedCamera.hpp" />
+    <ClInclude Include="code\MazeGenerator.hpp" />
+    <ClInclude Include="code\Maze.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\collision\CollisionIntersection.cpp">
@@ -277,9 +293,6 @@
     <ClCompile Include="code\engine\animate\ModelClass.cpp">
       <Filter>Engine\Animate</Filter>
     </ClCompile>
-    <ClCompile Include="code\engine\exception\ParamException.cpp">
-      <Filter>Engine\exception</Filter>
-    </ClCompile>
     <ClCompile Include="code\engine\system\AmbientLight.cpp">
       <Filter>Engine\System</Filter>
     </ClCompile>
@@ -290,9 +303,6 @@
       <Filter>Engine\System</Filter>
     </ClCompile>
     <ClCompile Include="code\engine\system\D3DClass.cpp">
-      <Filter>Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="code\engine\system\exceptions.cpp">
       <Filter>Engine\System</Filter>
     </ClCompile>
     <ClCompile Include="code\engine\system\FileTracker.cpp">

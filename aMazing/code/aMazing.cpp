@@ -1,15 +1,15 @@
 #include <windows.h>
-#include "engine/system/D3DClass.h"
-#include "engine/system/CameraClass.h"
-#include "engine/system/InputClass.h"
+#include "engine/system/D3DClass.hpp"
+#include "engine/system/CameraClass.hpp"
+#include "engine/system/InputClass.hpp"
 #include "resource.h"
-#include "engine/system/WindowClass.h"
-#include "engine/system/TextureManager.h"
-#include "MazeGenerator.h"
-#include "engine/system/PrimitivePipeline.h"
-#include "engine/system/AmbientLight.h"
-#include "aMazingScene.h"
-
+#include "engine/system/WindowClass.hpp"
+#include "engine/system/TextureManager.hpp"
+#include "MazeGenerator.hpp"
+#include "engine/system/PrimitivePipeline.hpp"
+#include "engine/system/AmbientLight.hpp"
+#include "aMazingScene.hpp"
+using namespace aMazing;
 HINSTANCE g_hInst = nullptr;
 HWND g_hWnd = nullptr;
 

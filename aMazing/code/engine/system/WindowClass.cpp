@@ -1,4 +1,5 @@
-#include "WindowClass.h"
+#include "WindowClass.hpp"
+using namespace aMazing;
 
 WindowClass::WindowClass()
 {

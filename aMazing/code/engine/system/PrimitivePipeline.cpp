@@ -1,5 +1,5 @@
-#include "PrimitivePipeline.h"
-
+#include "PrimitivePipeline.hpp"
+using namespace aMazing;
 PrimitivePipeline::PrimitivePipeline()
 {
 }

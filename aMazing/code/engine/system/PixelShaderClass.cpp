@@ -1,5 +1,5 @@
-#include "PixelShaderClass.h"
-
+#include "PixelShaderClass.hpp"
+using namespace aMazing;
 
 PixelShaderClass::PixelShaderClass()
 {

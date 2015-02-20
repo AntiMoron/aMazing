@@ -1,4 +1,5 @@
-#include "AmbientLight.h"
+#include "AmbientLight.hpp"
+using namespace aMazing;
 
 AmbientLight::AmbientLight()
 {

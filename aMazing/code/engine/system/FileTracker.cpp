@@ -1,5 +1,5 @@
-#include "FileTracker.h"
-
+#include "FileTracker.hpp"
+using namespace aMazing;
 
 FileTracker::FileTracker()
 {

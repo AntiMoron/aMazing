@@ -1,5 +1,5 @@
-#include "BasicObject.h"
-
+#include "BasicObject.hpp"
+using namespace aMazing;
 
 BasicObject::BasicObject()
 {

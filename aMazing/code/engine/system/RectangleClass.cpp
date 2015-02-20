@@ -1,5 +1,5 @@
-#include "RectangleClass.h"
-
+#include "RectangleClass.hpp"
+using namespace aMazing;
 
 RectangleClass::RectangleClass()
 {

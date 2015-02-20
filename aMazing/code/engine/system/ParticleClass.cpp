@@ -1,5 +1,5 @@
-#include "ParticleClass.h"
-
+#include "ParticleClass.hpp"
+using namespace aMazing;
 
 ParticleClass::ParticleClass()
 {

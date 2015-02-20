@@ -3,6 +3,9 @@
 #include<D3DX11.h>
 #include<xnamath.h>
 
+namespace aMazing
+{
+
 class Vertex
 {
 public:
@@ -28,32 +31,34 @@ public:
 	XMFLOAT2 texture;
 };
 
-class SkinVertex 
-{
-public:
-	SkinVertex()
+	class SkinVertex 
 	{
-		memset(boneIndices, 0, sizeof(boneIndices));
-		//boneIndices = 0;
-		weights = { 0, 0, 0, 0 };
-	}
+	public:
+		SkinVertex()
+		{
+			memset(boneIndices, 0, sizeof(boneIndices));
+			//boneIndices = 0;
+			weights = { 0, 0, 0, 0 };
+		}
 
-	void setBoneIndex(int slot,unsigned char value)
-	{
-		//value <<= (slot * 8);
-		//switch (slot)
-		//{
-		//	case 0:boneIndices &= 0x00ffffff; break;
-		//	case 1:boneIndices &= 0xff00ffff; break;
-		//	case 2:boneIndices &= 0xffff00ff; break;
-		//	case 3:boneIndices &= 0xffffff00; break;
-		//}
-		//boneIndices |= value;
-		boneIndices[slot] = value;
-	}
-	unsigned int boneIndices[4];
-	XMFLOAT4 weights;
-	XMFLOAT4 position;
-	XMFLOAT4 normal;
-	XMFLOAT4 texture;
-};
+		void setBoneIndex(int slot,unsigned char value)
+		{
+			//value <<= (slot * 8);
+			//switch (slot)
+			//{
+			//	case 0:boneIndices &= 0x00ffffff; break;
+			//	case 1:boneIndices &= 0xff00ffff; break;
+			//	case 2:boneIndices &= 0xffff00ff; break;
+			//	case 3:boneIndices &= 0xffffff00; break;
+			//}
+			//boneIndices |= value;
+			boneIndices[slot] = value;
+		}
+		unsigned int boneIndices[4];
+		XMFLOAT4 weights;
+		XMFLOAT4 position;
+		XMFLOAT4 normal;
+		XMFLOAT4 texture;
+	};
+
+}

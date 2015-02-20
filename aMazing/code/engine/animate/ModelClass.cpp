@@ -1,6 +1,6 @@
-#include "ModelClass.h"
+#include "ModelClass.hpp"
 
-
+using namespace aMazing;
 ModelClass::ModelClass()
 {
 	is_inited = false;
