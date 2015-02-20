@@ -59,6 +59,11 @@ HRESULT CameraClass::Initialize(ID3D11Device* device,
 	return S_OK;
 }
 
+void CameraClass::setAspectRatio(float ratio)
+{
+	m_matriceData.projection = XMMatrixPerspectiveFovLH(fov, ASPECTRATIO, near_far.x, near_far.y);
+}
+
 void CameraClass::setPosition(const XMFLOAT3& pos)
 {
 	position = pos;

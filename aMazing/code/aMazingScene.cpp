@@ -102,7 +102,7 @@ void aMazingScene::Render(D3DClass* d3dkit)
 	GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 }
 
-WrappedCamera* aMazingScene::getCamera()
+WrappedCamera* aMazingScene::getWrappedCamera()
 {
 	return camera.get();
 }

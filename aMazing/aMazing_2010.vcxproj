@@ -413,7 +413,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\aMazingScene.hpp" />
-    <ClInclude Include="code\collision\CollisionIntersection.h" />
+    <ClInclude Include="code\collision\CollisionIntersection.hpp" />
     <ClInclude Include="code\collision\CollisionShape.hpp" />
     <ClInclude Include="code\collision\CollisionWorld.hpp" />
     <ClInclude Include="code\collision\shapecategory\CollisionCircle.hpp" />
@@ -449,8 +449,9 @@
     <ClInclude Include="code\engine\effect\VHBlurClass.hpp" />
     <ClInclude Include="code\engine\exception\MemoryException.hpp" />
     <ClInclude Include="code\engine\exception\ParamException.hpp" />
-    <ClInclude Include="code\engine\material\MaterialPipeline.hpp" />
-    <ClInclude Include="code\engine\render\RenderPipeline.hpp" />
+    <ClInclude Include="code\engine\render\CommonPipeLine.hpp" />
+    <ClInclude Include="code\engine\render\effect\RenderPipeline.hpp" />
+    <ClInclude Include="code\engine\render\material\MaterialPipeline.hpp" />
     <ClInclude Include="code\engine\system\AmbientLight.hpp" />
     <ClInclude Include="code\engine\system\BasicObject.hpp" />
     <ClInclude Include="code\engine\system\BasicPrimitive.hpp" />
@@ -497,8 +498,8 @@
     <ResourceCompile Include="aMazing.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="code\engine\material\BRIEF" />
-    <None Include="code\engine\render\BRIEF" />
+    <None Include="code\engine\render\effect\BRIEF" />
+    <None Include="code\engine\render\material\BRIEF" />
     <None Include="Shader\DepthField\DepthFieldMerge.fx">
       <FileType>Document</FileType>
     </None>

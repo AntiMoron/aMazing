@@ -1,22 +1,25 @@
 #pragma once
 #include<array>
-#include"CollisionShape.hpp"
+#include"../CollisionShape.hpp"
 
-class CollisionRectangle :public CollisionShape
+namespace aMazing
 {
-public:
-	CollisionRectangle()
+	class CollisionRectangle :public CollisionShape
 	{
-		type = shape_rectangle;
-	}
-	void setPoints(std::array<XMFLOAT2,2> pts)
-	{
-		points = pts;
-	}
-	std::array<XMFLOAT2, 2> getPoints()
-	{
-		return points;
-	}
-private:
-	std::array<XMFLOAT2,2> points;
-};
+	public:
+		CollisionRectangle()
+		{
+			type = shape_rectangle;
+		}
+		void setPoints(std::array<XMFLOAT2, 2> pts)
+		{
+			points = pts;
+		}
+		std::array<XMFLOAT2, 2> getPoints()
+		{
+			return points;
+		}
+	private:
+		std::array<XMFLOAT2, 2> points;
+	};
+}

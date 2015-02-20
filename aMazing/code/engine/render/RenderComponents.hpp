@@ -1,7 +1,7 @@
 #pragma once
 #include"../../common/CommonDxSupport.hpp"
-#include"MaterialType.hpp"
-#include"ShaderManager.hpp"
+#include"../system/MaterialType.hpp"
+#include"../system/ShaderManager.hpp"
 
 namespace aMazing
 {

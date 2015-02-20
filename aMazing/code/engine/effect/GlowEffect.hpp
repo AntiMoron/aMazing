@@ -5,78 +5,81 @@
 #include"VHBlurClass.hpp"
 #include"HighlightExtractor.hpp"
 
-class GlowEffect :public EffectClass
+namespace aMazing
 {
-public:
-	HRESULT Initialize(ID3D11Device* device, ID3D11DeviceContext* context)
+	class GlowEffect :public EffectClass
 	{
-		HRESULT hr;
-
-		blur.reset(new VHBlurClass);
-		hr = blur->Initialize(device, context);
-		if (FAILED(hr))
+	public:
+		HRESULT Initialize(ID3D11Device* device, ID3D11DeviceContext* context)
 		{
-			return hr;
+			HRESULT hr;
+
+			blur.reset(new VHBlurClass);
+			hr = blur->Initialize(device, context);
+			if (FAILED(hr))
+			{
+				return hr;
+			}
+
+			highlight.reset(new FrameBuffer);
+			hr = highlight->Initialize(device, context);
+			if (FAILED(hr))
+			{
+				return hr;
+			}
+
+
+			tex2d.reset(new FrameBuffer);
+			hr = tex2d->Initialize(device, context);
+			if (FAILED(hr))
+			{
+				return hr;
+			}
+
+			hr = EffectClass::Initialize(device, context);
+			if (FAILED(hr))
+			{
+				return hr;
+			}
+			return S_OK;
 		}
 
-		highlight.reset(new FrameBuffer);
-		hr = highlight->Initialize(device, context);
-		if (FAILED(hr))
+		void Render(ID3D11Device* device,
+			ID3D11DeviceContext* context,
+			std::function<void(ID3D11Device*, ID3D11DeviceContext*)> renderFunction)
 		{
-			return hr;
-		}
+			tex2d->clearRenderTarget(device, context);
+			tex2d->setRenderTarget(device, context);
 
+			renderFunction(device, context);
 
-		tex2d.reset(new FrameBuffer);
-		hr = tex2d->Initialize(device, context);
-		if (FAILED(hr))
-		{
-			return hr;
-		}
-
-		hr = EffectClass::Initialize(device, context);
-		if (FAILED(hr))
-		{
-			return hr;
-		}
-		return S_OK;
-	}
-
-	void Render(ID3D11Device* device,
-		ID3D11DeviceContext* context,
-		std::function<void(ID3D11Device*, ID3D11DeviceContext*)> renderFunction)
-	{
-		tex2d->clearRenderTarget(device, context);
-		tex2d->setRenderTarget(device, context);
-		
-		renderFunction(device, context);
-
-		highlight->setRenderTarget(device, context);
-		highlight->clearRenderTarget(device, context);
-		SHADERS.bindPair("HighLight", device, context);
-		tex2d->bindPS(device, context, 0);
-		GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
-
-		auto f1 = [&](ID3D11Device* device,ID3D11DeviceContext* context)
-		{
-			SHADERS.bindPair("Basic2D",device,context);
-			highlight->bindPS(device, context, 0);
+			highlight->setRenderTarget(device, context);
+			highlight->clearRenderTarget(device, context);
+			SHADERS.bindPair("HighLight", device, context);
+			tex2d->bindPS(device, context, 0);
 			GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
-		};
 
-		blur->Render(device, context, 3, 3, f1);
+			auto f1 = [&](ID3D11Device* device, ID3D11DeviceContext* context)
+			{
+				SHADERS.bindPair("Basic2D", device, context);
+				highlight->bindPS(device, context, 0);
+				GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
+			};
 
-		setRenderTarget(device, context);
-		clearRenderTarget(device, context);
-		clearDepthStencil(device, context);
-	
-		SHADERS.bindPair("GlowMerge", device, context);
-		tex2d->bindPS(device, context, 0);
-		blur->bindPS(device, context, 1);
-		GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
-	}
-private:
-	std::unique_ptr<FrameBuffer> tex2d;
-	std::unique_ptr<FrameBuffer> highlight;
-	std::unique_ptr<VHBlurClass> blur;
-};
+			blur->Render(device, context, 3, 3, f1);
+
+			setRenderTarget(device, context);
+			clearRenderTarget(device, context);
+			clearDepthStencil(device, context);
+
+			SHADERS.bindPair("GlowMerge", device, context);
+			tex2d->bindPS(device, context, 0);
+			blur->bindPS(device, context, 1);
+			GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
+		}
+	private:
+		std::unique_ptr<FrameBuffer> tex2d;
+		std::unique_ptr<FrameBuffer> highlight;
+		std::unique_ptr<VHBlurClass> blur;
+	};
+}

@@ -1,32 +1,35 @@
 #pragma once
-#include"CollisionShape.hpp"
-class CollisionCircle : public CollisionShape
+#include"../CollisionShape.hpp"
+namespace aMazing
 {
-public:
-	CollisionCircle()
+	class CollisionCircle : public CollisionShape
 	{
-		type = shape_circle;
-	}
-	inline XMFLOAT2 getCenter()
-	{
-		return center;
-	}
+	public:
+		CollisionCircle()
+		{
+			type = shape_circle;
+		}
+		inline XMFLOAT2 getCenter()
+		{
+			return center;
+		}
 
-	void setCenter(XMFLOAT2 center)
-	{
-		this->center = center;
-	}
+		void setCenter(XMFLOAT2 center)
+		{
+			this->center = center;
+		}
 
-	inline float getRadius()
-	{
-		return radius;
-	}
+		inline float getRadius()
+		{
+			return radius;
+		}
 
-	void setRadius(float radius)
-	{
-		this->radius = radius;
-	}
-private:
-	XMFLOAT2 center;
-	float radius;
-};
+		void setRadius(float radius)
+		{
+			this->radius = radius;
+		}
+	private:
+		XMFLOAT2 center;
+		float radius;
+	};
+}

@@ -18,6 +18,7 @@ namespace aMazing
 		HRESULT Initialize(ID3D11Device* device,
 			ID3D11DeviceContext* context);
 
+		void setAspectRatio(float ratio);
 		void setPosition(const XMFLOAT3& pos);
 		void setPosition(const XMFLOAT3&& pos);
 		XMFLOAT3 getPosition() const;

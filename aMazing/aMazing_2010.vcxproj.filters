@@ -42,14 +42,17 @@
     <Filter Include="Engine\exception">
       <UniqueIdentifier>{fbe56c71-30fd-4a5b-9124-1f5b28cb30b4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\material">
-      <UniqueIdentifier>{f27cdde6-baab-4f7b-b631-e00299fcb095}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\render">
-      <UniqueIdentifier>{c85d85ba-6998-477e-87d2-58a8c5d8a512}</UniqueIdentifier>
-    </Filter>
     <Filter Include="util">
       <UniqueIdentifier>{3e2e7826-5c7c-45a7-bb55-c2d52ce4d15e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\render">
+      <UniqueIdentifier>{106e9e7e-13a7-48f2-a8f8-956482542763}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\render\material">
+      <UniqueIdentifier>{acefc96d-e514-4747-bfc9-2e5c96aa0a64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\render\effect">
+      <UniqueIdentifier>{0d7f9157-03db-48fd-9574-c015ee6d7418}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -64,9 +67,6 @@
     </ClInclude>
     <ClInclude Include="code\collision\shapecategory\CollisionTriangle.hpp">
       <Filter>Collision\ShapeCategory</Filter>
-    </ClInclude>
-    <ClInclude Include="code\collision\CollisionIntersection.h">
-      <Filter>Collision</Filter>
     </ClInclude>
     <ClInclude Include="code\collision\CollisionShape.hpp">
       <Filter>Collision</Filter>
@@ -190,12 +190,6 @@
     <ClInclude Include="code\collision\shapecategory\CollisionRectangle.hpp">
       <Filter>Collision\ShapeCategory</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\material\MaterialPipeline.hpp">
-      <Filter>Engine\material</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\render\RenderPipeline.hpp">
-      <Filter>Engine\render</Filter>
-    </ClInclude>
     <ClInclude Include="code\engine\system\RenderComponents.hpp" />
     <ClInclude Include="code\util\any.hpp">
       <Filter>util</Filter>
@@ -282,6 +276,18 @@
     <ClInclude Include="code\WrappedCamera.hpp" />
     <ClInclude Include="code\MazeGenerator.hpp" />
     <ClInclude Include="code\Maze.hpp" />
+    <ClInclude Include="code\collision\CollisionIntersection.hpp">
+      <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\render\CommonPipeLine.hpp">
+      <Filter>Engine\render</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\render\material\MaterialPipeline.hpp">
+      <Filter>Engine\render\material</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\render\effect\RenderPipeline.hpp">
+      <Filter>Engine\render\effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\collision\CollisionIntersection.cpp">
@@ -419,11 +425,11 @@
     <None Include="Shader\skinAnim\skinAnim.fx">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="code\engine\material\BRIEF">
-      <Filter>Engine\material</Filter>
+    <None Include="code\engine\render\material\BRIEF">
+      <Filter>Engine\render\material</Filter>
     </None>
-    <None Include="code\engine\render\BRIEF">
-      <Filter>Engine\render</Filter>
+    <None Include="code\engine\render\effect\BRIEF">
+      <Filter>Engine\render\effect</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -2,43 +2,46 @@
 
 #include"EffectClass.hpp"
 
-class HighlightExtractor : public EffectClass
+namespace aMazing
 {
-public:
-	HRESULT Initialize(ID3D11Device* device,ID3D11DeviceContext* context)
+	class HighlightExtractor : public EffectClass
 	{
-		HRESULT hr;
-		highlight.reset(new FrameBuffer);
-		hr = highlight->Initialize(device, context);
-		if (FAILED(hr))
+	public:
+		HRESULT Initialize(ID3D11Device* device, ID3D11DeviceContext* context)
 		{
-			return hr;
+			HRESULT hr;
+			highlight.reset(new FrameBuffer);
+			hr = highlight->Initialize(device, context);
+			if (FAILED(hr))
+			{
+				return hr;
+			}
+
+			hr = EffectClass::Initialize(device, context);
+			if (FAILED(hr))
+			{
+				return hr;
+			}
+			return S_OK;
 		}
 
-		hr = EffectClass::Initialize(device, context);
-		if (FAILED(hr))
+		void Render(ID3D11Device* device,
+			ID3D11DeviceContext* context,
+			std::function<void(ID3D11Device*, ID3D11DeviceContext*)> renderFunction)
 		{
-			return hr;
+			highlight->clearRenderTarget(device, context);
+			highlight->setRenderTarget(device, context);
+
+			renderFunction(device, context);
+
+			setRenderTarget(device, context);
+			clearRenderTarget(device, context);
+			clearDepthStencil(device, context);
+			SHADERS.bindPair("HighLight", device, context);
+			highlight->bindPS(device, context, 0);
+			GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 		}
-		return S_OK;
-	}
-
-	void Render(ID3D11Device* device,
-		ID3D11DeviceContext* context,
-		std::function<void(ID3D11Device*, ID3D11DeviceContext*)> renderFunction)
-	{
-		highlight->clearRenderTarget(device, context);
-		highlight->setRenderTarget(device, context);
-		
-		renderFunction(device, context);
-
-		setRenderTarget(device, context);
-		clearRenderTarget(device, context);
-		clearDepthStencil(device, context);
-		SHADERS.bindPair("HighLight", device, context);
-		highlight->bindPS(device, context, 0);
-		GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
-	}
-private:
-	std::unique_ptr<FrameBuffer> highlight;
-};
+	private:
+		std::unique_ptr<FrameBuffer> highlight;
+	};
+}

@@ -51,7 +51,7 @@ float WindowClass::getAspectRatio()
 		{
 			wndHeight = wndWidth;
 		}
-		result = wndWidth / wndHeight;
+		result = float(wndWidth) / wndHeight;
 	}
 	else
 	{
@@ -59,7 +59,7 @@ float WindowClass::getAspectRatio()
 		{
 			wndWidth = wndHeight;
 		}
-		result = wndHeight / wndWidth;
+		result = float(wndHeight) / wndWidth;
 	}
 	return result;
 }

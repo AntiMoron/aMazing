@@ -1,8 +1,11 @@
 #pragma once
 
-#include"CollisionShape.hpp"
+#include"../CollisionShape.hpp"
 
-class CollisionTriangle : public CollisionShape
+namespace aMazing
 {
-public:
-};
+	class CollisionTriangle : public CollisionShape
+	{
+	public:
+	};
+}

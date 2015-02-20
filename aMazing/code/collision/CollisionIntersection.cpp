@@ -1,6 +1,6 @@
-#include"CollisionIntersection.h"
+#include"CollisionIntersection.hpp"
 
-bool IntersectLineCircle(CollisionLine* line, CollisionCircle* circle)
+bool aMazing::IntersectLineCircle(CollisionLine* line, CollisionCircle* circle)
 {
 	XMFLOAT2 center = circle->getCenter();
 	XMFLOAT2 ed = line->getEndPt();
@@ -16,7 +16,7 @@ bool IntersectLineCircle(CollisionLine* line, CollisionCircle* circle)
 }
 
 
-bool IntersectRectangleCircle(CollisionRectangle* rec, CollisionCircle* circle)
+bool aMazing::IntersectRectangleCircle(CollisionRectangle* rec, CollisionCircle* circle)
 {
 	XMFLOAT2 center = circle->getCenter();
 	std::array<XMFLOAT2, 2> arr = rec->getPoints();
@@ -46,11 +46,11 @@ bool IntersectRectangleCircle(CollisionRectangle* rec, CollisionCircle* circle)
 	{
 		return true;
 	}
-
 	line.setStartPt(arr[1]);
 	line.setEndPt(XMFLOAT2(arr[1].x, arr[0].y));
 	if (IntersectLineCircle(&line, circle))
 	{
 		return true;
 	}
+	return false;
 }

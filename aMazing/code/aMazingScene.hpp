@@ -22,7 +22,7 @@ public:
 		ID3D11Device* device,
 		ID3D11DeviceContext* context);
 	void Render(D3DClass* d3dkit);
-	WrappedCamera* getCamera();
+	WrappedCamera* getWrappedCamera();
 private:
 	std::unique_ptr<WrappedCamera> camera;
 	std::unique_ptr<DayNightClass> dayTime;

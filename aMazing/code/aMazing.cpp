@@ -280,6 +280,7 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
 			WindowClass::getInstance().setHeight(height);
 			WindowClass::getInstance().setResolutionWidth(width);
 			WindowClass::getInstance().setResolutionHeight(height);
+			scene.getWrappedCamera()->getCamera()->setAspectRatio(ASPECTRATIO);
 			break;
         default:
             return DefWindowProc( hWnd, message, wParam, lParam );
@@ -290,26 +291,26 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
 
 void CameraProc()
 {
-	scene.getCamera()->setStep(0.00015f);
-	scene.getCamera()->moveForward(INPUT.keys['W']);
-	scene.getCamera()->moveBackward(INPUT.keys['S']);
-	scene.getCamera()->moveLeftward(INPUT.keys['A']);
-	scene.getCamera()->moveRightward(INPUT.keys['D']);
+	scene.getWrappedCamera()->setStep(0.00015f);
+	scene.getWrappedCamera()->moveForward(INPUT.keys['W']);
+	scene.getWrappedCamera()->moveBackward(INPUT.keys['S']);
+	scene.getWrappedCamera()->moveLeftward(INPUT.keys['A']);
+	scene.getWrappedCamera()->moveRightward(INPUT.keys['D']);
 	if (INPUT.keys[VK_LEFT])
 	{
-		scene.getCamera()->getCamera()->turnLeft(5);
+		scene.getWrappedCamera()->getCamera()->turnLeft(5);
 	}
 	if (INPUT.keys[VK_RIGHT])
 	{
-		scene.getCamera()->getCamera()->turnRight(5);
+		scene.getWrappedCamera()->getCamera()->turnRight(5);
 	}
 	if (INPUT.keys[VK_UP])
 	{
-		scene.getCamera()->getCamera()->lookUp(2);
+		scene.getWrappedCamera()->getCamera()->lookUp(2);
 	}
 	if (INPUT.keys[VK_DOWN])
 	{
-		scene.getCamera()->getCamera()->lookDown(2);
+		scene.getWrappedCamera()->getCamera()->lookDown(2);
 	}
 }
 

@@ -6,6 +6,7 @@
 #include"Maze.hpp"
 #include"collision/CollisionWorld.hpp"
 
+using namespace aMazing;
 class MazeGenerator
 {
 public:
