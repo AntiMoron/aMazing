@@ -60,4 +60,3 @@ XMFLOAT3 aMazing::normalize(XMFLOAT3 src)
 	src.z /= length;
 	return src;
 }
-

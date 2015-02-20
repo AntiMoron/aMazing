@@ -39,7 +39,7 @@ unsigned short WindowClass::getHeight()
 
 float WindowClass::getAspectRatio()
 {
-	float result = 4 / 3.0f;
+	float result = 16 / 9.0f;
 	if (wndWidth == wndHeight)
 	{
 		return 1.0f;

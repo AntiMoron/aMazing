@@ -1,18 +1,21 @@
 #pragma once
-#include"D3DClass.h"
+#include"D3DClass.hpp"
 #include<memory>
-#include"CommonUtil.hpp"
+#include"../../common/CommonUtil.hpp"
 
-class BasicPrimitive
+namespace aMazing
 {
-public:
-	BasicPrimitive(){}
-	virtual ~BasicPrimitive(){}
-	HRESULT Initialize(D3DClass& d3dObj)
+	class BasicPrimitive
 	{
-		d3dPtr.reset(aAddressof(d3dObj));
-		return S_OK;
-	}
-protected:
-	std::shared_ptr<D3DClass> d3dPtr;
-};
+	public:
+		BasicPrimitive(){}
+		virtual ~BasicPrimitive(){}
+		HRESULT Initialize(D3DClass& d3dObj)
+		{
+			d3dPtr.reset(aAddressof(d3dObj));
+			return S_OK;
+		}
+	protected:
+		std::shared_ptr<D3DClass> d3dPtr;
+	};
+}

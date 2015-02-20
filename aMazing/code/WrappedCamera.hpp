@@ -33,4 +33,3 @@ private:
 	bool walking;
 	float angle;
 };
-

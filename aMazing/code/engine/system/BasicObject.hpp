@@ -42,4 +42,3 @@ protected:
 	std::unique_ptr<PRS> m_prsData;
 	GPUConstantBuffer<PRSShaderData> m_prsBuffer;
 };
-

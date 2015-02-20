@@ -118,4 +118,3 @@ private:
 	ID3D11Buffer* m_index;
 	ID3D11Buffer* m_vertices;
 };
-

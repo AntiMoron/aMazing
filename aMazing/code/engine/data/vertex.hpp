@@ -60,5 +60,4 @@ public:
 		XMFLOAT4 normal;
 		XMFLOAT4 texture;
 	};
-
 }

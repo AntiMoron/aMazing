@@ -2,7 +2,7 @@
 #include"../../common/CommonDxSupport.hpp"
 #include"../../common/CommonTemplates.hpp"
 #include"../system/MaterialType.hpp"
-#include"../system/ShaderManager.h"
+#include"../system/ShaderManager.hpp"
 #include<type_traits>
 #include<unordered_map>
 

@@ -44,6 +44,7 @@ namespace aMazing
 
 		~SceneAnimator()
 		{
+
 		}
 		/** Sets the animation to use for playback. This also recreates the internal
 		* mapping structures, which might take a few cycles.
@@ -295,5 +296,5 @@ namespace aMazing
 
 		/** Identity matrix to return a reference to in case of error */
 		aiMatrix4x4 mIdentityMatrix;
-};
+	};
 }

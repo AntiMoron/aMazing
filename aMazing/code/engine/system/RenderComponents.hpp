@@ -1,26 +1,28 @@
 #pragma once
 #include"../../common/CommonDxSupport.hpp"
 #include"MaterialType.hpp"
-#include"ShaderManager.h"
+#include"ShaderManager.hpp"
 
-using namespace RenderTypeEnum;
-
-template<MATERIAL_TYPE T>
-class RenderComponents
+namespace aMazing
 {
-public:
-	void setArguments(...);
-};
+	using namespace RenderTypeEnum;
 
-template<>
-class RenderComponents<MATERIAL_PLASTIC>
-{
-public:
-	void setArguments()
+	template<MATERIAL_TYPE T>
+	class RenderComponents
 	{
-		;
-	}
-private:
-	;
-};
+	public:
+		void setArguments(...);
+	};
 
+	template<>
+	class RenderComponents<MATERIAL_PLASTIC>
+	{
+	public:
+		void setArguments()
+		{
+			;
+		}
+	private:
+		;
+	};
+}

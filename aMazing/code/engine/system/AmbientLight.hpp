@@ -41,4 +41,3 @@ private:
 	std::unique_ptr<GPUConstantBuffer<AmbientLightMatrices> > matrices;
 	ID3D11RasterizerState* rasterizeState;
 };
-

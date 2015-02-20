@@ -72,4 +72,3 @@ protected:
 	std::unique_ptr<FrameBuffer> fbo;
 	volatile bool is_init;
 };
-
