@@ -75,10 +75,8 @@ void aMazingScene::Render(D3DClass* d3dkit)
 	dayTime->UpdateTime(device, context);
 
 	XMFLOAT3 pos = camera->getPosition();
-	
-	collisionWorld->updateCameraPos(pos.x, pos.z, 0.0f);
-
-	collisionWorld->getNewState();
+	//collisionWorld->updateCameraPos(pos.x, pos.z, 0.0f);
+	//collisionWorld->getNewState();
 	
 	auto mazeRender = [&](ID3D11Device* device, ID3D11DeviceContext* context)
 	{
@@ -90,7 +88,7 @@ void aMazingScene::Render(D3DClass* d3dkit)
 		//bind shader which skin animation need.
 		SHADERS.bindPair("SkinAnim", device, context);
 		model->setRotation(XMFLOAT3(1.57, 0, 0));
-		model->setScaling(XMFLOAT3(0.001f, 0.001f, 0.001f));
+		model->setScaling(XMFLOAT3(0.1f, 0.1f, 0.1f));
 		model->Render(device, context);
 	};
 

@@ -144,7 +144,7 @@ HRESULT D3DClass::Initialize(HWND hwnd)
 	ZeroMemory(&descDepth, sizeof(descDepth));
 	descDepth.Width = WINWIDTH;
 	descDepth.Height = WINHEIGHT;
-	descDepth.MipLevels = 1;
+	descDepth.MipLevels = 0;
 	descDepth.ArraySize = 1;
 	descDepth.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 	descDepth.SampleDesc.Count = 1;
@@ -186,9 +186,10 @@ HRESULT D3DClass::Initialize(HWND hwnd)
 	D3D11_SAMPLER_DESC sampDesc;
 	ZeroMemory(&sampDesc, sizeof(sampDesc));
 	sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
-	sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
-	sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
-	sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+	sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_BORDER;
+	sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_BORDER;
+	sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_BORDER;
+	
 	sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
 	sampDesc.MipLODBias = 0.0f;
 	sampDesc.MaxAnisotropy = 1;

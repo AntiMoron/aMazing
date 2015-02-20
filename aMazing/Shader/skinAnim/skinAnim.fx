@@ -64,8 +64,9 @@ PS_INPUT VSEntry(VS_INPUT input)
 	output.Pos = mul(output.Pos, World);
 	output.Pos = mul(output.Pos, View);
 	output.Pos = mul(output.Pos, Projection);
-	output.Nor = input.Nor;
-//	output.Nor = normalize(mul(input.Nor, boneTransform));
+	input.Nor.w = 0.0f;
+	output.Nor = mul(input.Nor, boneTransform);
+	output.Nor = normalize(output.Nor);
 	output.Tex = input.Tex.xy;
 	return output;
 }
@@ -79,11 +80,10 @@ float4 PSEntry(PS_INPUT input) : SV_Target
 		lightDir = normalize(lightDir);
 	float lightIntensity = dot(input.Nor.xyz, lightDir.xyz);
 	if (lightIntensity > 0.0f)
+	{
 		color += saturate(float4(1.0f, 1.0f, 1.0f, 1.0f) *  lightIntensity);
-	color.a = 1.0f;
-	if (lightIntensity > 0.6f)
-		color = diffuseColor;
-	else
-		color *= diffuseColor;
+		color.a = 1.0f;
+	}
+	color *= diffuseColor;
 	return color;
 }

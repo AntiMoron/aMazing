@@ -291,7 +291,7 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
 
 void CameraProc()
 {
-	scene.getWrappedCamera()->setStep(0.00015f);
+	scene.getWrappedCamera()->setStep(0.15f);
 	scene.getWrappedCamera()->moveForward(INPUT.keys['W']);
 	scene.getWrappedCamera()->moveBackward(INPUT.keys['S']);
 	scene.getWrappedCamera()->moveLeftward(INPUT.keys['A']);

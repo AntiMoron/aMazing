@@ -1,6 +1,6 @@
 #include "Maze.hpp"
 
-const float Maze::blockSize = 0.005f;
+const float Maze::blockSize = 0.5f;
 
 Maze::Maze()
 {
