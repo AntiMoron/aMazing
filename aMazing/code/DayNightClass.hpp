@@ -53,9 +53,9 @@ public:
 				2.0f * float(tn) / TIME_DAY,
 				1.0f };
 			
-			ambientLight->setPosition(XMFLOAT3(10.0f * std::sin(float(timeNow) / TIME_DAY * 360.0f * 0.017453292f),
-				10.0f,
-				10.0f * std::cos(float(timeNow) / TIME_DAY * 360.0f * 0.017453292f)));
+			ambientLight->setPosition(XMFLOAT3(5.0f * std::sin(float(timeNow) / TIME_DAY * 360.0f * 0.017453292f),
+				5.0f,
+				5.0f * std::cos(float(timeNow) / TIME_DAY * 360.0f * 0.017453292f)));
 			ambientLight->setTarget(XMFLOAT3(0.0f, 0.0f, 0.0f));
 			ambientLight->Render(device, context);
 

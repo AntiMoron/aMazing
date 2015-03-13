@@ -12,7 +12,7 @@ namespace aMazing
 		{
 			HRESULT hr;
 			depthBuffer.reset(new FrameBuffer);
-			hr = depthBuffer->Initialize(device, context, 4096, 4096);
+			hr = depthBuffer->Initialize(device, context, WINWIDTH, WINHEIGHT); 
 			if (FAILED(hr))
 			{
 				return hr;
@@ -33,6 +33,7 @@ namespace aMazing
 			depthBuffer->setRenderTarget(device, context);
 			depthBuffer->clearRenderTarget(device, context);
 			SHADERS.bindPair("LightDepthMap", device, context);
+			//SHADERS.bindPair("Basic3D", device, context);
 			SHADERS.DisableShaderBind();
 			renderFunction(device, context);
 			SHADERS.EnableShaderBind();
@@ -40,7 +41,7 @@ namespace aMazing
 			setRenderTarget(device, context);
 			clearRenderTarget(device, context);
 			clearDepthStencil(device, context);
-			//#define _DB
+//			#define _DB
 #ifdef _DB
 			depthBuffer->bindPS(device, context, 0);
 			SHADERS.bindPair("Basic2D", device, context);

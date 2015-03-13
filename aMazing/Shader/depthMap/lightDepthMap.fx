@@ -43,14 +43,16 @@ PS_INPUT VSEntry( VS_INPUT input )
     output.Pos = mul( output.Pos, Rot);
     output.Pos = mul( output.Pos, Sca);
     output.Pos = mul( output.Pos, Pos);
-    output.Pos = mul( output.Pos, World );
+    output.Pos = mul( output.Pos, World );/*
     output.Pos = mul( output.Pos, LightView );
-    output.Pos = mul( output.Pos, LightProjection );
+	output.Pos = mul(output.Pos, LightProjection);*/
+	output.Pos = mul(output.Pos, View);
+	output.Pos = mul(output.Pos, Projection);
     output.depthPosition = output.Pos;
     return output;
 }
 
 float4 PSEntry(PS_INPUT input) : SV_Target
 {
-	return input.depthPosition.z / input.depthPosition.w;
+	return input.depthPosition;
 }

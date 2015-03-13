@@ -25,7 +25,6 @@ cbuffer LightMatrices : register(b2)
     float shadowBias;
 }
 
-
 struct VS_INPUT
 {
     float4 Pos : POSITION;
@@ -68,7 +67,7 @@ static const float SAMP_DX = 1.0f / SAMP_SIZE;
 
 float4 PSEntry(PS_INPUT input) : SV_Target
 {
-	float bias = 0.000003;
+	float bias = 0.0003;
 	float4 color = txDiffuse.Sample(samWrap, input.Tex);
 	clip(color.a == 0.0f ? -1 : 1);
 

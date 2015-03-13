@@ -5,7 +5,7 @@
 class ScopeGuard
 {
 public:
-	ScopeGuard(common_tool::functionType<std::function<void(void)> > o)
+	ScopeGuard(std::function<void(void)> o)
 	{
 		outer = o;
 	}

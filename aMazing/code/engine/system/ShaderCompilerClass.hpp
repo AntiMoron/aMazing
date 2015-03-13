@@ -3,6 +3,9 @@
 #include <D3DX11.h>
 #include <d3dcompiler.h>
 #include <iostream>
+#include <utility>
+#include <iterator>
+#include "../../common/CommonTemplates.hpp"
 #include "../system/FileTracker.hpp"
 #include "MutableString.hpp"
 #define D3D_COMPILE_STANDARD_FILE_INCLUDE ((ID3DInclude*)(UINT_PTR)1)

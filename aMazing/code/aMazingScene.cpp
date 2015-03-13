@@ -41,14 +41,21 @@ HRESULT aMazingScene::Initialize(HWND hwnd, ID3D11Device* device,
 	hr = sound->Initialize(hwnd, "bgm.ogg");
 	if (FAILED(hr))
 	{
-		E_FAIL;
+		return hr;
 	}
 
 	dayTime.reset(new DayNightClass);
 	hr = dayTime->Initialize(device, context);
 	if (FAILED(hr))
 	{
-		return E_FAIL;
+		return hr;
+	}
+
+	shadow.reset(new ShadowMap);
+	hr = shadow->Initialize(device, context);
+	if (FAILED(hr))
+	{
+		return hr;
 	}
 
 	XMFLOAT2 twoDPosition = maze->getPositionByCoord(maze->getRandomEmptyCoord());
@@ -91,13 +98,14 @@ void aMazingScene::Render(D3DClass* d3dkit)
 		model->setScaling(XMFLOAT3(0.1f, 0.1f, 0.1f));
 		model->Render(device, context);
 	};
+	mazeRender(device,context);
+	//glow->Render(device, context, mazeRender);
+	////glow->Render(device, context, shadowRender);
+	//d3dkit->setRenderTarget();
 
-	glow->Render(device, context, mazeRender);
-	d3dkit->setRenderTarget();
-
-	SHADERS.bindPair("Basic2D", device, context);
-	glow->bindPS(device, context, 0);
-	GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
+	//SHADERS.bindPair("Basic2D", device, context);
+	//shadow->bindPS(device, context, 0);
+	//GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 }
 
 WrappedCamera* aMazingScene::getWrappedCamera()

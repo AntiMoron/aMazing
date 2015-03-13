@@ -1,27 +1,27 @@
-Texture2D txDiffuse : register( t0 );
-SamplerState samLinear : register( s0 );
-
-cbuffer cameraMatrices : register( b0 )
+cbuffer cameraMatrices : register(b0)
 {
-    matrix World;
-    matrix View;
-    matrix Projection;
+	matrix World;
+	matrix View;
+	matrix Projection;
 };
 
 cbuffer PRS : register(b1)
 {
-    matrix Pos;
-    matrix Rot;
-    matrix Sca;
+	matrix Pos;
+	matrix Rot;
+	matrix Sca;
 }
 
 cbuffer light : register(b2)
 {
-    float4 lightDirection;
+	float4 lightDirection;
 	float4 lightPosition;
 	matrix viewMatrix;
-    matrix projectionMatrix;
+	matrix projectionMatrix;
 }
+Texture2D txDiffuse : register(t0);
+SamplerState samLinear : register( s0 );
+
 struct VS_INPUT
 {
     float4 Pos : POSITION;

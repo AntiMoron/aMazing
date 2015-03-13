@@ -27,6 +27,7 @@ private:
 	std::unique_ptr<WrappedCamera> camera;
 	std::unique_ptr<DayNightClass> dayTime;
 	std::unique_ptr<GlowEffect> glow;
+	std::unique_ptr<ShadowMap> shadow;
 	std::unique_ptr<Maze> maze;
 	std::unique_ptr<SoundClass> sound;
 	std::unique_ptr<CollisionWorld> collisionWorld;

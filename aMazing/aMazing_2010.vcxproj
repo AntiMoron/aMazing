@@ -468,6 +468,8 @@
     <ClInclude Include="code\engine\system\GPUVerticesBuffer.hpp" />
     <ClInclude Include="code\engine\system\InputClass.hpp" />
     <ClInclude Include="code\engine\system\InstanceObj.hpp" />
+    <ClInclude Include="code\engine\system\LightEnum.hpp" />
+    <ClInclude Include="code\engine\system\Lightning.hpp" />
     <ClInclude Include="code\engine\system\LineClass.hpp" />
     <ClInclude Include="code\engine\system\MaterialType.hpp" />
     <ClInclude Include="code\engine\system\MutableMesh.hpp" />
@@ -480,6 +482,7 @@
     <ClInclude Include="code\engine\system\ScopeGuard.hpp" />
     <ClInclude Include="code\engine\system\ShaderClass.hpp" />
     <ClInclude Include="code\engine\system\ShaderCompilerClass.hpp" />
+    <ClInclude Include="code\engine\system\ShaderInclude.hpp" />
     <ClInclude Include="code\engine\system\ShaderManager.hpp" />
     <ClInclude Include="code\engine\system\ShaderPair.hpp" />
     <ClInclude Include="code\engine\system\SoundClass.hpp" />
@@ -495,6 +498,11 @@
     <ClInclude Include="code\util\any.hpp" />
     <ClInclude Include="code\WrappedCamera.hpp" />
     <CLInclude Include="resource.h" />
+    <ClInclude Include="Shader\Buffers.hlsl" />
+    <None Include="Shader\LightImpl.hlsl" />
+    <None Include="Shader\LightPsh.hlsl" />
+    <None Include="Shader\MaterialImpl.hlsl" />
+    <None Include="Shader\MaterialPsh.hlsl" />
     <ResourceCompile Include="aMazing.rc" />
   </ItemGroup>
   <ItemGroup>

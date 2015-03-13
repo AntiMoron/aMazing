@@ -288,6 +288,18 @@
     <ClInclude Include="code\engine\render\effect\RenderPipeline.hpp">
       <Filter>Engine\render\effect</Filter>
     </ClInclude>
+    <ClInclude Include="code\engine\system\LightEnum.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\Lightning.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader\Buffers.hlsl">
+      <Filter>Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\ShaderInclude.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\collision\CollisionIntersection.cpp">
@@ -430,6 +442,18 @@
     </None>
     <None Include="code\engine\render\effect\BRIEF">
       <Filter>Engine\render\effect</Filter>
+    </None>
+    <None Include="Shader\LightPsh.hlsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\LightImpl.hlsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\MaterialPsh.hlsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\MaterialImpl.hlsl">
+      <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>
