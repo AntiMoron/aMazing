@@ -37,13 +37,6 @@ HRESULT aMazingScene::Initialize(HWND hwnd, ID3D11Device* device,
 		return hr;
 	}
 
-	sound.reset(new SoundClass);
-	hr = sound->Initialize(hwnd, "bgm.ogg");
-	if (FAILED(hr))
-	{
-		return hr;
-	}
-
 	dayTime.reset(new DayNightClass);
 	hr = dayTime->Initialize(device, context);
 	if (FAILED(hr))
@@ -75,7 +68,6 @@ HRESULT aMazingScene::Initialize(HWND hwnd, ID3D11Device* device,
 
 void aMazingScene::Render(D3DClass* d3dkit)
 {
-	sound->Play();
 	ID3D11Device* device = d3dkit->getDevice();
 	ID3D11DeviceContext* context = d3dkit->getContext();
 	camera->Render(device, context);

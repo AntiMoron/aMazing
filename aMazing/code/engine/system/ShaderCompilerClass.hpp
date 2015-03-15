@@ -6,6 +6,7 @@
 #include <utility>
 #include <iterator>
 #include "../../common/CommonTemplates.hpp"
+#include "../system/ShaderInclude.hpp"
 #include "../system/FileTracker.hpp"
 #include "MutableString.hpp"
 #define D3D_COMPILE_STANDARD_FILE_INCLUDE ((ID3DInclude*)(UINT_PTR)1)
@@ -37,6 +38,5 @@ namespace aMazing
 			const char* entryPoint,
 			const char* shaderTarget,
 			ID3DBlob** output);
-
 	};
 }

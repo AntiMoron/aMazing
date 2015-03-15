@@ -26,6 +26,6 @@ namespace aMazing
 		bool Stop();
 	private:
 		HWND m_hWnd;
-		std::unique_ptr<OutputStreamPtr> m_soundData;
+		OutputStreamPtr m_soundData;
 	};
 }

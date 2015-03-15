@@ -1,50 +1,100 @@
 #pragma once
-
 #include<Windows.h>
-#define MAX_INCLUDES 9U
+#include"../../common/CommonDxSupport.hpp"
 
-class ShaderInclude
+namespace aMazing
 {
-private:
-	struct WrapInclude
+	class ShaderInclude : public ID3DInclude
 	{
-		HANDLE hFile;
-		HANDLE hFileMap;
-		LARGE_INTEGER fileSize;
-		void* pMappedData;
+	private:
+		const static unsigned int MAX_INCLUDES = 9U;
+		struct sInclude
+		{
+			HANDLE         hFile;
+			HANDLE         hFileMap;
+			LARGE_INTEGER  FileSize;
+			void           *pMapData;
+		};
+
+		struct sInclude   m_includeFiles[MAX_INCLUDES];
+		unsigned int      m_nIncludes;
+
+	public:
+		ShaderInclude()
+		{
+			// array initialization
+			for (unsigned int i = 0; i<MAX_INCLUDES; i++)
+			{
+				m_includeFiles[i].hFile = INVALID_HANDLE_VALUE;
+				m_includeFiles[i].hFileMap = INVALID_HANDLE_VALUE;
+				m_includeFiles[i].pMapData = NULL;
+			}
+			m_nIncludes = 0;
+		}
+		~ShaderInclude()
+		{
+			for (unsigned int i = 0; i<m_nIncludes; i++)
+			{
+				UnmapViewOfFile(m_includeFiles[i].pMapData);
+
+				if (m_includeFiles[i].hFileMap != INVALID_HANDLE_VALUE)
+					CloseHandle(m_includeFiles[i].hFileMap);
+
+				if (m_includeFiles[i].hFile != INVALID_HANDLE_VALUE)
+					CloseHandle(m_includeFiles[i].hFile);
+			}
+
+			m_nIncludes = 0;
+		}
+
+		STDMETHOD(Open(
+			D3D_INCLUDE_TYPE IncludeType,
+			LPCSTR pFileName,
+			LPCVOID pParentData,
+			LPCVOID *ppData,
+			UINT *pBytes
+			))
+		{
+			unsigned int   incIndex = m_nIncludes + 1;
+
+			// Make sure we have enough room for this include file
+			if (incIndex >= MAX_INCLUDES)
+				return E_FAIL;
+
+			// try to open the file
+			m_includeFiles[incIndex].hFile = CreateFileA(pFileName, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING,
+				FILE_FLAG_SEQUENTIAL_SCAN, NULL);
+			if (INVALID_HANDLE_VALUE == m_includeFiles[incIndex].hFile)
+			{
+				return E_FAIL;
+			}
+
+			// Get the file size
+			GetFileSizeEx(m_includeFiles[incIndex].hFile, &m_includeFiles[incIndex].FileSize);
+
+			// Use Memory Mapped File I/O for the header data
+			m_includeFiles[incIndex].hFileMap = CreateFileMappingA(m_includeFiles[incIndex].hFile, NULL, PAGE_READONLY, m_includeFiles[incIndex].FileSize.HighPart, m_includeFiles[incIndex].FileSize.LowPart, pFileName);
+			if (m_includeFiles[incIndex].hFileMap == NULL)
+			{
+				if (m_includeFiles[incIndex].hFile != INVALID_HANDLE_VALUE)
+					CloseHandle(m_includeFiles[incIndex].hFile);
+				return E_FAIL;
+			}
+
+			// Create Map view
+			*ppData = MapViewOfFile(m_includeFiles[incIndex].hFileMap, FILE_MAP_READ, 0, 0, 0);
+			*pBytes = m_includeFiles[incIndex].FileSize.LowPart;
+
+			// Success - Increment the include file count
+			m_nIncludes = incIndex;
+
+			return S_OK;
+		}
+
+		STDMETHOD(Close(LPCVOID pData))
+		{
+			// Defer Closure until the container destructor 
+			return S_OK;
+		}
 	};
-	size_t includeCount;
-	WrapInclude includeFiles[MAX_INCLUDES];
-public:
-	ShaderInclude()
-	{
-		for (unsigned int i = 0;i < MAX_INCLUDES;i++)
-		{
-			includeFiles[i].hFile = INVALID_HANDLE_VALUE;
-			includeFiles[i].hFileMap = INVALID_HANDLE_VALUE;
-			includeFiles[i].pMappedData = nullptr;
-		}
-		includeCount = 0;
-	}
-	~ShaderInclude()
-	{
-		for (auto i = 0;i < includeCount;i++)
-		{
-			UnmapViewOfFile(includeFiles[i].pMappedData);
-			if (includeFiles[i].hFileMap != INVALID_HANDLE_VALUE)
-			{
-				CloseHandle(includeFiles[i].hFileMap);
-			}
-			if (includeFiles[i].hFile != INVALID_HANDLE_VALUE)
-			{
-				CloseHandle(includeFiles[i].hFile);
-			}
-		}
-		includeCount = 0;
-	}
-	
-	bool open(D3D_INCLUDE_TYPE)
-	{
-		;
-	}
-};
+}
