@@ -10,18 +10,9 @@ WCHAR* aMediaSearchPath()
 bool aFindMediaSearchParentDirs(WCHAR* strSearchPath, int cchSearch, WCHAR* strStartAt,
 	WCHAR* strLeafName)
 {
-	WCHAR strFullPath[MAX_PATH] =
-	{
-		0
-	};
-	WCHAR strFullFileName[MAX_PATH] =
-	{
-		0
-	};
-	WCHAR strSearch[MAX_PATH] =
-	{
-		0
-	};
+	WCHAR strFullPath[MAX_PATH] = {0};
+	WCHAR strFullFileName[MAX_PATH] = {0};
+	WCHAR strSearch[MAX_PATH] = {0};
 	WCHAR* strFilePart = NULL;
 
 	GetFullPathName(strStartAt, MAX_PATH, strFullPath, &strFilePart);
@@ -131,14 +122,8 @@ HRESULT aFindMediaFileCch(WCHAR* strDestPath, int cchDest,
 		return E_INVALIDARG;
 
 	// Get the exe name, and exe path
-	WCHAR strExePath[MAX_PATH] =
-	{
-		0
-	};
-	WCHAR strExeName[MAX_PATH] =
-	{
-		0
-	};
+	WCHAR strExePath[MAX_PATH] = {0};
+	WCHAR strExeName[MAX_PATH] = {0};
 	WCHAR* strLastSlash = NULL;
 	GetModuleFileName(NULL, strExePath, MAX_PATH);
 	strExePath[MAX_PATH - 1] = 0;
@@ -214,7 +199,6 @@ HRESULT aFindMediaFileCch(WCHAR* strDestPath, int cchDest,
 ShaderCompilerClass::ShaderCompilerClass()
 {
 }
-
 
 ShaderCompilerClass::~ShaderCompilerClass()
 {

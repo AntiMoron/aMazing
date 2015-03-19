@@ -300,6 +300,12 @@
     <ClInclude Include="code\engine\system\ShaderInclude.hpp">
       <Filter>Engine\System</Filter>
     </ClInclude>
+    <ClInclude Include="code\engine\system\DynamicLinkageHelper.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\DeviceManager.hpp">
+      <Filter>Engine\System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\collision\CollisionIntersection.cpp">
@@ -388,6 +394,9 @@
     <ClCompile Include="code\Maze.cpp" />
     <ClCompile Include="code\MazeGenerator.cpp" />
     <ClCompile Include="code\WrappedCamera.cpp" />
+    <ClCompile Include="code\engine\system\DeviceManager.cpp">
+      <Filter>Engine\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -453,6 +462,9 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="Shader\MaterialImpl.hlsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\GlobalVars.hlsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

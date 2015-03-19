@@ -387,6 +387,7 @@
     <ClCompile Include="code\engine\system\BasicObject.cpp" />
     <ClCompile Include="code\engine\system\CameraClass.cpp" />
     <ClCompile Include="code\engine\system\D3DClass.cpp" />
+    <ClCompile Include="code\engine\system\DeviceManager.cpp" />
     <ClCompile Include="code\engine\system\FileTracker.cpp" />
     <ClCompile Include="code\engine\system\FrameBuffer.cpp" />
     <ClCompile Include="code\engine\system\FrustumClass.cpp" />
@@ -459,6 +460,8 @@
     <ClInclude Include="code\engine\system\CameraClass.hpp" />
     <ClInclude Include="code\engine\system\D3DClass.hpp" />
     <ClInclude Include="code\engine\system\Defines.hpp" />
+    <ClInclude Include="code\engine\system\DeviceManager.hpp" />
+    <ClInclude Include="code\engine\system\DynamicLinkageHelper.hpp" />
     <ClInclude Include="code\engine\system\FileTracker.hpp" />
     <ClInclude Include="code\engine\system\FrameBuffer.hpp" />
     <ClInclude Include="code\engine\system\FrustumClass.hpp" />
@@ -547,6 +550,11 @@
       <FileType>Document</FileType>
     </None>
     <None Include="Shader\skinAnim\skinAnim.fx">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shader\GlobalVars.hlsl">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>

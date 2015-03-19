@@ -1,12 +1,29 @@
 #include"MaterialPsh.hlsl"
-Texture2D txDiffuse : register(t0);
-SamplerState samLinear : register(s0);
 
-float3 cSmoothMaterial::getAmbientColor(float2 vTexcoord)
+float3 cSommothTexturedMaterial::getAmbientColor(float2 vTexcoord)
 {
 	float4 vDiffuse = (float4)1.0f;
 	vDiffuse = txDiffse.Sample(samLinear,vTexcoord); 
-	return m_vColor * vDiffuse;
+	return m_vColor * vDiffuse.xyz;
 }
 
-float3 
+float3 cSommothTexturedMaterial::getDiffuseColor(float2 vTexcoord)
+{
+	float4 vDiffuse = (float4)1.0f;
+	vDiffuse = txDiffuse.Sample(samLinear,vTexcoord);
+	return vColor * vDiffuse.xyz;
+}
+
+float3 cRoughTextureMaterial:getAmbientColor(float2 vTexcoord)
+{
+	float vDiffuse = (float4)1.0f;
+	vDiffuse = txDiffuse.Sample(samLineaer, vTexcoord);
+	return vColor * vDiffuse.xyz;
+}
+
+float3 cRoughTextureMaterial::getDiffuseColor(float2 vTexcoord)
+{
+	float vDiffuse = (float4)1.0f;
+	vDiffuse = txDiffuse.Sample(samLineaer, vTexcoord);
+	return vColor * vDiffuse.xyz;
+}

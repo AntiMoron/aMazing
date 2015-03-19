@@ -1,6 +1,4 @@
 #include "Buffers.hlsl"
-Texture2D txDiffuse : register(t0);
-SamplerState samLinear : register( s0 );
 
 struct VS_INPUT
 {

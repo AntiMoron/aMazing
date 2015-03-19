@@ -20,7 +20,6 @@ namespace aMazing
 	
 		void clear();
 
-		MutableString& operator = (const MutableString& other);
 		MutableString& operator += (const wchar_t ch);
 		MutableString& operator += (const char ch);
 

@@ -67,6 +67,7 @@ namespace aMazing
 		XMFLOAT3 lefthandDirection;
 		struct cameraMatrices
 		{
+			XMFLOAT3 eyeDirection;
 			XMMATRIX world;
 			XMMATRIX view;
 			XMMATRIX projection;

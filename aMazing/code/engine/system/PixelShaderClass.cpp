@@ -24,64 +24,14 @@ HRESULT PixelShaderClass::createShaderFromFile(ID3D11Device* device,
 {
 	//Create Vertex Shader.If isInited is true,that means the class has already been initialized.
 	//return fail.
-	if (isInited == true)
-	{
-		return E_FAIL;
-	}
-	HRESULT hr;
-	isInited = false;
-	ID3DBlob* output = nullptr;
-	hr = ShaderCompilerClass::compileFromFile(filename, "PSEntry", "ps_5_0", &output);
-	if (FAILED(hr))
-	{
-		return E_FAIL;
-	}
-	if (output == nullptr)
-	{
-		return E_FAIL;
-	}
-	hr = device->CreatePixelShader(output->GetBufferPointer(),
-		output->GetBufferSize(),
-		nullptr, &shader);
-	if (FAILED(hr))
-	{
-		return hr;
-	}
-	isInited = true;
-	return S_OK;
+	return createShaderFromFile(device, context, std::forward<MutableString&&>(filename));
 }
 
 HRESULT PixelShaderClass::createShaderFromMemory(ID3D11Device* device,
 	ID3D11DeviceContext* context,
-	MutableString & slsource)
+	MutableString& slsource)
 {
-	//Create Vertex Shader.If isInited is true,that means the class has already been initialized.
-	//return fail.
-	if (isInited == true)
-	{
-		return E_FAIL;
-	}
-	HRESULT hr;
-	isInited = false;
-	ID3DBlob* output = nullptr;
-	hr = ShaderCompilerClass::compileString(slsource, "VSEntry", "ps_5_0", &output);
-	if (FAILED(hr))
-	{
-		return E_FAIL;
-	}
-	if (output == nullptr)
-	{
-		return E_FAIL;
-	}
-	hr = device->CreatePixelShader(output->GetBufferPointer(),
-		output->GetBufferSize(),
-		nullptr, &shader);
-	if (FAILED(hr))
-	{
-		return hr;
-	}
-	isInited = true;
-	return S_OK;
+	return createShaderFromMemory(device,context,std::forward<MutableString&&>(slsource));
 }
 
 
@@ -98,7 +48,7 @@ HRESULT PixelShaderClass::createShaderFromFile(ID3D11Device* device,
 	HRESULT hr;
 	isInited = false;
 	ID3DBlob* output = nullptr;
-	hr = ShaderCompilerClass::compileFromFile(filename, "VSEntry", "ps_5_0", &output);
+	hr = ShaderCompilerClass::compileFromFile(filename, "PSEntry", "ps_5_0", &output);
 	if (FAILED(hr))
 	{
 		return E_FAIL;
@@ -131,7 +81,7 @@ HRESULT PixelShaderClass::createShaderFromMemory(ID3D11Device* device,
 	HRESULT hr;
 	isInited = false;
 	ID3DBlob* output = nullptr;
-	hr = ShaderCompilerClass::compileString(slsource, "VSEntry", "ps_5_0", &output);
+	hr = ShaderCompilerClass::compileString(slsource, "PSEntry", "ps_5_0", &output);
 	if (FAILED(hr))
 	{
 		return E_FAIL;

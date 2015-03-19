@@ -167,7 +167,7 @@ HRESULT InitDevice()
 		"Shader/BasicSky.fx", "Shader/BasicSky.fx",
 		layout, numElements, "BasicSky"));
 
-	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
+	/*RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/FireWork.fx", "Shader/FireWork.fx",
 		layout,numElements,"FireWork"));
 
@@ -206,6 +206,7 @@ HRESULT InitDevice()
 	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/DepthField/DepthFieldMerge.fx", "Shader/DepthField/DepthFieldMerge.fx",
 		layout, numElements, "DepthFieldMerge"));
+		*/
 	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/skinAnim/skinAnim.fx", "Shader/skinAnim/skinAnim.fx",
 		animLayout, animElements, "SkinAnim"));

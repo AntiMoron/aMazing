@@ -1,22 +1,18 @@
 #include "ModelClass.hpp"
-
 using namespace aMazing;
+
+const aiMatrix4x4 ModelClass::identityMatrix = {1,0,0,0,
+												0,1,0,0,
+												0,0,1,0,
+												0,0,0,1};
+Assimp::Importer ModelClass::modelImporter;
 ModelClass::ModelClass()
 {
 	is_inited = false;
 	render_time = 0.0f;
-	ZeroMemory(&identityMatrix,sizeof(identityMatrix));
-	identityMatrix.a1 = 1.0f;
-	identityMatrix.b2 = 1.0f;
-	identityMatrix.c3 = 1.0f;
-	identityMatrix.d4 = 1.0f;
 }
 
-
-ModelClass::~ModelClass()
-{
-	importer->FreeScene();
-}
+ModelClass::~ModelClass(){}
 
 HRESULT ModelClass::Initialize(ID3D11Device* device,
 	ID3D11DeviceContext* context,
@@ -47,8 +43,7 @@ HRESULT ModelClass::Initialize(ID3D11Device* device,
 		0;
 
 	// 使用导入器导入选定的模型文件 
-	importer.reset(new Assimp::Importer);
-	scene = (aiScene*)importer->ReadFile(filename.c_str(),
+	scene = (aiScene*)modelImporter.ReadFile(filename.c_str(),
 		ppsteps |
 		aiProcess_GenSmoothNormals |
 		aiProcess_SplitLargeMeshes |
@@ -60,7 +55,7 @@ HRESULT ModelClass::Initialize(ID3D11Device* device,
 	{
 		//failed on loading asset. 
 		//if so get error message & output to console.
-		std::cout << importer->GetErrorString() << std::endl;
+		std::cout << modelImporter.GetErrorString() << std::endl;
 		return E_FAIL;
 	}
 

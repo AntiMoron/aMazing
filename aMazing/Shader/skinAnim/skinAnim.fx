@@ -1,32 +1,4 @@
-Texture2D txDiffuse : register(t0);
-SamplerState samLinear : register(s0);
-
-cbuffer cameraMatrices : register(b0)
-{
-	matrix World;
-	matrix View;
-	matrix Projection;
-};
-
-cbuffer PRS : register(b1)
-{
-	matrix Pos;
-	matrix Rot;
-	matrix Sca;
-}
-
-cbuffer light : register(b2)
-{
-	float4 lightDirection;
-	float4 lightPosition;
-	matrix viewMatrix;
-	matrix projectionMatrix;
-}
-
-cbuffer boneData : register(b3) 
-{
-	matrix bones[128];
-}
+#include"../Buffers.hlsl"
 
 struct VS_INPUT
 {
@@ -47,10 +19,10 @@ struct PS_INPUT
 PS_INPUT VSEntry(VS_INPUT input)
 {
 	PS_INPUT output = (PS_INPUT)0;
-	//uint4 boneIndices = uint4(input.boneIndices & 0xff000000,
-	//	input.boneIndices & 0xff0000, 
-	//	input.boneIndices & 0xff00,
-	//	input.boneIndices & 0xff);
+	/*uint4 boneIndices = uint4(input.boneIndices & 0x000000ff,
+		input.boneIndices & 0x0000ff00, 
+		input.boneIndices & 0x00ff0000,
+		input.boneIndices & 0xff000000);*/
 	uint4 boneIndices = input.boneIndices;
 	matrix boneTransform = (input.Weights.r * bones[boneIndices[0]])
 		+ (input.Weights.g * bones[boneIndices[1]])

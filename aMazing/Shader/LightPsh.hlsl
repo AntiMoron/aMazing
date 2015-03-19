@@ -1,4 +1,4 @@
-
+#include"Buffers.hlsl"
 
 interface iBasicLight
 {
@@ -7,7 +7,7 @@ interface iBasicLight
 	//to illuminate diffuse color factory
 	float3 illuminateDiffuse(float3 vNormal);
 	//to illuminate specular color factory according to specularFactory.
-	float3 illuminateSpecular(float3 vNormal, int specularFactory);
+	float3 illuminateSpecular(float3 vNormal, int specularFactor);
 };
 
 class cAmbientLight : iBaseLight
@@ -20,7 +20,7 @@ class cAmbientLight : iBaseLight
 	{
 		return (float3)0;
 	}
-	float3 illuminateSpecular(float3 vNormal, int specularPower)
+	float3 illuminateSpecular(float3 vNormal, int specularFactor)
 	{
 		return (float3)0;
 	}
@@ -39,7 +39,7 @@ class cDirectionalLight : cAmbientLight
 	float4 vLightDir;
 
 	float3 illuminateDiffuse(float3 vNormal);
-	float3 illuminateSpecular(float3 vNormal,int specularFactory);
+	float3 illuminateSpecular(float3 vNormal, int specularFactor);
 };
 
 class cOmniLight :cAmbientLight
@@ -58,5 +58,5 @@ class cSpotLight : cAmbientLight
 
 class cEnvironmentLight : cAmbientLight
 {
-	float3 illuminateSpecular(float3 vNormal, int specularFactory);
+	float3 illuminateSpecular(float3 vNormal, int specularFactor);
 };

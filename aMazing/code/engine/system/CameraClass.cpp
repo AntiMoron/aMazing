@@ -168,11 +168,13 @@ void CameraClass::Render(ID3D11Device* device,
 	FXMVECTOR _upVector = { upDir.x, upDir.y, upDir.z };
 	upVector = { upDir.x, upDir.y, upDir.z };
 	
+	m_matriceData.eyeDirection = { lookDir.x, lookDir.y, lookDir.z };
 	m_matriceData.world = XMMatrixIdentity();
 	m_matriceData.view = XMMatrixLookAtLH(posVector, focVector, _upVector);
 	m_matriceData.projection = XMMatrixPerspectiveFovLH(fov, ASPECTRATIO, near_far.x, near_far.y);
 
 	decltype(m_matriceData) shaderMatricesData = m_matriceData;
+	shaderMatricesData.eyeDirection = m_matriceData.eyeDirection;
 	shaderMatricesData.world = XMMatrixTranspose(shaderMatricesData.world);
 	shaderMatricesData.view = XMMatrixTranspose(shaderMatricesData.view);
 	shaderMatricesData.projection = XMMatrixTranspose(shaderMatricesData.projection);

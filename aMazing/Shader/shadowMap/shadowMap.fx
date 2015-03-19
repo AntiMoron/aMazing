@@ -1,30 +1,4 @@
-Texture2D txDiffuse : register(t0);
-Texture2D ProTexutre : register(t1);
-
-SamplerState samWrap : register(s0);
-SamplerState samClamp : register(s1);
-
-cbuffer cameraMatrices : register( b0 )
-{
-    matrix World;
-    matrix View;
-    matrix Projection;
-};
-
-cbuffer PRS : register(b1)
-{
-    matrix Pos;
-    matrix Rot;
-    matrix Sca;
-}
-
-cbuffer LightMatrices : register(b2)
-{
-    matrix LightView;
-    matrix LightProjection;
-    float shadowBias;
-}
-
+#include"../Buffers.hlsl"
 struct VS_INPUT
 {
     float4 Pos : POSITION;

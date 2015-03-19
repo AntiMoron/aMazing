@@ -66,16 +66,6 @@ void MutableString::clear()
 	wstr.clear();
 	str.clear();
 }
-
-MutableString& MutableString::operator = (const MutableString& other)
-{
-	str = other.str;
-	wstr = other.wstr;
-	strUpdated = other.strUpdated;
-	wstrUpdated = other.wstrUpdated;
-	return *this;
-}
-
 MutableString& MutableString::operator += (const wchar_t ch)
 {
 	if (strUpdated == true)

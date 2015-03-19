@@ -1,6 +1,5 @@
 #pragma once
 
-#include"../../common/CommonDxSupport.hpp"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -25,6 +24,9 @@ namespace aMazing
 {
 	class ModelClass : public BasicObject
 	{
+	private:
+		static Assimp::Importer modelImporter;
+		const static aiMatrix4x4 identityMatrix;
 	public:
 		ModelClass();
 		~ModelClass();
@@ -32,11 +34,6 @@ namespace aMazing
 		HRESULT Initialize(ID3D11Device* device,
 			ID3D11DeviceContext* context,
 			MutableString&& string);
-	/*
-		bool ReadModelRecursively(const aiScene* pScene,
-			float AnimationTime,
-			const aiNode* pNode,
-			const aiMatrix4x4& ParentTransform);*/
 
 		bool isInited()const;
 
@@ -68,7 +65,6 @@ namespace aMazing
 			float animationTime);
 
 		volatile bool is_inited;
-		std::unique_ptr<Assimp::Importer> importer;
 
 		//the data loaded from file.
 		aiScene* scene;
@@ -86,8 +82,7 @@ namespace aMazing
 		std::vector<std::unique_ptr<std::vector<SkinVertex> > > vertices;
 		//the queue of buffer that all the parts from model divided from all the vertices 
 		std::vector<std::unique_ptr<GPUMutableVerticeBuffer<SkinVertex> > > vertexBuffer;
-	
-		aiMatrix4x4 identityMatrix;
+
 		std::unique_ptr<SceneAnimator> sceneAnimator;
 		//the constant buffer that update bones' transformations.
 		GPUConstantBuffer<BonesBindData> boneTransformations;
