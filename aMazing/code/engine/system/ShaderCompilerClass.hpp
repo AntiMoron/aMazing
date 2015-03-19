@@ -18,23 +18,12 @@ namespace aMazing
 	public:
 		ShaderCompilerClass();
 		~ShaderCompilerClass();
-
-		static HRESULT compileFromFile(MutableString& filename,
-			const char* entryPoint,
-			const char* shaderTarget, 
-			ID3DBlob** output);
-
-		static HRESULT compileFromFile(MutableString&& filename,
+		static HRESULT compileFromFile(const char* filename,
 			const char* entryPoint,
 			const char* shaderTarget,
 			ID3DBlob** output);
 
-	
-		static HRESULT compileString(MutableString& str,
-			const char* entryPoint,
-			const char* shaderTarget,
-			ID3DBlob** output);
-		static HRESULT compileString(MutableString&& str,
+		static HRESULT compileString(const char* str,
 			const char* entryPoint,
 			const char* shaderTarget,
 			ID3DBlob** output);

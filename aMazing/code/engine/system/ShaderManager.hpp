@@ -13,8 +13,8 @@ namespace aMazing
 
 		HRESULT addPair(ID3D11Device* device,
 			ID3D11DeviceContext* context,
-			MutableString&& vfilename,
-			MutableString&& pfilename,
+			const char* vfilename,
+			const char* pfilename,
 			D3D11_INPUT_ELEMENT_DESC layout[],
 			unsigned int layoutCount,
 			std::string&& shadername);

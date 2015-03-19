@@ -13,23 +13,23 @@ namespace aMazing
 
 		HRESULT createShaderFromFile(ID3D11Device* device,
 			ID3D11DeviceContext* context,
-			MutableString & filename,
+			const char* filename,
 			D3D11_INPUT_ELEMENT_DESC layoutdesc[],
 			unsigned int numElements);
 		HRESULT createShaderFromMemory(ID3D11Device* device,
 			ID3D11DeviceContext* context,
-			MutableString & slsource,
+			const char* slsource,
 			D3D11_INPUT_ELEMENT_DESC layoutdesc[],
 			unsigned int numElements);
 
 		HRESULT createShaderFromFile(ID3D11Device* device,
 			ID3D11DeviceContext* context,
-			MutableString && filename,
+			const wchar_t* filename,
 			D3D11_INPUT_ELEMENT_DESC layoutdesc[],
 			unsigned int numElements);
 		HRESULT createShaderFromMemory(ID3D11Device* device,
 			ID3D11DeviceContext* context,
-			MutableString && slsource,
+			const wchar_t* slsource,
 			D3D11_INPUT_ELEMENT_DESC layoutdesc[],
 			unsigned int numElements);
 

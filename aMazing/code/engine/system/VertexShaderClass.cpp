@@ -26,8 +26,8 @@ VertexShaderClass::~VertexShaderClass()
 
 HRESULT VertexShaderClass::createShaderFromFile(ID3D11Device* device,
 	ID3D11DeviceContext* context,
-	MutableString & filename,
-	D3D11_INPUT_ELEMENT_DESC layoutdesc[],
+	const char* fileName,
+	D3D11_INPUT_ELEMENT_DESC layoutDesc[],
 	unsigned int numElements)
 {
 	//Create Vertex Shader.If isInited is true,that means the class has already been initialized.
@@ -39,7 +39,7 @@ HRESULT VertexShaderClass::createShaderFromFile(ID3D11Device* device,
 	HRESULT hr;
 	isInited = false;
 	ID3DBlob* output = nullptr;
-	hr = ShaderCompilerClass::compileFromFile(filename, "VSEntry", "vs_5_0", &output);
+	hr = ShaderCompilerClass::compileFromFile(fileName, "VSEntry", "vs_5_0", &output);
 	if (FAILED(hr))
 	{
 		return E_FAIL;
@@ -56,7 +56,7 @@ HRESULT VertexShaderClass::createShaderFromFile(ID3D11Device* device,
 		return hr;
 	}
 	// Create the input layout
-	hr = device->CreateInputLayout(layoutdesc, numElements, output->GetBufferPointer(),
+	hr = device->CreateInputLayout(layoutDesc, numElements, output->GetBufferPointer(),
 		output->GetBufferSize(), &layout);
 	output->Release();
 
@@ -70,8 +70,8 @@ HRESULT VertexShaderClass::createShaderFromFile(ID3D11Device* device,
 
 HRESULT VertexShaderClass::createShaderFromMemory(ID3D11Device* device,
 	ID3D11DeviceContext* context,
-	MutableString & slsource,
-	D3D11_INPUT_ELEMENT_DESC layoutdesc[],
+	const char* slsource,
+	D3D11_INPUT_ELEMENT_DESC layoutDesc[],
 	unsigned int numElements)
 {
 	//Create Vertex Shader.If isInited is true,that means the class has already been initialized.
@@ -100,7 +100,7 @@ HRESULT VertexShaderClass::createShaderFromMemory(ID3D11Device* device,
 		return hr;
 	}
 	// Create the input layout
-	hr = device->CreateInputLayout(layoutdesc, numElements, output->GetBufferPointer(),
+	hr = device->CreateInputLayout(layoutDesc, numElements, output->GetBufferPointer(),
 		output->GetBufferSize(), &layout);
 	output->Release();
 
@@ -115,90 +115,26 @@ HRESULT VertexShaderClass::createShaderFromMemory(ID3D11Device* device,
 
 HRESULT VertexShaderClass::createShaderFromFile(ID3D11Device* device,
 	ID3D11DeviceContext* context,
-	MutableString && filename,
-	D3D11_INPUT_ELEMENT_DESC layoutdesc[], 
+	const wchar_t* fileName,
+	D3D11_INPUT_ELEMENT_DESC layoutDesc[],
 	unsigned int numElements)
 {
-//Create Vertex Shader.If isInited is true,that means the class has already been initialized.
-//return fail.
-	if (isInited == true)
-	{
-		return E_FAIL;
-	}
-	HRESULT hr;
-	isInited = false;
-	ID3DBlob* output = nullptr;
-	hr = ShaderCompilerClass::compileFromFile(filename,"VSEntry","vs_5_0",&output);
-	if (FAILED(hr))
-	{
-		return E_FAIL;
-	}
-	if (output == nullptr)
-	{
-		return E_FAIL;
-	}
-	hr = device->CreateVertexShader(output->GetBufferPointer(),
-		output->GetBufferSize(),
-		nullptr,&shader);
-	if (FAILED(hr))
-	{
-		return hr;
-	}
-
-	// Create the input layout
-	hr = device->CreateInputLayout(layoutdesc, numElements, output->GetBufferPointer(),
-		output->GetBufferSize(), &layout);
-	output->Release();
-
-	if (FAILED(hr))
-		return hr;
-	isInited = true;
-	return S_OK;
+	return createShaderFromFile(device,context,
+		MutableString(fileName).getMultiByteString().c_str(),
+		layoutDesc,
+		numElements);
 }
 
 HRESULT VertexShaderClass::createShaderFromMemory(ID3D11Device* device,
 	ID3D11DeviceContext* context,
-	MutableString && slsource,
-	D3D11_INPUT_ELEMENT_DESC layoutdesc[],
+	const wchar_t* slsource,
+	D3D11_INPUT_ELEMENT_DESC layoutDesc[],
 	unsigned int numElements)
 {
-	//Create Vertex Shader.If isInited is true,that means the class has already been initialized.
-	//return fail.
-	if (isInited == true)
-	{
-		return E_FAIL;
-	}
-	HRESULT hr;
-	isInited = false;
-	ID3DBlob* output = nullptr;
-	hr = ShaderCompilerClass::compileString(slsource, "VSEntry", "vs_5_0", &output);
-	if (FAILED(hr))
-	{
-		return E_FAIL;
-	}
-	if (output == nullptr)
-	{
-		return E_FAIL;
-	}
-	hr = device->CreateVertexShader(output->GetBufferPointer(),
-		output->GetBufferSize(),
-		nullptr, &shader);
-	if (FAILED(hr))
-	{
-		return hr;
-	}
-	// Create the input layout
-	hr = device->CreateInputLayout(layoutdesc, numElements, output->GetBufferPointer(),
-		output->GetBufferSize(), &layout);
-	output->Release();
-
-	if (FAILED(hr))
-	{
-		return hr;
-	}
-
-	isInited = true;
-	return S_OK;
+	return createShaderFromMemory(device,context,
+		MutableString(slsource).getMultiByteString().c_str(),
+		layoutDesc,
+		numElements);
 }
 
 HRESULT VertexShaderClass::bindShader(ID3D11Device* device,

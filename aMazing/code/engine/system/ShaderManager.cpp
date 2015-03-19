@@ -17,8 +17,8 @@ ShaderManager::~ShaderManager(){}
 
 HRESULT ShaderManager::addPair(ID3D11Device* device,
 	ID3D11DeviceContext* context, 
-	MutableString&& vfilename,
-	MutableString&& pfilename,
+	const char* vfilename,
+	const char* pfilename,
 	D3D11_INPUT_ELEMENT_DESC layout[],
 	unsigned int layoutCount,
 	std::string&& shadername)
@@ -28,14 +28,14 @@ HRESULT ShaderManager::addPair(ID3D11Device* device,
 	hr = v->createShaderFromFile(device,context,vfilename,layout,layoutCount);
 	if (FAILED(hr))
 	{
-		printf("Error At : %s\n",vfilename.getMultiByteString().c_str());
+		std::printf("Error At : %s\n",vfilename);
 		return hr;
 	}
 	PixelShaderClass* p = new PixelShaderClass;
 	hr = p->createShaderFromFile(device,context,pfilename);
 	if (FAILED(hr))
 	{
-		printf("Error At : %s\n", pfilename.getMultiByteString().c_str());
+		std::printf("Error At : %s\n", pfilename);
 		return hr;
 	}
 	std::shared_ptr<ShaderPair> newpair(new ShaderPair(&v,&p,std::move(shadername)));

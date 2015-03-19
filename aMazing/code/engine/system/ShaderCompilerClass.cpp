@@ -205,34 +205,7 @@ ShaderCompilerClass::~ShaderCompilerClass()
 	;
 }
 
-
-HRESULT ShaderCompilerClass::compileFromFile(MutableString& filename,
-	const char* entryPoint,
-	const char* shaderTarget,
-	ID3DBlob** output)
-{
-	return compileFromFile(std::forward<MutableString&&>(filename), entryPoint, shaderTarget, output);
-	//FileTracker ft;
-	//if (false == ft.LoadFile(filename))
-	//{
-	//	return E_FAIL;
-	//}
-	//MutableString stringFromFile = ft.getContext();
-	//HRESULT hr;
-	//hr = compileString(stringFromFile, entryPoint, shaderTarget, output);
-	//if (FAILED(hr))
-	//{
-	//	return hr;
-	//}
-	//if (output == nullptr)
-	//{
-	//	return E_FAIL;
-	//}
-	//return S_OK;
-}
-
-
-HRESULT ShaderCompilerClass::compileFromFile(MutableString&& filename,
+HRESULT ShaderCompilerClass::compileFromFile(const char* filename,
 	const char* entryPoint,
 	const char* shaderTarget,
 	ID3DBlob** output)
@@ -247,8 +220,7 @@ HRESULT ShaderCompilerClass::compileFromFile(MutableString&& filename,
 	{
 		return E_FAIL;
 	}
-
-	auto wFileName = filename.getWideString();
+	auto wFileName = MutableString(filename).getWideString();
 	// Check we can find the file first
 	hr = aFindMediaFileCch(str, MAX_PATH, wFileName.c_str());
 	if (FAILED(hr))
@@ -334,18 +306,7 @@ HRESULT ShaderCompilerClass::compileFromFile(MutableString&& filename,
 	return S_OK;
 }
 
-HRESULT ShaderCompilerClass::compileString(MutableString& str
-	, const char* entryPoint,
-	const char* shaderTarget,
-	ID3DBlob** output)
-{
-	return compileString(std::forward<MutableString&&>(str),
-		entryPoint,
-		shaderTarget,
-		output);
-}
-
-HRESULT ShaderCompilerClass::compileString(MutableString&& str
+HRESULT ShaderCompilerClass::compileString(const char* str
 	, const char* entryPoint,
 	const char* shaderTarget,
 	ID3DBlob** output)
@@ -362,7 +323,7 @@ HRESULT ShaderCompilerClass::compileString(MutableString&& str
 #endif
 	ID3DBlob* errorMsg = nullptr;
 	ID3DBlob* compiled = nullptr;
-	std::string shaderstr = str.getMultiByteString();
+	std::string shaderstr = MutableString(str).getMultiByteString();
 	std::cout << shaderstr << std::endl;
 	hr = D3DCompile(shaderstr.c_str(),
 		shaderstr.length(),
