@@ -4,7 +4,6 @@ using namespace aMazing;
 PixelShaderClass::PixelShaderClass()
 {
 	type = SHADER_PIXEL;
-	isInited = false;
 	shader = nullptr;
 }
 
@@ -47,18 +46,17 @@ HRESULT PixelShaderClass::createShaderFromFile(ID3D11Device* device,
 	}
 	HRESULT hr;
 	isInited = false;
-	ID3DBlob* output = nullptr;
-	hr = ShaderCompilerClass::compileFromFile(fileName, "PSEntry", "ps_5_0", &output);
+	hr = ShaderCompilerClass::compileFromFile(fileName, "PSEntry", "ps_5_0", &pShaderContextBuffer);
 	if (FAILED(hr))
 	{
 		return E_FAIL;
 	}
-	if (output == nullptr)
+	if (pShaderContextBuffer == nullptr)
 	{
 		return E_FAIL;
 	}
-	hr = device->CreatePixelShader(output->GetBufferPointer(),
-		output->GetBufferSize(),
+	hr = device->CreatePixelShader(pShaderContextBuffer->GetBufferPointer(),
+		pShaderContextBuffer->GetBufferSize(),
 		nullptr, &shader);
 	if (FAILED(hr))
 	{
@@ -80,18 +78,17 @@ HRESULT PixelShaderClass::createShaderFromMemory(ID3D11Device* device,
 	}
 	HRESULT hr;
 	isInited = false;
-	ID3DBlob* output = nullptr;
-	hr = ShaderCompilerClass::compileString(slsource, "PSEntry", "ps_5_0", &output);
+	hr = ShaderCompilerClass::compileString(slsource, "PSEntry", "ps_5_0", &pShaderContextBuffer);
 	if (FAILED(hr))
 	{
 		return E_FAIL;
 	}
-	if (output == nullptr)
+	if (pShaderContextBuffer == nullptr)
 	{
 		return E_FAIL;
 	}
-	hr = device->CreatePixelShader(output->GetBufferPointer(),
-		output->GetBufferSize(),
+	hr = device->CreatePixelShader(pShaderContextBuffer->GetBufferPointer(),
+		pShaderContextBuffer->GetBufferSize(),
 		nullptr, &shader);
 	if (FAILED(hr))
 	{

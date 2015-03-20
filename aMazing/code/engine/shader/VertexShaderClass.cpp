@@ -4,7 +4,6 @@ using namespace aMazing;
 VertexShaderClass::VertexShaderClass()
 {
 	type = SHADER_VERTEX;
-	isInited = false;
 	shader = nullptr;
 	layout = nullptr;
 }
@@ -12,16 +11,8 @@ VertexShaderClass::VertexShaderClass()
 
 VertexShaderClass::~VertexShaderClass()
 {
-	if (shader != nullptr)
-	{
-		shader->Release();
-		shader = nullptr;
-	}
-	if (layout != nullptr)
-	{
-		layout->Release();
-		layout = nullptr;
-	}
+	SAFE_RELEASE(shader);
+	SAFE_RELEASE(layout);
 }
 
 HRESULT VertexShaderClass::createShaderFromFile(ID3D11Device* device,
@@ -38,27 +29,25 @@ HRESULT VertexShaderClass::createShaderFromFile(ID3D11Device* device,
 	}
 	HRESULT hr;
 	isInited = false;
-	ID3DBlob* output = nullptr;
-	hr = ShaderCompilerClass::compileFromFile(fileName, "VSEntry", "vs_5_0", &output);
+	hr = ShaderCompilerClass::compileFromFile(fileName, "VSEntry", "vs_5_0", &pShaderContextBuffer);
 	if (FAILED(hr))
 	{
 		return E_FAIL;
 	}
-	if (output == nullptr)
+	if (pShaderContextBuffer == nullptr)
 	{
 		return E_FAIL;
 	}
-	hr = device->CreateVertexShader(output->GetBufferPointer(),
-		output->GetBufferSize(),
+	hr = device->CreateVertexShader(pShaderContextBuffer->GetBufferPointer(),
+		pShaderContextBuffer->GetBufferSize(),
 		nullptr, &shader);
 	if (FAILED(hr))
 	{
 		return hr;
 	}
 	// Create the input layout
-	hr = device->CreateInputLayout(layoutDesc, numElements, output->GetBufferPointer(),
-		output->GetBufferSize(), &layout);
-	output->Release();
+	hr = device->CreateInputLayout(layoutDesc, numElements, pShaderContextBuffer->GetBufferPointer(),
+		pShaderContextBuffer->GetBufferSize(), &layout);
 
 	if (FAILED(hr))
 	{
@@ -82,27 +71,26 @@ HRESULT VertexShaderClass::createShaderFromMemory(ID3D11Device* device,
 	}
 	HRESULT hr;
 	isInited = false;
-	ID3DBlob* output = nullptr;
-	hr = ShaderCompilerClass::compileString(slsource, "VSEntry", "vs_5_0", &output);
+	hr = ShaderCompilerClass::compileString(slsource, "VSEntry", "vs_5_0", &pShaderContextBuffer);
 	if (FAILED(hr))
 	{
 		return E_FAIL;
 	}
-	if (output == nullptr)
+	if (pShaderContextBuffer == nullptr)
 	{
 		return E_FAIL;
 	}
-	hr = device->CreateVertexShader(output->GetBufferPointer(),
-		output->GetBufferSize(),
+	hr = device->CreateVertexShader(pShaderContextBuffer->GetBufferPointer(),
+		pShaderContextBuffer->GetBufferSize(),
 		nullptr, &shader);
 	if (FAILED(hr))
 	{
 		return hr;
 	}
 	// Create the input layout
-	hr = device->CreateInputLayout(layoutDesc, numElements, output->GetBufferPointer(),
-		output->GetBufferSize(), &layout);
-	output->Release();
+	hr = device->CreateInputLayout(layoutDesc, numElements, 
+		pShaderContextBuffer->GetBufferPointer(),
+		pShaderContextBuffer->GetBufferSize(), &layout);
 
 	if (FAILED(hr))
 	{

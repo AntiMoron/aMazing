@@ -453,6 +453,7 @@
     <ClInclude Include="code\engine\render\CommonPipeLine.hpp" />
     <ClInclude Include="code\engine\render\effect\RenderPipeline.hpp" />
     <ClInclude Include="code\engine\render\material\MaterialPipeline.hpp" />
+    <ClInclude Include="code\engine\shader\CommonShader.hpp" />
     <ClInclude Include="code\engine\shader\PixelShaderClass.hpp" />
     <ClInclude Include="code\engine\shader\ShaderClass.hpp" />
     <ClInclude Include="code\engine\shader\ShaderCompilerClass.hpp" />

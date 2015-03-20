@@ -1,6 +1,8 @@
 #pragma once
 #include"../system/MutableString.hpp"
+#include"../../common/CommonDef.hpp"
 #include"ShaderCompilerClass.hpp"
+#include<memory>
 namespace aMazing
 {
 	class ShaderClass
@@ -13,14 +15,30 @@ namespace aMazing
 			SHADER_PIXEL,
 		};
 	
-		ShaderClass();
-		~ShaderClass();
+		ShaderClass()
+		{
+			isInited = false;
+			type = SHADER_NO_TYPE;
+			pShaderContextBuffer = nullptr;
+			pClassLinkage = nullptr;
+			pShaderReflector = nullptr;
+		}
+		virtual ~ShaderClass()
+		{
+			SAFE_RELEASE(pShaderContextBuffer);
+			SAFE_RELEASE(pClassLinkage);
+			SAFE_RELEASE(pShaderReflector);
+		}
 	
-		SHADER_TYPE getType() const;
-	private:
-		friend class VertexShaderClass;
-		friend class PixelShaderClass;
-		bool isInited;
+		const SHADER_TYPE getType() const
+		{
+			return type;
+		}
+	protected:
+		volatile bool isInited;
 		SHADER_TYPE type;
+		ID3DBlob* pShaderContextBuffer;
+		ID3D11ClassLinkage* pClassLinkage;
+		ID3D11ShaderReflection* pShaderReflector;
 	};
 }

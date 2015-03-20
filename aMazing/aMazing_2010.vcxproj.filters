@@ -309,6 +309,9 @@
     <ClInclude Include="code\engine\shader\VertexShaderClass.hpp">
       <Filter>Engine\shader</Filter>
     </ClInclude>
+    <ClInclude Include="code\engine\shader\CommonShader.hpp">
+      <Filter>Engine\shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\collision\CollisionIntersection.cpp">
