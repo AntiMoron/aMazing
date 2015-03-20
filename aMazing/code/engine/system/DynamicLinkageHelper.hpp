@@ -42,7 +42,6 @@ namespace aMazing
 				pReflector->GetVariableByName("g_abstractAmbientLighting");
 			g_iAmbientLightingOffset = pAmbientLightingVar->GetInterfaceSlot(0);
 
-			
 			return S_OK;
 		}
 

@@ -1,7 +1,7 @@
 #pragma once
 #include"../system/PrimitivePipeline.hpp"
-#include"../system/ShaderManager.hpp"
 #include"../system/FrameBuffer.hpp"
+#include"../shader/ShaderManager.hpp"
 #include"../../common/CommonUtil.hpp"
 #include<functional>
 #include<memory>

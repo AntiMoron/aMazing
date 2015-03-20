@@ -3,7 +3,7 @@
 #include<vector>
 #include<algorithm>
 #include"ShaderPair.hpp"
-#include"MutableString.hpp"
+#include"../system/MutableString.hpp"
 namespace aMazing
 {
 	class ShaderManager
@@ -31,7 +31,7 @@ namespace aMazing
 
 		std::vector<std::shared_ptr<ShaderPair> > vec;
 		bool bind_enabled;
-};
+	};
 }
 
 #define SHADERS (aMazing::ShaderManager::getInstance())

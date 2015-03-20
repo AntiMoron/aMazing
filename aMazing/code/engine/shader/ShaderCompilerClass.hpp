@@ -6,9 +6,9 @@
 #include <utility>
 #include <iterator>
 #include "../../common/CommonTemplates.hpp"
-#include "../system/ShaderInclude.hpp"
+#include "../shader/ShaderInclude.hpp"
 #include "../system/FileTracker.hpp"
-#include "MutableString.hpp"
+#include "../system/MutableString.hpp"
 #define D3D_COMPILE_STANDARD_FILE_INCLUDE ((ID3DInclude*)(UINT_PTR)1)
 
 namespace aMazing

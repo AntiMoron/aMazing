@@ -14,7 +14,7 @@
 #include "../data/Vertex.hpp"
 #include "../../common/CommonUtil.hpp"
 #include "../system/BasicObject.hpp"
-#include "../system/ShaderManager.hpp"
+#include "../shader/ShaderManager.hpp"
 #include "../system/TextureClass.hpp"
 #include "../data/BonesBindData.hpp"
 #include "SceneAnimator.hpp"

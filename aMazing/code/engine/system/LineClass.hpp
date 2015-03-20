@@ -3,7 +3,7 @@
 #include"../data/Vertex.hpp"
 #include"GPUConstantBuffer.hpp"
 #include"GPUMutableVerticesBuffer.hpp"
-#include"ShaderManager.hpp"
+#include"../shader/ShaderManager.hpp"
 
 namespace aMazing
 {
