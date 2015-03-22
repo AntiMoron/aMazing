@@ -1,6 +1,7 @@
 #include "WindowClass.hpp"
 using namespace aMazing;
 
+HWND WindowClass::gHwnd = nullptr;
 WindowClass::WindowClass()
 {
 }

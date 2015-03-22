@@ -1,5 +1,4 @@
 #include <windows.h>
-#include "engine/system/D3DClass.hpp"
 #include "engine/system/CameraClass.hpp"
 #include "engine/system/InputClass.hpp"
 #include "resource.h"
@@ -8,17 +7,17 @@
 #include "MazeGenerator.hpp"
 #include "engine/system/PrimitivePipeline.hpp"
 #include "engine/system/AmbientLight.hpp"
+#include "engine/system/D3DManager.hpp"
 #include "aMazingScene.hpp"
 using namespace aMazing;
 HINSTANCE g_hInst = nullptr;
 HWND g_hWnd = nullptr;
 
-D3DClass d3d;
 aMazingScene scene;
 
-#define DEVICE (d3d.getDevice())
-#define CONTEXT (d3d.getContext())
-#define DEPTH (d3d.getDepthStencilView())
+#define DEVICE (D3DManager::getDevice(DEFAULT_DEVICE))
+#define CONTEXT (D3DManager::getContext(DEFAULT_CONTEXT))
+#define DEPTH (D3DManager::getDepthStencilView(DEFAULT_DEPTH_STENCIL_VIEW))
 
 HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow );
 HRESULT InitDevice();
@@ -93,6 +92,7 @@ HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow )
                            NULL );
     if( !g_hWnd )
         return E_FAIL;
+	WindowClass::setWindowHandler(g_hWnd);
 
     ShowWindow( g_hWnd, nCmdShow );
 
@@ -111,8 +111,7 @@ HRESULT InitDevice()
 	WindowClass::getInstance().setWidth(width);
 	WindowClass::getInstance().setHeight(height);
 	//Initialize all the thing we need to prepare for rendering work.
-	d3d.Initialize(g_hWnd);
-	
+	D3DManager::Initialize();
 	// Load the Texture
 	hr = TEXTURE.addTexture(DEVICE, CONTEXT, "seafloor.dds");
 	if (FAILED(hr))
@@ -135,7 +134,7 @@ HRESULT InitDevice()
 		return hr;
 
 	//aditional operations.
-	GRAPHICS.Initialize(&d3d);
+	GRAPHICS.Initialize(DEVICE,CONTEXT);
 	// Define the input layout
 	D3D11_INPUT_ELEMENT_DESC layout[] =
 	{
@@ -318,9 +317,9 @@ void CameraProc()
 void Render()
 {
 	CameraProc();
-	d3d.clearRenderTarget();
+	D3DManager::clearRenderTarget();
 	
-	scene.Render(&d3d);
+	scene.Render(DEVICE,CONTEXT);
 
-	d3d.Present(true);//V-Sync
+	D3DManager::present(true);//V-Sync
 }

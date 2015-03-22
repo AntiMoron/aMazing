@@ -285,9 +285,6 @@
     <ClInclude Include="code\engine\system\DynamicLinkageHelper.hpp">
       <Filter>Engine\system</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\system\DeviceManager.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
     <ClInclude Include="code\engine\shader\ShaderClass.hpp">
       <Filter>Engine\shader</Filter>
     </ClInclude>
@@ -309,8 +306,9 @@
     <ClInclude Include="code\engine\shader\VertexShaderClass.hpp">
       <Filter>Engine\shader</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\shader\CommonShader.hpp">
-      <Filter>Engine\shader</Filter>
+    <ClInclude Include="code\engine\system\ManagedTypes.hpp" />
+    <ClInclude Include="code\engine\system\D3DManager.hpp">
+      <Filter>Engine\system</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -382,12 +380,6 @@
     <ClCompile Include="code\Maze.cpp" />
     <ClCompile Include="code\MazeGenerator.cpp" />
     <ClCompile Include="code\WrappedCamera.cpp" />
-    <ClCompile Include="code\engine\system\DeviceManager.cpp">
-      <Filter>Engine\system</Filter>
-    </ClCompile>
-    <ClCompile Include="code\engine\shader\ShaderClass.cpp">
-      <Filter>Engine\shader</Filter>
-    </ClCompile>
     <ClCompile Include="code\engine\shader\ShaderCompilerClass.cpp">
       <Filter>Engine\shader</Filter>
     </ClCompile>
@@ -402,6 +394,9 @@
     </ClCompile>
     <ClCompile Include="code\engine\shader\VertexShaderClass.cpp">
       <Filter>Engine\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\D3DManager.cpp">
+      <Filter>Engine\system</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

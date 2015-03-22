@@ -3,6 +3,7 @@ using namespace aMazing;
 
 D3DClass::D3DClass()
 {
+	bIsInited = false;
 	g_driverType = D3D_DRIVER_TYPE_NULL;
 	g_featureLevel = D3D_FEATURE_LEVEL_11_0;
 	g_pd3dDevice = nullptr;
@@ -262,6 +263,7 @@ HRESULT D3DClass::Initialize(HWND hwnd)
 	}
 	float rgba[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 	g_pImmediateContext->OMSetBlendState(AlphaRenderingEnabled, rgba, 0xffffffff);
+	bIsInited = true;
 	return S_OK;
 }
 
@@ -283,6 +285,12 @@ ID3D11RenderTargetView* D3DClass::getRenderTargetView()
 ID3D11DepthStencilView* D3DClass::getDepthStencilView()
 {
 	return g_pDepthStencilView;
+}
+
+
+const bool D3DClass::isInited() const
+{
+	return bIsInited;
 }
 
 void D3DClass::EnableDepth()

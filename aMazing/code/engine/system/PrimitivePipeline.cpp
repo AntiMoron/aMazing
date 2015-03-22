@@ -1,4 +1,5 @@
 #include "PrimitivePipeline.hpp"
+
 using namespace aMazing;
 PrimitivePipeline::PrimitivePipeline()
 {
@@ -15,12 +16,12 @@ PrimitivePipeline& PrimitivePipeline::getInstance()
 	return instance;
 }
 
-HRESULT PrimitivePipeline::Initialize(D3DClass* d3d)
+HRESULT PrimitivePipeline::Initialize(ID3D11Device* device,
+	ID3D11DeviceContext* context)
 {
 	HRESULT hr;
-	d3dptr = d3d;
-	ID3D11Device* device = d3dptr->getDevice();
-	ID3D11DeviceContext* context = d3dptr->getContext();
+	devicePtr.reset(device);
+	contextPtr.reset(context);
 	blk.reset(new BlockClass);
 	rec.reset(new RectangleClass);
 	line.reset(new LineClass);
@@ -45,30 +46,24 @@ HRESULT PrimitivePipeline::Initialize(D3DClass* d3d)
 void PrimitivePipeline::RenderRectangle(unsigned short l, unsigned short t,
 	unsigned short r, unsigned short b)
 {
-	ID3D11Device* device = d3dptr->getDevice();
-	ID3D11DeviceContext* context = d3dptr->getContext();
-	d3dptr->DisableDepth();
-	rec->Render(device,context,l,t,r,b);
-	d3dptr->EnableDepth();
+	D3DManager::disableDepth();
+	rec->Render(devicePtr.get(),contextPtr.get(),l,t,r,b);
+	D3DManager::enableDepth();
 }
 
 void PrimitivePipeline::RenderBox(float x, float y, float z,
 	float rx, float ry, float rz,
 	float sx, float sy, float sz)
 {
-	ID3D11Device* device = d3dptr->getDevice();
-	ID3D11DeviceContext* context = d3dptr->getContext();
 	blk->setPosition(XMFLOAT3(x, y, z));
 	blk->setRotation(XMFLOAT3(rx, ry, rz));
 	blk->setScaling(XMFLOAT3(sx, sy, sz));
-	blk->Render(device, context);
+	blk->Render(devicePtr.get(), contextPtr.get());
 }
 
 
 void PrimitivePipeline::RenderLine(float sx, float sy, float sz,
 	float ex, float ey, float ez)
 {
-	ID3D11Device* device = d3dptr->getDevice();
-	ID3D11DeviceContext* context = d3dptr->getContext();
-	line->Render(device, context, sx, sy, sz, ex, ey, ez);
+	line->Render(devicePtr.get(), contextPtr.get(), sx, sy, sz, ex, ey, ez);
 }

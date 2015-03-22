@@ -19,6 +19,7 @@ namespace aMazing
 		ID3D11RenderTargetView* getRenderTargetView();
 		ID3D11DepthStencilView* getDepthStencilView();
 
+		const bool isInited() const;
 		void EnableDepth();
 		void DisableDepth();
 
@@ -29,6 +30,7 @@ namespace aMazing
 
 		size_t getFps();
 	private:
+		volatile bool bIsInited;
 		D3D_DRIVER_TYPE                     g_driverType;
 		D3D_FEATURE_LEVEL                   g_featureLevel;
 		ID3D11Device*                       g_pd3dDevice;

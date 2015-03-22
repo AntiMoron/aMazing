@@ -2,7 +2,6 @@
 #include"../system/MutableString.hpp"
 #include"../../common/CommonDef.hpp"
 #include"ShaderCompilerClass.hpp"
-#include<memory>
 namespace aMazing
 {
 	class ShaderClass

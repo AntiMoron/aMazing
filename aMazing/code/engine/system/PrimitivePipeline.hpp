@@ -1,6 +1,6 @@
 #pragma once
 #include<memory>
-#include"D3DClass.hpp"
+#include"D3DManager.hpp"
 #include"BlockClass.hpp"
 #include"RectangleClass.hpp"
 #include"Defines.hpp"
@@ -13,7 +13,8 @@ namespace aMazing
 	public:
 		static PrimitivePipeline& getInstance();
 
-		HRESULT Initialize(D3DClass* d3d);
+		HRESULT Initialize(ID3D11Device* device, 
+			ID3D11DeviceContext* context);
 
 		void RenderRectangle(unsigned short l,unsigned short t,
 			unsigned short r, unsigned short b);
@@ -26,7 +27,8 @@ namespace aMazing
 		PrimitivePipeline();
 		~PrimitivePipeline();
 
-		D3DClass* d3dptr;
+		std::shared_ptr<ID3D11Device> devicePtr;
+		std::shared_ptr<ID3D11DeviceContext> contextPtr;
 		std::unique_ptr<LineClass> line;
 		std::unique_ptr<BlockClass> blk;
 		std::unique_ptr<RectangleClass> rec;

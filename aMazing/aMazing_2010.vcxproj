@@ -384,7 +384,6 @@
     <ClCompile Include="code\common\CommonFunction.cpp" />
     <ClCompile Include="code\engine\animate\ModelClass.cpp" />
     <ClCompile Include="code\engine\shader\PixelShaderClass.cpp" />
-    <ClCompile Include="code\engine\shader\ShaderClass.cpp" />
     <ClCompile Include="code\engine\shader\ShaderCompilerClass.cpp" />
     <ClCompile Include="code\engine\shader\ShaderManager.cpp" />
     <ClCompile Include="code\engine\shader\ShaderPair.cpp" />
@@ -393,7 +392,7 @@
     <ClCompile Include="code\engine\system\BasicObject.cpp" />
     <ClCompile Include="code\engine\system\CameraClass.cpp" />
     <ClCompile Include="code\engine\system\D3DClass.cpp" />
-    <ClCompile Include="code\engine\system\DeviceManager.cpp" />
+    <ClCompile Include="code\engine\system\D3DManager.cpp" />
     <ClCompile Include="code\engine\system\FileTracker.cpp" />
     <ClCompile Include="code\engine\system\FrameBuffer.cpp" />
     <ClCompile Include="code\engine\system\FrustumClass.cpp" />
@@ -453,7 +452,6 @@
     <ClInclude Include="code\engine\render\CommonPipeLine.hpp" />
     <ClInclude Include="code\engine\render\effect\RenderPipeline.hpp" />
     <ClInclude Include="code\engine\render\material\MaterialPipeline.hpp" />
-    <ClInclude Include="code\engine\shader\CommonShader.hpp" />
     <ClInclude Include="code\engine\shader\PixelShaderClass.hpp" />
     <ClInclude Include="code\engine\shader\ShaderClass.hpp" />
     <ClInclude Include="code\engine\shader\ShaderCompilerClass.hpp" />
@@ -467,8 +465,8 @@
     <ClInclude Include="code\engine\system\BlockClass.hpp" />
     <ClInclude Include="code\engine\system\CameraClass.hpp" />
     <ClInclude Include="code\engine\system\D3DClass.hpp" />
+    <ClInclude Include="code\engine\system\D3DManager.hpp" />
     <ClInclude Include="code\engine\system\Defines.hpp" />
-    <ClInclude Include="code\engine\system\DeviceManager.hpp" />
     <ClInclude Include="code\engine\system\DynamicLinkageHelper.hpp" />
     <ClInclude Include="code\engine\system\FileTracker.hpp" />
     <ClInclude Include="code\engine\system\FrameBuffer.hpp" />
@@ -482,6 +480,7 @@
     <ClInclude Include="code\engine\system\LightEnum.hpp" />
     <ClInclude Include="code\engine\system\Lightning.hpp" />
     <ClInclude Include="code\engine\system\LineClass.hpp" />
+    <ClInclude Include="code\engine\system\ManagedTypes.hpp" />
     <ClInclude Include="code\engine\system\MaterialType.hpp" />
     <ClInclude Include="code\engine\system\MutableMesh.hpp" />
     <ClInclude Include="code\engine\system\MutableString.hpp" />

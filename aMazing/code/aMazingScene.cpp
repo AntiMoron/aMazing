@@ -66,10 +66,8 @@ HRESULT aMazingScene::Initialize(HWND hwnd, ID3D11Device* device,
 	return S_OK;
 }
 
-void aMazingScene::Render(D3DClass* d3dkit)
+void aMazingScene::Render(ID3D11Device* device, ID3D11DeviceContext* context)
 {
-	ID3D11Device* device = d3dkit->getDevice();
-	ID3D11DeviceContext* context = d3dkit->getContext();
 	camera->Render(device, context);
 	dayTime->UpdateTime(device, context);
 

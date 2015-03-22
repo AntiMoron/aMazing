@@ -21,7 +21,7 @@ public:
 	HRESULT Initialize(HWND hwnd,
 		ID3D11Device* device,
 		ID3D11DeviceContext* context);
-	void Render(D3DClass* d3dkit);
+	void Render(ID3D11Device* device,ID3D11DeviceContext* context);
 	WrappedCamera* getWrappedCamera();
 private:
 	std::unique_ptr<WrappedCamera> camera;

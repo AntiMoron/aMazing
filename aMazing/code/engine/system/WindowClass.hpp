@@ -12,6 +12,16 @@ namespace aMazing
 
 		static WindowClass& getInstance();
 
+		static void setWindowHandler(HWND hwnd)
+		{
+			gHwnd = hwnd;
+		}
+
+		static HWND getWindowHandler()
+		{
+			return gHwnd;
+		}
+
 		void setWidth(unsigned short width);
 		void setHeight(unsigned short width);
 
@@ -30,6 +40,7 @@ namespace aMazing
 		unsigned short wndHeight;
 		unsigned short resolutionWidth;
 		unsigned short resolutionHeight;
+		static HWND gHwnd;
 	};
 }
 
