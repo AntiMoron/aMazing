@@ -1,19 +1,14 @@
-#include <windows.h>
-#include "engine/system/CameraClass.hpp"
-#include "engine/system/InputClass.hpp"
 #include "resource.h"
+#include <windows.h>
+#include "engine/system/InputClass.hpp"
 #include "engine/system/WindowClass.hpp"
-#include "engine/system/TextureManager.hpp"
-#include "MazeGenerator.hpp"
-#include "engine/system/PrimitivePipeline.hpp"
-#include "engine/system/AmbientLight.hpp"
 #include "engine/system/D3DManager.hpp"
 #include "aMazingScene.hpp"
 using namespace aMazing;
 HINSTANCE g_hInst = nullptr;
 HWND g_hWnd = nullptr;
 
-aMazingScene scene;
+aMazingScene* scene = new aMazingScene;
 
 #define DEVICE (D3DManager::getDevice(DEFAULT_DEVICE))
 #define CONTEXT (D3DManager::getContext(DEFAULT_CONTEXT))
@@ -111,7 +106,7 @@ HRESULT InitDevice()
 	WindowClass::getInstance().setWidth(width);
 	WindowClass::getInstance().setHeight(height);
 	//Initialize all the thing we need to prepare for rendering work.
-	D3DManager::Initialize();
+	D3DManager::Initialize(WindowClass::getWindowHandler());
 	// Load the Texture
 	hr = TEXTURE.addTexture(DEVICE, CONTEXT, "seafloor.dds");
 	if (FAILED(hr))
@@ -210,7 +205,7 @@ HRESULT InitDevice()
 		"Shader/skinAnim/skinAnim.fx", "Shader/skinAnim/skinAnim.fx",
 		animLayout, animElements, "SkinAnim"));
 
-	scene.Initialize(g_hWnd, DEVICE, CONTEXT);
+	scene->Initialize(g_hWnd, DEVICE, CONTEXT);
 	return S_OK;
 }
 
@@ -220,6 +215,12 @@ HRESULT InitDevice()
 //--------------------------------------------------------------------------------------
 void CleanupDevice()
 {
+	D3DManager::shutdown();
+	if(!!scene)
+	{
+		delete scene;
+		scene = nullptr;
+	}
 #ifdef ENABLE_CONSOLE
 	FreeConsole();
 #endif
@@ -280,7 +281,7 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
 			WindowClass::getInstance().setHeight(height);
 			WindowClass::getInstance().setResolutionWidth(width);
 			WindowClass::getInstance().setResolutionHeight(height);
-			scene.getWrappedCamera()->getCamera()->setAspectRatio(ASPECTRATIO);
+			scene->getWrappedCamera()->getCamera()->setAspectRatio(ASPECTRATIO);
 			break;
         default:
             return DefWindowProc( hWnd, message, wParam, lParam );
@@ -291,26 +292,26 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
 
 void CameraProc()
 {
-	scene.getWrappedCamera()->setStep(0.15f);
-	scene.getWrappedCamera()->moveForward(INPUT.keys['W']);
-	scene.getWrappedCamera()->moveBackward(INPUT.keys['S']);
-	scene.getWrappedCamera()->moveLeftward(INPUT.keys['A']);
-	scene.getWrappedCamera()->moveRightward(INPUT.keys['D']);
+	scene->getWrappedCamera()->setStep(0.15f);
+	scene->getWrappedCamera()->moveForward(INPUT.keys['W']);
+	scene->getWrappedCamera()->moveBackward(INPUT.keys['S']);
+	scene->getWrappedCamera()->moveLeftward(INPUT.keys['A']);
+	scene->getWrappedCamera()->moveRightward(INPUT.keys['D']);
 	if (INPUT.keys[VK_LEFT])
 	{
-		scene.getWrappedCamera()->getCamera()->turnLeft(5);
+		scene->getWrappedCamera()->getCamera()->turnLeft(5);
 	}
 	if (INPUT.keys[VK_RIGHT])
 	{
-		scene.getWrappedCamera()->getCamera()->turnRight(5);
+		scene->getWrappedCamera()->getCamera()->turnRight(5);
 	}
 	if (INPUT.keys[VK_UP])
 	{
-		scene.getWrappedCamera()->getCamera()->lookUp(2);
+		scene->getWrappedCamera()->getCamera()->lookUp(2);
 	}
 	if (INPUT.keys[VK_DOWN])
 	{
-		scene.getWrappedCamera()->getCamera()->lookDown(2);
+		scene->getWrappedCamera()->getCamera()->lookDown(2);
 	}
 }
 
@@ -319,7 +320,7 @@ void Render()
 	CameraProc();
 	D3DManager::clearRenderTarget();
 	
-	scene.Render(DEVICE,CONTEXT);
+	scene->Render(DEVICE,CONTEXT);
 
 	D3DManager::present(true);//V-Sync
 }

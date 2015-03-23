@@ -46,9 +46,9 @@ HRESULT PrimitivePipeline::Initialize(ID3D11Device* device,
 void PrimitivePipeline::RenderRectangle(unsigned short l, unsigned short t,
 	unsigned short r, unsigned short b)
 {
-	D3DManager::disableDepth();
+	D3DManager::disableDepth(contextPtr.get());
 	rec->Render(devicePtr.get(),contextPtr.get(),l,t,r,b);
-	D3DManager::enableDepth();
+	D3DManager::enableDepth(contextPtr.get());
 }
 
 void PrimitivePipeline::RenderBox(float x, float y, float z,
