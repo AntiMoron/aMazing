@@ -1,5 +1,4 @@
 #pragma once
-#include"engine/system/D3DClass.hpp"
 #include"engine/effect/EffectClass.hpp"
 #include"engine/effect/ShadowMap.hpp"
 #include"engine/effect/GlowEffect.hpp"

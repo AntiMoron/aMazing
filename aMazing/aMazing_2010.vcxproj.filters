@@ -246,9 +246,6 @@
     <ClInclude Include="code\engine\system\InputClass.hpp">
       <Filter>Engine\system</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\system\D3DClass.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
     <ClInclude Include="code\engine\system\BasicObject.hpp">
       <Filter>Engine\system</Filter>
     </ClInclude>
@@ -328,9 +325,6 @@
       <Filter>Engine\system</Filter>
     </ClCompile>
     <ClCompile Include="code\engine\system\CameraClass.cpp">
-      <Filter>Engine\system</Filter>
-    </ClCompile>
-    <ClCompile Include="code\engine\system\D3DClass.cpp">
       <Filter>Engine\system</Filter>
     </ClCompile>
     <ClCompile Include="code\engine\system\FileTracker.cpp">

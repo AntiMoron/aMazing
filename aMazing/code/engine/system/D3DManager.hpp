@@ -1,8 +1,8 @@
 #pragma once
 #include"../../common/CommonDxSupport.hpp"
 #include"../../common/CommonDef.hpp"
+#include<chrono>
 #include"WindowClass.hpp"
-#include"D3DClass.hpp"
 #include"ManagedTypes.hpp"
 #include<unordered_map>
 
@@ -16,6 +16,7 @@ namespace aMazing
 		static HRESULT Initialize(HWND hwnd)
 		{
 			HRESULT hr = E_FAIL;
+			lastTime = clock.now();
 			UINT createDeviceFlags = 0;
 #ifdef _DEBUG
 			createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
@@ -125,7 +126,7 @@ namespace aMazing
 			// Create the sample state
 			D3D11_SAMPLER_DESC sampDesc;
 			ZeroMemory(&sampDesc, sizeof(sampDesc));
-			sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
+			sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
 			sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_BORDER;
 			sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_BORDER;
 			sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_BORDER;
@@ -137,14 +138,18 @@ namespace aMazing
 			sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
 			hr = pDefaultDevice->CreateSamplerState(&sampDesc, &pSamplerLinear);
 			if (FAILED(hr))
+			{
 				return hr;
+			}
 
 			sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
 			sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
 			sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
 			hr = pDefaultDevice->CreateSamplerState(&sampDesc, &pSamplerClamp);
 			if (FAILED(hr))
+			{
 				return hr;
+			}
 			pImmediateContext->PSSetSamplers(0, 1, &pSamplerLinear);
 			pImmediateContext->PSSetSamplers(1, 1, &pSamplerClamp);
 
