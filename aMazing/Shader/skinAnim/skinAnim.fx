@@ -2,7 +2,7 @@
 
 struct VS_INPUT
 {
-	uint4 boneIndices : BONEINDICES;
+	uint boneIndices : BONEINDICES;
 	float4 Weights : WEIGHTS;
 	float4 Pos : POSITION;
 	float4 Nor : NORMAL;
@@ -19,11 +19,11 @@ struct PS_INPUT
 PS_INPUT VSEntry(VS_INPUT input)
 {
 	PS_INPUT output = (PS_INPUT)0;
-	/*uint4 boneIndices = uint4(input.boneIndices & 0x000000ff,
-		input.boneIndices & 0x0000ff00, 
-		input.boneIndices & 0x00ff0000,
-		input.boneIndices & 0xff000000);*/
-	uint4 boneIndices = input.boneIndices;
+	uint4 boneIndices = uint4(input.boneIndices & 0x000000ff,
+		(input.boneIndices & 0x0000ff00) >> 8, 
+		(input.boneIndices & 0x00ff0000) >> 16,
+		(input.boneIndices & 0xff000000) >> 24);
+//	uint4 boneIndices = input.boneIndices;
 	matrix boneTransform = (input.Weights.r * bones[boneIndices[0]])
 		+ (input.Weights.g * bones[boneIndices[1]])
 		+ (input.Weights.b * bones[boneIndices[2]])
