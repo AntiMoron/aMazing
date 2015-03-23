@@ -127,9 +127,9 @@ namespace aMazing
 			D3D11_SAMPLER_DESC sampDesc;
 			ZeroMemory(&sampDesc, sizeof(sampDesc));
 			sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-			sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_BORDER;
-			sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_BORDER;
-			sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_BORDER;
+			sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
+			sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
+			sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
 
 			sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
 			sampDesc.MipLODBias = 0.0f;
@@ -142,16 +142,13 @@ namespace aMazing
 				return hr;
 			}
 
-			sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
-			sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
-			sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
-			hr = pDefaultDevice->CreateSamplerState(&sampDesc, &pSamplerClamp);
+
+			hr = pDefaultDevice->CreateSamplerState(&sampDesc, &pSamplerPoint);
 			if (FAILED(hr))
 			{
 				return hr;
 			}
 			pImmediateContext->PSSetSamplers(0, 1, &pSamplerLinear);
-			pImmediateContext->PSSetSamplers(1, 1, &pSamplerClamp);
 
 			D3D11_DEPTH_STENCIL_DESC depthDisabledStencilDesc;
 			ZeroMemory(&depthDisabledStencilDesc, sizeof(depthDisabledStencilDesc));
@@ -233,7 +230,7 @@ namespace aMazing
 			SAFE_RELEASE(pDepthStencil);
 			SAFE_RELEASE(pTextureRV);
 			SAFE_RELEASE(pSamplerLinear);
-			SAFE_RELEASE(pSamplerClamp);
+			SAFE_RELEASE(pSamplerPoint);
 			SAFE_RELEASE(pEnableDepthState);
 			SAFE_RELEASE(pDisableDepthState);
 			SAFE_RELEASE(pEnableBlending);
@@ -317,6 +314,20 @@ namespace aMazing
 		{
 			return framePerSecond;
 		}
+
+		void setSampler(ID3D11DeviceContext* context,unsigned slot = 0,enum MANAGED_SAMPLER_TYPE samplerEnum = MANAGED_SAMPLER_TYPE::DEFAULT_SAMPLER)
+		{
+			switch (samplerEnum)
+			{
+			case MANAGED_SAMPLER_TYPE::DEFAULT_SAMPLER:
+			case MANAGED_SAMPLER_TYPE::LINEAR_SAMPLER:
+				context->PSSetSamplers(slot, 1, &pSamplerLinear);
+				break;
+			case MANAGED_SAMPLER_TYPE::POINT_SAMPLER:
+				context->PSSetSamplers(slot, 1, &pSamplerPoint);
+				break;
+			}
+		}
 	private:
 		static D3D_DRIVER_TYPE driverType;
 		static D3D_FEATURE_LEVEL featureLevel;
@@ -329,7 +340,7 @@ namespace aMazing
 		static ID3D11DepthStencilView* pDepthStencilView;
 		static ID3D11ShaderResourceView* pTextureRV;
 		static ID3D11SamplerState* pSamplerLinear;
-		static ID3D11SamplerState* pSamplerClamp;
+		static ID3D11SamplerState* pSamplerPoint;
 		static ID3D11DepthStencilState* pEnableDepthState;
 		static ID3D11DepthStencilState* pDisableDepthState;
 		static ID3D11BlendState* pEnableBlending;

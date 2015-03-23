@@ -303,8 +303,10 @@
     <ClInclude Include="code\engine\shader\VertexShaderClass.hpp">
       <Filter>Engine\shader</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\system\ManagedTypes.hpp" />
     <ClInclude Include="code\engine\system\D3DManager.hpp">
+      <Filter>Engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\ManagedTypes.hpp">
       <Filter>Engine\system</Filter>
     </ClInclude>
   </ItemGroup>
