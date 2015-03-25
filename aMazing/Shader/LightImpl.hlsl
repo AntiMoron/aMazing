@@ -1,3 +1,6 @@
+#ifndef LIGHTIMPL_HLSL
+#define LIGHTIMPL_HLSL
+
 #include "LightPsh.hlsl"
 
 float3 cAmbientLight::illuminateAmbient(float3 vNormal)
@@ -19,8 +22,8 @@ float3 cDirectionalLight::illuminateDiffuse(float3 vNormal)
 
 float3 cDirectionalLight::illuminateSpecular(float3 vNormal, int specularFactor)
 {
-	float3 highLights = -normalize(vEyeDir.xyz) + m_vLightDir.xyz;
-	float3 halfAngle = normalize(H);
+	float3 highLights = -normalize(eyeDirection.xyz) + vLightDir.xyz;
+	float3 halfAngle = normalize(highLights);
 	float specular = pow(max(0, dot(halfAngle, normalize(vNormal) )), specularFactor);
 
 	return ((float3)specular * vLightColor * isEnable);
@@ -33,11 +36,13 @@ float3 cOmniLight::illuminateDiffuse(float3 vNormal)
 
 float3 cEnvironmentLight::illuminateSpecular(float3 vNormal,int specularFactor)
 {
-	float3 N = normallize(vNormal);
-	float3 E = normalize(eyeDir.xyz);
+	float3 N = normalize(vNormal);
+	float3 E = normalize(eyeDirection.xyz);
 	float3 R = reflect(E, N);
 	float fresnel = 1 - dot(-E, N);
 	fresnel = (fresnel * fresnel * fresnel);
-	float3 specular = txEnvironmentMap.Sample(sampleLinear, R).xyz * fresnel;
+	float3 specular = txEnvironmentMap.Sample(samplerLinear, R).xyz * fresnel;
 	return (specular*(float3)isEnable);
 }
+
+#endif

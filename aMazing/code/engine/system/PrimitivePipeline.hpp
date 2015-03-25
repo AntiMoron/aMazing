@@ -24,9 +24,6 @@ namespace aMazing
 		void RenderLine(float sx, float sy, float sz,
 			float ex, float ey, float ez);
 	private:
-		PrimitivePipeline();
-		~PrimitivePipeline();
-
 		std::shared_ptr<ID3D11Device> devicePtr;
 		std::shared_ptr<ID3D11DeviceContext> contextPtr;
 		std::unique_ptr<LineClass> line;

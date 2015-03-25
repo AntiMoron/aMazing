@@ -1,29 +1,33 @@
+#ifndef MATERIALIMPL_HLSL
+#define MATERIALIMPL_HLSL
 #include"MaterialPsh.hlsl"
 
-float3 cSommothTexturedMaterial::getAmbientColor(float2 vTexcoord)
+float3 cSmoothTexturedMaterial::getAmbientColor(float2 vTexcoord)
 {
 	float4 vDiffuse = (float4)1.0f;
-	vDiffuse = txDiffse.Sample(samLinear,vTexcoord); 
-	return m_vColor * vDiffuse.xyz;
+	vDiffuse = txDiffuse.Sample(samplerLinear,vTexcoord); 
+	return vColor * vDiffuse.xyz;
 }
 
-float3 cSommothTexturedMaterial::getDiffuseColor(float2 vTexcoord)
+float3 cSmoothTexturedMaterial::getDiffuseColor(float2 vTexcoord)
 {
 	float4 vDiffuse = (float4)1.0f;
-	vDiffuse = txDiffuse.Sample(samLinear,vTexcoord);
+	vDiffuse = txDiffuse.Sample(samplerLinear, vTexcoord);
 	return vColor * vDiffuse.xyz;
 }
 
-float3 cRoughTextureMaterial:getAmbientColor(float2 vTexcoord)
+float3 cRoughTexturedMaterial::getAmbientColor(float2 vTexcoord)
 {
-	float vDiffuse = (float4)1.0f;
-	vDiffuse = txDiffuse.Sample(samLineaer, vTexcoord);
+	float4 vDiffuse = (float4)1.0f;
+	vDiffuse = txDiffuse.Sample(samplerLinear, vTexcoord);
 	return vColor * vDiffuse.xyz;
 }
 
-float3 cRoughTextureMaterial::getDiffuseColor(float2 vTexcoord)
+float3 cRoughTexturedMaterial::getDiffuseColor(float2 vTexcoord)
 {
-	float vDiffuse = (float4)1.0f;
-	vDiffuse = txDiffuse.Sample(samLineaer, vTexcoord);
+	float4 vDiffuse = (float4)1.0f;
+	vDiffuse = txDiffuse.Sample(samplerLinear, vTexcoord);
 	return vColor * vDiffuse.xyz;
 }
+
+#endif

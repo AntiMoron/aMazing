@@ -2,12 +2,12 @@
 #define MATERIALPSH_HLSL
 
 #include"Buffers.hlsl"
-interface iMaterial
+interface iMateral
 {
 	//get the ambient color of material
 	float3 getAmbientColor(float2 vTexcoord);
 	//get the diffuse color of material
-	float3 getDiffuseColor(float2 vTexcoord);
+	float3 getDiffuseColor(flaot2 vTexcoord);
 	//get the specular factor
 	int getSpecularFactor();
 };
@@ -16,7 +16,7 @@ class cBaseMaterial : iMaterial
 {
 	float3 vColor;
 	int iSpecFactor;
-	float3 getAmbientColor(float2 vTexcoord)
+	float3 getAmbientColor(flaot2 vTexcoord)
 	{
 		return vColor;
 	}
@@ -50,19 +50,12 @@ class cSmoothLightingOnlyMaterial : cBaseMaterial
 	}
 };
 
-
-class cRoughMaterial : cBaseMaterial
+class cRoughMaterial :cBaseMaterial
 {
-	int GetSpecularPower()
+	int getSpecularFactor()
 	{
 		return iSpecFactor;
 	}
 };
 
-class cRoughTexturedMaterial : cRoughMaterial
-{
-	float3 getAmbientColor(float2 vTexcoord);
-
-	float3 getDiffuseColor(float2 vTexcoord);
-};
 #endif

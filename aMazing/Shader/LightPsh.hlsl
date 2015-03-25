@@ -1,3 +1,6 @@
+#ifndef LIGHTPSH_HLSL
+#define LIGHTPSH_HLSL
+
 #include"Buffers.hlsl"
 
 interface iBasicLight
@@ -10,7 +13,7 @@ interface iBasicLight
 	float3 illuminateSpecular(float3 vNormal, int specularFactor);
 };
 
-class cAmbientLight : iBaseLight
+class cAmbientLight : iBasicLight
 {
 	float3 vLightColor;
 	bool isEnable;
@@ -60,3 +63,5 @@ class cEnvironmentLight : cAmbientLight
 {
 	float3 illuminateSpecular(float3 vNormal, int specularFactor);
 };
+
+#endif

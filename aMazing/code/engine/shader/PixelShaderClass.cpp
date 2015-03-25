@@ -62,6 +62,18 @@ HRESULT PixelShaderClass::createShaderFromFile(ID3D11Device* device,
 	{
 		return hr;
 	}
+
+	hr = initializeClassLinkage(device);
+	if (FAILED(hr))
+	{
+		return hr;
+	}
+
+	hr = initializeShaderReflector();
+	if(FAILED(hr))
+	{
+		return hr;
+	}
 	isInited = true;
 	return S_OK;
 }
@@ -105,6 +117,6 @@ HRESULT PixelShaderClass::bindShader(ID3D11Device* device,
 	{
 		return E_FAIL;
 	}
-	context->PSSetShader(shader, nullptr, 0);
+	context->PSSetShader(shader, dynamicLinkageArray.get(), shaderInterfaceCount);
 	return S_OK;
 }

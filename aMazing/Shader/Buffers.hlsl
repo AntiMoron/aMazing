@@ -1,9 +1,12 @@
+#ifndef BUFFERS_HLSL
+#define BUFFERS_HLSL
+
 Texture2D txDiffuse : register(t0);
 Texture2D ProTexutre : register(t1);
 Texture2D txEnvironmentMap : register(t2);
 
-SamplerState samLinear : register(s0);
-SamplerState samClamp : register(s1);
+SamplerState samplerLinear : register(s0);
+SamplerState samplerPoint : register(s1);
 
 cbuffer cameraMatrices : register(b0)
 {
@@ -32,3 +35,5 @@ cbuffer boneData : register(b3)
 {
 	matrix bones[128];
 }
+
+#endif

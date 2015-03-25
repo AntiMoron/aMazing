@@ -1,14 +1,6 @@
 #include "PrimitivePipeline.hpp"
 
 using namespace aMazing;
-PrimitivePipeline::PrimitivePipeline()
-{
-}
-
-
-PrimitivePipeline::~PrimitivePipeline()
-{
-}
 
 PrimitivePipeline& PrimitivePipeline::getInstance()
 {

@@ -53,6 +53,19 @@ HRESULT VertexShaderClass::createShaderFromFile(ID3D11Device* device,
 	{
 		return hr;
 	}
+
+	hr = initializeClassLinkage(device);
+	if (FAILED(hr))
+	{
+		return hr;
+	}
+
+	hr = initializeShaderReflector();
+	if (FAILED(hr))
+	{
+		return hr;
+	}
+
 	isInited = true;
 	return S_OK;
 }
@@ -132,7 +145,7 @@ HRESULT VertexShaderClass::bindShader(ID3D11Device* device,
 	{
 		return E_FAIL;
 	}
-	context->VSSetShader(shader, nullptr, 0);
+	context->VSSetShader(shader, dynamicLinkageArray.get(), shaderInterfaceCount);
 	context->IASetInputLayout(layout);
 	return S_OK;
 }

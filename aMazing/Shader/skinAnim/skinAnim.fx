@@ -46,7 +46,7 @@ PS_INPUT VSEntry(VS_INPUT input)
 float4 PSEntry(PS_INPUT input) : SV_Target
 {
 	float4 color = float4(0.3f, 0.5f, 0.6f, 1.0f);
-	float4 diffuseColor = txDiffuse.Sample(samLinear, input.Tex);
+	float4 diffuseColor = txDiffuse.Sample(samplerLinear, input.Tex);
 	clip(diffuseColor.a == 0.0f ? -1 : 1);
 	float3 lightDir = -lightDirection.xyz;
 		lightDir = normalize(lightDir);
