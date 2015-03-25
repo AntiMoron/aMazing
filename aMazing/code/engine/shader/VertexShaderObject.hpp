@@ -2,14 +2,14 @@
 #include<D3D11.h>
 #include<D3DX11.h>
 #include"ShaderCompilerClass.hpp"
-#include "ShaderClass.hpp"
+#include "ShaderObject.hpp"
 namespace aMazing
 {
-	class VertexShaderClass : public ShaderClass
+	class VertexShaderObject : public ShaderObject
 	{
 	public:
-		VertexShaderClass();
-		~VertexShaderClass();
+		VertexShaderObject();
+		~VertexShaderObject();
 
 		HRESULT createShaderFromFile(ID3D11Device* device,
 			ID3D11DeviceContext* context,

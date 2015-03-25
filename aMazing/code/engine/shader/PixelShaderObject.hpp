@@ -1,12 +1,12 @@
 #pragma once
-#include "ShaderClass.hpp"
+#include "ShaderObject.hpp"
 namespace aMazing
 {
-	class PixelShaderClass : public ShaderClass
+	class PixelShaderObject : public ShaderObject
 	{
 	public:
-		PixelShaderClass();
-		~PixelShaderClass();
+		PixelShaderObject();
+		~PixelShaderObject();
 
 		HRESULT createShaderFromFile(ID3D11Device* device,
 			ID3D11DeviceContext* context,

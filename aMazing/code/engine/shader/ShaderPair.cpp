@@ -15,8 +15,8 @@ ShaderPair::~ShaderPair()
 	}
 }
 
-ShaderPair::ShaderPair(VertexShaderClass** pv,
-	PixelShaderClass** pp,
+ShaderPair::ShaderPair(VertexShaderObject** pv,
+	PixelShaderObject** pp,
 	std::string&& shadername)
 {
 	pVert = *pv;

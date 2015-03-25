@@ -1,6 +1,6 @@
 #pragma once
-#include"VertexShaderClass.hpp"
-#include"PixelShaderClass.hpp"
+#include"VertexShaderObject.hpp"
+#include"PixelShaderObject.hpp"
 #include<memory>
 namespace aMazing
 {
@@ -9,8 +9,8 @@ namespace aMazing
 	public:
 		~ShaderPair();
 	
-		ShaderPair(VertexShaderClass** pv,
-			PixelShaderClass** pp,std::string && give);
+		ShaderPair(VertexShaderObject** pv,
+			PixelShaderObject** pp,std::string && give);
 		ShaderPair(const ShaderPair& other);
 
 		HRESULT bindShader(ID3D11Device* device,
@@ -22,7 +22,7 @@ namespace aMazing
 
 	private:
 		std::string shaderName;
-		VertexShaderClass* pVert;
-		PixelShaderClass*  pPixl;
+		VertexShaderObject* pVert;
+		PixelShaderObject*  pPixl;
 	};
 }

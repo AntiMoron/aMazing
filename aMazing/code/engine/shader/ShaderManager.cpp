@@ -24,14 +24,14 @@ HRESULT ShaderManager::addPair(ID3D11Device* device,
 	std::string&& shadername)
 {
 	HRESULT hr;
-	VertexShaderClass* v = new VertexShaderClass;
+	VertexShaderObject* v = new VertexShaderObject;
 	hr = v->createShaderFromFile(device,context,vfilename,layout,layoutCount);
 	if (FAILED(hr))
 	{
 		std::printf("Error At : %s\n",vfilename);
 		return hr;
 	}
-	PixelShaderClass* p = new PixelShaderClass;
+	PixelShaderObject* p = new PixelShaderObject;
 	hr = p->createShaderFromFile(device,context,pfilename);
 	if (FAILED(hr))
 	{

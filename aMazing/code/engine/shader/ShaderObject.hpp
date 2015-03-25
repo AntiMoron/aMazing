@@ -6,7 +6,7 @@
 
 namespace aMazing
 {
-	class ShaderClass
+	class ShaderObject
 	{
 	public:
 		enum SHADER_TYPE
@@ -16,7 +16,7 @@ namespace aMazing
 			SHADER_PIXEL,
 		};
 	
-		ShaderClass()
+		ShaderObject()
 		{
 			isInited = false;
 			type = SHADER_NO_TYPE;
@@ -26,7 +26,7 @@ namespace aMazing
 			shaderInterfaceCount = 0;
 			dynamicLinkageArray.reset(nullptr);
 		}
-		virtual ~ShaderClass()
+		virtual ~ShaderObject()
 		{
 			SAFE_RELEASE(pShaderContextBuffer);
 			SAFE_RELEASE(pClassLinkage);
@@ -37,6 +37,7 @@ namespace aMazing
 		{
 			return type;
 		}
+
 	protected:
 		volatile bool isInited;
 		volatile size_t shaderInterfaceCount;
@@ -79,10 +80,14 @@ namespace aMazing
 			dynamicLinkageArray.reset(new ID3D11ClassInstance*[shaderInterfaceCount]);
 			for (size_t cur = 0; cur < shaderInterfaceCount; cur++)
 			{
-				dynamicLinkageArray[cur] = nullptr;
-				ID3D11ShaderReflectionVariable* pAmbientLightingVar = pShaderReflector->GetVariableByName("g_abstractAmbientLighting");
-				auto iAmbientLightingOffset = pAmbientLightingVar->GetInterfaceSlot(cur);
-				dynamicLinkageArray;
+				//dynamicLinkageArray[cur] = nullptr;
+				//ID3D11ShaderReflectionVariable* pAmbientLightingVar = pShaderReflector->
+				//	GetVariableByName("g_abstractAmbientLighting");
+				//auto type = pAmbientLightingVar->GetBuffer();
+				//type->GetVariableByName();
+				//auto iAmbientLightingOffset = pAmbientLightingVar->GetInterfaceSlot(cur);
+
+				//dynamicLinkageArray;
 			}
 			return S_OK;
 		}

@@ -282,9 +282,6 @@
     <ClInclude Include="code\engine\system\DynamicLinkageHelper.hpp">
       <Filter>Engine\system</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\shader\ShaderClass.hpp">
-      <Filter>Engine\shader</Filter>
-    </ClInclude>
     <ClInclude Include="code\engine\shader\ShaderCompilerClass.hpp">
       <Filter>Engine\shader</Filter>
     </ClInclude>
@@ -297,17 +294,23 @@
     <ClInclude Include="code\engine\shader\ShaderPair.hpp">
       <Filter>Engine\shader</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\shader\PixelShaderClass.hpp">
-      <Filter>Engine\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\shader\VertexShaderClass.hpp">
-      <Filter>Engine\shader</Filter>
-    </ClInclude>
     <ClInclude Include="code\engine\system\D3DManager.hpp">
       <Filter>Engine\system</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\system\ManagedTypes.hpp">
       <Filter>Engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\shader\ShaderClassInstance.hpp">
+      <Filter>Engine\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\shader\ShaderObject.hpp">
+      <Filter>Engine\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\shader\PixelShaderObject.hpp">
+      <Filter>Engine\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\shader\VertexShaderObject.hpp">
+      <Filter>Engine\shader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -385,14 +388,14 @@
     <ClCompile Include="code\engine\shader\ShaderPair.cpp">
       <Filter>Engine\shader</Filter>
     </ClCompile>
-    <ClCompile Include="code\engine\shader\PixelShaderClass.cpp">
-      <Filter>Engine\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="code\engine\shader\VertexShaderClass.cpp">
-      <Filter>Engine\shader</Filter>
-    </ClCompile>
     <ClCompile Include="code\engine\system\D3DManager.cpp">
       <Filter>Engine\system</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\shader\PixelShaderObject.cpp">
+      <Filter>Engine\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\shader\VertexShaderObject.cpp">
+      <Filter>Engine\shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

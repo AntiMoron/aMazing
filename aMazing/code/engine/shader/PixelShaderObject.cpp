@@ -1,14 +1,14 @@
-#include "PixelShaderClass.hpp"
+#include "PixelShaderObject.hpp"
 using namespace aMazing;
 
-PixelShaderClass::PixelShaderClass()
+PixelShaderObject::PixelShaderObject()
 {
 	type = SHADER_PIXEL;
 	shader = nullptr;
 }
 
 
-PixelShaderClass::~PixelShaderClass()
+PixelShaderObject::~PixelShaderObject()
 {
 	if (shader != nullptr)
 	{
@@ -17,7 +17,7 @@ PixelShaderClass::~PixelShaderClass()
 	}
 }
 
-HRESULT PixelShaderClass::createShaderFromFile(ID3D11Device* device,
+HRESULT PixelShaderObject::createShaderFromFile(ID3D11Device* device,
 	ID3D11DeviceContext* context,
 	const wchar_t* fileName)
 {
@@ -26,7 +26,7 @@ HRESULT PixelShaderClass::createShaderFromFile(ID3D11Device* device,
 	return createShaderFromFile(device, context, MutableString(fileName).getMultiByteString().c_str());
 }
 
-HRESULT PixelShaderClass::createShaderFromMemory(ID3D11Device* device,
+HRESULT PixelShaderObject::createShaderFromMemory(ID3D11Device* device,
 	ID3D11DeviceContext* context,
 	const wchar_t* slsource)
 {
@@ -34,7 +34,7 @@ HRESULT PixelShaderClass::createShaderFromMemory(ID3D11Device* device,
 }
 
 
-HRESULT PixelShaderClass::createShaderFromFile(ID3D11Device* device,
+HRESULT PixelShaderObject::createShaderFromFile(ID3D11Device* device,
 	ID3D11DeviceContext* context,
 	const char* fileName)
 {
@@ -78,7 +78,7 @@ HRESULT PixelShaderClass::createShaderFromFile(ID3D11Device* device,
 	return S_OK;
 }
 
-HRESULT PixelShaderClass::createShaderFromMemory(ID3D11Device* device,
+HRESULT PixelShaderObject::createShaderFromMemory(ID3D11Device* device,
 	ID3D11DeviceContext* context,
 	const char* slsource)
 {
@@ -110,7 +110,7 @@ HRESULT PixelShaderClass::createShaderFromMemory(ID3D11Device* device,
 	return S_OK;
 }
 
-HRESULT PixelShaderClass::bindShader(ID3D11Device* device,
+HRESULT PixelShaderObject::bindShader(ID3D11Device* device,
 	ID3D11DeviceContext* context)
 {
 	if (isInited == false)

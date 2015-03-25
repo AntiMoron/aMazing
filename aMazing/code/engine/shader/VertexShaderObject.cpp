@@ -1,7 +1,7 @@
-#include "VertexShaderClass.hpp"
+#include "VertexShaderObject.hpp"
 using namespace aMazing;
 
-VertexShaderClass::VertexShaderClass()
+VertexShaderObject::VertexShaderObject()
 {
 	type = SHADER_VERTEX;
 	shader = nullptr;
@@ -9,13 +9,13 @@ VertexShaderClass::VertexShaderClass()
 }
 
 
-VertexShaderClass::~VertexShaderClass()
+VertexShaderObject::~VertexShaderObject()
 {
 	SAFE_RELEASE(shader);
 	SAFE_RELEASE(layout);
 }
 
-HRESULT VertexShaderClass::createShaderFromFile(ID3D11Device* device,
+HRESULT VertexShaderObject::createShaderFromFile(ID3D11Device* device,
 	ID3D11DeviceContext* context,
 	const char* fileName,
 	D3D11_INPUT_ELEMENT_DESC layoutDesc[],
@@ -70,7 +70,7 @@ HRESULT VertexShaderClass::createShaderFromFile(ID3D11Device* device,
 	return S_OK;
 }
 
-HRESULT VertexShaderClass::createShaderFromMemory(ID3D11Device* device,
+HRESULT VertexShaderObject::createShaderFromMemory(ID3D11Device* device,
 	ID3D11DeviceContext* context,
 	const char* slsource,
 	D3D11_INPUT_ELEMENT_DESC layoutDesc[],
@@ -114,7 +114,7 @@ HRESULT VertexShaderClass::createShaderFromMemory(ID3D11Device* device,
 }
 
 
-HRESULT VertexShaderClass::createShaderFromFile(ID3D11Device* device,
+HRESULT VertexShaderObject::createShaderFromFile(ID3D11Device* device,
 	ID3D11DeviceContext* context,
 	const wchar_t* fileName,
 	D3D11_INPUT_ELEMENT_DESC layoutDesc[],
@@ -126,7 +126,7 @@ HRESULT VertexShaderClass::createShaderFromFile(ID3D11Device* device,
 		numElements);
 }
 
-HRESULT VertexShaderClass::createShaderFromMemory(ID3D11Device* device,
+HRESULT VertexShaderObject::createShaderFromMemory(ID3D11Device* device,
 	ID3D11DeviceContext* context,
 	const wchar_t* slsource,
 	D3D11_INPUT_ELEMENT_DESC layoutDesc[],
@@ -138,7 +138,7 @@ HRESULT VertexShaderClass::createShaderFromMemory(ID3D11Device* device,
 		numElements);
 }
 
-HRESULT VertexShaderClass::bindShader(ID3D11Device* device,
+HRESULT VertexShaderObject::bindShader(ID3D11Device* device,
 	ID3D11DeviceContext* context)
 {
 	if (isInited == false)
