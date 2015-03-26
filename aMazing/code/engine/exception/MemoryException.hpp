@@ -1,11 +1,9 @@
 #pragma once
-#include<exception>
-#include<string>
-using std::exception;
+#include"CommonException.hpp"
 
 namespace aMazing
 {
-	class MemoryException :public exception
+	class MemoryException :public CommonException
 	{
 	public:
 		MemoryException()
@@ -16,12 +14,5 @@ namespace aMazing
 		{
 			msg = what;
 		}
-
-		const char* what() const
-		{
-			return msg.c_str();
-		}
-	private:
-		std::string msg;
 	};
 }

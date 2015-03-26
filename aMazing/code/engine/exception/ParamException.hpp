@@ -2,11 +2,8 @@
 /*
 	Parameter error exception
 */
-
-#include<exception>
-#include<string>
+#include"CommonException.hpp"
 #include<initializer_list>
-using std::exception;
 
 namespace aMazing
 {

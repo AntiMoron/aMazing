@@ -1,9 +1,9 @@
 #pragma once
 #include"../system/MutableString.hpp"
 #include"../../common/CommonDef.hpp"
-#include"ShaderCompilerClass.hpp"
 #include"../system/D3DManager.hpp"
-
+#include"ShaderCompilerClass.hpp"
+#include"ShaderClassInstance.hpp"
 namespace aMazing
 {
 	class ShaderObject
@@ -18,7 +18,7 @@ namespace aMazing
 	
 		ShaderObject()
 		{
-			isInited = false;
+			bIsInited = false;
 			type = SHADER_NO_TYPE;
 			pShaderContextBuffer = nullptr;
 			pClassLinkage = nullptr;
@@ -37,9 +37,12 @@ namespace aMazing
 		{
 			return type;
 		}
-
+		virtual const bool isInited() const
+		{
+			return bIsInited;
+		}
 	protected:
-		volatile bool isInited;
+		volatile bool bIsInited;
 		volatile size_t shaderInterfaceCount;
 		SHADER_TYPE type;
 		ID3DBlob* pShaderContextBuffer;
@@ -80,9 +83,9 @@ namespace aMazing
 			dynamicLinkageArray.reset(new ID3D11ClassInstance*[shaderInterfaceCount]);
 			for (size_t cur = 0; cur < shaderInterfaceCount; cur++)
 			{
-				//dynamicLinkageArray[cur] = nullptr;
-				//ID3D11ShaderReflectionVariable* pAmbientLightingVar = pShaderReflector->
-				//	GetVariableByName("g_abstractAmbientLighting");
+				dynamicLinkageArray[cur] = nullptr;
+				ID3D11ShaderReflectionVariable* pAmbientLightingVar = pShaderReflector->
+					GetVariableByName("g_abstractAmbientLighting");
 				//auto type = pAmbientLightingVar->GetBuffer();
 				//type->GetVariableByName();
 				//auto iAmbientLightingOffset = pAmbientLightingVar->GetInterfaceSlot(cur);
@@ -91,5 +94,7 @@ namespace aMazing
 			}
 			return S_OK;
 		}
+	private:
+		friend class ShaderClassInstance;
 	};
 }

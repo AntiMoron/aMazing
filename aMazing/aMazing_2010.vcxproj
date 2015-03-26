@@ -446,6 +446,8 @@
     <ClInclude Include="code\engine\effect\ShadowMap.hpp" />
     <ClInclude Include="code\engine\effect\VerticalBlur.hpp" />
     <ClInclude Include="code\engine\effect\VHBlurClass.hpp" />
+    <ClInclude Include="code\engine\exception\CommonException.hpp" />
+    <ClInclude Include="code\engine\exception\FailureException.hpp" />
     <ClInclude Include="code\engine\exception\MemoryException.hpp" />
     <ClInclude Include="code\engine\exception\ParamException.hpp" />
     <ClInclude Include="code\engine\render\CommonPipeLine.hpp" />
@@ -458,6 +460,7 @@
     <ClInclude Include="code\engine\shader\ShaderInclude.hpp" />
     <ClInclude Include="code\engine\shader\ShaderManager.hpp" />
     <ClInclude Include="code\engine\shader\ShaderPair.hpp" />
+    <ClInclude Include="code\engine\shader\ShaderVariable.hpp" />
     <ClInclude Include="code\engine\shader\VertexShaderObject.hpp" />
     <ClInclude Include="code\engine\system\AmbientLight.hpp" />
     <ClInclude Include="code\engine\system\BasicObject.hpp" />

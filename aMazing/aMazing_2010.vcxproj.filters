@@ -312,6 +312,15 @@
     <ClInclude Include="code\engine\shader\VertexShaderObject.hpp">
       <Filter>Engine\shader</Filter>
     </ClInclude>
+    <ClInclude Include="code\engine\exception\CommonException.hpp">
+      <Filter>Engine\exception</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\exception\FailureException.hpp">
+      <Filter>Engine\exception</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\shader\ShaderVariable.hpp">
+      <Filter>Engine\shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\collision\CollisionIntersection.cpp">

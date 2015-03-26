@@ -40,12 +40,12 @@ HRESULT PixelShaderObject::createShaderFromFile(ID3D11Device* device,
 {
 	//Create Vertex Shader.If isInited is true,that means the class has already been initialized.
 	//return fail.
-	if (isInited == true)
+	if (bIsInited == true)
 	{
 		return E_FAIL;
 	}
 	HRESULT hr;
-	isInited = false;
+	bIsInited = false;
 	hr = ShaderCompilerClass::compileFromFile(fileName, "PSEntry", "ps_5_0", &pShaderContextBuffer);
 	if (FAILED(hr))
 	{
@@ -74,7 +74,9 @@ HRESULT PixelShaderObject::createShaderFromFile(ID3D11Device* device,
 	{
 		return hr;
 	}
-	isInited = true;
+
+	ShaderClassInstance instance(pShaderReflector,"xxx");
+	bIsInited = true;
 	return S_OK;
 }
 
@@ -82,14 +84,14 @@ HRESULT PixelShaderObject::createShaderFromMemory(ID3D11Device* device,
 	ID3D11DeviceContext* context,
 	const char* slsource)
 {
-	//Create Vertex Shader.If isInited is true,that means the class has already been initialized.
+	//Create Vertex Shader.If bIsInited is true,that means the class has already been initialized.
 	//return fail.
-	if (isInited == true)
+	if (bIsInited == true)
 	{
 		return E_FAIL;
 	}
 	HRESULT hr;
-	isInited = false;
+	bIsInited = false;
 	hr = ShaderCompilerClass::compileString(slsource, "PSEntry", "ps_5_0", &pShaderContextBuffer);
 	if (FAILED(hr))
 	{
@@ -106,14 +108,14 @@ HRESULT PixelShaderObject::createShaderFromMemory(ID3D11Device* device,
 	{
 		return hr;
 	}
-	isInited = true;
+	bIsInited = true;
 	return S_OK;
 }
 
 HRESULT PixelShaderObject::bindShader(ID3D11Device* device,
 	ID3D11DeviceContext* context)
 {
-	if (isInited == false)
+	if (bIsInited == false)
 	{
 		return E_FAIL;
 	}

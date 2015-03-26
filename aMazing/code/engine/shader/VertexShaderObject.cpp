@@ -23,12 +23,12 @@ HRESULT VertexShaderObject::createShaderFromFile(ID3D11Device* device,
 {
 	//Create Vertex Shader.If isInited is true,that means the class has already been initialized.
 	//return fail.
-	if (isInited == true)
+	if (bIsInited == true)
 	{
 		return E_FAIL;
 	}
 	HRESULT hr;
-	isInited = false;
+	bIsInited = false;
 	hr = ShaderCompilerClass::compileFromFile(fileName, "VSEntry", "vs_5_0", &pShaderContextBuffer);
 	if (FAILED(hr))
 	{
@@ -66,7 +66,7 @@ HRESULT VertexShaderObject::createShaderFromFile(ID3D11Device* device,
 		return hr;
 	}
 
-	isInited = true;
+	bIsInited = true;
 	return S_OK;
 }
 
@@ -78,12 +78,12 @@ HRESULT VertexShaderObject::createShaderFromMemory(ID3D11Device* device,
 {
 	//Create Vertex Shader.If isInited is true,that means the class has already been initialized.
 	//return fail.
-	if (isInited == true)
+	if (bIsInited == true)
 	{
 		return E_FAIL;
 	}
 	HRESULT hr;
-	isInited = false;
+	bIsInited = false;
 	hr = ShaderCompilerClass::compileString(slsource, "VSEntry", "vs_5_0", &pShaderContextBuffer);
 	if (FAILED(hr))
 	{
@@ -109,7 +109,7 @@ HRESULT VertexShaderObject::createShaderFromMemory(ID3D11Device* device,
 	{
 		return hr;
 	}
-	isInited = true;
+	bIsInited = true;
 	return S_OK;
 }
 
@@ -141,7 +141,7 @@ HRESULT VertexShaderObject::createShaderFromMemory(ID3D11Device* device,
 HRESULT VertexShaderObject::bindShader(ID3D11Device* device,
 	ID3D11DeviceContext* context)
 {
-	if (isInited == false)
+	if (bIsInited == false)
 	{
 		return E_FAIL;
 	}
