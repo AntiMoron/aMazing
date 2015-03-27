@@ -1,6 +1,5 @@
-#include "Buffers.hlsl"
-#include "LightImpl.hlsl"
-#include "MaterialImpl.hlsl"
+#include"LightImpl.hlsl"
+#include"MaterialImpl.hlsl"
 
 struct VS_INPUT
 {
@@ -15,6 +14,15 @@ struct PS_INPUT
     float4 Nor : NORMAL;
     float2 Tex : TEXCOORD0;
 };
+
+cbuffer lightBuffer : register(b4)
+{
+	cAmbientLight ambientLighting;
+	cDirectionalLight directLighting;
+	cEnvironmentLight environmentLighting;
+	cSmoothTexturedMaterial material;
+}
+
 
 PS_INPUT VSEntry( VS_INPUT input )
 {
@@ -32,45 +40,21 @@ PS_INPUT VSEntry( VS_INPUT input )
     return output;
 }
 
-
-cAmbientLight ambientLighting;
-cDirectionalLight directLighting;
-cEnvironmentLight environmentLighting;
-cSmoothTexturedMaterial material;
-
 float4 PSEntry(PS_INPUT input) : SV_Target
 {
-    //float4 color = float4(0.3f, 0.5f, 0.6f, 1.0f);
-    //float4 diffuseColor = txDiffuse.Sample(samLinear, input.Tex);
-//    clip(diffuseColor.a == 0.0f ? -1 : 1);
-	float3 lightDir = -lightDirection.xyz;
-	lightDir = normalize(lightDir);
-
 	// Compute the Ambient term
 	float3 Ambient = (float3)0.0f;
-		Ambient = material.getAmbientColor(input.Tex) * ambientLighting.illuminateAmbient(input.Nor);
+	Ambient = material.getAmbientColor(input.Tex) * ambientLighting.illuminateAmbient(input.Nor);
 
 	// Accumulate the Diffuse contribution  
-	float3   Diffuse = (float3)0.0f;
-		Diffuse += material.getDiffuseColor(input.Tex) * directLighting.illuminateDiffuse(input.Nor);
-//	clip(Diffuse.w == 0.0f ? -1 : 1);
+	float3 Diffuse = (float3)0.0f;
+	Diffuse += material.getDiffuseColor(input.Tex) * directLighting.illuminateDiffuse(input.Nor);
 	// Compute the Specular contribution
 	float3   Specular = (float3)0.0f;
-		Specular += directLighting.illuminateSpecular(input.Nor, material.getSpecularFactor());
+	Specular += directLighting.illuminateSpecular(input.Nor, material.getSpecularFactor());
 	Specular += environmentLighting.illuminateSpecular(input.Nor, material.getSpecularFactor());
 
 	// Accumulate the lighting with saturation
 	float3 Lighting = saturate(Ambient + Diffuse + Specular);
-
 	return float4(Lighting, 1.0f);
-
-	//float lightIntensity = dot(input.Nor.xyz, lightDir.xyz);
- //   if(lightIntensity > 0.0f)
- //       color += saturate(float4(1.0f,1.0f,1.0f,1.0f) *  lightIntensity);
-	//color.a = 1.0f;
-	//if (lightIntensity > 0.6f)
-	//	color = diffuseColor;
-	//else
-	//	color *= diffuseColor;
- //   return color;
 }

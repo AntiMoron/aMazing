@@ -279,9 +279,6 @@
     <ClInclude Include="Shader\Buffers.hlsl">
       <Filter>Shaders</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\system\DynamicLinkageHelper.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
     <ClInclude Include="code\engine\shader\ShaderCompilerClass.hpp">
       <Filter>Engine\shader</Filter>
     </ClInclude>

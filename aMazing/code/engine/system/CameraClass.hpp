@@ -67,10 +67,10 @@ namespace aMazing
 		XMFLOAT3 lefthandDirection;
 		struct cameraMatrices
 		{
-			XMFLOAT3 eyeDirection;
 			XMMATRIX world;
 			XMMATRIX view;
 			XMMATRIX projection;
+			XMFLOAT3 eyeDirection;
 		};
 		struct cameraMatrices m_matriceData;
 		GPUConstantBuffer<cameraMatrices> m_matrices;

@@ -69,13 +69,13 @@ HRESULT PixelShaderObject::createShaderFromFile(ID3D11Device* device,
 		return hr;
 	}
 
-	hr = initializeShaderReflector();
+	hr = initializeComponents();
 	if(FAILED(hr))
 	{
 		return hr;
 	}
 
-	ShaderClassInstance instance(pShaderReflector,"xxx");
+//	ShaderClassInstance instance(pShaderReflector,"cAmbientLight");
 	bIsInited = true;
 	return S_OK;
 }

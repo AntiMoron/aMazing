@@ -10,10 +10,10 @@ SamplerState samplerPoint : register(s1);
 
 cbuffer cameraMatrices : register(b0)
 {
-	float3 eyeDirection;
 	matrix World;
 	matrix View;
 	matrix Projection;
+	float3 eyeDirection;
 };
 
 cbuffer PRS : register(b1)

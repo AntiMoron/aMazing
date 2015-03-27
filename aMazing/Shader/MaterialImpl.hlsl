@@ -27,6 +27,7 @@ float3 cRoughTexturedMaterial::getDiffuseColor(float2 vTexcoord)
 {
 	float4 vDiffuse = (float4)1.0f;
 	vDiffuse = txDiffuse.Sample(samplerLinear, vTexcoord);
+	clip(vDiffuse.w == 0.0f ? -1 : 1);
 	return vColor * vDiffuse.xyz;
 }
 

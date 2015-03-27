@@ -469,7 +469,6 @@
     <ClInclude Include="code\engine\system\CameraClass.hpp" />
     <ClInclude Include="code\engine\system\D3DManager.hpp" />
     <ClInclude Include="code\engine\system\Defines.hpp" />
-    <ClInclude Include="code\engine\system\DynamicLinkageHelper.hpp" />
     <ClInclude Include="code\engine\system\FileTracker.hpp" />
     <ClInclude Include="code\engine\system\FrameBuffer.hpp" />
     <ClInclude Include="code\engine\system\FrustumClass.hpp" />

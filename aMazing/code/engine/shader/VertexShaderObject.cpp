@@ -60,12 +60,11 @@ HRESULT VertexShaderObject::createShaderFromFile(ID3D11Device* device,
 		return hr;
 	}
 
-	hr = initializeShaderReflector();
+	hr = initializeComponents();
 	if (FAILED(hr))
 	{
 		return hr;
 	}
-
 	bIsInited = true;
 	return S_OK;
 }

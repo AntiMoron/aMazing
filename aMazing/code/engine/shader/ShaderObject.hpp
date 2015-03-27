@@ -41,6 +41,66 @@ namespace aMazing
 		{
 			return bIsInited;
 		}
+		//To get the object of class inherited from interface.
+		//If failed to get the object,or didn't find the name in hlsl,
+		//returns null pointer.Otherwise return the object
+		ID3D11ClassInstance* getInterfaceObjectByName(const char* objectName)
+		{
+			HRESULT hr = E_FAIL;
+			auto shaderVar = pShaderReflector->GetVariableByName(objectName);
+			unsigned int interfaceSlot = shaderVar->GetInterfaceSlot(0);
+			if (signed(interfaceSlot) < 0)
+			{
+				return nullptr;
+			}
+			ID3D11ClassInstance* classInstance = nullptr;
+			hr = pClassLinkage->GetClassInstance(objectName, interfaceSlot, &classInstance);
+			if (FAILED(hr))
+			{
+				return nullptr;
+			}
+			if (!classInstance)
+			{
+				return nullptr;
+			}
+			dynamicLinkageArray[interfaceSlot] = classInstance;			
+			return dynamicLinkageArray[interfaceSlot];
+		}
+
+		//To get the element of sepcified index of array object of class
+		//inherited from interface in hlsl.
+		//If failed to get the object,or didn't find the name in hlsl,
+		//returns null pointer.Otherwise return the object
+		ID3D11ClassInstance* getInterfaceArrayElementByName(const char* arrayName, size_t index)
+		{
+			HRESULT hr = E_FAIL;
+			auto shaderVar = pShaderReflector->GetVariableByName(arrayName);
+			unsigned int interfaceSlot = shaderVar->GetInterfaceSlot(index);
+			if (signed(interfaceSlot) < 0)
+			{
+				return nullptr;
+			}
+			ID3D11ClassInstance* classInstance = nullptr;
+			hr = pClassLinkage->GetClassInstance(arrayName, interfaceSlot, &classInstance);
+			if (FAILED(hr))
+			{
+				return nullptr;
+			}
+			if (!classInstance)
+			{
+				return nullptr;
+			}
+			dynamicLinkageArray[interfaceSlot] = classInstance;
+			return dynamicLinkageArray[interfaceSlot];
+		}
+
+		ID3D11ClassInstance* createClassInstance(const char* className)
+		{
+			ID3D11ClassInstance* result = nullptr;
+			pClassLinkage->CreateClassInstance(className, 0, 0, 0, 0, &result);
+			return result;
+		}
+
 	protected:
 		volatile bool bIsInited;
 		volatile size_t shaderInterfaceCount;
@@ -80,17 +140,33 @@ namespace aMazing
 		HRESULT initializeDynamicLinkageArray()
 		{
 			shaderInterfaceCount = pShaderReflector->GetNumInterfaceSlots();
-			dynamicLinkageArray.reset(new ID3D11ClassInstance*[shaderInterfaceCount]);
-			for (size_t cur = 0; cur < shaderInterfaceCount; cur++)
+			if (shaderInterfaceCount == 0)
 			{
-				dynamicLinkageArray[cur] = nullptr;
-				ID3D11ShaderReflectionVariable* pAmbientLightingVar = pShaderReflector->
-					GetVariableByName("g_abstractAmbientLighting");
-				//auto type = pAmbientLightingVar->GetBuffer();
-				//type->GetVariableByName();
-				//auto iAmbientLightingOffset = pAmbientLightingVar->GetInterfaceSlot(cur);
+				dynamicLinkageArray.reset(nullptr);
+			}
+			else
+			{
+				dynamicLinkageArray.reset(new ID3D11ClassInstance*[shaderInterfaceCount]);
+				for (size_t i = 0; i < shaderInterfaceCount ;i++)
+				{
+					dynamicLinkageArray[i] = nullptr;
+				}
+			}
+			return S_OK;
+		}
 
-				//dynamicLinkageArray;
+		HRESULT initializeComponents()
+		{
+			HRESULT hr = E_FAIL;
+			hr = initializeShaderReflector();
+			if (FAILED(hr))
+			{
+				return hr;
+			}
+			hr = initializeDynamicLinkageArray();
+			if (FAILED(hr))
+			{
+				return hr;
 			}
 			return S_OK;
 		}

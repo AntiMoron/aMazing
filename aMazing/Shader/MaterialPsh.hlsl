@@ -2,7 +2,7 @@
 #define MATERIALPSH_HLSL
 
 #include"Buffers.hlsl"
-interface iMaterial
+interface iBasicMaterial
 {
 	//get the ambient color of material
 	float3 getAmbientColor(float2 vTexcoord);
@@ -12,7 +12,7 @@ interface iMaterial
 	int getSpecularFactor();
 };
 
-class cBaseMaterial : iMaterial
+class cBaseMaterial : iBasicMaterial
 {
 	float3 vColor;
 	int iSpecFactor;
