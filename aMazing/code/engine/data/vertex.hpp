@@ -6,38 +6,21 @@
 namespace aMazing
 {
 
-class Vertex
-{
-public:
-	Vertex()
-	{
-		position = { .0f, .0f, .0f };
-		normal = { .0f, .0f, .0f }; 
-		texture = {.0f,.0f}; 
-	}
-	Vertex(XMFLOAT3 pos,XMFLOAT3 nor,XMFLOAT2 tex):position(pos),
-		normal(nor),
-		texture(tex){}
-	~Vertex(){}
-	
-	XMFLOAT3 position;
-	XMFLOAT3 normal;
-	XMFLOAT2 texture;
-};
-
-	class SkinVertex 
+	//POD vertex for static model
+	struct Vertex
 	{
 	public:
-		SkinVertex()
-		{
-#ifdef BONE_UINT4_INDEX
-			memset(boneIndices, 0, sizeof(boneIndices));
-#else
-			boneIndices = 0;
-#endif
-			weights = { 0, 0, 0, 0 };
-		}
+		XMFLOAT3 position;
+		XMFLOAT3 normal;
+		XMFLOAT2 texture;
+	};
 
+	//POD vertex for skinning animation model
+	struct SkinVertex
+	{
+	public:
+		//must call this function to modify bone Index.
+		//!!!do not modify value of boneIndices directly.
 		void setBoneIndex(unsigned int slot,unsigned char value)
 		{
 #ifdef BONE_UINT4_INDEX
