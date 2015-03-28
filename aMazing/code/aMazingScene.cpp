@@ -63,11 +63,29 @@ HRESULT aMazingScene::Initialize(HWND hwnd, ID3D11Device* device,
 	{
 		return hr;
 	}
+
+	classInstanceBuffer.reset(new GPUConstantBuffer<ClassInstance>);
+	classInstanceBuffer->Initialize(device, context, 11);
 	return S_OK;
 }
 
 void aMazingScene::Render(ID3D11Device* device, ID3D11DeviceContext* context)
 {
+
+	ClassInstance cbdata;
+	cbdata.ambientLighting.vLightColor = { 1.0f, 1.0f, 1.0f };
+	cbdata.directLighting.isEnable = true;
+	cbdata.directLighting.vLightColor = { 1.0f, 1.0f, 1.0f };
+	cbdata.directLighting.vLightDir = { 1.0f, 1.0f, 1.0f, 1.0f };
+	cbdata.environmentLighting.isEnable = true;
+	cbdata.environmentLighting.vLightColor = { 1.0f, 1.0f, 1.0f };
+	cbdata.material.iSpecFactor = 128;
+	cbdata.material.vColor = { 0.5f, 0.5f, 0.5f };
+	classInstanceBuffer->UpdateData(&cbdata);
+	classInstanceBuffer->UpdateGpu(device, context);
+	classInstanceBuffer->BindPixelShader(device, context);
+
+
 	camera->Render(device, context);
 	dayTime->UpdateTime(device, context);
 

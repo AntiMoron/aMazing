@@ -31,7 +31,6 @@ ShaderPair::ShaderPair(const ShaderPair& other)
 	shaderName = other.shaderName;
 }
 
-
 bool ShaderPair::operator < (const ShaderPair& other)const
 {
 	return shaderName < other.shaderName;

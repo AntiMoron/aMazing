@@ -9,7 +9,7 @@ namespace aMazing
 		struct cBaseMaterial
 		{
 			XMFLOAT3 vColor;
-			int iSpecFactor;
+			unsigned int iSpecFactor;
 		};
 	}
 }

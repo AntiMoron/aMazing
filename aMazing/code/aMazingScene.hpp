@@ -9,6 +9,11 @@
 #include"DayNightClass.hpp"
 #include"WrappedCamera.hpp"
 #include"engine/animate/ModelClass.hpp"
+#include"engine/shader/shaderclass/cAmbientLight.hpp"
+#include"engine/shader/shaderclass/cDirectionalLight.hpp"
+#include"engine/shader/shaderclass/cEnvironmentLight.hpp"
+#include"engine/shader/shaderclass/cSmoothTexturedMaterial.hpp"
+
 using namespace aMazing;
 
 class aMazingScene
@@ -30,4 +35,12 @@ private:
 	std::unique_ptr<Maze> maze;
 	std::unique_ptr<CollisionWorld> collisionWorld;
 	std::unique_ptr<ModelClass> model;
+	struct ClassInstance
+	{
+		aMazing::shaderObjects::cAmbientLight ambientLighting;
+		aMazing::shaderObjects::cDirectionalLight directLighting;
+		aMazing::shaderObjects::cEnvironmentLight environmentLighting;
+		aMazing::shaderObjects::cSmoothTexturedMaterial material;
+	};
+	std::unique_ptr<GPUConstantBuffer<ClassInstance> > classInstanceBuffer;
 };

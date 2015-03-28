@@ -10,6 +10,8 @@ HWND g_hWnd = nullptr;
 
 aMazingScene* scene = new aMazingScene;
 
+#define ENABLE_CONSOLE
+
 #define DEVICE (D3DManager::getDevice(DEFAULT_DEVICE))
 #define CONTEXT (D3DManager::getContext(DEFAULT_CONTEXT))
 #define DEPTH (D3DManager::getDepthStencilView(DEFAULT_DEPTH_STENCIL_VIEW))

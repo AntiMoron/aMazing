@@ -57,7 +57,7 @@
     <Filter Include="Engine\system">
       <UniqueIdentifier>{7edd9bc4-69ba-4cbf-ad47-f5d5b9826564}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shaders\ShaderClass">
+    <Filter Include="Engine\shader\ShaderClass">
       <UniqueIdentifier>{dcdbafb5-7dae-4775-8012-5e25674f3f7f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -322,40 +322,40 @@
       <Filter>Engine\shader</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\shader\shaderclass\cAmbientLight.hpp">
-      <Filter>Shaders\ShaderClass</Filter>
+      <Filter>Engine\shader\ShaderClass</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\shader\shaderclass\cBaseMaterial.hpp">
-      <Filter>Shaders\ShaderClass</Filter>
+      <Filter>Engine\shader\ShaderClass</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\shader\shaderclass\cDirectionalLight.hpp">
-      <Filter>Shaders\ShaderClass</Filter>
+      <Filter>Engine\shader\ShaderClass</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\shader\shaderclass\cEnvironmentLight.hpp">
-      <Filter>Shaders\ShaderClass</Filter>
+      <Filter>Engine\shader\ShaderClass</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\shader\shaderclass\cHemiAmbientLight.hpp">
-      <Filter>Shaders\ShaderClass</Filter>
+      <Filter>Engine\shader\ShaderClass</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\shader\shaderclass\cOmniLight.hpp">
-      <Filter>Shaders\ShaderClass</Filter>
+      <Filter>Engine\shader\ShaderClass</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\shader\shaderclass\cRoughMaterial.hpp">
-      <Filter>Shaders\ShaderClass</Filter>
+      <Filter>Engine\shader\ShaderClass</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\shader\shaderclass\cRoughTexturedMaterial.hpp">
-      <Filter>Shaders\ShaderClass</Filter>
+      <Filter>Engine\shader\ShaderClass</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\shader\shaderclass\cSmoothLightingOnlyMaterial.hpp">
-      <Filter>Shaders\ShaderClass</Filter>
+      <Filter>Engine\shader\ShaderClass</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\shader\shaderclass\cSmoothMaterial.hpp">
-      <Filter>Shaders\ShaderClass</Filter>
+      <Filter>Engine\shader\ShaderClass</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\shader\shaderclass\cSmoothTexturedMaterial.hpp">
-      <Filter>Shaders\ShaderClass</Filter>
+      <Filter>Engine\shader\ShaderClass</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\shader\shaderclass\cSpotLight.hpp">
-      <Filter>Shaders\ShaderClass</Filter>
+      <Filter>Engine\shader\ShaderClass</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

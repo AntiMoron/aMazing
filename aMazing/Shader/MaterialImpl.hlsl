@@ -6,7 +6,7 @@ float3 cSmoothTexturedMaterial::getAmbientColor(float2 vTexcoord)
 {
 	float4 vDiffuse = (float4)1.0f;
 	vDiffuse = txDiffuse.Sample(samplerLinear,vTexcoord); 
-	return vColor * vDiffuse.xyz;
+	return vDiffuse.xyz;
 }
 
 float3 cSmoothTexturedMaterial::getDiffuseColor(float2 vTexcoord)

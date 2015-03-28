@@ -22,10 +22,9 @@ float3 cDirectionalLight::illuminateDiffuse(float3 vNormal)
 
 float3 cDirectionalLight::illuminateSpecular(float3 vNormal, int specularFactor)
 {
-	float3 highLights = -normalize(eyeDirection.xyz) + vLightDir.xyz;
+	float3 highLights = normalize(eyeDirection.xyz) + vLightDir.xyz;
 	float3 halfAngle = normalize(highLights);
-	float specular = pow(max(0, dot(halfAngle, normalize(vNormal) )), specularFactor);
-
+	float specular = pow(max(0, dot(halfAngle, normalize(vNormal))), specularFactor);
 	return ((float3)specular * vLightColor * isEnable);
 }
 
@@ -42,7 +41,7 @@ float3 cEnvironmentLight::illuminateSpecular(float3 vNormal,int specularFactor)
 	float fresnel = 1 - dot(-E, N);
 	fresnel = (fresnel * fresnel * fresnel);
 	float3 specular = txEnvironmentMap.Sample(samplerLinear, R).xyz * fresnel;
-	return (specular*(float3)isEnable);
+	return (specular * (float3)isEnable);
 }
 
 #endif

@@ -17,7 +17,7 @@ HRESULT CameraClass::Initialize(ID3D11Device* device,
 	position = { 0.0f, 0.0f, 0.0f };
 	rotation = { 0.0f, 0.0f, 0.0f };
 	upVector = { 0.0f, 1.0f, 0.0f };
-	
+
 	forwardDirection = { 0.0f, 0.0f, -1.0f };
 	lefthandDirection = { 1.0f, 0.0f, 0.0f };
 
@@ -44,6 +44,7 @@ HRESULT CameraClass::Initialize(ID3D11Device* device,
 	m_matriceData.projection = XMMatrixPerspectiveFovLH(fov, ASPECTRATIO, near_far.x, near_far.y);
 
 	decltype(m_matriceData) cbData = m_matriceData;
+	cbData.eyeDirection = { lookDir.x, lookDir.y, lookDir.z };
 	cbData.world = XMMatrixTranspose(cbData.world);
 	cbData.view = XMMatrixTranspose(cbData.view);
 	cbData.projection = XMMatrixTranspose(cbData.projection);
