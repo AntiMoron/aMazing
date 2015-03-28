@@ -21,6 +21,10 @@ cbuffer lightBuffer : register(b4)
 	cDirectionalLight directLighting;
 	cEnvironmentLight environmentLighting;
 	cSmoothTexturedMaterial material;
+	/*iBasicLight ambientLighting;
+	iBasicLight directLighting;
+	iBasicLight environmentLighting;
+	iBasicMaterial material;*/
 }
 
 
