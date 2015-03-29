@@ -73,4 +73,13 @@ namespace aMazing
 			return a;
 		return b;
 	}
+	/**
+	*@brief To judge whether a type T is numeric type.
+	*/
+	template<typename T>
+	struct aIsNumeric
+	{
+		const static bool value = std::is_floating_point<T>::value ||
+		std::is_integral<T>::value;
+	};
 }
