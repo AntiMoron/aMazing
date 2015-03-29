@@ -1,8 +1,8 @@
 #pragma once
-#include"../../common/CommonDxSupport.hpp"
-#include"../../common/CommonTemplates.hpp"
-#include"../system/MaterialType.hpp"
-#include"../system/ShaderManager.hpp"
+#include"../../../common/CommonDxSupport.hpp"
+#include"../../../common/CommonTemplates.hpp"
+#include"../../system/MaterialType.hpp"
+#include"../../shader/ShaderManager.hpp"
 #include<type_traits>
 #include<unordered_map>
 
