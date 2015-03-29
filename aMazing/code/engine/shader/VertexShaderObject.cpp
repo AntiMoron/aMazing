@@ -11,8 +11,8 @@ VertexShaderObject::VertexShaderObject()
 
 VertexShaderObject::~VertexShaderObject()
 {
-	SAFE_RELEASE(shader);
-	SAFE_RELEASE(layout);
+	aSAFE_RELEASE(shader);
+	aSAFE_RELEASE(layout);
 }
 
 HRESULT VertexShaderObject::createShaderFromFile(ID3D11Device* device,

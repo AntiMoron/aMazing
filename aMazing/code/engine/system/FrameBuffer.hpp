@@ -2,7 +2,7 @@
 
 #include"../../common/CommonDxSupport.hpp"
 #include"WindowClass.hpp"
-#include"Defines.hpp"
+#include"../../common/CommonDef.hpp"
 
 namespace aMazing
 {

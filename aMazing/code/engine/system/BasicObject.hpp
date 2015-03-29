@@ -8,7 +8,7 @@
 #include"GPUConstantBuffer.hpp"
 #include"GPUVerticesBuffer.hpp"
 #include<memory>
-#include"Defines.hpp" 
+#include"../../common/CommonDef.hpp" 
 
 class BasicObject
 {

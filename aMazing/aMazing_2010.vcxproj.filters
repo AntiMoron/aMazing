@@ -158,9 +158,6 @@
     <ClInclude Include="code\engine\system\BlockClass.hpp">
       <Filter>Engine\system</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\system\Defines.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
     <ClInclude Include="code\engine\system\FunctionType.hpp">
       <Filter>Engine\system</Filter>
     </ClInclude>
@@ -356,6 +353,18 @@
     </ClInclude>
     <ClInclude Include="code\engine\shader\shaderclass\cSpotLight.hpp">
       <Filter>Engine\shader\ShaderClass</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\math\amath.hpp">
+      <Filter>Engine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\math\amatrix.hpp">
+      <Filter>Engine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\math\autil.hpp">
+      <Filter>Engine\math</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\math\avector.hpp">
+      <Filter>Engine\math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -4,10 +4,10 @@
 #include<D3DX11.h>
 #include<D3DX10math.h>
 #include<xnamath.h>
-#include"../../engine/data/Vertex.hpp"
 #include"WindowClass.hpp"
 #include"GPUMutableVerticesBuffer.hpp"
-#include"Defines.hpp"
+#include"../../engine/data/Vertex.hpp"
+#include"../../common/CommonDef.hpp"
 namespace aMazing
 {
 	class RectangleClass

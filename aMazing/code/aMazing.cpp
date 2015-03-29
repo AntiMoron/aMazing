@@ -151,59 +151,59 @@ HRESULT InitDevice()
 
 	UINT animElements = ARRAYSIZE(animLayout);
 	UINT numElements = ARRAYSIZE(layout);
-	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
+	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/Basic3D.fx", "Shader/Basic3D.fx",
 		layout, numElements, "Basic3D"));
 
-	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
+	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/Basic2D.fx", "Shader/Basic2D.fx",
 		layout, numElements, "Basic2D"));
 
-	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
+	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/BasicSky.fx", "Shader/BasicSky.fx",
 		layout, numElements, "BasicSky"));
 
-	/*RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
+	/*aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/FireWork.fx", "Shader/FireWork.fx",
 		layout,numElements,"FireWork"));
 
-	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
+	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/hblur/hblur.fx", "Shader/hblur/hblur.fx",
 		layout, numElements, "Hblur"));
 
-	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
+	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/vblur/vblur.fx", "Shader/vblur/vblur.fx",
 		layout, numElements, "Vblur"));
 
-	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
+	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/wires/line.fx", "Shader/wires/line.fx",
 		layout, numElements, "BasicLine"));
-	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
+	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/depthMap/depthMap.fx", "Shader/depthMap/depthMap.fx",
 		layout, numElements, "DepthMap"));
-	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
+	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/depthMap/lightDepthMap.fx", "Shader/depthMap/lightDepthMap.fx",
 		layout, numElements, "LightDepthMap"));
-	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
+	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/texture/ProjectionTex.fx", "Shader/texture/ProjectionTex.fx",
 		layout, numElements, "ProjectionTex"));
-	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
+	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 	"Shader/ShadowMap/ShadowMap.fx", "Shader/ShadowMap/ShadowMap.fx",
 	layout, numElements, "ShadowMap"));
-	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
+	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/texture/AA/MSAA4x4.fx", "Shader/texture/AA/MSAA4x4.fx",
 		layout, numElements, "MSAA4x4"));
-	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
+	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/HighLight/HighLight.fx", "Shader/HighLight/HighLight.fx",
 		layout, numElements, "HighLight"));
-	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
+	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/Glow/GlowMerge.fx", "Shader/Glow/GlowMerge.fx",
 		layout, numElements, "GlowMerge"));
-	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
+	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/DepthField/DepthFieldMerge.fx", "Shader/DepthField/DepthFieldMerge.fx",
 		layout, numElements, "DepthFieldMerge"));
 		*/
-	RETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
+	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/skinAnim/skinAnim.fx", "Shader/skinAnim/skinAnim.fx",
 		animLayout, animElements, "SkinAnim"));
 

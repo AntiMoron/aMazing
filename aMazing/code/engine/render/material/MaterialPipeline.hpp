@@ -23,7 +23,7 @@ namespace aMazing
 		//bind user-defined enumeration to specified shaders.
 		template<typename T>
 		const bool addUserDefinedMaterialBind(std::enable_if<std::is_enum<T>::value, >::type materialType,
-			ShaderPair& shaderPair) _NOEXCEPT
+			ShaderPair& shaderPair) aNOEXCEPT
 		{
 			if (useredDefinedMaterial2ShaderPair.find() != useredDefinedMaterial2ShaderPair.end())
 			{
@@ -33,7 +33,7 @@ namespace aMazing
 			return true;
 		}
 
-		const bool addMaterialBind(RenderTypeEnum::MATERIAL_TYPE type, ShaderPair& shaderPair) _NOEXCEPT
+		const bool addMaterialBind(RenderTypeEnum::MATERIAL_TYPE type, ShaderPair& shaderPair) aNOEXCEPT
 		{
 			if (matchMaterialType2ShaderPair.find(type) != matchMaterialType2ShaderPair.end())
 			{

@@ -1,5 +1,6 @@
 #pragma once
 #include"../common/CommonTemplates.hpp"
+#include"../common/CommonDef.hpp"
 #include"../engine/exception/MemoryException.hpp"
 #include<type_traits>
 #include<typeinfo>
@@ -46,7 +47,7 @@ namespace aMazing
 			content = new holder<typename decay<type>::type>(static_cast<type&&>(value));
 		}
 
-		any& swap(any& rhs) _NOEXCEPT
+		any& swap(any& rhs) aNOEXCEPT
 		{
 			auto t = content;
 			content = rhs.content;
@@ -60,7 +61,7 @@ namespace aMazing
 			return *this;
 		}
 
-		any& operator = (any&& rhs) _NOEXCEPT
+		any& operator = (any&& rhs) aNOEXCEPT
 		{
 			rhs.swap(*this);
 			any().swap(rhs);
@@ -106,7 +107,7 @@ namespace aMazing
 		*More effective.
 		*/
 		template<typename type>
-		type& unsafeReach() _NOEXCEPT
+		type& unsafeReach() aNOEXCEPT
 		{
 			return *reinterpret_cast<type*>(content->reach());
 		}
@@ -116,7 +117,7 @@ namespace aMazing
 			return !content;
 		}
 
-		const std::type_info& type() const _NOEXCEPT
+		const std::type_info& type() const aNOEXCEPT
 		{
 			return content ? content->type() : typeid(void);
 		}
@@ -127,7 +128,7 @@ namespace aMazing
 			virtual placeHolder* clone() const = 0;
 			virtual void* reach() = 0;
 			virtual ~placeHolder(){}
-			virtual const std::type_info & type() const _NOEXCEPT = 0;
+			virtual const std::type_info & type() const aNOEXCEPT = 0;
 			virtual size_t getDataSize() const = 0;
 		};
 
@@ -145,7 +146,7 @@ namespace aMazing
 				this->content = content;
 			}
 
-			virtual const std::type_info& type() const _NOEXCEPT
+			virtual const std::type_info& type() const aNOEXCEPT
 			{
 				return typeid(T);
 			}

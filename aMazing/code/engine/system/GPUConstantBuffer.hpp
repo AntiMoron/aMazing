@@ -2,7 +2,7 @@
 #include<D3D11.h>
 #include<D3DX11.h>
 #include<cstdio>
-#include"Defines.hpp"
+#include"../../common/CommonDef.hpp"
 
 template<typename source_type>
 class GPUConstantBuffer

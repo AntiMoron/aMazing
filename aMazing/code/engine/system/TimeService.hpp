@@ -5,6 +5,7 @@
 #include <functional>
 #include <thread>
 #include <list>
+#include "../../common/CommonDef.hpp"
 using namespace std;
 
 class TimeService {
@@ -37,7 +38,7 @@ public:
 		auto duration = nowTime - initTime.value;
 		return duration.count();
 	}
-	static timePoint getSysTime() _NOEXCEPT{
+	static timePoint getSysTime() aNOEXCEPT{
 		return chrono::high_resolution_clock::now();
 	}
 	
@@ -53,7 +54,7 @@ public:
 	void preCallBackNanoSec(std::function<void()> n,std::size_t nanoSec) {
 		preCallBackPrototype<std::chrono::nanoseconds> (n,nanoSec);
 	}
-	bool hasTask() const _NOEXCEPT{
+	bool hasTask() const aNOEXCEPT{
 		return !tasks.empty();
 	}
 private:
@@ -72,7 +73,7 @@ private:
 	};
 	struct time_wrapper { 
 		timePoint value; 
-		time_wrapper() _NOEXCEPT{ 
+		time_wrapper() aNOEXCEPT{ 
 			value = std::chrono::high_resolution_clock::now();
 		} 
 	};

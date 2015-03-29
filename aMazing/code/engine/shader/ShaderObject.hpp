@@ -28,9 +28,9 @@ namespace aMazing
 		}
 		virtual ~ShaderObject()
 		{
-			SAFE_RELEASE(pShaderContextBuffer);
-			SAFE_RELEASE(pClassLinkage);
-			SAFE_RELEASE(pShaderReflector);
+			aSAFE_RELEASE(pShaderContextBuffer);
+			aSAFE_RELEASE(pClassLinkage);
+			aSAFE_RELEASE(pShaderReflector);
 		}
 	
 		const SHADER_TYPE getType() const

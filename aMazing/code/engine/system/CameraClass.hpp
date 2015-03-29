@@ -4,7 +4,7 @@
 #include"GPUConstantBuffer.hpp"
 #include<xnamath.h>
 #include"WindowClass.hpp"
-#include"Defines.hpp"
+#include"../../common/CommonDef.hpp"
 #include"FrustumClass.hpp"
 
 namespace aMazing

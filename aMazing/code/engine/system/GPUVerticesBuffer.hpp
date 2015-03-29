@@ -2,7 +2,7 @@
 
 #include<D3D11.h>
 #include<D3DX11.h>
-#include"Defines.hpp"
+#include"../../common/CommonDef.hpp"
 
 template<typename source_type>
 class GPUVerticesBuffer
@@ -17,8 +17,8 @@ public:
 	}
 	~GPUVerticesBuffer()
 	{
-		SAFE_RELEASE(m_vertices);
-		SAFE_RELEASE(m_index);
+		aSAFE_RELEASE(m_vertices);
+		aSAFE_RELEASE(m_index);
 	}
 
 	//If the indices pointer is nullptr,then no index buffer would be initialized

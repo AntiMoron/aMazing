@@ -16,12 +16,12 @@ FrameBuffer::FrameBuffer()
 
 FrameBuffer::~FrameBuffer()
 {
-	SAFE_RELEASE(m_shaderResourceView);
-	SAFE_RELEASE(m_renderTargetTexture);
-	SAFE_RELEASE(m_renderTargetView);
-	SAFE_RELEASE(m_pDepthStencil);
-	SAFE_RELEASE(m_depthStencilView);
-	SAFE_RELEASE(m_renderTargetTextureMS);
+	aSAFE_RELEASE(m_shaderResourceView);
+	aSAFE_RELEASE(m_renderTargetTexture);
+	aSAFE_RELEASE(m_renderTargetView);
+	aSAFE_RELEASE(m_pDepthStencil);
+	aSAFE_RELEASE(m_depthStencilView);
+	aSAFE_RELEASE(m_renderTargetTextureMS);
 }
 
 HRESULT FrameBuffer::Initialize(ID3D11Device* device, ID3D11DeviceContext* context)

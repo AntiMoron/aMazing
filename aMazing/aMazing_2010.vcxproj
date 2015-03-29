@@ -450,6 +450,10 @@
     <ClInclude Include="code\engine\exception\FailureException.hpp" />
     <ClInclude Include="code\engine\exception\MemoryException.hpp" />
     <ClInclude Include="code\engine\exception\ParamException.hpp" />
+    <ClInclude Include="code\engine\math\amath.hpp" />
+    <ClInclude Include="code\engine\math\amatrix.hpp" />
+    <ClInclude Include="code\engine\math\autil.hpp" />
+    <ClInclude Include="code\engine\math\avector.hpp" />
     <ClInclude Include="code\engine\render\CommonPipeLine.hpp" />
     <ClInclude Include="code\engine\render\effect\RenderPipeline.hpp" />
     <ClInclude Include="code\engine\render\material\MaterialPipeline.hpp" />
@@ -480,7 +484,6 @@
     <ClInclude Include="code\engine\system\BlockClass.hpp" />
     <ClInclude Include="code\engine\system\CameraClass.hpp" />
     <ClInclude Include="code\engine\system\D3DManager.hpp" />
-    <ClInclude Include="code\engine\system\Defines.hpp" />
     <ClInclude Include="code\engine\system\FileTracker.hpp" />
     <ClInclude Include="code\engine\system\FrameBuffer.hpp" />
     <ClInclude Include="code\engine\system\FrustumClass.hpp" />

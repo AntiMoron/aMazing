@@ -222,19 +222,19 @@ namespace aMazing
 
 		static void shutdown()
 		{
-			SAFE_RELEASE(pDefaultDevice);
-			SAFE_RELEASE(pImmediateContext);
-			SAFE_RELEASE(pDeferredContext);
-			SAFE_RELEASE(pSwapChain);
-			SAFE_RELEASE(pRenderTargetView);
-			SAFE_RELEASE(pDepthStencil);
-			SAFE_RELEASE(pTextureRV);
-			SAFE_RELEASE(pSamplerLinear);
-			SAFE_RELEASE(pSamplerPoint);
-			SAFE_RELEASE(pEnableDepthState);
-			SAFE_RELEASE(pDisableDepthState);
-			SAFE_RELEASE(pEnableBlending);
-			SAFE_RELEASE(pDisableBlending);
+			aSAFE_RELEASE(pDefaultDevice);
+			aSAFE_RELEASE(pImmediateContext);
+			aSAFE_RELEASE(pDeferredContext);
+			aSAFE_RELEASE(pSwapChain);
+			aSAFE_RELEASE(pRenderTargetView);
+			aSAFE_RELEASE(pDepthStencil);
+			aSAFE_RELEASE(pTextureRV);
+			aSAFE_RELEASE(pSamplerLinear);
+			aSAFE_RELEASE(pSamplerPoint);
+			aSAFE_RELEASE(pEnableDepthState);
+			aSAFE_RELEASE(pDisableDepthState);
+			aSAFE_RELEASE(pEnableBlending);
+			aSAFE_RELEASE(pDisableBlending);
 		}
 
 		static ID3D11Device* getDevice(enum MANAGED_DEVICE_TYPE deviceEnum)

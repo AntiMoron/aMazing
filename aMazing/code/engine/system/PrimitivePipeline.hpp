@@ -3,8 +3,8 @@
 #include"D3DManager.hpp"
 #include"BlockClass.hpp"
 #include"RectangleClass.hpp"
-#include"Defines.hpp"
 #include"LineClass.hpp"
+#include"../../common/CommonDef.hpp"
 
 namespace aMazing
 {
