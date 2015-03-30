@@ -10,9 +10,15 @@ ModelClass::ModelClass()
 {
 	is_inited = false;
 	render_time = 0.0f;
+	isStaticModel = true;
 }
 
 ModelClass::~ModelClass(){}
+
+bool ModelClass::isStatic() const
+{
+	return isStaticModel;
+}
 
 HRESULT ModelClass::Initialize(ID3D11Device* device,
 	ID3D11DeviceContext* context,
@@ -24,8 +30,8 @@ HRESULT ModelClass::Initialize(ID3D11Device* device,
 	{
 		return hr;
 	}
-	
-	std::string filename = string.getMultiByteString(); 
+
+	std::string filename = string.getMultiByteString();
 
 	unsigned int ppsteps = aiProcess_CalcTangentSpace | // calculate tangents and bitangents if possible
 		aiProcess_JoinIdenticalVertices | // join identical vertices/ optimize indexing
@@ -59,37 +65,61 @@ HRESULT ModelClass::Initialize(ID3D11Device* device,
 		return E_FAIL;
 	}
 
-	sceneAnimator.reset(new SceneAnimator(scene));
+	isStaticModel = !scene->HasAnimations();
+
 	//update the fileLocation
 	modelLocation.reset(new std::string(getModelLocation(filename.c_str())));
 
-	hr = boneTransformations.Initialize(device, context, 3);
-	if (FAILED(hr))
+	if (!isStaticModel)
 	{
-		return hr;
+		sceneAnimator.reset(new SceneAnimator(scene));
+		hr = boneTransformations.Initialize(device, context, 3);
+		if (FAILED(hr))
+		{
+			return hr;
+		}
 	}
 	//load the texturess of this model.
 	loadTextures(device, context, scene, string.getMultiByteString().c_str());
 
 	//load the meshes of this model.
 	loadMeshes(scene);
-	
-	if (vertices.empty() || indices.empty())
+
+	if ((animationVertexBuffer.empty() && staticVertexBuffer.empty()) || indices.empty())
 	{
 		return E_FAIL;
 	}
 	//send vertices into vertex buffers.
-	for (int i = 0; i < vertices.size(); i++)
+	if (isStaticModel)
 	{
-		auto& currentBuffer = vertexBuffer[i];
-		hr = currentBuffer->Initialize(device, context, 
-			vertices[i]->data(), 
-			vertices[i]->size(),
-			indices[i]->data(),
-			indices[i]->size());
-		if (FAILED(hr))
+		for (int i = 0; i < staticVertices.size(); i++)
 		{
-			return hr;
+			auto& currentBuffer = staticVertexBuffer[i];
+			hr = currentBuffer->Initialize(device, context,
+				staticVertices[i]->data(),
+				staticVertices[i]->size(),
+				indices[i]->data(),
+				indices[i]->size());
+			if (FAILED(hr))
+			{
+				return hr;
+			}
+		}
+	}
+	else
+	{
+		for (int i = 0; i < animationVertices.size(); i++)
+		{
+			auto& currentBuffer = animationVertexBuffer[i];
+			hr = currentBuffer->Initialize(device, context,
+				animationVertices[i]->data(),
+				animationVertices[i]->size(),
+				indices[i]->data(),
+				indices[i]->size());
+			if (FAILED(hr))
+			{
+				return hr;
+			}
 		}
 	}
 	return S_OK;
@@ -155,64 +185,88 @@ void ModelClass::loadMeshes(const aiScene* pScene)
 		{
 			continue;
 		}
-		vertices.push_back(std::unique_ptr<std::vector<SkinVertex> >(new std::vector<SkinVertex>));
 		indices.push_back(std::unique_ptr<std::vector<WORD> >(new std::vector<WORD>)); 
-		vertexBuffer.push_back(std::unique_ptr<GPUMutableVerticeBuffer<SkinVertex> >(new GPUMutableVerticeBuffer<SkinVertex>));
 		textureIndices.push_back(pMesh->mMaterialIndex);
-
-		std::vector<std::size_t> vertexBoneBindCnt;
-		for (int j = 0; j < pMesh->mNumVertices; j++)
+		if (isStaticModel)
 		{
-			auto& pos = pMesh->mVertices[j];
-			auto& nor = pMesh->mNormals[j];
-			auto& tex = pMesh->mTextureCoords[0];
-			vertexBoneBindCnt.push_back(0);
-			vertices.back()->push_back(SkinVertex());
-			vertices.back()->back().position = XMFLOAT4{ pos.x, pos.y, pos.z, 1.0f };
-			vertices.back()->back().normal = XMFLOAT4{ nor.x, nor.y, nor.z, 1.0f };
-			if (tex == nullptr)
+			staticVertices.push_back(std::unique_ptr<std::vector<Vertex> >(new std::vector<Vertex>));
+			staticVertexBuffer.push_back(std::unique_ptr<GPUVerticesBuffer<Vertex> >(new GPUVerticesBuffer<Vertex>));
+			for (int j = 0; j < pMesh->mNumVertices; j++)
 			{
-				vertices.back()->back().texture = XMFLOAT4{ 1.0f, 1.0f, 0.0f, 0.0f }; 
+				auto& pos = pMesh->mVertices[j];
+				auto& nor = pMesh->mNormals[j];
+				auto& tex = pMesh->mTextureCoords[0];
+				staticVertices.back()->push_back(Vertex());
+				staticVertices.back()->back().position = XMFLOAT3{ pos.x, pos.y, pos.z };
+				staticVertices.back()->back().normal = XMFLOAT3{ nor.x, nor.y, nor.z };
+				if (tex == nullptr)
+				{
+					staticVertices.back()->back().texture = XMFLOAT2{ 1.0f, 1.0f };
+				}
+				else
+				{
+					staticVertices.back()->back().texture = XMFLOAT2{ tex[j].x, tex[j].y };
+				}
 			}
-			else
-			{
-				vertices.back()->back().texture = XMFLOAT4{ tex[j].x, tex[j].y, 0.0f, 0.0f };
-			}
-			
 		}
-		
-		for (int k = 0; k < pMesh->mNumBones; k++)
+		else
 		{
-			const auto pBone = pMesh->mBones[k];
-			for (int l = 0; l < pBone->mNumWeights; l++)
+			animationVertices.push_back(std::unique_ptr<std::vector<SkinVertex> >(new std::vector<SkinVertex>));
+			animationVertexBuffer.push_back(std::unique_ptr<GPUMutableVerticeBuffer<SkinVertex> >(new GPUMutableVerticeBuffer<SkinVertex>));
+			std::vector<std::size_t> vertexBoneBindCnt;
+			for (int j = 0; j < pMesh->mNumVertices; j++)
 			{
-				const auto weights = pBone->mWeights[l];
-				if (weights.mWeight == 0.0f)
+				auto& pos = pMesh->mVertices[j];
+				auto& nor = pMesh->mNormals[j];
+				auto& tex = pMesh->mTextureCoords[0];
+				vertexBoneBindCnt.push_back(0);
+				animationVertices.back()->push_back(SkinVertex());
+				animationVertices.back()->back().position = XMFLOAT4{ pos.x, pos.y, pos.z, 1.0f };
+				animationVertices.back()->back().normal = XMFLOAT4{ nor.x, nor.y, nor.z, 1.0f };
+				if (tex == nullptr)
 				{
-					continue; 
+					animationVertices.back()->back().texture = XMFLOAT4{ 1.0f, 1.0f, 0.0f, 0.0f };
 				}
-				switch (vertexBoneBindCnt[weights.mVertexId])
+				else
 				{
-				case 0:
-					vertices.back()->at(weights.mVertexId).setBoneIndex(0, k);
-					vertices.back()->at(weights.mVertexId).weights.x = weights.mWeight;
-					break;
-				case 1:
-					vertices.back()->at(weights.mVertexId).setBoneIndex(1, k);
-					vertices.back()->at(weights.mVertexId).weights.y = weights.mWeight;
-					break;
-				case 2:
-					vertices.back()->at(weights.mVertexId).setBoneIndex(2, k);
-					vertices.back()->at(weights.mVertexId).weights.z = weights.mWeight;
-					break;
-				case 3:
-					vertices.back()->at(weights.mVertexId).setBoneIndex(3, k);
-					vertices.back()->at(weights.mVertexId).weights.w = weights.mWeight;
-					break;
-				default:
-					printf("out of range\n");
+					animationVertices.back()->back().texture = XMFLOAT4{ tex[j].x, tex[j].y, 0.0f, 0.0f };
 				}
-				vertexBoneBindCnt[weights.mVertexId]++;
+			}
+		
+			for (int k = 0; k < pMesh->mNumBones; k++)
+			{
+				const auto pBone = pMesh->mBones[k];
+				for (int l = 0; l < pBone->mNumWeights; l++)
+				{
+					const auto weights = pBone->mWeights[l];
+					if (weights.mWeight == 0.0f)
+					{
+						continue; 
+					}
+					auto& lastMesh = animationVertices.back();
+					switch (vertexBoneBindCnt[weights.mVertexId])
+					{
+					case 0:
+						lastMesh->at(weights.mVertexId).setBoneIndex(0, k);
+						lastMesh->at(weights.mVertexId).weights.x = weights.mWeight;
+						break;
+					case 1:
+						lastMesh->at(weights.mVertexId).setBoneIndex(1, k);
+						lastMesh->at(weights.mVertexId).weights.y = weights.mWeight;
+						break;
+					case 2:
+						lastMesh->at(weights.mVertexId).setBoneIndex(2, k);
+						lastMesh->at(weights.mVertexId).weights.z = weights.mWeight;
+						break;
+					case 3:
+						lastMesh->at(weights.mVertexId).setBoneIndex(3, k);
+						lastMesh->at(weights.mVertexId).weights.w = weights.mWeight;
+						break;
+					default:
+						printf("out of range\n");
+					}
+					vertexBoneBindCnt[weights.mVertexId]++;
+				}
 			}
 		}
 
@@ -299,7 +353,10 @@ void ModelClass::Render(ID3D11Device* device,
 		std::size_t meshIndex = pNode->mMeshes[i];
 		bindBonesToGPU(device, context, pNode, render_time);
 		textures[textureIndices[meshIndex]]->bindPS(device, context, 0);
-		vertexBuffer[meshIndex]->Render(device, context);
+		if (isStaticModel)
+			staticVertexBuffer[meshIndex]->Render(device, context);
+		else
+			animationVertexBuffer[meshIndex]->Render(device, context);
 	}
 	
 	for (int i = 0; i < pNode->mNumChildren; i++)

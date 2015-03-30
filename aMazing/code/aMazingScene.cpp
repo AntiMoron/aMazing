@@ -58,6 +58,7 @@ HRESULT aMazingScene::Initialize(HWND hwnd, ID3D11Device* device,
 
 
 	model.reset(new ModelClass);
+	/*hr = model->Initialize(device, context, "C:/Users/Think/Desktop/DEMO/scene/kyjn/kyjn01/1-2/3_2.obj");*/
 	hr = model->Initialize(device, context, "3dModel/figure.fbx");
 	if (FAILED(hr))
 	{
@@ -101,7 +102,14 @@ void aMazingScene::Render(ID3D11Device* device, ID3D11DeviceContext* context)
 		SHADERS.bindPair("Basic3D", device, context);
 		maze->Render(device, context, camera->getCamera());
 		//bind shader which skin animation need.
-		SHADERS.bindPair("SkinAnim", device, context);
+		if (model->isStatic())
+		{
+			SHADERS.bindPair("Basic3D", device, context);
+		}
+		else
+		{
+			SHADERS.bindPair("SkinAnim", device, context);
+		}
 		model->setRotation(XMFLOAT3(1.57, 0, 0));
 		model->setScaling(XMFLOAT3(0.1f, 0.1f, 0.1f));
 		model->Render(device, context);

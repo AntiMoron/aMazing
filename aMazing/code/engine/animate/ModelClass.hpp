@@ -40,6 +40,8 @@ namespace aMazing
 
 		void Render(ID3D11Device* device,
 			ID3D11DeviceContext* context);
+
+		bool isStatic() const;
 	private:
 
 		void Render(ID3D11Device* device,
@@ -65,6 +67,7 @@ namespace aMazing
 			float animationTime);
 
 		volatile bool is_inited;
+		volatile bool isStaticModel;
 
 		//the data loaded from file.
 		aiScene* scene;
@@ -79,9 +82,11 @@ namespace aMazing
 		//the queue of indices of each mesh.
 		std::vector<std::unique_ptr<std::vector<WORD> > > indices;
 		//the queue that saves all the vertices
-		std::vector<std::unique_ptr<std::vector<SkinVertex> > > vertices;
+		std::vector<std::unique_ptr<std::vector<SkinVertex> > > animationVertices;
+		std::vector<std::unique_ptr<std::vector<Vertex> > > staticVertices;
 		//the queue of buffer that all the parts from model divided from all the vertices 
-		std::vector<std::unique_ptr<GPUMutableVerticeBuffer<SkinVertex> > > vertexBuffer;
+		std::vector<std::unique_ptr<GPUMutableVerticeBuffer<SkinVertex> > > animationVertexBuffer;
+		std::vector<std::unique_ptr<GPUVerticesBuffer<Vertex> > > staticVertexBuffer;
 
 		std::unique_ptr<SceneAnimator> sceneAnimator;
 		//the constant buffer that update bones' transformations.
