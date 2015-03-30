@@ -62,30 +62,35 @@ namespace aMazing
 			return true;
 		}
 		//return whether two matrices are same.
-		bool operator == (const aMatrix4x4_t& other) const aNOEXCEPT
+		bool operator == (const aMatrix2x2_t& other) const aNOEXCEPT
 		{
 			return m11 == other.m11 && m12 == other.m12 &&
 			m21 == other.m21 && m22 == other.m22;
 		}
-		aMatrix2x2_t<type> operator + (const aMatrix2x2<type>& other)const aNOEXCEPT
+		aMatrix2x2_t<type> operator + (const aMatrix2x2_t<type>& other)const aNOEXCEPT
 		{
 			aMatrix2x2_t<type> result;
-			reuslt.m11 = m11 + other.m11;
+			result.m11 = m11 + other.m11;
 			result.m12 = m12 + other.m12;
 
 			result.m21 = m21 + other.m21;
 			result.m22 = m22 + other.m22;
 			return result;
 		}
-		aMatrix2x2_t<type> operator - (const aMatrix2x2<type>& other)const aNOEXCEPT
+		aMatrix2x2_t<type> operator - (const aMatrix2x2_t<type>& other)const aNOEXCEPT
 		{
 			aMatrix2x2_t<type> result;
-			reuslt.m11 = m11 - other.m11;
+			result.m11 = m11 - other.m11;
 			result.m12 = m12 - other.m12;
 
 			result.m21 = m21 - other.m21;
 			result.m22 = m22 - other.m22;
 			return result;
+		}
+		//To get the determinant of the matrix.
+		type determinant() const aNOEXCEPT
+		{
+			return m11 * m22 - (m12 * m21);
 		}
 	};
 
@@ -145,7 +150,7 @@ namespace aMazing
 			return true;
 		}
 		//return whether two matrices are same.
-		bool operator == (const aMatrix4x4_t& other) const aNOEXCEPT
+		bool operator == (const aMatrix3x3_t& other) const aNOEXCEPT
 		{
 			return m11 == other.m11 && m12 == other.m12 && m13 == other.m13 &&
 			m21 == other.m21 && m22 == other.m22 && m23 == other.m23 &&
@@ -154,7 +159,7 @@ namespace aMazing
 		aMatrix3x3_t<type> operator + (const aMatrix3x3_t<type>& other)const aNOEXCEPT
 		{
 			aMatrix3x3_t<type> result;
-			reuslt.m11 = m11 + other.m11;
+			result.m11 = m11 + other.m11;
 			result.m12 = m12 + other.m12;
 			result.m13 = m13 + other.m13;
 
@@ -170,7 +175,7 @@ namespace aMazing
 		aMatrix3x3_t<type> operator - (const aMatrix3x3_t<type>& other)const aNOEXCEPT
 		{
 			aMatrix3x3_t<type> result;
-			reuslt.m11 = m11 - other.m11;
+			result.m11 = m11 - other.m11;
 			result.m12 = m12 - other.m12;
 			result.m13 = m13 - other.m13;
 
@@ -182,6 +187,13 @@ namespace aMazing
 			result.m32 = m32 - other.m32;
 			result.m33 = m33 - other.m33;
 			return result;
+		}
+		//To get the determinant of the matrix.
+		type determinant() const aNOEXCEPT
+		{
+			return (m11 * ((m22 * m33) - (m23 * m32))) -
+			(m12 * ((m21 * m33) - (m23 * m31))) + 
+			(m13 * ((m21 * m32) - (m22 * m31)));
 		}
 	};
 
@@ -256,10 +268,10 @@ namespace aMazing
 			m41 == other.m41 && m42 == other.m42 && m43 == other.m43 && m44 == other.m44;
 		}
 
-		aMatrix3x3_t<type> operator + (const aMatrix3x3_t<type>& other)const aNOEXCEPT
+		aMatrix4x4_t<type> operator + (const aMatrix4x4_t<type>& other)const aNOEXCEPT
 		{
-			aMatrix3x3_t<type> result;
-			reuslt.m11 = m11 + other.m11;
+			aMatrix4x4_t<type> result;
+			result.m11 = m11 + other.m11;
 			result.m12 = m12 + other.m12;
 			result.m13 = m13 + other.m13;
 			result.m14 = m14 + other.m14;
@@ -280,10 +292,10 @@ namespace aMazing
 			result.m44 = m44 + other.m44;
 			return result;
 		}
-		aMatrix3x3_t<type> operator - (const aMatrix3x3_t<type>& other)const aNOEXCEPT
+		aMatrix4x4_t<type> operator - (const aMatrix4x4_t<type>& other)const aNOEXCEPT
 		{
-			aMatrix3x3_t<type> result;
-			reuslt.m11 = m11 - other.m11;
+			aMatrix4x4_t<type> result;
+			result.m11 = m11 - other.m11;
 			result.m12 = m12 - other.m12;
 			result.m13 = m13 - other.m13;
 			result.m21 = m21 - other.m21;
@@ -293,6 +305,17 @@ namespace aMazing
 			result.m32 = m32 - other.m32;
 			result.m33 = m33 - other.m33;
 			return result;
+		}
+
+		//To get the determinant of the matrix.
+		type determinant() const aNOEXCEPT
+		{
+			aMatrix3x3_t<type> mat1 = { m22, m23, m24, m32, m33, m34, m42, m43, m44 };
+			aMatrix3x3_t<type> mat2 = { m21, m23, m24, m31, m33, m34, m41, m43, m44 };
+			aMatrix3x3_t<type> mat3 = { m21, m22, m24, m31, m32, m34, m41, m42, m44 };
+			aMatrix3x3_t<type> mat4 = { m21, m22, m23, m31, m32, m33, m41, m42, m43 };
+			return m11 * mat1.determinant() - (m12 * mat2.determinant()) + 
+				(m13 * mat3.determinant()) - (m14 * mat4.determinant());
 		}
 	};
 
