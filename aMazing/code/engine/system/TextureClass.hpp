@@ -1,13 +1,11 @@
 #pragma once
 
-#include<D3D11.h>
-#include<D3DX11.h>
+#include"../../common/CommonDxSupport.hpp"
 #include<D3DX11tex.h>
 #include"GPUConstantBuffer.hpp"
 #include"GPUVerticesBuffer.hpp"
-#include"MutableString.hpp"
 #include"../data/TgaLoader.hpp"
-#include<xnamath.h>
+#include"MutableString.hpp"
 namespace aMazing
 {
 	class TextureClass

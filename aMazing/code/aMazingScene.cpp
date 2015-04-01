@@ -102,6 +102,7 @@ void aMazingScene::Render(ID3D11Device* device, ID3D11DeviceContext* context)
 		SHADERS.bindPair("Basic3D", device, context);
 		maze->Render(device, context, camera->getCamera());
 		//bind shader which skin animation need.
+
 		if (model->isStatic())
 		{
 			SHADERS.bindPair("Basic3D", device, context);

@@ -1,6 +1,7 @@
 #pragma once
 
 #include"../../common/CommonDxSupport.hpp"
+#include"../../common/CommonDef.hpp"
 #include<iostream>
 
 template<typename source_type>
@@ -9,24 +10,16 @@ class GPUMutableVerticeBuffer
 public:
 	GPUMutableVerticeBuffer()
 	{
-		m_vertices = nullptr;
-		m_indices = nullptr;
-		m_vertexCount = -1;
-		m_indexCount = -1;
+		vertices = nullptr;
+		indices = nullptr;
+		vertexCount = -1;
+		indexCount = -1;
 		is_inited = false;
 	}
 	~GPUMutableVerticeBuffer()
 	{
-		if (m_vertices != nullptr)
-		{
-			m_vertices->Release();
-			m_vertices = nullptr;
-		}
-		if (m_indices != nullptr)
-		{
-			m_indices->Release();
-			m_indices = nullptr;
-		}
+		aSAFE_RELEASE(vertices);
+		aSAFE_RELEASE(indices);
 	}
 	
 	HRESULT Initialize(ID3D11Device* device,
@@ -40,7 +33,7 @@ public:
 		D3D11_BUFFER_DESC vertDesc = {};
 		D3D11_SUBRESOURCE_DATA verticeData = {};
 
-		m_vertexCount = vertexCount;
+		this->vertexCount = vertexCount;
 		vertDesc.Usage = D3D11_USAGE_DYNAMIC;
 		vertDesc.ByteWidth = sizeof(source_type)*vertexCount;
 		vertDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
@@ -48,7 +41,7 @@ public:
 		vertDesc.MiscFlags = 0;
 		vertDesc.StructureByteStride = 0;
 		verticeData.pSysMem = (void*)vexticesPtr;
-		hr = device->CreateBuffer(&vertDesc, &verticeData, &m_vertices);
+		hr = device->CreateBuffer(&vertDesc, &verticeData, &vertices);
 		if (FAILED(hr))
 		{
 			return hr;
@@ -62,7 +55,7 @@ public:
 			D3D11_BUFFER_DESC indexDesc = {};
 			D3D11_SUBRESOURCE_DATA indicesData = {};
 
-			m_indexCount = indexCount;
+			this->indexCount = indexCount;
 			indexDesc.Usage = D3D11_USAGE_DYNAMIC;
 			indexDesc.ByteWidth = sizeof(WORD)* indexCount;
 			indexDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
@@ -70,7 +63,7 @@ public:
 
 			indicesData.pSysMem = indicesPtr;
 
-			hr = device->CreateBuffer(&indexDesc, &indicesData, &m_indices);
+			hr = device->CreateBuffer(&indexDesc, &indicesData, &indices);
 			if (FAILED(hr))
 			{
 				return hr;
@@ -82,39 +75,39 @@ public:
 
 	HRESULT UpdateVertices(ID3D11Device* device,
 		ID3D11DeviceContext* context,
-		source_type* vertices,
+		source_type* _vertices,
 		std::size_t vertexCount)
 	{
 		HRESULT hr;
 		D3D11_MAPPED_SUBRESOURCE mappedResource = {};
 
-		m_vertexCount = vertexCount;
-		hr = context->Map(m_vertices, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+		this->vertexCount = vertexCount;
+		hr = context->Map(vertices, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 		if (FAILED(hr))
 		{
 			return hr;
 		}
-		source_type* verticesPtr = (source_type*)mappedResource.pData;
-		memcpy(verticesPtr, (void*)vertices, (sizeof(source_type)* m_vertexCount));
-		context->Unmap(m_vertices, 0);
+		source_type* verticesPtr = reinterpret_cast<source_type*>(mappedResource.pData);
+		memcpy(verticesPtr, reinterpret_cast<void*>(_vertices), sizeof(source_type)* vertexCount);
+		context->Unmap(vertices, 0);
 		return S_OK;
 	}
 
 	HRESULT UpdateIndices(ID3D11Device* device,
 		ID3D11DeviceContext* context, 
-		WORD* indices,
+		WORD* _indices,
 		std::size_t indicesCount)
 	{
 		HRESULT hr;
 		D3D11_MAPPED_SUBRESOURCE mappedResource = {};
 
-		m_indexCount = indicesCount;
-		hr = context->Map(m_indices, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+		this->indexCount = indicesCount;
+		hr = context->Map(indices, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 		if (FAILED(hr))
 			return hr;
-		WORD* indicesPtr = (VertexClass*)mappedResource.pData;
-		memcpy(indicesPtr, (void*)indices, (sizeof(WORD)*m_indexCount));
-		context->Unmap(m_indices, 0);
+		WORD* indicesPtr = reinterpret_cast<VertexClass*>(mappedResource.pData);
+		memcpy(indicesPtr, reinterpret_cast<void*>(_indices), sizeof(WORD)* indexCount);
+		context->Unmap(indices, 0);
 		return S_OK;
 	}
 
@@ -128,32 +121,32 @@ public:
 	{
 		UINT stride = sizeof(source_type);
 		UINT offset = 0;
-		if (m_indices != nullptr)
+		if (indices != nullptr)
 		{
-			context->IASetIndexBuffer(m_indices, DXGI_FORMAT_R16_UINT, 0);
+			context->IASetIndexBuffer(indices, DXGI_FORMAT_R16_UINT, 0);
 		}
-		context->IASetVertexBuffers(0, 1, &m_vertices, &stride, &offset);
+		context->IASetVertexBuffers(0, 1, &vertices, &stride, &offset);
 	}
 
 	void Render(ID3D11Device* device,
 		ID3D11DeviceContext* context)
 	{
 		Bind(device, context);
-		if (m_indices != nullptr)
+		if (indices != nullptr)
 		{
-			context->DrawIndexed(m_indexCount,0,0);
+			context->DrawIndexed(indexCount,0,0);
 		}
 		else
 		{
-			context->Draw(m_vertexCount, 0);
+			context->Draw(vertexCount, 0);
 		}
 	}
 
 
 private:
 	volatile bool is_inited;
-	std::size_t m_vertexCount;
-	std::size_t m_indexCount;
-	ID3D11Buffer* m_vertices;
-	ID3D11Buffer* m_indices;
+	std::size_t vertexCount;
+	std::size_t indexCount;
+	ID3D11Buffer* vertices;
+	ID3D11Buffer* indices;
 };

@@ -8,13 +8,10 @@ using namespace aMazing;
 HINSTANCE g_hInst = nullptr;
 HWND g_hWnd = nullptr;
 
-aMazingScene* scene = new aMazingScene;
+aMazingScene* scene = nullptr;
+FILE * m_new_stdout_file = nullptr;
 
 #define ENABLE_CONSOLE
-
-#define DEVICE (D3DManager::getDevice(DEFAULT_DEVICE))
-#define CONTEXT (D3DManager::getContext(DEFAULT_CONTEXT))
-#define DEPTH (D3DManager::getDepthStencilView(DEFAULT_DEPTH_STENCIL_VIEW))
 
 HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow );
 HRESULT InitDevice();
@@ -26,7 +23,6 @@ int WINAPI wWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdL
 {
 #ifdef ENABLE_CONSOLE
 	AllocConsole();
-	FILE * m_new_stdout_file;
 	freopen_s(&m_new_stdout_file, "CONOUT$", "w+t", stdout);
 #endif
     UNREFERENCED_PARAMETER( hPrevInstance );
@@ -109,6 +105,10 @@ HRESULT InitDevice()
 	WindowClass::getInstance().setHeight(height);
 	//Initialize all the thing we need to prepare for rendering work.
 	D3DManager::Initialize(WindowClass::getWindowHandler());
+	//From now on device's marco access is enabled.
+#define DEVICE (D3DManager::getDevice(DEFAULT_DEVICE))
+#define CONTEXT (D3DManager::getContext(DEFAULT_CONTEXT))
+#define DEPTH (D3DManager::getDepthStencilView(DEFAULT_DEPTH_STENCIL_VIEW))
 	// Load the Texture
 	hr = TEXTURE.addTexture(DEVICE, CONTEXT, "seafloor.dds");
 	if (FAILED(hr))
@@ -206,7 +206,7 @@ HRESULT InitDevice()
 	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/skinAnim/skinAnim.fx", "Shader/skinAnim/skinAnim.fx",
 		animLayout, animElements, "SkinAnim"));
-
+	scene = new aMazingScene;
 	scene->Initialize(g_hWnd, DEVICE, CONTEXT);
 	return S_OK;
 }
@@ -225,6 +225,11 @@ void CleanupDevice()
 	}
 #ifdef ENABLE_CONSOLE
 	FreeConsole();
+	if (m_new_stdout_file)
+	{
+		delete m_new_stdout_file;
+		m_new_stdout_file = nullptr;
+	}
 #endif
 }
 
@@ -321,8 +326,6 @@ void Render()
 {
 	CameraProc();
 	D3DManager::clearRenderTarget();
-	
-	scene->Render(DEVICE,CONTEXT);
-
+	scene->Render(DEVICE, CONTEXT);
 	D3DManager::present(true);//V-Sync
 }

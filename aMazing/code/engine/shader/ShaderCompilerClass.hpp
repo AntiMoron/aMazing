@@ -5,6 +5,7 @@
 #include <iostream>
 #include <utility>
 #include <iterator>
+#include "../../common/CommonDef.hpp"
 #include "../../common/CommonTemplates.hpp"
 #include "../shader/ShaderInclude.hpp"
 #include "../system/FileTracker.hpp"

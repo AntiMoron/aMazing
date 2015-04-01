@@ -11,11 +11,7 @@ TextureClass::TextureClass()
 
 TextureClass::~TextureClass()
 {
-	if (SRV != nullptr)
-	{
-		SRV->Release();
-		SRV = nullptr;
-	}
+		aSAFE_RELEASE(SRV);
 }
 
 HRESULT TextureClass::LoadFile(ID3D11Device* device,
@@ -115,11 +111,7 @@ HRESULT TextureClass::LoadMemory(ID3D11Device* device,
 		return E_FAIL;
 	}
 	//release the texture2d object
-	if (tex2d != nullptr)
-	{
-		tex2d->Release();
-		tex2d = nullptr;
-	}
+	aSAFE_RELEASE(tex2d);
 	is_init = true;
 	return S_OK;
 }

@@ -10,15 +10,11 @@ class GPUConstantBuffer
 public:
 	GPUConstantBuffer()
 	{
-		m_buffer = nullptr;
+		buffer = nullptr;
 	}
 	~GPUConstantBuffer()
 	{
-		if (m_buffer != nullptr)
-		{
-			m_buffer->Release();
-			m_buffer = nullptr;
-		}
+		aSAFE_RELEASE(buffer);
 	}
 	HRESULT Initialize(ID3D11Device* device, ID3D11DeviceContext* context, int startSlot)
 	{
@@ -30,7 +26,7 @@ public:
 		bd.ByteWidth = sizeof(source_type);
 		bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 		bd.CPUAccessFlags = 0;
-		hr = device->CreateBuffer(&bd, NULL, &m_buffer);
+		hr = device->CreateBuffer(&bd, NULL, &buffer);
 		if (FAILED(hr))
 		{
 			printf("CreateConstant Buffer Failed\r\n");
@@ -41,28 +37,28 @@ public:
 
 	HRESULT UpdateData(source_type* p)
 	{
-		memcpy(&m_data, p, sizeof(source_type));
+		memcpy(&data, p, sizeof(source_type));
 		return S_OK;
 	}
 
 	HRESULT UpdateGpu(ID3D11Device* device, ID3D11DeviceContext* context)
 	{
-		context->UpdateSubresource(m_buffer, 0, NULL, &m_data, 0, 0);
+		context->UpdateSubresource(buffer, 0, NULL, &data, 0, 0);
 		return S_OK;
 	}
 	HRESULT BindVertexShader(ID3D11Device* device, ID3D11DeviceContext* context)
 	{
-		context->VSSetConstantBuffers(m_statSlotInGpu, 1, &m_buffer);
+		context->VSSetConstantBuffers(m_statSlotInGpu, 1, &buffer);
 		return S_OK;
 	}
 
 	HRESULT BindPixelShader(ID3D11Device* device, ID3D11DeviceContext* context)
 	{
-		context->PSSetConstantBuffers(m_statSlotInGpu, 1, &m_buffer);
+		context->PSSetConstantBuffers(m_statSlotInGpu, 1, &buffer);
 		return S_OK;
 	}
 private:
 	int m_statSlotInGpu;
-	source_type m_data;			//要绑定的数据
-	ID3D11Buffer* m_buffer;		//ConstantBuffer
+	source_type data;			//要绑定的数据
+	ID3D11Buffer* buffer;		//ConstantBuffer
 };

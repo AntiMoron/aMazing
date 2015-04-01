@@ -74,7 +74,7 @@ namespace aMazing
 			}
 
 			hr = pDefaultDevice->CreateRenderTargetView(pBackBuffer, nullptr, &pRenderTargetView);
-			pBackBuffer->Release();
+			aSAFE_RELEASE(pBackBuffer);
 			if (FAILED(hr))
 			{
 				return hr;

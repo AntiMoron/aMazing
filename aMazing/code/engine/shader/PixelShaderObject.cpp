@@ -10,11 +10,7 @@ PixelShaderObject::PixelShaderObject()
 
 PixelShaderObject::~PixelShaderObject()
 {
-	if (shader != nullptr)
-	{
-		shader->Release();
-		shader = nullptr;
-	}
+	aSAFE_RELEASE(shader);
 }
 
 HRESULT PixelShaderObject::createShaderFromFile(ID3D11Device* device,

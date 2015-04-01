@@ -292,17 +292,11 @@ HRESULT ShaderCompilerClass::compileFromFile(const char* filename,
 
 	if (FAILED(hr))
 	{
-		MessageBoxA(NULL,reinterpret_cast<char*>(errorMsg->GetBufferPointer()),"error",MB_OK);
-		if (errorMsg)
-		{
-			errorMsg->Release();
-		}
+		MessageBoxA(NULL,reinterpret_cast<char*>(errorMsg->GetBufferPointer()),"error",MB_OK);	
+		aSAFE_RELEASE(errorMsg);
 		return hr;
 	}
-	if (errorMsg)
-	{
-		errorMsg->Release();
-	}
+	aSAFE_RELEASE(errorMsg);
 	return S_OK;
 }
 
@@ -342,7 +336,7 @@ HRESULT ShaderCompilerClass::compileString(const char* str
 		char* errorText = new char[errorMsg->GetBufferSize()];
 		memcpy(errorText, errorMsg->GetBufferPointer(), errorMsg->GetBufferSize());
 		MessageBoxA(NULL,errorText,"Shader Error",MB_OK);
-		errorMsg->Release();
+		aSAFE_RELEASE(errorMsg);
 		return E_FAIL;
 	}
 	if (FAILED(hr))
