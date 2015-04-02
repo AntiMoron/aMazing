@@ -18,7 +18,7 @@ namespace aMazing
 		* @param pAnim The animation to calculate poses for. Ownership of the animation object stays
 		*   at the caller, the evaluator just keeps a reference to it as long as it persists.
 		*/
-		explicit AnimEvaluator(std::shared_ptr<const aiAnimation> pAnim)
+		explicit AnimEvaluator(const std::shared_ptr<const aiAnimation>& pAnim)
 		{
 			mAnim = pAnim;
 			mLastTime = 0.0;

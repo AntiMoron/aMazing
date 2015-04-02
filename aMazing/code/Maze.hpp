@@ -9,7 +9,7 @@ public:
 	~Maze();
 	void Render(ID3D11Device* device,
 		ID3D11DeviceContext* context,
-		std::shared_ptr<aMazing::CameraClass> camera);
+		const std::shared_ptr<aMazing::CameraClass>& camera);
 
 	bool& get(std::size_t x,std::size_t y);
 

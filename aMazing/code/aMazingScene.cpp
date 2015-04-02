@@ -16,7 +16,7 @@ HRESULT aMazingScene::Initialize(HWND hwnd, ID3D11Device* device,
 	collisionWorld->Initialize();
 
 	//Generate a maze
-	maze.reset(MAZEFACTORY.genMaze(50, collisionWorld.get()));
+	maze.reset(MAZEFACTORY.genMaze(50, collisionWorld));
 
 	camera.reset(new WrappedCamera);
 	hr = camera->Initialize(device, context);
@@ -120,7 +120,7 @@ void aMazingScene::Render(ID3D11Device* device, ID3D11DeviceContext* context)
 	//GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 }
 
-std::shared_ptr<WrappedCamera> aMazingScene::getWrappedCamera()
+const std::shared_ptr<WrappedCamera>& aMazingScene::getWrappedCamera()
 {
 	return camera;
 }

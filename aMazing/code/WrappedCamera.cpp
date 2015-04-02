@@ -26,9 +26,9 @@ WrappedCamera::~WrappedCamera()
 
 
 
-CameraClass* WrappedCamera::getCamera()
+const std::shared_ptr<CameraClass>& WrappedCamera::getCamera()
 {
-	return camera.get();
+	return camera;
 }
 
 XMFLOAT3 WrappedCamera::getSpeed()

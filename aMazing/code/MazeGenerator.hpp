@@ -10,7 +10,7 @@ using namespace aMazing;
 class MazeGenerator
 {
 public:
-	Maze* genMaze(int dimension, std::shared_ptr<CollisionWorld> collision);
+	Maze* genMaze(int dimension, const std::shared_ptr<CollisionWorld>& collision);
 	static MazeGenerator& getInstance();
 private:
 	MazeGenerator();

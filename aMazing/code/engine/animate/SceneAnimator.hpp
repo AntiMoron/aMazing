@@ -198,7 +198,7 @@ namespace aMazing
 		/** Recursively creates an internal node structure matching the
 		*  current scene and animation.
 		*/
-		std::shared_ptr<SceneAnimNode> CreateNodeTree(const aiNode* pNode, std::shared_ptr<SceneAnimNode> pParent)
+		std::shared_ptr<SceneAnimNode> CreateNodeTree(const aiNode* pNode, const std::shared_ptr<SceneAnimNode>& pParent)
 		{
 			std::shared_ptr<SceneAnimNode> internalNode = std::make_shared<SceneAnimNode, std::string>(std::string(pNode->mName.data));
 			internalNode->parent = pParent;
@@ -235,7 +235,7 @@ namespace aMazing
 		/** Recursively updates the internal node transformations from the
 		*  given matrix array
 		*/
-		void updateTransforms(std::shared_ptr<SceneAnimNode> pNode, const std::vector<aiMatrix4x4>& pTransforms)
+		void updateTransforms(const std::shared_ptr<SceneAnimNode>& pNode, const std::vector<aiMatrix4x4>& pTransforms)
 		{
 			// update node local transform
 			if (pNode->channelIndex != -1)
@@ -255,7 +255,7 @@ namespace aMazing
 		}
 
 		/** Calculates the global transformation matrix for the given internal node */
-		void calculateGlobalTransform(std::shared_ptr<SceneAnimNode> pInternalNode)
+		void calculateGlobalTransform(const std::shared_ptr<SceneAnimNode>& pInternalNode)
 		{
 			// concatenate all parent transforms to get the global transform for this node
 			pInternalNode->globalTransform = pInternalNode->localTransform;
