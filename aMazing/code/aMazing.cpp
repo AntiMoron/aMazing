@@ -9,9 +9,7 @@ HINSTANCE g_hInst = nullptr;
 HWND g_hWnd = nullptr;
 
 aMazingScene* scene = nullptr;
-FILE * m_new_stdout_file = nullptr;
-
-#define ENABLE_CONSOLE
+//#define ENABLE_CONSOLE
 
 HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow );
 HRESULT InitDevice();
@@ -23,6 +21,7 @@ int WINAPI wWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdL
 {
 #ifdef ENABLE_CONSOLE
 	AllocConsole();
+	FILE * m_new_stdout_file = nullptr;
 	freopen_s(&m_new_stdout_file, "CONOUT$", "w+t", stdout);
 #endif
     UNREFERENCED_PARAMETER( hPrevInstance );
@@ -217,19 +216,14 @@ HRESULT InitDevice()
 //----------------------------------------
 void CleanupDevice()
 {
-	D3DManager::shutdown();
 	if(!!scene)
 	{
 		delete scene;
 		scene = nullptr;
 	}
+	D3DManager::shutdown();
 #ifdef ENABLE_CONSOLE
 	FreeConsole();
-	if (m_new_stdout_file)
-	{
-		delete m_new_stdout_file;
-		m_new_stdout_file = nullptr;
-	}
 #endif
 }
 

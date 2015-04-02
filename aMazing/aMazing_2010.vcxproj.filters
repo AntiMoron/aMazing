@@ -197,9 +197,6 @@
     <ClInclude Include="code\util\any.hpp">
       <Filter>util</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\animate\ModelClass.hpp">
-      <Filter>Engine\animate</Filter>
-    </ClInclude>
     <ClInclude Include="code\engine\exception\MemoryException.hpp">
       <Filter>Engine\exception</Filter>
     </ClInclude>
@@ -366,6 +363,9 @@
     <ClInclude Include="code\engine\math\avector.hpp">
       <Filter>Engine\math</Filter>
     </ClInclude>
+    <ClInclude Include="code\engine\animate\ModelObject.hpp">
+      <Filter>Engine\animate</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\collision\CollisionIntersection.cpp">
@@ -373,9 +373,6 @@
     </ClCompile>
     <ClCompile Include="code\common\CommonFunction.cpp">
       <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="code\engine\animate\ModelClass.cpp">
-      <Filter>Engine\animate</Filter>
     </ClCompile>
     <ClCompile Include="code\engine\system\AmbientLight.cpp">
       <Filter>Engine\system</Filter>
@@ -450,6 +447,9 @@
     </ClCompile>
     <ClCompile Include="code\engine\shader\VertexShaderObject.cpp">
       <Filter>Engine\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\animate\ModelObject.cpp">
+      <Filter>Engine\animate</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

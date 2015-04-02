@@ -6,11 +6,6 @@ aMazingScene::aMazingScene()
 }
 
 
-aMazingScene::~aMazingScene()
-{
-}
-
-
 HRESULT aMazingScene::Initialize(HWND hwnd, ID3D11Device* device,
 	ID3D11DeviceContext* context)
 {
@@ -57,7 +52,7 @@ HRESULT aMazingScene::Initialize(HWND hwnd, ID3D11Device* device,
 	camera->setFov(60.0f);
 
 
-	model.reset(new ModelClass);
+	model.reset(new ModelObject);
 	/*hr = model->Initialize(device, context, "C:/Users/Think/Desktop/DEMO/scene/kyjn/kyjn01/1-2/3_2.obj");*/
 	hr = model->Initialize(device, context, "3dModel/figure.fbx");
 	if (FAILED(hr))

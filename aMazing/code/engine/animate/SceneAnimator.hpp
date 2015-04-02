@@ -1,9 +1,9 @@
 #pragma once
 
+#include<memory>
 #include<vector>
 #include<unordered_map>
 #include<assimp/scene.h>
-#include<memory>
 #include<assimp/Importer.hpp>
 #include"SceneAnimNode.hpp"
 #include"AnimEvaluator.hpp"
@@ -12,6 +12,7 @@ namespace aMazing
 	class SceneAnimator
 	{
 	public:
+		explicit SceneAnimator() = delete;
 		/** Constructor for a given scene.
 		*
 		* The object keeps a reference to the scene during its lifetime, but
@@ -20,7 +21,7 @@ namespace aMazing
 		* @param pAnimIndex [optional] Index of the animation to play. Assumed to
 		*  be 0 if not given.
 		*/
-		SceneAnimator(const aiScene* pScene,size_t pAnimIndex = 0)
+		explicit SceneAnimator(const aiScene* pScene, size_t pAnimIndex = 0)
 		{
 			mScene = pScene;
 			mCurrentAnimIndex = -1;
@@ -37,14 +38,8 @@ namespace aMazing
 					mBoneNodesByName[bone->mName.data] = pScene->mRootNode->FindNode(bone->mName);
 				}
 			}
-
 			// set default animation also creates the node tree for this animation
 			setAnimIndex(pAnimIndex);
-		}
-
-		~SceneAnimator()
-		{
-
 		}
 		/** Sets the animation to use for playback. This also recreates the internal
 		* mapping structures, which might take a few cycles.
@@ -63,14 +58,17 @@ namespace aMazing
 
 			// create the internal node tree. Do this even in case of invalid animation index
 			// so that the transformation matrices are properly set up to mimic the current scene
-			mRootNode.reset(CreateNodeTree(mScene->mRootNode, nullptr));
+			mRootNode = std::shared_ptr<SceneAnimNode>(CreateNodeTree(mScene->mRootNode, nullptr));
 
 			// invalid anim index
 			if (mCurrentAnimIndex >= mScene->mNumAnimations)
 				return;
 
 			// create an evaluator for this animation
-			mAnimEvaluator.reset(new AnimEvaluator(mScene->mAnimations[mCurrentAnimIndex]));
+			mAnimEvaluator = std::make_shared<AnimEvaluator, 
+				std::shared_ptr<aiAnimation> >(
+				std::shared_ptr<aiAnimation>(mScene->mAnimations[mCurrentAnimIndex])
+				);
 		}
 
 		/** Calculates the node transformations for the scene. Call this to get
@@ -87,7 +85,7 @@ namespace aMazing
 			mAnimEvaluator->Evaluate(pTime,fps);
 
 			// and update all node transformations with the results
-			updateTransforms(mRootNode.get(), mAnimEvaluator->GetTransformations());
+			updateTransforms(mRootNode, mAnimEvaluator->GetTransformations());
 		}
 
 		/** Retrieves the most recent local transformation matrix for the given node.
@@ -200,10 +198,10 @@ namespace aMazing
 		/** Recursively creates an internal node structure matching the
 		*  current scene and animation.
 		*/
-		SceneAnimNode* CreateNodeTree(aiNode* pNode, SceneAnimNode* pParent)
+		std::shared_ptr<SceneAnimNode> CreateNodeTree(const aiNode* pNode, std::shared_ptr<SceneAnimNode> pParent)
 		{
-			SceneAnimNode* internalNode = new SceneAnimNode(pNode->mName.data);
-			internalNode->parent.reset(pParent);
+			std::shared_ptr<SceneAnimNode> internalNode = std::make_shared<SceneAnimNode, std::string>(std::string(pNode->mName.data));
+			internalNode->parent = pParent;
 			mNodesByName[pNode] = internalNode;
 
 			// copy its transformation
@@ -228,17 +226,16 @@ namespace aMazing
 			// continue for all child nodes and assign the created internal nodes as our children
 			for (unsigned int a = 0; a < pNode->mNumChildren; a++)
 			{
-				SceneAnimNode* childNode = CreateNodeTree(pNode->mChildren[a], internalNode);
-				internalNode->children.push_back(std::unique_ptr<SceneAnimNode>(childNode));
+				internalNode->children.push_back(
+					std::shared_ptr<SceneAnimNode>(CreateNodeTree(pNode->mChildren[a], internalNode)));
 			}
-
 			return internalNode;
 		}
 
 		/** Recursively updates the internal node transformations from the
 		*  given matrix array
 		*/
-		void updateTransforms(SceneAnimNode* pNode, const std::vector<aiMatrix4x4>& pTransforms)
+		void updateTransforms(std::shared_ptr<SceneAnimNode> pNode, const std::vector<aiMatrix4x4>& pTransforms)
 		{
 			// update node local transform
 			if (pNode->channelIndex != -1)
@@ -253,20 +250,20 @@ namespace aMazing
 			// continue for all children
 			for (auto it = pNode->children.begin(); it != pNode->children.end(); ++it)
 			{
-				updateTransforms(it->get(), pTransforms);
+				updateTransforms(*it, pTransforms);
 			}
 		}
 
 		/** Calculates the global transformation matrix for the given internal node */
-		void calculateGlobalTransform(SceneAnimNode* pInternalNode)
+		void calculateGlobalTransform(std::shared_ptr<SceneAnimNode> pInternalNode)
 		{
 			// concatenate all parent transforms to get the global transform for this node
 			pInternalNode->globalTransform = pInternalNode->localTransform;
-			auto node = pInternalNode->parent.get();
+			auto node = pInternalNode->parent;
 			while (node)
 			{
 				pInternalNode->globalTransform = node->localTransform * pInternalNode->globalTransform;
-				node = node->parent.get();
+				node = node->parent;
 			}
 		}
 
@@ -278,13 +275,13 @@ namespace aMazing
 		size_t mCurrentAnimIndex;
 
 		/** The AnimEvaluator we use to calculate the current pose for the current animation */
-		std::unique_ptr<AnimEvaluator> mAnimEvaluator;
+		std::shared_ptr<AnimEvaluator> mAnimEvaluator;
 
 		/** Root node of the internal scene structure */
-		std::unique_ptr<SceneAnimNode> mRootNode;
+		std::shared_ptr<SceneAnimNode> mRootNode;
 
 		/** Name to node map to quickly find nodes by their name */
-		typedef std::unordered_map<const aiNode*, SceneAnimNode*> NodeMap;
+		typedef std::unordered_map<const aiNode*, std::shared_ptr<SceneAnimNode> > NodeMap;
 		NodeMap mNodesByName;
 
 		/** Name to node map to quickly find nodes for given bones by their name */

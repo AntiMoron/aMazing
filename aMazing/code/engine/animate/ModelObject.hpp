@@ -3,12 +3,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <memory>
-#include <functional>
-#include <map>
-#include <array>
-#include <unordered_map>
-#include <algorithm>
 #include "../system/GPUVerticesBuffer.hpp"
 #include "../system/GPUMutableVerticesBuffer.hpp"
 #include "../data/Vertex.hpp"
@@ -22,14 +16,13 @@
 #pragma comment(lib,"assimp.lib")
 namespace aMazing
 {
-	class ModelClass : public BasicObject
+	class ModelObject : public BasicObject
 	{
 	private:
-		static Assimp::Importer modelImporter;
+		Assimp::Importer modelImporter;
 		const static aiMatrix4x4 identityMatrix;
 	public:
-		ModelClass();
-		~ModelClass();
+		ModelObject();
 
 		HRESULT Initialize(ID3D11Device* device,
 			ID3D11DeviceContext* context,
@@ -70,7 +63,7 @@ namespace aMazing
 		volatile bool isStaticModel;
 
 		//the data loaded from file.
-		aiScene* scene;
+		const aiScene* scene;
 
 		/******************texture data**********************/
 		//the texture indices

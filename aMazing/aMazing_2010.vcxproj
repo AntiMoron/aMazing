@@ -382,7 +382,7 @@
     <ClCompile Include="code\aMazingScene.cpp" />
     <ClCompile Include="code\collision\CollisionIntersection.cpp" />
     <ClCompile Include="code\common\CommonFunction.cpp" />
-    <ClCompile Include="code\engine\animate\ModelClass.cpp" />
+    <ClCompile Include="code\engine\animate\ModelObject.cpp" />
     <ClCompile Include="code\engine\shader\PixelShaderObject.cpp" />
     <ClCompile Include="code\engine\shader\ShaderCompilerClass.cpp" />
     <ClCompile Include="code\engine\shader\ShaderManager.cpp" />
@@ -428,7 +428,7 @@
     <ClInclude Include="code\common\CommonUtil.hpp" />
     <ClInclude Include="code\DayNightClass.hpp" />
     <ClInclude Include="code\engine\animate\AnimEvaluator.hpp" />
-    <ClInclude Include="code\engine\animate\ModelClass.hpp" />
+    <ClInclude Include="code\engine\animate\ModelObject.hpp" />
     <ClInclude Include="code\engine\animate\SceneAnimator.hpp" />
     <ClInclude Include="code\engine\animate\SceneAnimNode.hpp" />
     <ClInclude Include="code\engine\data\BonesBindData.hpp" />

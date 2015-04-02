@@ -12,28 +12,25 @@ namespace aMazing
 	public:
 		SceneAnimNode() 
 		{
-			parent.reset(nullptr);
 			channelIndex = -1;
 		}
 
 		SceneAnimNode(const std::string& name)
 		{
 			this->name = name;
-			parent.reset(nullptr);
 			channelIndex = -1;
 		}
 
 		SceneAnimNode(std::string&& name)
 		{
 			this->name = name;
-			parent.reset(nullptr);
 			channelIndex = -1;
 		}
 
 		std::string name;
 		//if the pointer managed is nullptr which means that this node doesn't have a parent node.
-		std::unique_ptr<SceneAnimNode> parent;
-		std::vector<std::unique_ptr<SceneAnimNode> > children;
+		std::shared_ptr<SceneAnimNode> parent;
+		std::vector<std::shared_ptr<SceneAnimNode> > children;
 		//most recently calculated transform in bind space
 		aiMatrix4x4 localTransform;
 		//most recently calculated transform in world space

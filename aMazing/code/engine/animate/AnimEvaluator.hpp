@@ -12,12 +12,13 @@ namespace aMazing
 	class AnimEvaluator
 	{
 	public:
+		explicit AnimEvaluator() = delete;
 		/** Constructor on a given animation. The animation is fixed throughout the lifetime of
 		* the object.
 		* @param pAnim The animation to calculate poses for. Ownership of the animation object stays
 		*   at the caller, the evaluator just keeps a reference to it as long as it persists.
 		*/
-		AnimEvaluator(const aiAnimation* pAnim)
+		explicit AnimEvaluator(std::shared_ptr<const aiAnimation> pAnim)
 		{
 			mAnim = pAnim;
 			mLastTime = 0.0;
@@ -154,7 +155,7 @@ namespace aMazing
 
 	protected:
 		/** The animation we're working on */
-		const aiAnimation* mAnim;
+		std::shared_ptr<const aiAnimation> mAnim;
 
 		/** At which frame the last evaluation happened for each channel.
 		* Useful to quickly find the corresponding frame for slightly increased time stamps

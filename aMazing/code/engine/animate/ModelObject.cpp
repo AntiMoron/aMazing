@@ -1,26 +1,23 @@
-#include "ModelClass.hpp"
+#include "ModelObject.hpp"
 using namespace aMazing;
 
-const aiMatrix4x4 ModelClass::identityMatrix = {1,0,0,0,
+const aiMatrix4x4 ModelObject::identityMatrix = { 1, 0, 0, 0,
 												0,1,0,0,
 												0,0,1,0,
 												0,0,0,1};
-Assimp::Importer ModelClass::modelImporter;
-ModelClass::ModelClass()
+ModelObject::ModelObject()
 {
 	is_inited = false;
 	render_time = 0.0f;
 	isStaticModel = true;
 }
 
-ModelClass::~ModelClass(){}
-
-bool ModelClass::isStatic() const
+bool ModelObject::isStatic() const
 {
 	return isStaticModel;
 }
 
-HRESULT ModelClass::Initialize(ID3D11Device* device,
+HRESULT ModelObject::Initialize(ID3D11Device* device,
 	ID3D11DeviceContext* context,
 	MutableString&& string)
 {
@@ -49,7 +46,7 @@ HRESULT ModelClass::Initialize(ID3D11Device* device,
 		0;
 
 	// 使用导入器导入选定的模型文件 
-	scene = (aiScene*)modelImporter.ReadFile(filename.c_str(),
+	scene = modelImporter.ReadFile(filename.c_str(),
 		ppsteps |
 		aiProcess_GenSmoothNormals |
 		aiProcess_SplitLargeMeshes |
@@ -57,7 +54,7 @@ HRESULT ModelClass::Initialize(ID3D11Device* device,
 		aiProcess_ConvertToLeftHanded |
 		aiProcess_SortByPType |
 		0);
-	if (scene == nullptr)
+	if (!scene)
 	{
 		//failed on loading asset. 
 		//if so get error message & output to console.
@@ -65,7 +62,7 @@ HRESULT ModelClass::Initialize(ID3D11Device* device,
 		return E_FAIL;
 	}
 
-	isStaticModel = !scene->HasAnimations();
+	isStaticModel = !(scene->HasAnimations());
 
 	//update the fileLocation
 	modelLocation.reset(new std::string(getModelLocation(filename.c_str())));
@@ -125,12 +122,12 @@ HRESULT ModelClass::Initialize(ID3D11Device* device,
 	return S_OK;
 }
 
-void ModelClass::loadTextures(ID3D11Device* device,
+void ModelObject::loadTextures(ID3D11Device* device,
 	ID3D11DeviceContext* context, 
 	const aiScene* pScene,
 	const char* modelPath)
 {
-	if (!pScene->HasMaterials())
+	if (!(pScene->HasMaterials()))
 	{
 		return ;
 	}
@@ -169,9 +166,9 @@ void ModelClass::loadTextures(ID3D11Device* device,
 	}
 }
 
-void ModelClass::loadMeshes(const aiScene* pScene)
+void ModelObject::loadMeshes(const aiScene* pScene)
 {
-	if (!pScene->HasMeshes())
+	if (!(pScene->HasMeshes()))
 	{
 		return;
 	}
@@ -286,7 +283,7 @@ void ModelClass::loadMeshes(const aiScene* pScene)
 	}
 }
 
-std::string ModelClass::getModelLocation(const char* filename)
+std::string ModelObject::getModelLocation(const char* filename)
 {
 	std::string result;
 	result = filename;
@@ -299,7 +296,7 @@ std::string ModelClass::getModelLocation(const char* filename)
 	return std::move(result);
 }
 
-void ModelClass::bindBonesToGPU(ID3D11Device* device,
+void ModelObject::bindBonesToGPU(ID3D11Device* device,
 	ID3D11DeviceContext* context, 
 	aiNode* pNode,
 	float animationTime)
@@ -317,12 +314,12 @@ void ModelClass::bindBonesToGPU(ID3D11Device* device,
 	boneTransformations.BindVertexShader(device, context);
 }
 
-bool ModelClass::isInited()const
+bool ModelObject::isInited()const
 {
 	return is_inited;
 }
 
-void ModelClass::Render(ID3D11Device* device,
+void ModelObject::Render(ID3D11Device* device,
 	ID3D11DeviceContext* context)
 {
 	BasicObject::UpdatePRS(device, context);
@@ -339,7 +336,7 @@ void ModelClass::Render(ID3D11Device* device,
 * if pNode is nullptr ,
 * then it begin with rootNode
 */
-void ModelClass::Render(ID3D11Device* device,
+void ModelObject::Render(ID3D11Device* device,
 	ID3D11DeviceContext* context,
 	aiNode* pNode)
 {
