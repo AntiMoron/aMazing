@@ -25,7 +25,7 @@ public:
 		ID3D11Device* device,
 		ID3D11DeviceContext* context);
 	void Render(ID3D11Device* device,ID3D11DeviceContext* context);
-	WrappedCamera* getWrappedCamera();
+	std::shared_ptr<WrappedCamera> getWrappedCamera();
 private:
 	std::shared_ptr<ModelObject> model;
 	std::shared_ptr<WrappedCamera> camera;

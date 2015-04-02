@@ -120,7 +120,7 @@ void aMazingScene::Render(ID3D11Device* device, ID3D11DeviceContext* context)
 	//GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 }
 
-WrappedCamera* aMazingScene::getWrappedCamera()
+std::shared_ptr<WrappedCamera> aMazingScene::getWrappedCamera()
 {
-	return camera.get();
+	return camera;
 }

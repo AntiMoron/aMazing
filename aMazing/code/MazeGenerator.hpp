@@ -10,13 +10,12 @@ using namespace aMazing;
 class MazeGenerator
 {
 public:
-	Maze* genMaze(int dimension, CollisionWorld* collision);
+	Maze* genMaze(int dimension, std::shared_ptr<CollisionWorld> collision);
 	static MazeGenerator& getInstance();
 private:
 	MazeGenerator();
 	~MazeGenerator();
 
-	static MazeGenerator* instance;
 	void genMazeRecuresion(Maze* result, int px, int py);
 private :
 	bool checkPoint(Maze* ref, const std::pair<int, int>& pt);
