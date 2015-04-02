@@ -228,6 +228,7 @@ namespace aMazing
 			aSAFE_RELEASE(pSwapChain);
 			aSAFE_RELEASE(pRenderTargetView);
 			aSAFE_RELEASE(pDepthStencil);
+			aSAFE_RELEASE(pDepthStencilView);
 			aSAFE_RELEASE(pTextureRV);
 			aSAFE_RELEASE(pSamplerLinear);
 			aSAFE_RELEASE(pSamplerPoint);

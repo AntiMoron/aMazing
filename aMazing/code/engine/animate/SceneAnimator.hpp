@@ -66,8 +66,8 @@ namespace aMazing
 
 			// create an evaluator for this animation
 			mAnimEvaluator = std::make_shared<AnimEvaluator, 
-				std::shared_ptr<aiAnimation> >(
-				std::shared_ptr<aiAnimation>(mScene->mAnimations[mCurrentAnimIndex])
+				const aiAnimation* >(
+					reinterpret_cast<const aiAnimation*>(mScene->mAnimations[mCurrentAnimIndex])
 				);
 		}
 

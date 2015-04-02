@@ -17,8 +17,9 @@ namespace aMazing
 		* the object.
 		* @param pAnim The animation to calculate poses for. Ownership of the animation object stays
 		*   at the caller, the evaluator just keeps a reference to it as long as it persists.
+		* !!!For component from assimp should not use shared_ptr.
 		*/
-		explicit AnimEvaluator(const std::shared_ptr<const aiAnimation>& pAnim)
+		explicit AnimEvaluator(const aiAnimation* pAnim)
 		{
 			mAnim = pAnim;
 			mLastTime = 0.0;
@@ -155,7 +156,7 @@ namespace aMazing
 
 	protected:
 		/** The animation we're working on */
-		std::shared_ptr<const aiAnimation> mAnim;
+		const aiAnimation* mAnim;
 
 		/** At which frame the last evaluation happened for each channel.
 		* Useful to quickly find the corresponding frame for slightly increased time stamps
