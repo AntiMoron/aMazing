@@ -1,4 +1,5 @@
 #pragma once
+#include"CommonDef.hpp"
 #include<type_traits>
 #include<vector>
 
@@ -81,5 +82,28 @@ namespace aMazing
 	{
 		const static bool value = std::is_floating_point<T>::value ||
 		std::is_integral<T>::value;
+	};
+
+	/*
+	The deleter for COM components.
+	*/
+	template<class T>
+	struct aComDelete
+	{
+		// default deleter for unique_ptr
+		aCONSTEXPR aComDelete() aNOEXCEPT{}
+
+		template<class U,
+		class = typename std::enable_if<std::is_convertible<U*, T*>::value, void>::type>
+			aComDelete(const aComDelete<U>&) aNOEXCEPT
+		{	// construct from another default_delete
+		}
+
+		void operator()(T* ptr) const aNOEXCEPT
+		{	// delete a pointer
+			static_assert(0 < sizeof (T),
+			"can't delete an incomplete type");
+			aSAFE_RELEASE(ptr);
+		}
 	};
 }

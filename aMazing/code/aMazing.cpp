@@ -94,7 +94,6 @@ HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow )
 HRESULT InitDevice()
 {
     HRESULT hr = S_OK;
-
     RECT rc;
     GetClientRect( g_hWnd, &rc );
     UINT width = rc.right - rc.left;
