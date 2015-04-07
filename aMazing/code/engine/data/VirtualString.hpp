@@ -62,7 +62,7 @@ namespace aMazing
 		typedef vsIterator<const type> const_iterator;
 		typedef size_t size_type;
 		/*
-		@brief VirtualString imitates a string of type 'type' as a real string.
+		@brief VirtualString imitates a period of type 'type' from a real string as a string.
 		Via generating VirtualString can accelerate substring procedure(s).
 		@param st  the start position of string
 		@param length the length of substring.
