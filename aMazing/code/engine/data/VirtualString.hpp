@@ -84,13 +84,17 @@ namespace aMazing
 		}
 		VirtualString_t() = delete;
 		VirtualString_t(typename std::remove_reference<std::basic_string<type> >::type&&, ...) = delete;
-		//RVO
+		
+		//Get the begin itor of the virtual substr.
 		const const_iterator& begin() const
 		{
+			//RVO
 			return rawString;
 		}
+		//Get the end itor of the virtual substr.
 		const const_iterator& end() const
 		{
+			//RVO
 			return rawString + vSize;
 		}
 		const size_t size() const
