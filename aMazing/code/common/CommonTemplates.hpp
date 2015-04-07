@@ -96,7 +96,7 @@ namespace aMazing
 		template<class U,
 		class = typename std::enable_if<std::is_convertible<U*, T*>::value, void>::type>
 			aComDelete(const aComDelete<U>&) aNOEXCEPT
-		{	// construct from another default_delete
+		{	// construct from another deleter.
 		}
 
 		void operator()(T* ptr) const aNOEXCEPT

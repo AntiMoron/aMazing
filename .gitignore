@@ -38,6 +38,7 @@ Icon
 
 aMazing/Release/
 aMazing/Debug/
+aMazing/ipch/
 *.obj
 *.log
 *.tlog

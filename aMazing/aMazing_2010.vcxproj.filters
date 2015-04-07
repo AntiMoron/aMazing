@@ -60,6 +60,12 @@
     <Filter Include="Engine\shader\ShaderClass">
       <UniqueIdentifier>{dcdbafb5-7dae-4775-8012-5e25674f3f7f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\data\json">
+      <UniqueIdentifier>{658bb9da-46b4-4947-b2c7-5787f5dd3934}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\data\xml">
+      <UniqueIdentifier>{eda2636f-02fe-4554-9f68-a177bf7c4998}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\collision\shapecategory\CollisionCircle.hpp">

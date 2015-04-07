@@ -4,6 +4,8 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "aMazing", "aMazing_2010.vcxproj", "{D29C6982-A589-4081-89B1-91E78D7C41E2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "aMazingTest", "..\aMazingTest\aMazingTest.vcxproj", "{0678FF41-864B-41A1-A1C5-C98FD105905D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,24 @@ Global
 		{D29C6982-A589-4081-89B1-91E78D7C41E2}.Release|Win32.Build.0 = Release|Win32
 		{D29C6982-A589-4081-89B1-91E78D7C41E2}.Release|x64.ActiveCfg = Release|x64
 		{D29C6982-A589-4081-89B1-91E78D7C41E2}.Release|x64.Build.0 = Release|x64
+		{0678FF41-864B-41A1-A1C5-C98FD105905D}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{0678FF41-864B-41A1-A1C5-C98FD105905D}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{0678FF41-864B-41A1-A1C5-C98FD105905D}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{0678FF41-864B-41A1-A1C5-C98FD105905D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0678FF41-864B-41A1-A1C5-C98FD105905D}.Debug|Win32.Build.0 = Debug|Win32
+		{0678FF41-864B-41A1-A1C5-C98FD105905D}.Debug|x64.ActiveCfg = Debug|Win32
+		{0678FF41-864B-41A1-A1C5-C98FD105905D}.Profile|Any CPU.ActiveCfg = Release|Win32
+		{0678FF41-864B-41A1-A1C5-C98FD105905D}.Profile|Mixed Platforms.ActiveCfg = Release|Win32
+		{0678FF41-864B-41A1-A1C5-C98FD105905D}.Profile|Mixed Platforms.Build.0 = Release|Win32
+		{0678FF41-864B-41A1-A1C5-C98FD105905D}.Profile|Win32.ActiveCfg = Release|Win32
+		{0678FF41-864B-41A1-A1C5-C98FD105905D}.Profile|Win32.Build.0 = Release|Win32
+		{0678FF41-864B-41A1-A1C5-C98FD105905D}.Profile|x64.ActiveCfg = Release|Win32
+		{0678FF41-864B-41A1-A1C5-C98FD105905D}.Release|Any CPU.ActiveCfg = Release|Win32
+		{0678FF41-864B-41A1-A1C5-C98FD105905D}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{0678FF41-864B-41A1-A1C5-C98FD105905D}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{0678FF41-864B-41A1-A1C5-C98FD105905D}.Release|Win32.ActiveCfg = Release|Win32
+		{0678FF41-864B-41A1-A1C5-C98FD105905D}.Release|Win32.Build.0 = Release|Win32
+		{0678FF41-864B-41A1-A1C5-C98FD105905D}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
