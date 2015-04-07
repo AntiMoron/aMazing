@@ -65,16 +65,21 @@ namespace aMazing
 		@brief VirtualString imitates a period of type 'type' from a real string as a string.
 		Via generating VirtualString can accelerate substring procedure(s).
 		@param st  the start position of string
-		@param length the length of substring.
+		@param length the length of substring. 
+		If the requested substring extends past the end of the string.the return substring is[pos,size())
 		*/
 		VirtualString_t(const std::basic_string<type>& cppString, size_t st, size_t length)
 		{
-			if (aSTL_OUT_OF_RANGE(st, cppString) ||
-				aSTL_OUT_OF_RANGE(st + length - 1, cppString))
+			if (aSTL_OUT_OF_RANGE(st, cppString))
 			{
 				throw ParamException("position(s) out of range");
 			}
-			vSize = length;
+			if (aSTL_OUT_OF_RANGE(st + length - 1, cppString))
+			{
+				vSize = cppString.length() - st;
+			}
+			else
+				vSize = length;
 			rawString = &cppString[st];
 		}
 		VirtualString_t() = delete;
