@@ -43,24 +43,36 @@ namespace aMazing
 			}
 			static void splitJsonString(const VirtualString& src, VirtualString& key, VirtualString& value) throw (ParamException)
 			{
-				size_t startPos = 0;
-				size_t endPos = src.size() - 1;
+				size_t cur = 0;
 				size_t keyStart = 0;
 				size_t keyEnd = 0;
-				while (startPos < src.size() && aMazing::isBlank(src[startPos]))
+				while (cur < src.size() && aMazing::isBlank(src[cur]))
 				{
-					++startPos;
+					++cur;
 				}
 				if (src[keyStart] != '\"')
 				{
-					throw ParamException();
+					throw ParamException();//Format error.
 				}
-				++startPos;
-				keyStart = startPos;
-				while (startPos < src.size() && src[startPos] != '\"')
+				++cur;
+				keyStart = cur;
+				while (cur < src.size() && src[cur] != '\"')
 				{
-					startPos = ;
+					++cur;
 				}
+				keyEnd = cur - 1;
+				if (keyStart >= keyEnd)
+				{
+					throw ParamException();//Key Error
+				}
+				key = VirtualString(src, keyStart, keyEnd);
+				VirtualString tValue(src, cur, src.length());
+				tValue.trim();
+				if (tValue[0] == ':')
+				{
+					throw ParamException();//Format error.
+				}
+				value = tValue.subString(1).trim();
 			}
 
 			//The string must be trimed. And be tightly of only one json data's content(without key name).

@@ -372,6 +372,27 @@
     <ClInclude Include="code\engine\animate\ModelObject.hpp">
       <Filter>Engine\animate</Filter>
     </ClInclude>
+    <ClInclude Include="code\engine\data\json\aJsonData.hpp">
+      <Filter>Engine\data\json</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\data\json\aJsonHelper.hpp">
+      <Filter>Engine\data\json</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\data\json\aJsonParser.hpp">
+      <Filter>Engine\data\json</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\data\xml\aXmlData.hpp">
+      <Filter>Engine\data\xml</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\data\xml\aXmlHelper.hpp">
+      <Filter>Engine\data\xml</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\data\xml\aXmlParser.hpp">
+      <Filter>Engine\data\xml</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\data\VirtualString.hpp">
+      <Filter>Engine\data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\collision\CollisionIntersection.cpp">

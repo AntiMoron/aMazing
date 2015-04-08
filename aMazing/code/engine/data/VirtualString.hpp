@@ -83,6 +83,22 @@ namespace aMazing
 				vSize = length;
 			rawString = &cppString[st];
 		}
+		
+		VirtualString_t(const VritualString_t<type>& vString, size_t st, size_t length)
+		{
+			if (aSTL_OUT_OF_RANGE(st, cppString))
+			{
+				throw ParamException("position(s) out of range");
+			}
+			if (aSTL_OUT_OF_RANGE(st + length - 1, cppString))
+			{
+				vSize = vString.length() - st;
+			}
+			else
+				vSize = length;
+			rawString = &vString[st];
+		}
+
 		VirtualString_t() = delete;
 		VirtualString_t(typename std::remove_reference<std::basic_string<type> >::type&&, size_t,size_t) = delete;
 		
@@ -98,6 +114,11 @@ namespace aMazing
 			//RVO
 			return rawString + vSize;
 		}
+
+		const size_t length() const
+		{
+			return vSize;
+		}
 		const size_t size() const
 		{
 			return vSize;
@@ -107,7 +128,7 @@ namespace aMazing
 			return rawString[index];
 		}
 
-		VirtualString_t<type> subString(size_t st, size_t len) const throw (ParamException)
+		VirtualString_t<type> subString(size_t st, size_t len = -1) const throw (ParamException)
 		{
 			return VirtualString_t<type>(rawString, st, len);
 		}

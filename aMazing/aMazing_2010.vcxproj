@@ -434,9 +434,16 @@
     <ClInclude Include="code\engine\animate\SceneAnimator.hpp" />
     <ClInclude Include="code\engine\animate\SceneAnimNode.hpp" />
     <ClInclude Include="code\engine\data\BonesBindData.hpp" />
+    <ClInclude Include="code\engine\data\json\aJsonData.hpp" />
+    <ClInclude Include="code\engine\data\json\aJsonHelper.hpp" />
+    <ClInclude Include="code\engine\data\json\aJsonParser.hpp" />
     <ClInclude Include="code\engine\data\TgaData.hpp" />
     <ClInclude Include="code\engine\data\TgaLoader.hpp" />
     <ClInclude Include="code\engine\data\vertex.hpp" />
+    <ClInclude Include="code\engine\data\VirtualString.hpp" />
+    <ClInclude Include="code\engine\data\xml\aXmlData.hpp" />
+    <ClInclude Include="code\engine\data\xml\aXmlHelper.hpp" />
+    <ClInclude Include="code\engine\data\xml\aXmlParser.hpp" />
     <ClInclude Include="code\engine\effect\DepthField.hpp" />
     <ClInclude Include="code\engine\effect\DepthMap.hpp" />
     <ClInclude Include="code\engine\effect\EffectClass.hpp" />
