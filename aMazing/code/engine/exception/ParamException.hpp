@@ -7,13 +7,14 @@
 
 namespace aMazing
 {
-	class ParamException : public exception
+	class ParamException : public CommonException
 	{
 	public:
 		ParamException()
 		{
 			msg = "parameter has error(s)";
 		}
+		
 		ParamException(std::initializer_list<std::string> multipleThing)
 		{
 			msg.clear();
@@ -22,11 +23,5 @@ namespace aMazing
 				msg += val;
 			}
 		}
-		const char* what() const
-		{
-			return msg.c_str();
-		}
-	private:
-		std::string msg;
 	};
 }

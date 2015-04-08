@@ -1,5 +1,13 @@
 #include"CommonFunction.hpp"
 
+bool isBlank(char ch)
+{
+	return ch == ' ' ||
+		ch == '\t' ||
+		ch == '\r' ||
+		ch == '\n';
+}
+
 //将值val按比例增长
 float aMazing::increaseByScale(float val, float scale, float upperBound, float bias)
 {
