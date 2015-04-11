@@ -1,5 +1,4 @@
 #pragma once
-#include<set>
 #include<vector>
 #include<cstdio>
 #include<ctime>
@@ -10,16 +9,16 @@ using namespace aMazing;
 class MazeGenerator
 {
 public:
-	Maze* genMaze(int dimension, const std::shared_ptr<CollisionWorld>& collision);
+	std::shared_ptr<Maze> genMaze(int dimension, const std::shared_ptr<CollisionWorld>& collision);
 	static MazeGenerator& getInstance();
 private:
 	MazeGenerator();
 	~MazeGenerator();
 
-	void genMazeRecuresion(Maze* result, int px, int py);
-private :
-	bool checkPoint(Maze* ref, const std::pair<int, int>& pt);
-	bool checkPoint(Maze* ref, int a, int b);
+	void genMazeRecuresively(const std::shared_ptr<Maze>& result, int px, int py);
+private:
+	bool checkPoint(const std::shared_ptr<Maze>& ref, const std::pair<int, int>& pt);
+	bool checkPoint(const std::shared_ptr<Maze>& ref, int a, int b);
 };
 
 #define MAZEFACTORY (MazeGenerator::getInstance())

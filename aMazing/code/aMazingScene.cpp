@@ -16,7 +16,7 @@ HRESULT aMazingScene::Initialize(HWND hwnd, ID3D11Device* device,
 	collisionWorld->Initialize();
 
 	//Generate a maze
-	maze.reset(MAZEFACTORY.genMaze(50, collisionWorld));
+	maze = MAZEFACTORY.genMaze(50, collisionWorld);
 
 	camera.reset(new WrappedCamera);
 	hr = camera->Initialize(device, context);

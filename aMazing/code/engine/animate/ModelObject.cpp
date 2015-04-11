@@ -2,9 +2,9 @@
 using namespace aMazing;
 
 const aiMatrix4x4 ModelObject::identityMatrix = { 1, 0, 0, 0,
-												0,1,0,0,
-												0,0,1,0,
-												0,0,0,1};
+												0, 1, 0, 0,
+												0, 0, 1, 0,
+												0, 0, 0, 1 };
 ModelObject::ModelObject()
 {
 	is_inited = false;

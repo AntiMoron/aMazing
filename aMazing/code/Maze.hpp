@@ -6,7 +6,6 @@
 class Maze
 {
 public:
-	~Maze();
 	void Render(ID3D11Device* device,
 		ID3D11DeviceContext* context,
 		const std::shared_ptr<aMazing::CameraClass>& camera);
@@ -23,6 +22,6 @@ private:
 	Maze();
 	
 	friend class MazeGenerator;
-	bool* m_map;
+	std::unique_ptr<bool[]> m_map;
 	int width, height;
 };

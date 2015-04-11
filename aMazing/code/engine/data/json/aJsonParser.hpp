@@ -41,7 +41,7 @@ namespace aMazing
 				//true default.
 				return true;
 			}
-			static void splitJsonString(const VirtualString& src, VirtualString& key, VirtualString& value) throw (ParamException)
+			static void splitJsonString(const VirtualString& src, VirtualString** key, VirtualString** value) throw (ParamException)
 			{
 				size_t cur = 0;
 				size_t keyStart = 0;
@@ -65,14 +65,14 @@ namespace aMazing
 				{
 					throw ParamException();//Key Error
 				}
-				key = VirtualString(src, keyStart, keyEnd);
+				*key = new VirtualString(src, keyStart, keyEnd);
 				VirtualString tValue(src, cur, src.length());
 				tValue.trim();
 				if (tValue[0] == ':')
 				{
 					throw ParamException();//Format error.
 				}
-				value = tValue.subString(1).trim();
+				*value = new VirtualString(tValue.subString(1).trim());
 			}
 
 			//The string must be trimed. And be tightly of only one json data's content(without key name).
@@ -134,12 +134,30 @@ namespace aMazing
 				return result;
 			}
 
-			static std::shared_ptr<aJsonNode> parseRecursively(const VirtualString& str)
+			static std::shared_ptr<aJsonNode> parseRecursively(const VirtualString& str) throw(ParamException)
 			{
 				std::shared_ptr<aJsonNode> result = std::make_shared<aJsonNode>();
-				result->setJsonType(parseJsonType());
-				for ()
+				str.trim();
+				if (!isSymbolsMatched(str[0], str.back()))
 				{
+					throw ParamException();
+				}
+				VirtualString strippedString = VirtualString(str, 1, str.length() - 2);
+				if (strippedString.empty())
+				{
+					throw ParamException();
+				}
+				std::vector<VirtualString> splitedStrings = getContentDivided(strippedString);
+				for (const VirtualString& singleString : splitedStrings)
+				{
+					VirtualString* key = nullptr;
+					VirtualString* value = nullptr;
+					splitJsonString(singleString, &key, &value);
+					if (!key || !value)
+					{
+						throw ParamException();
+					}
+					result->setJsonType(parseJsonType(*value));
 					std::shared_ptr<aJsonNode> child = std::make_shared<aJsonNode>();
 					result->addChild(child);
 				}

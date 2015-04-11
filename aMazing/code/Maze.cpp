@@ -4,19 +4,8 @@ const float Maze::blockSize = 0.5f;
 
 Maze::Maze()
 {
-	m_map = nullptr;
 	width = -1;
 	height = -1;
-}
-
-
-Maze::~Maze()
-{
-	if (m_map != nullptr)
-	{
-		delete [] m_map;
-		m_map = nullptr;
-	}
 }
 
 bool& Maze::get(std::size_t x, std::size_t y)

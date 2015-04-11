@@ -115,11 +115,11 @@ namespace aMazing
 			return rawString + vSize;
 		}
 
-		const size_t length() const
+		aCONSTEXPR const size_t length() const
 		{
 			return vSize;
 		}
-		const size_t size() const
+		aCONSTEXPR const size_t size() const
 		{
 			return vSize;
 		}
@@ -160,6 +160,16 @@ namespace aMazing
 			std::vector<VirtualString_t<type> > result;
 			return result;
 		}
+		const type& back() const
+		{
+			return rawString[vSize - 1];
+		}
+
+		aCONSTEXPR bool empty()const aNOEXCEPT
+		{
+			return vSize == 0;
+		}
+
 		/*
 		get the stl string of this virtual string
 		*/

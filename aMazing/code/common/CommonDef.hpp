@@ -6,6 +6,7 @@
 #else
 #define aDBG(x) 
 #endif
+#define aTHROW_ON(expr,exception,msg) do{throw exception(msg);}while(0)
 
 /**********Language****************************/
 #define aNOEXCEPT  throw()

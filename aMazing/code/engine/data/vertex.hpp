@@ -5,7 +5,6 @@
 
 namespace aMazing
 {
-
 	//POD vertex for static model
 	struct Vertex
 	{
