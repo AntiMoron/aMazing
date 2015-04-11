@@ -66,6 +66,9 @@
     <Filter Include="Engine\data\xml">
       <UniqueIdentifier>{eda2636f-02fe-4554-9f68-a177bf7c4998}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\system\thread">
+      <UniqueIdentifier>{fad9acb7-fa80-4792-91eb-d5f967fd7e60}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\collision\shapecategory\CollisionCircle.hpp">
@@ -215,13 +218,7 @@
     <ClInclude Include="code\engine\system\MutableString.hpp">
       <Filter>Engine\system</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\system\ParticleClass.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
     <ClInclude Include="code\engine\system\PrimitivePipeline.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\RectangleClass.hpp">
       <Filter>Engine\system</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\system\TextureManager.hpp">
@@ -393,6 +390,15 @@
     <ClInclude Include="code\engine\data\VirtualString.hpp">
       <Filter>Engine\data</Filter>
     </ClInclude>
+    <ClInclude Include="code\engine\system\thread\aAtomicObject.hpp">
+      <Filter>Engine\system\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\ParticleObject.hpp">
+      <Filter>Engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\RectangleObject.hpp">
+      <Filter>Engine\system</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\collision\CollisionIntersection.cpp">
@@ -428,13 +434,7 @@
     <ClCompile Include="code\engine\system\MutableString.cpp">
       <Filter>Engine\system</Filter>
     </ClCompile>
-    <ClCompile Include="code\engine\system\ParticleClass.cpp">
-      <Filter>Engine\system</Filter>
-    </ClCompile>
     <ClCompile Include="code\engine\system\PrimitivePipeline.cpp">
-      <Filter>Engine\system</Filter>
-    </ClCompile>
-    <ClCompile Include="code\engine\system\RectangleClass.cpp">
       <Filter>Engine\system</Filter>
     </ClCompile>
     <ClCompile Include="code\engine\system\SoundClass.cpp">

@@ -2,7 +2,7 @@
 #include<memory>
 #include"D3DManager.hpp"
 #include"BlockClass.hpp"
-#include"RectangleClass.hpp"
+#include"RectangleObject.hpp"
 #include"LineClass.hpp"
 #include"../../common/CommonDef.hpp"
 
@@ -28,7 +28,7 @@ namespace aMazing
 		std::shared_ptr<ID3D11DeviceContext> contextPtr;
 		std::unique_ptr<LineClass> line;
 		std::unique_ptr<BlockClass> blk;
-		std::unique_ptr<RectangleClass> rec;
+		std::unique_ptr<RectangleObject> rec;
 	};
 }
 #define GRAPHICS (aMazing::PrimitivePipeline::getInstance())

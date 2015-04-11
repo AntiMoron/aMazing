@@ -5,18 +5,30 @@
 #include<xnamath.h>
 namespace aMazing
 {
-	class ParticleClass
+	class ParticleObject
 	{
 	public:
-		ParticleClass();
-		~ParticleClass();
+		ParticleObject()
+		{
+			;
+		}
+		~ParticleObject()
+		{
+			;
+		}
 
 		HRESULT Initialize(ID3D11Device* device,
-			ID3D11DeviceContext* context);
+			ID3D11DeviceContext* context)
+		{
+			return S_OK;
+		}
 
 		void Render(ID3D11Device* device,
 			ID3D11DeviceContext* context,
-			CameraClass* camera);
+			CameraClass* camera)
+		{
+			;
+		}
 	private:
 		struct ParticleMatrices
 		{

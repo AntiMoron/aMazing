@@ -14,9 +14,9 @@ HRESULT PrimitivePipeline::Initialize(ID3D11Device* device,
 	HRESULT hr;
 	devicePtr.reset(device);
 	contextPtr.reset(context);
-	blk.reset(new BlockClass);
-	rec.reset(new RectangleClass);
-	line.reset(new LineClass);
+	blk = std::make_unique<BlockClass>();
+	rec = std::make_unique<RectangleObject>();
+	line = std::make_unique<LineClass>();
 	hr = blk->Initialize(device,context);
 	if (FAILED(hr))
 	{
