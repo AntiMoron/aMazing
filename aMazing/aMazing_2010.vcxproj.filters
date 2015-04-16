@@ -399,6 +399,9 @@
     <ClInclude Include="code\engine\system\RectangleObject.hpp">
       <Filter>Engine\system</Filter>
     </ClInclude>
+    <ClInclude Include="code\engine\system\thread\aThreadSafeSingleton.hpp">
+      <Filter>Engine\system\thread</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\collision\CollisionIntersection.cpp">
@@ -477,6 +480,9 @@
     </ClCompile>
     <ClCompile Include="code\engine\animate\ModelObject.cpp">
       <Filter>Engine\animate</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\thread\aThreadSafeSingleton.cpp">
+      <Filter>Engine\system\thread</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

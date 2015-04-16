@@ -1,4 +1,5 @@
 #pragma once
+#include<type_traits>
 #include<atomic>
 
 namespace aMazing
@@ -9,7 +10,7 @@ namespace aMazing
 		class aAtomicWrapper
 		{
 		public:
-			typedef std::atomic<typename enable_if<is_fundamental<T>::value, T>::type> type;
+			typedef std::atomic<typename std::enable_if<std::is_fundamental<T>::value, T>::type> type;
 		};
 	}
 

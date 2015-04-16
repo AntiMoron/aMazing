@@ -404,6 +404,7 @@
     <ClCompile Include="code\engine\system\SoundClass.cpp" />
     <ClCompile Include="code\engine\system\TextureClass.cpp" />
     <ClCompile Include="code\engine\system\TextureManager.cpp" />
+    <ClCompile Include="code\engine\system\thread\aThreadSafeSingleton.cpp" />
     <ClCompile Include="code\engine\system\TimeService.cpp" />
     <ClCompile Include="code\engine\system\WindowClass.cpp" />
     <ClCompile Include="code\Maze.cpp" />
@@ -517,6 +518,7 @@
     <ClInclude Include="code\engine\system\TextureClass.hpp" />
     <ClInclude Include="code\engine\system\TextureManager.hpp" />
     <ClInclude Include="code\engine\system\thread\aAtomicObject.hpp" />
+    <ClInclude Include="code\engine\system\thread\aThreadSafeSingleton.hpp" />
     <ClInclude Include="code\engine\system\TimeService.hpp" />
     <ClInclude Include="code\engine\system\WindowClass.hpp" />
     <ClInclude Include="code\Maze.hpp" />

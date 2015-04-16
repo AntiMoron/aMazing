@@ -1,16 +1,6 @@
 #include "TextureManager.hpp"
 using namespace aMazing;
 
-TextureManager::TextureManager()
-{
-}
-
-
-TextureManager::~TextureManager()
-{
-}
-
-
 TextureManager& TextureManager::getInstance()
 {
 	static TextureManager instance;

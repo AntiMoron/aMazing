@@ -2,6 +2,7 @@
 
 #include<vector>
 #include"TextureClass.hpp"
+#include"thread/aThreadSafeSingleton.hpp"
 namespace aMazing
 {
 	class TextureManager
@@ -19,9 +20,6 @@ namespace aMazing
 
 		TextureClass* getTexture(std::size_t index);
 	private:
-		TextureManager();
-		~TextureManager();
-	
 		std::vector<std::unique_ptr<TextureClass> > m_vec;
 	};
 }
