@@ -5,13 +5,14 @@
 #include"RectangleObject.hpp"
 #include"LineClass.hpp"
 #include"../../common/CommonDef.hpp"
+#include"../system/thread/aThreadSafeSingleton.hpp"
 
 namespace aMazing
 {
-	class PrimitivePipeline
+	class PrimitivePipeline : public aThreadSafeSingleton<PrimitivePipeline>
 	{
 	public:
-		static PrimitivePipeline& getInstance();
+//		static PrimitivePipeline& getInstance();
 
 		HRESULT Initialize(ID3D11Device* device, 
 			ID3D11DeviceContext* context);

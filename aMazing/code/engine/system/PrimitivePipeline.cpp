@@ -2,12 +2,6 @@
 
 using namespace aMazing;
 
-PrimitivePipeline& PrimitivePipeline::getInstance()
-{
-	static PrimitivePipeline instance;
-	return instance;
-}
-
 HRESULT PrimitivePipeline::Initialize(ID3D11Device* device,
 	ID3D11DeviceContext* context)
 {

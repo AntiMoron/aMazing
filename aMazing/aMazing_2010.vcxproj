@@ -501,6 +501,8 @@
     <ClInclude Include="code\engine\system\GPUVerticesBuffer.hpp" />
     <ClInclude Include="code\engine\system\InputClass.hpp" />
     <ClInclude Include="code\engine\system\InstanceObj.hpp" />
+    <ClInclude Include="code\engine\system\lang\aNoCopyable.hpp" />
+    <ClInclude Include="code\engine\system\lang\aNoDefaultConstructor.hpp" />
     <ClInclude Include="code\engine\system\LightEnum.hpp" />
     <ClInclude Include="code\engine\system\Lightning.hpp" />
     <ClInclude Include="code\engine\system\LineClass.hpp" />
