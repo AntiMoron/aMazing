@@ -11,9 +11,10 @@ namespace aMazing
 {
 	class PrimitivePipeline : public aThreadSafeSingleton<PrimitivePipeline>
 	{
+	private:
+		friend class aThreadSafeSingleton<PrimitivePipeline>;
+		PrimitivePipeline(){}
 	public:
-//		static PrimitivePipeline& getInstance();
-
 		HRESULT Initialize(ID3D11Device* device, 
 			ID3D11DeviceContext* context);
 

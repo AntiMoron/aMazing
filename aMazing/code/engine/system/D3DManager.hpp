@@ -1,10 +1,10 @@
 #pragma once
 #include"../../common/CommonDxSupport.hpp"
 #include"../../common/CommonDef.hpp"
-#include<chrono>
-#include"WindowClass.hpp"
+#include"GlobalWindow.hpp"
 #include"ManagedTypes.hpp"
 #include<unordered_map>
+#include<chrono>
 
 namespace aMazing
 {

@@ -143,7 +143,7 @@ void ModelObject::loadTextures(ID3D11Device* device,
 			std::string filepath = *modelLocation.get();
 			filepath += filename.C_Str();
 			std::cout << filepath.c_str() << std::endl;
-			textures.push_back(std::unique_ptr<TextureClass>(new TextureClass));
+			textures.push_back(std::unique_ptr<TextureObject>(new TextureObject));
 			try
 			{
 				HRESULT hr = textures.back()->LoadFile(device, context, filepath.c_str());
@@ -160,7 +160,7 @@ void ModelObject::loadTextures(ID3D11Device* device,
 		}
 		else
 		{
-			textures.push_back(std::unique_ptr<TextureClass>(new TextureClass));
+			textures.push_back(std::unique_ptr<TextureObject>(new TextureObject));
 			textures.back()->beChessBoard(device, context);
 		}
 	}

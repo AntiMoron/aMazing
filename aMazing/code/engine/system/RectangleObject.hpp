@@ -4,7 +4,7 @@
 #include<D3DX11.h>
 #include<D3DX10math.h>
 #include<xnamath.h>
-#include"WindowClass.hpp"
+#include"GlobalWindow.hpp"
 #include"GPUMutableVerticesBuffer.hpp"
 #include"../../engine/data/Vertex.hpp"
 #include"../../common/CommonDef.hpp"

@@ -1,20 +1,20 @@
-#include "TextureClass.hpp"
+#include "TextureObject.hpp"
 using namespace aMazing;
-const TextureClass::wrappedColorDatz TextureClass::defaultData;
+const TextureObject::wrappedColorDatz TextureObject::defaultData;
 
-TextureClass::TextureClass()
+TextureObject::TextureObject()
 {
 	SRV = nullptr;
 	is_init = false;
 }
 
 
-TextureClass::~TextureClass()
+TextureObject::~TextureObject()
 {
 		aSAFE_RELEASE(SRV);
 }
 
-HRESULT TextureClass::LoadFile(ID3D11Device* device,
+HRESULT TextureObject::LoadFile(ID3D11Device* device,
 	ID3D11DeviceContext* context,
 	MutableString&& filename)
 {
@@ -56,7 +56,7 @@ HRESULT TextureClass::LoadFile(ID3D11Device* device,
 	return S_OK;
 }
 
-HRESULT TextureClass::LoadMemory(ID3D11Device* device,
+HRESULT TextureObject::LoadMemory(ID3D11Device* device,
 	ID3D11DeviceContext* context,
 	std::size_t width,
 	std::size_t height,
@@ -116,7 +116,7 @@ HRESULT TextureClass::LoadMemory(ID3D11Device* device,
 	return S_OK;
 }
 
-HRESULT TextureClass::beChessBoard(ID3D11Device* device,
+HRESULT TextureObject::beChessBoard(ID3D11Device* device,
 	ID3D11DeviceContext* context)
 {
 	HRESULT hr;
@@ -134,7 +134,7 @@ HRESULT TextureClass::beChessBoard(ID3D11Device* device,
 }
 
 
-bool TextureClass::bindVS(ID3D11Device* device,
+bool TextureObject::bindVS(ID3D11Device* device,
 	ID3D11DeviceContext* context, 
 	unsigned int textureSlot)
 {
@@ -142,7 +142,7 @@ bool TextureClass::bindVS(ID3D11Device* device,
 	return true;
 }
 
-bool TextureClass::bindPS(ID3D11Device* device,
+bool TextureObject::bindPS(ID3D11Device* device,
 	ID3D11DeviceContext* context,
 	unsigned int textureSlot)
 {
@@ -150,7 +150,7 @@ bool TextureClass::bindPS(ID3D11Device* device,
 	return true;
 }
 
-bool TextureClass::isInited()const
+bool TextureObject::isInited()const
 {
 	return is_init;
 }

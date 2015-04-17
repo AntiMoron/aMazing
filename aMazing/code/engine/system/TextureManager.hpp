@@ -1,15 +1,16 @@
 #pragma once
 
 #include<vector>
-#include"TextureClass.hpp"
+#include"TextureObject.hpp"
 #include"thread/aThreadSafeSingleton.hpp"
 namespace aMazing
 {
-	class TextureManager
+	class TextureManager : public aThreadSafeSingleton<TextureManager>
 	{
+	private:
+		TextureManager(){}
+		friend class aThreadSafeSingleton<TextureManager>;
 	public:
-		static TextureManager& getInstance();
-
 		HRESULT addTexture(ID3D11Device* device,
 			ID3D11DeviceContext* context,
 			MutableString&& filename);
@@ -18,9 +19,9 @@ namespace aMazing
 		//There won't need a delete function here.
 		//For textures are set manually before compiling.
 
-		TextureClass* getTexture(std::size_t index);
+		TextureObject* getTexture(std::size_t index);
 	private:
-		std::vector<std::unique_ptr<TextureClass> > m_vec;
+		std::vector<std::unique_ptr<TextureObject> > m_vec;
 	};
 }
 

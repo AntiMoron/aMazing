@@ -227,9 +227,6 @@
     <ClInclude Include="code\engine\system\TextureManager.hpp">
       <Filter>Engine\system</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\system\TextureClass.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
     <ClInclude Include="code\engine\system\SoundClass.hpp">
       <Filter>Engine\system</Filter>
     </ClInclude>
@@ -241,9 +238,6 @@
     </ClInclude>
     <ClInclude Include="code\aMazingScene.hpp" />
     <ClInclude Include="code\engine\system\FrustumClass.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\WindowClass.hpp">
       <Filter>Engine\system</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\system\InputClass.hpp">
@@ -411,6 +405,12 @@
     <ClInclude Include="code\engine\system\lang\aNoDefaultConstructor.hpp">
       <Filter>Engine\system\lang</Filter>
     </ClInclude>
+    <ClInclude Include="code\engine\system\GlobalWindow.hpp">
+      <Filter>Engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\TextureObject.hpp">
+      <Filter>Engine\system</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\collision\CollisionIntersection.cpp">
@@ -452,16 +452,10 @@
     <ClCompile Include="code\engine\system\SoundClass.cpp">
       <Filter>Engine\system</Filter>
     </ClCompile>
-    <ClCompile Include="code\engine\system\TextureClass.cpp">
-      <Filter>Engine\system</Filter>
-    </ClCompile>
     <ClCompile Include="code\engine\system\TextureManager.cpp">
       <Filter>Engine\system</Filter>
     </ClCompile>
     <ClCompile Include="code\engine\system\TimeService.cpp">
-      <Filter>Engine\system</Filter>
-    </ClCompile>
-    <ClCompile Include="code\engine\system\WindowClass.cpp">
       <Filter>Engine\system</Filter>
     </ClCompile>
     <ClCompile Include="code\aMazing.cpp" />
@@ -492,6 +486,9 @@
     </ClCompile>
     <ClCompile Include="code\engine\system\thread\aThreadSafeSingleton.cpp">
       <Filter>Engine\system\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\TextureObject.cpp">
+      <Filter>Engine\system</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

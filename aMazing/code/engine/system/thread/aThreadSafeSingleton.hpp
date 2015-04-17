@@ -26,12 +26,8 @@ namespace aMazing
 			safer.nothing();
 			return inst;
 		}
-	private:
-		static T& instance;
 	};
 
 	template<typename T>
 	typename aThreadSafeSingleton<T>::InstanceSafe aThreadSafeSingleton<T>::safer;
-	template<typename T>
-	T& aThreadSafeSingleton<T>::instance = aThreadSafeSingleton::getInstance();
 }

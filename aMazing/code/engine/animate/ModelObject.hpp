@@ -9,7 +9,7 @@
 #include "../../common/CommonUtil.hpp"
 #include "../system/BasicObject.hpp"
 #include "../shader/ShaderManager.hpp"
-#include "../system/TextureClass.hpp"
+#include "../system/TextureObject.hpp"
 #include "../data/BonesBindData.hpp"
 #include "SceneAnimator.hpp"
 
@@ -69,7 +69,7 @@ namespace aMazing
 		//the texture indices
 		std::vector<std::size_t> textureIndices;
 		//the queue of textures used
-		std::vector<std::unique_ptr<TextureClass> > textures;
+		std::vector<std::unique_ptr<TextureObject> > textures;
 
 		/**********************vertex data.**********************/
 		//the queue of indices of each mesh.

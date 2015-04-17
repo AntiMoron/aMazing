@@ -19,6 +19,7 @@ namespace aMazing
 		struct sInclude   m_includeFiles[MAX_INCLUDES];
 		unsigned int      m_nIncludes;
 
+		wchar_t filePath[MAX_PATH];
 	public:
 		ShaderInclude()
 		{
@@ -43,7 +44,7 @@ namespace aMazing
 				if (m_includeFiles[i].hFile != INVALID_HANDLE_VALUE)
 					CloseHandle(m_includeFiles[i].hFile);
 			}
-
+			SetCurrentDirectory(filePath);
 			m_nIncludes = 0;
 		}
 
@@ -56,6 +57,14 @@ namespace aMazing
 			))
 		{
 			unsigned int   incIndex = m_nIncludes + 1;
+
+			auto nBytes = GetCurrentDirectoryW(MAX_PATH, filePath);
+			if (nBytes >= MAX_PATH)
+			{
+				return E_FAIL;
+			}
+			std::wstring wFilePath = filePath;
+			SetCurrentDirectoryW(wFilePath.c_str());
 
 			// Make sure we have enough room for this include file
 			if (incIndex >= MAX_INCLUDES)

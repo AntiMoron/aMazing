@@ -1,7 +1,7 @@
 #include "resource.h"
 #include <windows.h>
 #include "engine/system/InputClass.hpp"
-#include "engine/system/WindowClass.hpp"
+#include "engine/system/GlobalWindow.hpp"
 #include "engine/system/D3DManager.hpp"
 #include "aMazingScene.hpp"
 using namespace aMazing;
@@ -84,7 +84,7 @@ HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow )
                            NULL );
     if( !g_hWnd )
         return E_FAIL;
-	WindowClass::setWindowHandler(g_hWnd);
+	GLOBAL_WINDOW.setWindowHandler(g_hWnd);
 
     ShowWindow( g_hWnd, nCmdShow );
 
@@ -99,10 +99,10 @@ HRESULT InitDevice()
     UINT width = rc.right - rc.left;
     UINT height = rc.bottom - rc.top;
 
-	WindowClass::getInstance().setWidth(width);
-	WindowClass::getInstance().setHeight(height);
+	GLOBAL_WINDOW.setWidth(width);
+	GLOBAL_WINDOW.setHeight(height);
 	//Initialize all the thing we need to prepare for rendering work.
-	D3DManager::Initialize(WindowClass::getWindowHandler());
+	D3DManager::Initialize(GLOBAL_WINDOW.getWindowHandler());
 	//From now on device's marco access is enabled.
 #define DEVICE (D3DManager::getDevice(DEFAULT_DEVICE))
 #define CONTEXT (D3DManager::getContext(DEFAULT_CONTEXT))
@@ -277,10 +277,10 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
 			width = rc.right - rc.left;
 			height = rc.bottom - rc.top;
 
-			WindowClass::getInstance().setWidth(width);
-			WindowClass::getInstance().setHeight(height);
-			WindowClass::getInstance().setResolutionWidth(width);
-			WindowClass::getInstance().setResolutionHeight(height);
+			GLOBAL_WINDOW.setWidth(width);
+			GLOBAL_WINDOW.setHeight(height);
+			GLOBAL_WINDOW.setResolutionWidth(width);
+			GLOBAL_WINDOW.setResolutionHeight(height);
 			scene->getWrappedCamera()->getCamera()->setAspectRatio(ASPECTRATIO);
 			break;
         default:

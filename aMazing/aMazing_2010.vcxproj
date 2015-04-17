@@ -402,11 +402,10 @@
     <ClCompile Include="code\engine\system\MutableString.cpp" />
     <ClCompile Include="code\engine\system\PrimitivePipeline.cpp" />
     <ClCompile Include="code\engine\system\SoundClass.cpp" />
-    <ClCompile Include="code\engine\system\TextureClass.cpp" />
+    <ClCompile Include="code\engine\system\TextureObject.cpp" />
     <ClCompile Include="code\engine\system\TextureManager.cpp" />
     <ClCompile Include="code\engine\system\thread\aThreadSafeSingleton.cpp" />
     <ClCompile Include="code\engine\system\TimeService.cpp" />
-    <ClCompile Include="code\engine\system\WindowClass.cpp" />
     <ClCompile Include="code\Maze.cpp" />
     <ClCompile Include="code\MazeGenerator.cpp" />
     <ClCompile Include="code\WrappedCamera.cpp" />
@@ -517,12 +516,12 @@
     <ClInclude Include="code\engine\system\ScopeGuard.hpp" />
     <ClInclude Include="code\engine\system\SoundClass.hpp" />
     <ClInclude Include="code\engine\system\StaticMesh.hpp" />
-    <ClInclude Include="code\engine\system\TextureClass.hpp" />
+    <ClInclude Include="code\engine\system\TextureObject.hpp" />
     <ClInclude Include="code\engine\system\TextureManager.hpp" />
     <ClInclude Include="code\engine\system\thread\aAtomicObject.hpp" />
     <ClInclude Include="code\engine\system\thread\aThreadSafeSingleton.hpp" />
     <ClInclude Include="code\engine\system\TimeService.hpp" />
-    <ClInclude Include="code\engine\system\WindowClass.hpp" />
+    <ClInclude Include="code\engine\system\GlobalWindow.hpp" />
     <ClInclude Include="code\Maze.hpp" />
     <ClInclude Include="code\MazeGenerator.hpp" />
     <ClInclude Include="code\Resource.h" />

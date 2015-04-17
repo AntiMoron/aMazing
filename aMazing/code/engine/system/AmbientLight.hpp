@@ -1,7 +1,7 @@
 #pragma once
 #include"../../common/CommonDxSupport.hpp"
 #include<memory>
-#include"WindowClass.hpp"
+#include"GlobalWindow.hpp"
 #include"GPUConstantBuffer.hpp"
 #include"../../common/CommonUtil.hpp"
 

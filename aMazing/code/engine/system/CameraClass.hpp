@@ -3,7 +3,7 @@
 #include<memory>
 #include"GPUConstantBuffer.hpp"
 #include<xnamath.h>
-#include"WindowClass.hpp"
+#include"GlobalWindow.hpp"
 #include"../../common/CommonDef.hpp"
 #include"FrustumClass.hpp"
 

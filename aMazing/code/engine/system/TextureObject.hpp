@@ -8,11 +8,11 @@
 #include"MutableString.hpp"
 namespace aMazing
 {
-	class TextureClass
+	class TextureObject
 	{
 	public:
-		TextureClass();
-		~TextureClass();
+		TextureObject();
+		~TextureObject();
 
 		/*
 		 * Load Texture from a file

@@ -1,7 +1,7 @@
 #pragma once
 
 #include"../../common/CommonDxSupport.hpp"
-#include"WindowClass.hpp"
+#include"GlobalWindow.hpp"
 #include"../../common/CommonDef.hpp"
 
 namespace aMazing
