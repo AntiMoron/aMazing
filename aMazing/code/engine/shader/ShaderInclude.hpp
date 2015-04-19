@@ -57,7 +57,7 @@ namespace aMazing
 			))
 		{
 			unsigned int   incIndex = m_nIncludes + 1;
-
+			aDBG(pFileName);
 			auto nBytes = GetCurrentDirectoryW(MAX_PATH, filePath);
 			if (nBytes >= MAX_PATH)
 			{

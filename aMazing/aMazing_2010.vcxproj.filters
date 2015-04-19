@@ -72,6 +72,9 @@
     <Filter Include="Engine\system\lang">
       <UniqueIdentifier>{d741636a-e656-4e66-8f8d-3025ee736b0a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\file">
+      <UniqueIdentifier>{b746475e-0d20-4b40-b44c-97f640b7f80e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\collision\shapecategory\CollisionCircle.hpp">
@@ -410,6 +413,12 @@
     </ClInclude>
     <ClInclude Include="code\engine\system\TextureObject.hpp">
       <Filter>Engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\file\FileSystem.hpp">
+      <Filter>Engine\file</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\Config.hpp">
+      <Filter>Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

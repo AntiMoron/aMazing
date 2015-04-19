@@ -1,4 +1,5 @@
 #pragma once
+#include"../engine/Config.hpp"
 #include<iostream>
 /**********Debugs************/
 
@@ -17,7 +18,7 @@
 
 /***********Macro Functions*******************/
 
-#define aSAFE_RELEASE(x) do{if(!!(x)){(x)->Release(); (x) = nullptr; aDBG("address at[" << (x) <<"] released."); }}while(0)
+#define aSAFE_RELEASE(x) do{if(!!(x)){(x)->Release();aDBG("address at[" << (x) <<"] released."); (x) = nullptr; }}while(0)
 #define aRETURN_ON_FAIL(x) if(FAILED(x)){ return E_FAIL;}
 #define aOffsetof(s,x) ((std::size_t)&reinterpret_cast<const volatile char&>(((s*)nullptr)->x))
 #define aRADIAN_TO_ANGLE(x) (x * 180.0 / (aPI))

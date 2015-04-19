@@ -254,7 +254,7 @@ HRESULT ShaderCompilerClass::compileFromFile(const char* filename,
 
 	CloseHandle(hFile);
 
-	ShaderInclude* pIncludeHandler = new ShaderInclude;
+	std::unique_ptr<ShaderInclude> pIncludeHandler = std::make_unique<ShaderInclude>();
 	ID3DBlob* errorMsg = nullptr;
 
 	auto lastSplashInd = wFilePath.rfind(TEXT('\\'));
@@ -275,24 +275,25 @@ HRESULT ShaderCompilerClass::compileFromFile(const char* filename,
 		resetCurrentDir = true;
 	}
 
-	hr = D3DCompile(pFileData, FileSize.LowPart, NULL, NULL, static_cast<ID3DInclude*> (pIncludeHandler),
-		entryPoint, shaderTarget, 0, D3DCOMPILE_EFFECT_ALLOW_SLOW_OPS, output, &errorMsg);
-	if (!!pIncludeHandler)
-	{
-		delete pIncludeHandler;
-	}
+	hr = D3DCompile(pFileData, 
+		FileSize.LowPart, 
+		NULL, NULL, 
+		static_cast<ID3DInclude*> (pIncludeHandler.get()),
+		entryPoint, shaderTarget, 
+		0, D3DCOMPILE_EFFECT_ALLOW_SLOW_OPS, 
+		output, &errorMsg);
 	if (!!pFileData)
 	{
 		delete[] pFileData;
 	}
 	if (resetCurrentDir)
 	{
-		SetCurrentDirectory(workingPath);
+		SetCurrentDirectoryW(workingPath);
 	}
 
 	if (FAILED(hr))
 	{
-		MessageBoxA(NULL,reinterpret_cast<char*>(errorMsg->GetBufferPointer()),"error",MB_OK);	
+		MessageBoxA(NULL,reinterpret_cast<char*>(errorMsg->GetBufferPointer()),"error",MB_OK);
 		aSAFE_RELEASE(errorMsg);
 		return hr;
 	}
@@ -317,10 +318,10 @@ HRESULT ShaderCompilerClass::compileString(const char* str
 #endif
 	ID3DBlob* errorMsg = nullptr;
 	ID3DBlob* compiled = nullptr;
-	std::string shaderstr = MutableString(str).getMultiByteString();
-	std::cout << shaderstr << std::endl;
-	hr = D3DCompile(shaderstr.c_str(),
-		shaderstr.length(),
+	std::string shaderStr = str;
+	aDBG(shaderStr);
+	hr = D3DCompile(shaderStr.c_str(),
+		shaderStr.length(),
 		nullptr,
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,
@@ -331,12 +332,17 @@ HRESULT ShaderCompilerClass::compileString(const char* str
 		output,
 		&errorMsg);
 	
-	if (errorMsg != nullptr)
+	if (!!errorMsg)
 	{
 		char* errorText = new char[errorMsg->GetBufferSize()];
 		memcpy(errorText, errorMsg->GetBufferPointer(), errorMsg->GetBufferSize());
 		MessageBoxA(NULL,errorText,"Shader Error",MB_OK);
 		aSAFE_RELEASE(errorMsg);
+		if (!!errorText)
+		{
+			delete[] errorText;
+			errorText = nullptr;
+		}
 		return E_FAIL;
 	}
 	if (FAILED(hr))

@@ -9,7 +9,7 @@ HINSTANCE g_hInst = nullptr;
 HWND g_hWnd = nullptr;
 
 aMazingScene* scene = nullptr;
-//#define ENABLE_CONSOLE
+#define ENABLE_CONSOLE
 
 HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow );
 HRESULT InitDevice();

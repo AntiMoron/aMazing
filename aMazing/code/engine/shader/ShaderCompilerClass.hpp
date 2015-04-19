@@ -1,11 +1,9 @@
 #pragma once
-#include <D3D11.h>
-#include <D3DX11.h>
 #include <d3dcompiler.h>
 #include <iostream>
-#include <utility>
-#include <iterator>
+#include <memory>
 #include "../../common/CommonDef.hpp"
+#include "../../common/CommonDxSupport.hpp"
 #include "../../common/CommonTemplates.hpp"
 #include "../shader/ShaderInclude.hpp"
 #include "../system/FileTracker.hpp"
