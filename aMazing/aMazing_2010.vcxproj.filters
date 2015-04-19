@@ -75,6 +75,9 @@
     <Filter Include="Engine\file">
       <UniqueIdentifier>{b746475e-0d20-4b40-b44c-97f640b7f80e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\containers">
+      <UniqueIdentifier>{d65f3ccf-1717-4f93-91bc-d91459e79e3f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\collision\shapecategory\CollisionCircle.hpp">
@@ -419,6 +422,12 @@
     </ClInclude>
     <ClInclude Include="code\engine\Config.hpp">
       <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\containers\vector.hpp">
+      <Filter>Engine\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\containers\string.hpp">
+      <Filter>Engine\containers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

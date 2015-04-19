@@ -432,6 +432,8 @@
     <ClInclude Include="code\engine\animate\SceneAnimator.hpp" />
     <ClInclude Include="code\engine\animate\SceneAnimNode.hpp" />
     <ClInclude Include="code\engine\Config.hpp" />
+    <ClInclude Include="code\engine\containers\string.hpp" />
+    <ClInclude Include="code\engine\containers\vector.hpp" />
     <ClInclude Include="code\engine\data\BonesBindData.hpp" />
     <ClInclude Include="code\engine\data\json\aJsonData.hpp" />
     <ClInclude Include="code\engine\data\json\aJsonHelper.hpp" />
