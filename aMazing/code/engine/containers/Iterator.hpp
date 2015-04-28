@@ -5,11 +5,16 @@
 namespace aMazing
 {
 	template<typename T>
-	class aRandomAccessIterator
+	class aCommonIterator
+	{
+	};
+
+	template<typename T>
+	class aRandomAccessIterator : public aCommonIterator<T>
 	{
 	private:
-		typedef typename std::remove_reference<T>::type non_ref_type;
-		typedef typename std::remove_const<non_ref_type>::type rawType;
+		typedef typename std::remove_const<T>::type rawType;
+		friend class aRandomAccessIterator<rawType>;
 	public:
 		//default ctor
 		aRandomAccessIterator() aNOEXCEPT
@@ -20,21 +25,10 @@ namespace aMazing
 		{
 			_p = p;
 		}
-		aRandomAccessIterator(aRandomAccessIterator<rawType>&& other) aNOEXCEPT
+
+		operator aRandomAccessIterator<const rawType>()
 		{
-			_p = other._p;
-		}
-		aRandomAccessIterator(const aRandomAccessIterator<rawType>& other) aNOEXCEPT
-		{
-			_p = other._p;
-		}
-		aRandomAccessIterator(aRandomAccessIterator<const rawType>&& other) aNOEXCEPT
-		{
-			_p = other._p;
-		}
-		aRandomAccessIterator(const aRandomAccessIterator<const rawType>& other) aNOEXCEPT
-		{
-			_p = other._p;
+			return aRandomAccessIterator<const rawType>(_p);
 		}
 		aRandomAccessIterator<T>& operator ++ () aNOEXCEPT
 		{
@@ -65,9 +59,9 @@ namespace aMazing
 			return aRandomAccessIterator<T>(_p - offset);
 		}
 		//Return the distance between two iterator.
-		size_t operator - (aRandomAccessIterator<T>& other) const aNOEXCEPT
+		size_t operator - (const aRandomAccessIterator<T>& other) const aNOEXCEPT
 		{
-			return p - other._p;
+			return _p - other._p;
 		}
 
 		bool operator == (const aRandomAccessIterator<T>& other) const aNOEXCEPT
@@ -98,7 +92,11 @@ namespace aMazing
 		{
 			return *_p;
 		}
-	private:
+		T* operator->() const aNOEXCEPT
+		{
+			return _p;
+		}
+	protected:
 		T* _p;
 	};
 }

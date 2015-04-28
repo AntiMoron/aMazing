@@ -1,5 +1,6 @@
 #pragma once
 #include<memory>
+#include<iterator>
 #include"../../common/CommonTemplates.hpp"
 #include"../system/memory/Memory.hpp"
 #include"./CommonContainer.hpp"
@@ -12,8 +13,8 @@ namespace aMazing
 	{
 	private:
 		typedef aMemory<Allocator> aMem;
-		const static size_t DEFAULT_SIZE = 11;
-		const static size_t VECTOR_INCREMENT = 20;
+		const static size_t DEFAULT_SIZE = 100;
+		const static size_t VECTOR_INCREMENT = 200;
 		T* createMemory(size_t count)
 		{
 			return aMem::createMemory<T>(get_allocator(),count);
@@ -62,6 +63,11 @@ namespace aMazing
 			static allocator_type alloc;
 			return alloc;
 		}
+		
+		bool empty() const aNOEXCEPT
+		{
+			return mSize == 0;
+		}
 
 		T& operator[] (size_type index)
 		{
@@ -102,7 +108,7 @@ namespace aMazing
 		{
 			if (std::is_destructible<T>::value)
 			{
-				std::allocator_traits<Allocator>::destroy(mData + mSize - 1);
+				std::allocator_traits<Allocator>::destroy(get_allocator(),mData + mSize - 1);
 			}
 			--mSize;
 		}
@@ -140,7 +146,7 @@ namespace aMazing
 		void shrink() aNOEXCEPT
 		{
 			auto& allocator = get_allocator();
-			T* newPtr = std::allocator_traits<A>::allocate(allocator, mSize);
+			T* newPtr = std::allocator_traits<Allocator>::allocate(allocator, mSize);
 			for (size_type cur = 0; cur < mSize; cur++)
 			{
 				newPtr[cur] = mData[cur];
@@ -181,9 +187,12 @@ namespace aMazing
 		{
 			auto& allocator = get_allocator();
 			size_t distance = pos - begin();
-			for (size_t cur = 0; cur < distance; cur++)
+			if (std::is_destructible<T>::value)
 			{
-				std::allocator_traits<Allocator>::destroy(allcator, mData + distance);
+				for (size_t cur = 0; cur < distance; cur++)
+				{
+					std::allocator_traits<Allocator>::destroy(allocator, mData + distance);
+				}
 			}
 			iterator endPos = end() - 1;
 			for (auto it = pos; it != endPos; ++it)
@@ -213,7 +222,10 @@ namespace aMazing
 			{
 				size_t dist = it - begin();
 				*(mData + dist) = *it;
-				std::allocator_traits<Allocator>::destroy(allocator, mData + (it - begin()));
+				if (std::is_destructible<T>::value)
+				{
+					std::allocator_traits<Allocator>::destroy(allocator, mData + (it - begin()));
+				}
 			}
 			mSize -= (ed - bg);
 			return bg;
@@ -226,19 +238,37 @@ namespace aMazing
 
 		const_iterator begin() const aNOEXCEPT
 		{
-			return const_iterator(mData);
+			return mData;
 		}
-		const_iterator end() const aNOEXCEPT
+		iterator begin() aNOEXCEPT
 		{
-			return const_iterator(mData + mSize);
+			return mData;
 		}
 		const_iterator cbegin() const aNOEXCEPT
 		{
-			return const_iterator(mData);
+			return mData;
 		}
-		const iterator cend() const aNOEXCEPT
+		const_iterator end() const aNOEXCEPT
 		{
-			return const_iterator(mData + mSize);
+			return mData + mSize;
+		}
+		iterator end() aNOEXCEPT
+		{
+			return mData + mSize;
+		}
+		const_iterator cend() const aNOEXCEPT
+		{
+			return mData + mSize;
+		}
+
+		T& front() const aNOEXCEPT
+		{
+			return *mData;
+		}
+
+		T& back() const aNOEXCEPT
+		{
+			return *(mData + mSize - 1)
 		}
 	private:
 		void expandSpace()

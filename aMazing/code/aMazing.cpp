@@ -90,11 +90,17 @@ HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow )
     ShowWindow( g_hWnd, nCmdShow );
 
 	aVector<int> v;
-	for (int i = 0; i<10; i++)
+	for (int i = 0; i < 10; i++)
 		v.push_back(i);
+	v.insert(v.begin() + 1,123);
+	v.erase(v.begin());
+	aDBG(v.size() << " " << v.capacity());
+	v.shrink();
+	aDBG(v.size() << " " << v.capacity());
+	v.pop_back();
 	for (auto x : v)
 	{
-		aDBG(x);
+		aDBG(x << " "<< v.size()<<" " << v.empty());
 	}
 
     return S_OK;
