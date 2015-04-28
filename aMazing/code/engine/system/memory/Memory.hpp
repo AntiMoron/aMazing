@@ -23,7 +23,7 @@ namespace aMazing
 			{
 				for (size_t cur = 0; cur < count; cur++)
 				{
-					std::allocator_traits<Alloc>::construct(actor, ret, args...);
+					std::allocator_traits<Alloc>::construct(actor, ret + cur, args...);
 				}
 			}
 			blockElemCnt[reinterpret_cast<void*>(ret)] = sizeof(Type) * count;

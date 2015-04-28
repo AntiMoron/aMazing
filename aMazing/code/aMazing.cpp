@@ -1,4 +1,5 @@
 #include "resource.h"
+#include<string>
 #include <windows.h>
 #include "engine/system/InputClass.hpp"
 #include "engine/system/GlobalWindow.hpp"
@@ -89,10 +90,13 @@ HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow )
 
     ShowWindow( g_hWnd, nCmdShow );
 
-	aVector<int> v;
+	aVector<std::string> v;
 	for (int i = 0; i < 10; i++)
-		v.push_back(i);
-	v.insert(v.begin() + 1,123);
+	{
+		v.push_back(std::string());
+		v.back() += 'A' + i;
+	}
+	v.insert(v.begin() + 1,std::string("hahaha"));
 	v.erase(v.begin());
 	aDBG(v.size() << " " << v.capacity());
 	v.shrink();
@@ -102,7 +106,6 @@ HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow )
 	{
 		aDBG(x << " "<< v.size()<<" " << v.empty());
 	}
-
     return S_OK;
 }
 

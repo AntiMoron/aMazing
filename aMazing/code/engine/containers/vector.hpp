@@ -17,7 +17,7 @@ namespace aMazing
 		const static size_t VECTOR_INCREMENT = 200;
 		T* createMemory(size_t count)
 		{
-			return aMem::createMemory<T>(get_allocator(),count);
+			return aMem::createMemory<T>(get_allocator(), count);
 		}
 		void deleteMemory(T* p)
 		{
@@ -91,7 +91,7 @@ namespace aMazing
 
 		void push_back(T& val) aNOEXCEPT
 		{
-			push_back(std::forward<T>(std::move(val)));
+			push_back(std::forward<T>(val));
 		}
 
 		void push_back(T&& val) aNOEXCEPT
@@ -146,7 +146,7 @@ namespace aMazing
 		void shrink() aNOEXCEPT
 		{
 			auto& allocator = get_allocator();
-			T* newPtr = std::allocator_traits<Allocator>::allocate(allocator, mSize);
+			T* newPtr = createMemory(mSize);
 			for (size_type cur = 0; cur < mSize; cur++)
 			{
 				newPtr[cur] = mData[cur];
@@ -268,7 +268,7 @@ namespace aMazing
 
 		T& back() const aNOEXCEPT
 		{
-			return *(mData + mSize - 1)
+			return *(mData + mSize - 1);
 		}
 	private:
 		void expandSpace()
