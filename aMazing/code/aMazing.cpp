@@ -4,6 +4,7 @@
 #include "engine/system/GlobalWindow.hpp"
 #include "engine/system/D3DManager.hpp"
 #include "aMazingScene.hpp"
+#include "engine/containers/Vector.hpp"
 using namespace aMazing;
 HINSTANCE g_hInst = nullptr;
 HWND g_hWnd = nullptr;
@@ -87,6 +88,14 @@ HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow )
 	GLOBAL_WINDOW.setWindowHandler(g_hWnd);
 
     ShowWindow( g_hWnd, nCmdShow );
+
+	aVector<int> v;
+	for (int i = 0; i<10; i++)
+		v.push_back(i);
+	for (auto x : v)
+	{
+		aDBG(x);
+	}
 
     return S_OK;
 }

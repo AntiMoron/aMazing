@@ -81,6 +81,9 @@
     <Filter Include="Engine\containers\check">
       <UniqueIdentifier>{ca9b31e9-545b-44b8-814d-bc8ecc46b84a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\system\memory">
+      <UniqueIdentifier>{31eddceb-846a-4c2c-85a2-81091879d788}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\collision\shapecategory\CollisionCircle.hpp">
@@ -426,17 +429,26 @@
     <ClInclude Include="code\engine\Config.hpp">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\containers\vector.hpp">
-      <Filter>Engine\containers</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\containers\string.hpp">
-      <Filter>Engine\containers</Filter>
-    </ClInclude>
     <ClInclude Include="code\engine\containers\check\Common.hpp">
       <Filter>Engine\containers\check</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\containers\check\Insertable.hpp">
       <Filter>Engine\containers\check</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\memory\Memory.hpp">
+      <Filter>Engine\system\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\containers\Iterator.hpp">
+      <Filter>Engine\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\containers\String.hpp">
+      <Filter>Engine\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\containers\Vector.hpp">
+      <Filter>Engine\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\containers\CommonContainer.hpp">
+      <Filter>Engine\containers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -510,9 +522,6 @@
     </ClCompile>
     <ClCompile Include="code\engine\animate\ModelObject.cpp">
       <Filter>Engine\animate</Filter>
-    </ClCompile>
-    <ClCompile Include="code\engine\system\thread\aThreadSafeSingleton.cpp">
-      <Filter>Engine\system\thread</Filter>
     </ClCompile>
     <ClCompile Include="code\engine\system\TextureObject.cpp">
       <Filter>Engine\system</Filter>

@@ -404,7 +404,6 @@
     <ClCompile Include="code\engine\system\SoundClass.cpp" />
     <ClCompile Include="code\engine\system\TextureObject.cpp" />
     <ClCompile Include="code\engine\system\TextureManager.cpp" />
-    <ClCompile Include="code\engine\system\thread\aThreadSafeSingleton.cpp" />
     <ClCompile Include="code\engine\system\TimeService.cpp" />
     <ClCompile Include="code\Maze.cpp" />
     <ClCompile Include="code\MazeGenerator.cpp" />
@@ -434,8 +433,10 @@
     <ClInclude Include="code\engine\Config.hpp" />
     <ClInclude Include="code\engine\containers\check\Common.hpp" />
     <ClInclude Include="code\engine\containers\check\Insertable.hpp" />
-    <ClInclude Include="code\engine\containers\string.hpp" />
-    <ClInclude Include="code\engine\containers\vector.hpp" />
+    <ClInclude Include="code\engine\containers\CommonContainer.hpp" />
+    <ClInclude Include="code\engine\containers\Iterator.hpp" />
+    <ClInclude Include="code\engine\containers\String.hpp" />
+    <ClInclude Include="code\engine\containers\Vector.hpp" />
     <ClInclude Include="code\engine\data\BonesBindData.hpp" />
     <ClInclude Include="code\engine\data\json\aJsonData.hpp" />
     <ClInclude Include="code\engine\data\json\aJsonHelper.hpp" />
@@ -513,6 +514,7 @@
     <ClInclude Include="code\engine\system\LineClass.hpp" />
     <ClInclude Include="code\engine\system\ManagedTypes.hpp" />
     <ClInclude Include="code\engine\system\MaterialType.hpp" />
+    <ClInclude Include="code\engine\system\memory\Memory.hpp" />
     <ClInclude Include="code\engine\system\MutableMesh.hpp" />
     <ClInclude Include="code\engine\system\MutableString.hpp" />
     <ClInclude Include="code\engine\system\ParticleObject.hpp" />

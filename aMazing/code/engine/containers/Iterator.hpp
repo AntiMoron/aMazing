@@ -1,5 +1,6 @@
 #pragma once
-#include"../../common/CommonDef.hpp"
+#include <type_traits>
+#include "../../common/CommonDef.hpp"
 
 namespace aMazing
 {
@@ -7,7 +8,8 @@ namespace aMazing
 	class aRandomAccessIterator
 	{
 	private:
-		friend class CommonContainer;
+		typedef typename std::remove_reference<T>::type non_ref_type;
+		typedef typename std::remove_const<non_ref_type>::type rawType;
 	public:
 		//default ctor
 		aRandomAccessIterator() aNOEXCEPT
@@ -18,19 +20,19 @@ namespace aMazing
 		{
 			_p = p;
 		}
-		aRandomAccessIterator(aRandomAccessIterator<T>&& other) aNOEXCEPT
+		aRandomAccessIterator(aRandomAccessIterator<rawType>&& other) aNOEXCEPT
 		{
 			_p = other._p;
 		}
-		aRandomAccessIterator(const aRandomAccessIterator<T>& other) aNOEXCEPT
+		aRandomAccessIterator(const aRandomAccessIterator<rawType>& other) aNOEXCEPT
 		{
 			_p = other._p;
 		}
-		explicit aRandomAccessIterator(aRandomAccessIterator<const T>&& other) aNOEXCEPT
+		aRandomAccessIterator(aRandomAccessIterator<const rawType>&& other) aNOEXCEPT
 		{
 			_p = other._p;
 		}
-		explicit aRandomAccessIterator(const aRandomAccessIterator<const T>& other) aNOEXCEPT
+		aRandomAccessIterator(const aRandomAccessIterator<const rawType>& other) aNOEXCEPT
 		{
 			_p = other._p;
 		}
@@ -94,7 +96,7 @@ namespace aMazing
 		}
 		T& operator *() const aNOEXCEPT
 		{
-			return *p;
+			return *_p;
 		}
 	private:
 		T* _p;

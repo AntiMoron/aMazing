@@ -34,12 +34,10 @@ namespace aMazing
 		static void deleteMemory(Alloc& actor,Type* p) throw(MemoryException)
 		{
 			void* vp = reinterpret_cast<void*>(p);
-			if (blockElemCnt.find(vp))
+			if (blockElemCnt.find(vp) != blockElemCnt.end())
 			{
-				if (blockElemCnt[vp] % sizeof(Type) != 0)
-				{
-					throw MemoryException("Element Type incorrect.");
-				}
+				/*static_assert(blockElemCnt[vp] % sizeof(Type) != 0,
+					"Incorrect element type.");*/
 				size_t elemCnt = blockElemCnt[vp] / sizeof(Type);
 				if (std::is_destructible<Type>::value)
 				{
@@ -55,4 +53,7 @@ namespace aMazing
 		//saving the bytes of the memory that pointers point.
 		static std::unordered_map<void*,size_t> blockElemCnt;
 	};
+
+	template<typename Alloc>
+	std::unordered_map<void*, size_t> aMemory<Alloc>::blockElemCnt;
 }

@@ -12,13 +12,14 @@ namespace aMazing
 		template<typename C, typename A, typename T>
 		static typename std::conditional<
 			detail::aHasAllocatorType<Container>::value &&
-			detail::aHasGetAllocatorStaticFunction<Container,Allocator>::value &&
-			detail::aHasGetAllocatorMemberFunction<Container,Allocator>::value,
+			(detail::aHasGetAllocatorStaticFunction<Container,Allocator>::value ||
+			detail::aHasGetAllocatorMemberFunction<Container,Allocator>::value),
 			detail::yes_type,
 			detail::no_type>::type& test(C*);
 		template<typename C,typename A,typename T>
 		static detail::no_type& test(...);
 	public:
-		const static value = (sizeof(test<Container, Allocator, Type>(nullptr)) == sizeof(detail::yes_type));
+		const static bool value = 
+			(sizeof(test<Container, Allocator, Type>(nullptr)) == sizeof(detail::yes_type));
 	};
 }

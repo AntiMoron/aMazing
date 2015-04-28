@@ -11,17 +11,22 @@ namespace aMazing
 	class aVector : public CommonContainer
 	{
 	private:
-		static_assert(aIsInsertable<aVector<T, Allocator>, Allocator, Type>::value,
-			"Element type is neither CopyInsertable nor MoveInsertable");
-
 		typedef aMemory<Allocator> aMem;
 		const static size_t DEFAULT_SIZE = 11;
 		const static size_t VECTOR_INCREMENT = 20;
+		T* createMemory(size_t count)
+		{
+			return aMem::createMemory<T>(get_allocator(),count);
+		}
+		void deleteMemory(T* p)
+		{
+			aMem::deleteMemory<T>(get_allocator(), p);
+		}
 		void basicInitialize() aNOEXCEPT
 		{
 			mSize = 0;
 			mCapacity = DEFAULT_SIZE;
-			mData = aMem::createMemory(get_allocator(), mCapacity);
+			mData = createMemory(mCapacity);
 		}
 	public:
 		typedef Allocator allocator_type;
@@ -49,10 +54,10 @@ namespace aMazing
 		~aVector()
 		{
 			auto& allocator = get_allocator();
-			aMem::deleteMemory(allocator, mData);
+			deleteMemory(mData);
 		}
 
-		static get_allocator()
+		static allocator_type& get_allocator()
 		{
 			static allocator_type alloc;
 			return alloc;
@@ -95,10 +100,9 @@ namespace aMazing
 		}
 		void pop_back() aNOEXCEPT
 		{
-			auto& allocator = get_allocator();
 			if (std::is_destructible<T>::value)
 			{
-				std::allocator_traits<Allocator>::destroy(allocator, mData + mSize - 1);
+				std::allocator_traits<Allocator>::destroy(mData + mSize - 1);
 			}
 			--mSize;
 		}
@@ -115,18 +119,17 @@ namespace aMazing
 
 		void resize(size_type newSize)
 		{
-			auto& allocator = get_allocator();
 			if (newSize < mCapacity)
 			{
 				mSize = newSize;
 			}
 			else
 			{
-				T* newPtr = aMem::createMemory(allocator, newSize);
+				T* newPtr = createMemory(newSize);
 				aSwap(mData, newPtr);
 				if (!!newPtr)
 				{
-					aMem::deleteMemory(allocator, newPtr);
+					deleteMemory(newPtr);
 					newPtr = nullptr;
 				}
 				mCapacity = newSize;
@@ -144,7 +147,7 @@ namespace aMazing
 			}
 			if (!!mData)
 			{
-				aMem::deleteMemory(allocator, mData);
+				deleteMemory(mData);
 				mData = newPtr;
 			}
 			mCapacity = mSize;
@@ -242,14 +245,14 @@ namespace aMazing
 		{
 			auto& allocator = get_allocator();
 			size_type newCapacity = mCapacity + VECTOR_INCREMENT;
-			T* newPtr = aMem::createMemory(allocator, newCapacity);
+			T* newPtr = createMemory(newCapacity);
 			for (size_type i = 0; i < mCapacity; i++)
 			{
 				newPtr[i] = mData[i];
 			}
 			if (!!mData)
 			{
-				aMem::deleteMemory(allocator, mData);
+				deleteMemory(mData);
 				mData = newPtr;
 			}
 			mCapacity = newCapacity;
@@ -257,5 +260,7 @@ namespace aMazing
 		size_type mSize;
 		size_type mCapacity;
 		T* mData;
+		static_assert(aIsInsertable<aVector<T, Allocator>, Allocator, T>::value,
+			"Element type is neither CopyInsertable nor MoveInsertable");
 	};
 }
