@@ -78,6 +78,9 @@
     <Filter Include="Engine\containers">
       <UniqueIdentifier>{d65f3ccf-1717-4f93-91bc-d91459e79e3f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\containers\check">
+      <UniqueIdentifier>{ca9b31e9-545b-44b8-814d-bc8ecc46b84a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\collision\shapecategory\CollisionCircle.hpp">
@@ -428,6 +431,12 @@
     </ClInclude>
     <ClInclude Include="code\engine\containers\string.hpp">
       <Filter>Engine\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\containers\check\Common.hpp">
+      <Filter>Engine\containers\check</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\containers\check\Insertable.hpp">
+      <Filter>Engine\containers\check</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,21 +1,33 @@
 #pragma once
+#include<memory>
 #include"../../common/CommonTemplates.hpp"
+#include"../system/memory/Memory.hpp"
+#include"CommonContainer.hpp"
+#include"Iterator.hpp"
+
 namespace aMazing
 {
-	#define DEFAULT_SIZE 11
-	#define VECTOR_INCREMENT 20
-	template<typename T>
-	class aVector
+	template<typename T,typename Allocator = std::allocator<T> >
+	class aVector : public CommonContainer
 	{
 	private:
+		static_assert(aIsInsertable<aVector<T, Allocator>, Allocator, Type>::value,
+			"Element type is neither CopyInsertable nor MoveInsertable");
+
+		typedef aMemory<Allocator> aMem;
+		const static size_t DEFAULT_SIZE = 11;
+		const static size_t VECTOR_INCREMENT = 20;
 		void basicInitialize() aNOEXCEPT
 		{
 			mSize = 0;
 			mCapacity = DEFAULT_SIZE;
-			mData = new T[mCapacity];
+			mData = aMem::createMemory(get_allocator(), mCapacity);
 		}
 	public:
+		typedef Allocator allocator_type;
 		typedef size_t size_type;
+		typedef aRandomAccessIterator<T> iterator;
+		typedef aRandomAccessIterator<const T> const_iterator;
 		explicit aVector() aNOEXCEPT
 		{
 			basicInitialize();
@@ -24,7 +36,7 @@ namespace aMazing
 		{
 			basicInitialize();
 			resize(other.size());
-			for (size_type cur = 0; cur<other.size(); cur++)
+			for (size_type cur = 0; cur < other.size(); cur++)
 			{
 				mData[cur] = other.mData[cur];
 			}
@@ -36,18 +48,14 @@ namespace aMazing
 		}
 		~aVector()
 		{
-			if (std::is_destructible<T>::value)
-			{
-				for (size_type cur = 0; cur < mSize; cur++)
-				{
-					mData[cur].~T();
-				}
-			}
-			if (!!mData)
-			{
-				delete[] mData;
-				mData = nullptr;
-			}
+			auto& allocator = get_allocator();
+			aMem::deleteMemory(allocator, mData);
+		}
+
+		static get_allocator()
+		{
+			static allocator_type alloc;
+			return alloc;
 		}
 
 		T& operator[] (size_type index)
@@ -65,16 +73,14 @@ namespace aMazing
 		}
 		void swap(aVector<T>&& other) aNOEXCEPT
 		{
-			cout << other.mSize << "|";
 			aSwap(mData, other.mData);
 			aSwap(mSize, other.mSize);
 			aSwap(mCapacity, other.mCapacity);
-			cout << mSize << "|";
 		}
 
-		void push_back(const T& val) aNOEXCEPT
+		void push_back(T& val) aNOEXCEPT
 		{
-			push_back(const_cast<typename remove_reference<T>::type&&>(std::move(val)));
+			push_back(std::forward<T>(std::move(val)));
 		}
 
 		void push_back(T&& val) aNOEXCEPT
@@ -89,9 +95,10 @@ namespace aMazing
 		}
 		void pop_back() aNOEXCEPT
 		{
+			auto& allocator = get_allocator();
 			if (std::is_destructible<T>::value)
 			{
-				mData[mSize - 1].~T();
+				std::allocator_traits<Allocator>::destroy(allocator, mData + mSize - 1);
 			}
 			--mSize;
 		}
@@ -108,58 +115,141 @@ namespace aMazing
 
 		void resize(size_type newSize)
 		{
+			auto& allocator = get_allocator();
 			if (newSize < mCapacity)
 			{
 				mSize = newSize;
 			}
 			else
 			{
-				T* newPtr = new T[newSize];
-				mCapacity = newSize;
-				mSize = newSize;
+				T* newPtr = aMem::createMemory(allocator, newSize);
 				aSwap(mData, newPtr);
 				if (!!newPtr)
 				{
-					delete[] newPtr;
+					aMem::deleteMemory(allocator, newPtr);
 					newPtr = nullptr;
 				}
+				mCapacity = newSize;
+				mSize = newSize;
 			}
 		}
 
 		void shrink() aNOEXCEPT
 		{
-			T* newPtr = new T[mSize];
+			auto& allocator = get_allocator();
+			T* newPtr = std::allocator_traits<A>::allocate(allocator, mSize);
 			for (size_type cur = 0; cur < mSize; cur++)
 			{
 				newPtr[cur] = mData[cur];
 			}
 			if (!!mData)
 			{
-				delete[] newPtr;
+				aMem::deleteMemory(allocator, mData);
 				mData = newPtr;
 			}
 			mCapacity = mSize;
 		}
 
-		template<typename T>
-		class iterator;
+		void insert(iterator pos, T& key)
+		{
+			insert(pos, std::forward<T>(std::move(key)));
+		}
+		void insert(iterator pos, T&& key)
+		{
+			push_back(key);
+			for (auto it = end() - 1; it != pos; --it)
+			{
+				*it = *(it - 1);
+			}
+			*pos = key;
+		}
+
+		void insert(const_iterator pos, T& key)
+		{
+			insert(pos, std::forward<T>(std::move(key)));
+		}
 		
-		typedef iterator<const T> const_iterator;
-		const_iterator begin();
-		const_iterator end();
-		//check MoveInsertable && CopyInsertable.
+		void insert(const_iterator pos, T&& key)
+		{
+			insert(iterator(pos),key);
+		}
+
+		iterator erase(iterator pos)
+		{
+			auto& allocator = get_allocator();
+			size_t distance = pos - begin();
+			for (size_t cur = 0; cur < distance; cur++)
+			{
+				std::allocator_traits<Allocator>::destroy(allcator, mData + distance);
+			}
+			iterator endPos = end() - 1;
+			for (auto it = pos; it != endPos; ++it)
+			{
+				*it = *(it + 1);
+			}
+			--mSize;
+			//return iterator of next element.
+			if (pos == end())
+			{
+				return iterator(mData + mSize);
+			}
+			return pos;
+		}
+
+		iterator erase(const_iterator pos)
+		{
+			return erase(iterator(pos));
+		}
+
+		//erase elements in rangeg [bg,ed)
+		iterator erase(iterator bg,iterator ed)
+		{
+			auto& allocator = get_allocator();
+			size_t distance = bg - begin();
+			for (auto it = ed; it != end(); it++)
+			{
+				size_t dist = it - begin();
+				*(mData + dist) = *it;
+				std::allocator_traits<Allocator>::destroy(allocator, mData + (it - begin()));
+			}
+			mSize -= (ed - bg);
+			return bg;
+		}
+
+		iterator erase(const_iterator bg, const_iterator ed)
+		{
+			return erase(iterator(bg), iterator(ed));
+		}
+
+		const_iterator begin() const aNOEXCEPT
+		{
+			return const_iterator(mData);
+		}
+		const_iterator end() const aNOEXCEPT
+		{
+			return const_iterator(mData + mSize);
+		}
+		const_iterator cbegin() const aNOEXCEPT
+		{
+			return const_iterator(mData);
+		}
+		const iterator cend() const aNOEXCEPT
+		{
+			return const_iterator(mData + mSize);
+		}
 	private:
 		void expandSpace()
 		{
+			auto& allocator = get_allocator();
 			size_type newCapacity = mCapacity + VECTOR_INCREMENT;
-			T* newPtr = new T[newCapacity];
+			T* newPtr = aMem::createMemory(allocator, newCapacity);
 			for (size_type i = 0; i < mCapacity; i++)
 			{
 				newPtr[i] = mData[i];
 			}
 			if (!!mData)
 			{
-				delete[] mData;
+				aMem::deleteMemory(allocator, mData);
 				mData = newPtr;
 			}
 			mCapacity = newCapacity;
@@ -168,4 +258,5 @@ namespace aMazing
 		size_type mCapacity;
 		T* mData;
 	};
+
 }
