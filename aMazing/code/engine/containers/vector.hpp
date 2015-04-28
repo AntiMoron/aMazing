@@ -2,8 +2,8 @@
 #include<memory>
 #include"../../common/CommonTemplates.hpp"
 #include"../system/memory/Memory.hpp"
-#include"CommonContainer.hpp"
-#include"Iterator.hpp"
+#include"./CommonContainer.hpp"
+#include"./Iterator.hpp"
 
 namespace aMazing
 {
@@ -258,5 +258,4 @@ namespace aMazing
 		size_type mCapacity;
 		T* mData;
 	};
-
 }

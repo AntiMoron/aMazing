@@ -92,13 +92,6 @@ namespace aMazing
 		{
 			return _p >= other._p;
 		}
-		
-
-
-		T* operator &()const aNOEXCEPT
-		{
-			return _p;
-		}
 		T& operator *() const aNOEXCEPT
 		{
 			return *p;
