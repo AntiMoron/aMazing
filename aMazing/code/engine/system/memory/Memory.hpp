@@ -18,6 +18,10 @@ namespace aMazing
 		template<typename Type,typename ...Args>
 		static Type* createMemory (Alloc& actor,size_t count,Args... args) aNOEXCEPT
 		{
+			if (count == 0)
+			{
+				return nullptr;
+			}
 			Type* ret = std::allocator_traits<Alloc>::allocate(actor, count);
 			if (std::is_constructible<Type>::value)
 			{

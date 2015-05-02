@@ -189,10 +189,7 @@ namespace aMazing
 			size_t distance = pos - begin();
 			if (std::is_destructible<T>::value)
 			{
-				for (size_t cur = 0; cur < distance; cur++)
-				{
-					std::allocator_traits<Allocator>::destroy(allocator, mData + distance);
-				}
+				std::allocator_traits<Allocator>::destroy(allocator, mData + distance);
 			}
 			iterator endPos = end() - 1;
 			for (auto it = pos; it != endPos; ++it)
@@ -217,14 +214,12 @@ namespace aMazing
 		iterator erase(iterator bg,iterator ed)
 		{
 			auto& allocator = get_allocator();
-			size_t distance = bg - begin();
-			for (auto it = ed; it != end(); it++)
+			for (; bg != end() && ed != end(); ++bg, ++ed)
 			{
-				size_t dist = it - begin();
-				*(mData + dist) = *it;
+				*bg = *ed;
 				if (std::is_destructible<T>::value)
 				{
-					std::allocator_traits<Allocator>::destroy(allocator, mData + (it - begin()));
+					std::allocator_traits<Allocator>::destroy(allocator, mData + (ed - begin()));
 				}
 			}
 			mSize -= (ed - bg);
@@ -270,6 +265,19 @@ namespace aMazing
 		{
 			return *(mData + mSize - 1);
 		}
+
+		void clear() aNOEXCEPT
+		{
+			auto& allocator = get_allocator();
+			if (std::is_destructible<T>::value)
+			{
+				for (size_t cur = 0; cur < mSize; ++cur)
+				{
+					std::allocator_traits<Allocator>::destroy(allocator, mData + cur);
+				}
+			}
+			mSize = 0;
+		}
 	private:
 		void expandSpace()
 		{
@@ -283,8 +291,8 @@ namespace aMazing
 			if (!!mData)
 			{
 				deleteMemory(mData);
-				mData = newPtr;
 			}
+			mData = newPtr;
 			mCapacity = newCapacity;
 		}
 		size_type mSize;

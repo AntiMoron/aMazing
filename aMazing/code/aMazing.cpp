@@ -104,7 +104,23 @@ HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow )
 	v.pop_back();
 	for (auto x : v)
 	{
-		aDBG(x << " "<< v.size()<<" " << v.empty());
+		aDBG(x << " " << v.size() << " " << v.empty());
+	}
+	aDBG("Done.");
+	v.erase(v.begin(), v.end() - 1);
+	for (auto x : v)
+	{
+		aDBG(x << " " << v.size() << " " << v.empty());
+	}
+	aDBG("Done.2");
+	v.clear();
+	v.shrink();
+	aDBG(v.size() << " " << v.capacity());
+	v.push_back("haha");
+	v.push_back("haha2");
+	for (auto x : v)
+	{
+		aDBG(x << " " << v.size() << " " << v.empty());
 	}
     return S_OK;
 }

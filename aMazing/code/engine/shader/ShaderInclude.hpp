@@ -1,5 +1,6 @@
 #pragma once
 #include<Windows.h>
+#include<string>
 #include"../../common/CommonDxSupport.hpp"
 
 namespace aMazing
@@ -20,6 +21,12 @@ namespace aMazing
 		unsigned int      m_nIncludes;
 
 		wchar_t filePath[MAX_PATH];
+
+		void recursivelyOpen()
+		{
+			;
+		}
+
 	public:
 		ShaderInclude()
 		{
@@ -47,6 +54,18 @@ namespace aMazing
 			SetCurrentDirectory(filePath);
 			m_nIncludes = 0;
 		}
+		//get file directory from file path.
+		std::string cutFilePath(const std::string& src)
+		{
+			int aindex = src.rfind('\\');
+			int bindex = src.rfind('/');
+			int index = max(aindex, bindex);
+			if (index < 0)
+			{
+				return src;
+			}
+			return src.substr(0, index);
+		}
 
 		STDMETHOD(Open(
 			D3D_INCLUDE_TYPE IncludeType,
@@ -63,8 +82,10 @@ namespace aMazing
 			{
 				return E_FAIL;
 			}
-			std::wstring wFilePath = filePath;
-			SetCurrentDirectoryW(wFilePath.c_str());
+			
+			std::string cutedFilePath = cutFilePath(pFileName);
+			SetCurrentDirectoryA(cutedFilePath.c_str());
+			aDBG(cutedFilePath);
 
 			// Make sure we have enough room for this include file
 			if (incIndex >= MAX_INCLUDES)
@@ -103,6 +124,8 @@ namespace aMazing
 		STDMETHOD(Close(LPCVOID pData))
 		{
 			// Defer Closure until the container destructor 
+			SetCurrentDirectoryW(filePath);
+			aDBG(filePath);
 			return S_OK;
 		}
 	};
