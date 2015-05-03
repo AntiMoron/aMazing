@@ -5,7 +5,7 @@
 #include "engine/system/GlobalWindow.hpp"
 #include "engine/system/D3DManager.hpp"
 #include "aMazingScene.hpp"
-#include "engine/containers/Vector.hpp"
+#include "engine/containers/String.hpp"
 using namespace aMazing;
 HINSTANCE g_hInst = nullptr;
 HWND g_hWnd = nullptr;
@@ -87,7 +87,14 @@ HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow )
     if( !g_hWnd )
         return E_FAIL;
 	GLOBAL_WINDOW.setWindowHandler(g_hWnd);
-
+	aString v( "2587");
+	v.push_back('a');
+	if (v.find('a') == v.end())
+		aDBG("Not Found");
+	for (auto x : v)
+	{
+		aDBG(x <<" " << v.size());
+	}
     ShowWindow( g_hWnd, nCmdShow );
     return S_OK;
 }

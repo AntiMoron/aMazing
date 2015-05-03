@@ -13,7 +13,8 @@ namespace aMazing
 	{
 	private:
 		typedef aVector<T, Allocator> self_type;
-		typedef typename std::remove_reference<T>::type rawType;
+		typedef typename std::remove_const<
+			typename std::remove_reference<T>::type>::type rawType;
 		typedef aMemory<Allocator> aMem;
 		const static size_t DEFAULT_SIZE = 100;
 		const static size_t VECTOR_INCREMENT = 200;
@@ -34,8 +35,8 @@ namespace aMazing
 	public:
 		typedef Allocator allocator_type;
 		typedef size_t size_type;
-		typedef aRandomAccessIterator<T> iterator;
-		typedef aRandomAccessIterator<const T> const_iterator;
+		typedef aRandomAccessIterator<rawType> iterator;
+		typedef aRandomAccessIterator<const rawType> const_iterator;
 		explicit aVector() aNOEXCEPT
 		{
 			basicInitialize();
@@ -101,13 +102,82 @@ namespace aMazing
 			aSwap(mSize, other.mSize);
 			aSwap(mCapacity, other.mCapacity);
 		}
+		iterator find(rawType& e) aNOEXCEPT
+		{
+			return find(std::move(e));
+		}
 
-		void push_back(T& val) aNOEXCEPT
+		iterator find(rawType&& e) aNOEXCEPT
+		{
+			for (size_type cur = 0; cur < mSize; ++cur)
+			{
+				if (mData[cur] == e)
+				{
+					return mData + cur;
+				}
+			}
+			return end();
+		}
+
+		const_iterator find(rawType& e) const aNOEXCEPT
+		{
+			return find(std::move(e));
+		}
+
+		const_iterator find(rawType&& e) const aNOEXCEPT
+		{
+			for (size_type cur = 0; cur < mSize; ++cur)
+			{
+				if (mData[cur] == e)
+				{
+					return mData + cur;
+				}
+			}
+			return end();
+		}
+
+		iterator rfind(rawType& e) aNOEXCEPT
+		{
+			return rfind(std::move(e));
+		}
+		iterator rfind(rawType&& e) aNOEXCEPT
+		{
+			for (long cur = mSize - 1; cur >= 0; --cur)
+			{
+				if (mData[cur] == e)
+				{
+					return mData + cur;
+				}
+			}
+			return end();
+		}
+		//find the element in a reversed ordered.
+		//If the element is not found then return end()
+		const_iterator rfind(rawType& e) const aNOEXCEPT
+		{
+			return rfind(std::move(e));
+		}
+		//find the element in a reversed ordered.
+		//If the element is not found then return end()
+		const_iterator rfind(rawType&& e) const aNOEXCEPT
+		{
+			for (long cur = mSize - 1; cur >= 0; --cur)
+			{
+				if (mData[cur] == e)
+				{
+					return mData + cur;
+				}
+			}
+			return end();
+		}
+		//Append an element into the vector at the end.
+		void push_back(rawType& val) aNOEXCEPT
 		{
 			push_back(std::move(val));
 		}
 
-		void push_back(T&& val) aNOEXCEPT
+		//Append an element into the vector at the end.
+		void push_back(rawType&& val) aNOEXCEPT
 		{
 			size_type newIndex = mSize;
 			if (newIndex >= mCapacity)
@@ -117,6 +187,7 @@ namespace aMazing
 			mData[newIndex] = val;
 			mSize = newIndex + 1;
 		}
+		//erase the last element.
 		void pop_back() aNOEXCEPT
 		{
 			if (std::is_destructible<T>::value)
@@ -125,17 +196,17 @@ namespace aMazing
 			}
 			--mSize;
 		}
-
+		//return the size of the vector.
 		size_type size() const aNOEXCEPT
 		{
 			return mSize;
 		}
-
+		//return the capacity of the vector.
 		size_type capacity() const aNOEXCEPT
 		{
 			return mCapacity;
 		}
-
+		//resize the size of the vector.
 		void resize(size_type newSize)
 		{
 			if (newSize < mCapacity)
@@ -155,7 +226,7 @@ namespace aMazing
 				mSize = newSize;
 			}
 		}
-
+		//shrink the capacity to fit the size.
 		void shrink() aNOEXCEPT
 		{
 			auto& allocator = get_allocator();
@@ -171,11 +242,12 @@ namespace aMazing
 			}
 			mCapacity = mSize;
 		}
-
+		//Insert an element into given position.
 		void insert(iterator pos, T& key)
 		{
 			insert(pos, std::move(key));
 		}
+		//Insert an element into given position.
 		void insert(iterator pos, T&& key)
 		{
 			push_back(key);
@@ -185,17 +257,17 @@ namespace aMazing
 			}
 			*pos = key;
 		}
-
+		//Insert an element into given position.
 		void insert(const_iterator pos, T& key)
 		{
 			insert(pos, std::forward<T>(std::move(key)));
 		}
-		
+		//Insert an element into given position.		
 		void insert(const_iterator pos, T&& key)
 		{
 			insert(iterator(pos),key);
 		}
-
+		//Erase an element at given position.
 		iterator erase(iterator pos)
 		{
 			auto& allocator = get_allocator();
@@ -217,13 +289,12 @@ namespace aMazing
 			}
 			return pos;
 		}
-
+		//Erase the element at given position.
 		iterator erase(const_iterator pos)
 		{
 			return erase(iterator(pos));
 		}
-
-		//erase elements in rangeg [bg,ed)
+		//Erase elements in range [bg,ed).
 		iterator erase(iterator bg,iterator ed)
 		{
 			auto& allocator = get_allocator();
@@ -238,17 +309,16 @@ namespace aMazing
 			mSize -= (ed - bg);
 			return bg;
 		}
-
+		//Erase elements in range [bg,ed)
 		iterator erase(const_iterator bg, const_iterator ed)
 		{
 			return erase(iterator(bg), iterator(ed));
 		}
-
-		const_iterator begin() const aNOEXCEPT
+		iterator begin() aNOEXCEPT
 		{
 			return mData;
 		}
-		iterator begin() aNOEXCEPT
+		const_iterator begin() const aNOEXCEPT
 		{
 			return mData;
 		}
@@ -256,11 +326,11 @@ namespace aMazing
 		{
 			return mData;
 		}
-		const_iterator end() const aNOEXCEPT
+		iterator end() aNOEXCEPT
 		{
 			return mData + mSize;
 		}
-		iterator end() aNOEXCEPT
+		const_iterator end() const aNOEXCEPT
 		{
 			return mData + mSize;
 		}
@@ -278,7 +348,7 @@ namespace aMazing
 		{
 			return *(mData + mSize - 1);
 		}
-		T& operator[] (size_type index)
+		T& operator[] (size_type index) const aNOEXCEPT
 		{
 			return mData[index];
 		}
