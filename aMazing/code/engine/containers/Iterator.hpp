@@ -4,16 +4,12 @@
 
 namespace aMazing
 {
-	template<typename T>
-	class aCommonIterator
-	{
-	};
-
-	template<typename T>
-	class aRandomAccessIterator : public aCommonIterator<T>
+	template<typename Type>
+	class aRandomAccessIterator : public std::iterator<std::random_access_iterator_tag, Type>
 	{
 	private:
-		typedef typename std::remove_const<T>::type rawType;
+		typedef typename std::remove_const<Type>::type rawType;
+		typedef aRandomAccessIterator<Type> self_type;
 		friend class aRandomAccessIterator<rawType>;
 	public:
 		//default ctor
@@ -21,82 +17,101 @@ namespace aMazing
 		{
 			_p = nullptr;
 		}
-		aRandomAccessIterator(T* p) aNOEXCEPT
+		aRandomAccessIterator(Type* p) aNOEXCEPT
 		{
 			_p = p;
 		}
 
-		operator aRandomAccessIterator<const rawType>()
+		void swap(self_type& other)
+		{
+			aSwap(_p,other._p);
+		}
+
+		operator aRandomAccessIterator<const rawType>() aNOEXCEPT
 		{
 			return aRandomAccessIterator<const rawType>(_p);
 		}
-		aRandomAccessIterator<T>& operator ++ () aNOEXCEPT
+
+		self_type& operator ++ () aNOEXCEPT
 		{
 			++_p;
 			return *this;
 		}
-		aRandomAccessIterator<T>& operator -- () aNOEXCEPT
+		self_type& operator -- () aNOEXCEPT
 		{
 			--_p;
 			return *this;
 		}
-		aRandomAccessIterator<T>& operator ++ (int) aNOEXCEPT
+		self_type& operator ++ (int)aNOEXCEPT
 		{
 			_p++;
 			return *this;
 		}
-		aRandomAccessIterator<T>& operator -- (int) aNOEXCEPT
+		self_type& operator -- (int)aNOEXCEPT
 		{
 			_p--;
 			return *this;
 		}
-		aRandomAccessIterator<T> operator + (size_t offset) const aNOEXCEPT
+
+		self_type& operator += (size_t offset) aNOEXCEPT
 		{
-			return aRandomAccessIterator<T>(_p + offset);
+			_p += offset;
+			return *this;
 		}
-		aRandomAccessIterator<T> operator - (size_t offset) const aNOEXCEPT
+		self_type& operator -= (size_t offset) aNOEXCEPT
 		{
-			return aRandomAccessIterator<T>(_p - offset);
+			_p -= offset;
+			return *this;
 		}
+
+		self_type operator + (size_t offset) const aNOEXCEPT
+		{
+			return _p + offset;
+		}
+		self_type operator - (size_t offset) const aNOEXCEPT
+		{
+			return _p - offset;
+		}
+
 		//Return the distance between two iterator.
-		size_t operator - (const aRandomAccessIterator<T>& other) const aNOEXCEPT
+		size_t operator - (const self_type& other) const aNOEXCEPT
 		{
 			return _p - other._p;
 		}
 
-		bool operator == (const aRandomAccessIterator<T>& other) const aNOEXCEPT
+		bool operator == (const self_type& other) const aNOEXCEPT
 		{
 			return _p == other._p;
 		}
-		bool operator != (const aRandomAccessIterator<T>& other) const aNOEXCEPT
+		bool operator != (const self_type& other) const aNOEXCEPT
 		{
 			return _p != other._p;
 		}
-		bool operator < (const aRandomAccessIterator<T>& other) const aNOEXCEPT
+		bool operator < (const self_type& other) const aNOEXCEPT
 		{
 			return _p < other._p;
 		}
-		bool operator >(const aRandomAccessIterator<T>& other) const aNOEXCEPT
+		bool operator >(const self_type& other) const aNOEXCEPT
 		{
 			return _p > other._p;
 		}
-		bool operator <= (const aRandomAccessIterator<T>& other) const aNOEXCEPT
+		bool operator <= (const self_type& other) const aNOEXCEPT
 		{
 			return _p <= other._p;
 		}
-		bool operator >= (const aRandomAccessIterator<T>& other) const aNOEXCEPT
+		bool operator >= (const self_type& other) const aNOEXCEPT
 		{
 			return _p >= other._p;
 		}
-		T& operator *() const aNOEXCEPT
+		Type& operator *() const aNOEXCEPT
 		{
 			return *_p;
 		}
-		T* operator->() const aNOEXCEPT
+		Type* operator->() const aNOEXCEPT
 		{
 			return _p;
 		}
 	protected:
-		T* _p;
+		Type* _p;
 	};
 }

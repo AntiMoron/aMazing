@@ -12,6 +12,8 @@ namespace aMazing
 	class aVector : public CommonContainer
 	{
 	private:
+		typedef aVector<T, Allocator> self_type;
+		typedef typename std::remove_reference<T>::type rawType;
 		typedef aMemory<Allocator> aMem;
 		const static size_t DEFAULT_SIZE = 100;
 		const static size_t VECTOR_INCREMENT = 200;
@@ -38,6 +40,7 @@ namespace aMazing
 		{
 			basicInitialize();
 		}
+
 		aVector(const aVector<T>& other) aNOEXCEPT
 		{
 			basicInitialize();
@@ -47,11 +50,13 @@ namespace aMazing
 				mData[cur] = other.mData[cur];
 			}
 		}
+
 		aVector(aVector<T>&& other) aNOEXCEPT
 		{
 			basicInitialize();
 			this->swap(other);
 		}
+
 		~aVector()
 		{
 			auto& allocator = get_allocator();
@@ -64,14 +69,22 @@ namespace aMazing
 			return alloc;
 		}
 		
+		void clear() aNOEXCEPT
+		{
+			auto& allocator = get_allocator();
+			if (std::is_destructible<T>::value)
+			{
+				for (size_t cur = 0; cur < mSize; ++cur)
+				{
+					std::allocator_traits<Allocator>::destroy(allocator, mData + cur);
+				}
+			}
+			mSize = 0;
+		}
+
 		bool empty() const aNOEXCEPT
 		{
 			return mSize == 0;
-		}
-
-		T& operator[] (size_type index)
-		{
-			return mData[index];
 		}
 
 		T* data() const aNOEXCEPT
@@ -80,7 +93,7 @@ namespace aMazing
 		}
 		void swap(aVector<T>& other) aNOEXCEPT
 		{
-			aVector::swap(std::forward<aVector<T> >(other));
+			aVector::swap(std::forward<aVector<T>(other));
 		}
 		void swap(aVector<T>&& other) aNOEXCEPT
 		{
@@ -91,7 +104,7 @@ namespace aMazing
 
 		void push_back(T& val) aNOEXCEPT
 		{
-			push_back(std::forward<T>(val));
+			push_back(std::move(val));
 		}
 
 		void push_back(T&& val) aNOEXCEPT
@@ -161,7 +174,7 @@ namespace aMazing
 
 		void insert(iterator pos, T& key)
 		{
-			insert(pos, std::forward<T>(std::move(key)));
+			insert(pos, std::move(key));
 		}
 		void insert(iterator pos, T&& key)
 		{
@@ -265,18 +278,90 @@ namespace aMazing
 		{
 			return *(mData + mSize - 1);
 		}
-
-		void clear() aNOEXCEPT
+		T& operator[] (size_type index)
 		{
-			auto& allocator = get_allocator();
-			if (std::is_destructible<T>::value)
+			return mData[index];
+		}
+
+		bool operator != (const self_type& other) const aNOEXCEPT
+		{
+			if (mSize != other.mSize)
+				return true;
+			for (size_type i = 0; i < mSize; i++)
 			{
-				for (size_t cur = 0; cur < mSize; ++cur)
+				if (mData[i] != other.mData[i])
+					return true;
+			}
+			return false;
+		}
+		bool operator == (const self_type& other) const aNOEXCEPT
+		{
+			if (mSize != other.mSize)
+				return false;
+			for (size_type i = 0; i < mSize; i++)
+			{
+				if (mData[i] != other.mData[i])
+					return false;
+			}
+			return true;
+		}
+
+		bool operator < (const self_type& other) const aNOEXCEPT
+		{
+			size_type cur1 = 0, cur2 = 0;
+			for (;cur1 != mSize && cur2 != other.mSize;)
+			{
+				if (mData[cur1] == other.mData[cur2])
 				{
-					std::allocator_traits<Allocator>::destroy(allocator, mData + cur);
+					if (cur1 < mSize)
+					{
+						++cur1;
+					}
+					if (cur2 < other.mSize)
+					{
+						++cur2;
+					}
+					continue;
+				}
+				else
+				{
+					return mData[cur1] < other.mData[cur2];
 				}
 			}
-			mSize = 0;
+			return mSize < other.mSize;
+		}
+
+		bool operator > (const self_type& other) const aNOEXCEPT
+		{
+			size_type cur1 = 0, cur2 = 0;
+			for (; cur1 != mSize && cur2 != other.mSize;)
+			{
+				if (mData[cur1] == other.mData[cur2])
+				{
+					if (cur1 < mSize)
+					{
+						++cur1;
+					}
+					if (cur2 < other.mSize)
+					{
+						++cur2;
+					}
+					continue;
+				}
+				else
+				{
+					return mData[cur1] > other.mData[cur2];
+				}
+			}
+			return mSize > other.mSize;
+		}
+		bool operator <= (const self_type& other) const aNOEXCEPT
+		{
+			return !((*this) > other);
+		}
+		bool operator >= (const self_type& other) const aNOEXCEPT
+		{
+			return !((*this) < other);
 		}
 	private:
 		void expandSpace()

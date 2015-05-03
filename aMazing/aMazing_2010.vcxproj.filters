@@ -396,9 +396,6 @@
     <ClInclude Include="code\engine\data\xml\aXmlParser.hpp">
       <Filter>Engine\data\xml</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\data\VirtualString.hpp">
-      <Filter>Engine\data</Filter>
-    </ClInclude>
     <ClInclude Include="code\engine\system\thread\aAtomicObject.hpp">
       <Filter>Engine\system\thread</Filter>
     </ClInclude>
@@ -449,6 +446,12 @@
     </ClInclude>
     <ClInclude Include="code\engine\containers\CommonContainer.hpp">
       <Filter>Engine\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\containers\VirtualString.hpp">
+      <Filter>Engine\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\containers\check\CharLike.hpp">
+      <Filter>Engine\containers\check</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

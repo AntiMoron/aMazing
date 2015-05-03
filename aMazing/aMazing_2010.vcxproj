@@ -431,12 +431,14 @@
     <ClInclude Include="code\engine\animate\SceneAnimator.hpp" />
     <ClInclude Include="code\engine\animate\SceneAnimNode.hpp" />
     <ClInclude Include="code\engine\Config.hpp" />
+    <ClInclude Include="code\engine\containers\check\CharLike.hpp" />
     <ClInclude Include="code\engine\containers\check\Common.hpp" />
     <ClInclude Include="code\engine\containers\check\Insertable.hpp" />
     <ClInclude Include="code\engine\containers\CommonContainer.hpp" />
     <ClInclude Include="code\engine\containers\Iterator.hpp" />
     <ClInclude Include="code\engine\containers\String.hpp" />
     <ClInclude Include="code\engine\containers\Vector.hpp" />
+    <ClInclude Include="code\engine\containers\VirtualString.hpp" />
     <ClInclude Include="code\engine\data\BonesBindData.hpp" />
     <ClInclude Include="code\engine\data\json\aJsonData.hpp" />
     <ClInclude Include="code\engine\data\json\aJsonHelper.hpp" />
@@ -444,7 +446,6 @@
     <ClInclude Include="code\engine\data\TgaData.hpp" />
     <ClInclude Include="code\engine\data\TgaLoader.hpp" />
     <ClInclude Include="code\engine\data\vertex.hpp" />
-    <ClInclude Include="code\engine\data\VirtualString.hpp" />
     <ClInclude Include="code\engine\data\xml\aXmlData.hpp" />
     <ClInclude Include="code\engine\data\xml\aXmlHelper.hpp" />
     <ClInclude Include="code\engine\data\xml\aXmlParser.hpp" />

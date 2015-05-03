@@ -89,39 +89,6 @@ HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow )
 	GLOBAL_WINDOW.setWindowHandler(g_hWnd);
 
     ShowWindow( g_hWnd, nCmdShow );
-
-	aVector<std::string> v;
-	for (int i = 0; i < 10; i++)
-	{
-		v.push_back(std::string());
-		v.back() += 'A' + i;
-	}
-	v.insert(v.begin() + 1,std::string("hahaha"));
-	v.erase(v.begin());
-	aDBG(v.size() << " " << v.capacity());
-	v.shrink();
-	aDBG(v.size() << " " << v.capacity());
-	v.pop_back();
-	for (auto x : v)
-	{
-		aDBG(x << " " << v.size() << " " << v.empty());
-	}
-	aDBG("Done.");
-	v.erase(v.begin(), v.end() - 1);
-	for (auto x : v)
-	{
-		aDBG(x << " " << v.size() << " " << v.empty());
-	}
-	aDBG("Done.2");
-	v.clear();
-	v.shrink();
-	aDBG(v.size() << " " << v.capacity());
-	v.push_back("haha");
-	v.push_back("haha2");
-	for (auto x : v)
-	{
-		aDBG(x << " " << v.size() << " " << v.empty());
-	}
     return S_OK;
 }
 
