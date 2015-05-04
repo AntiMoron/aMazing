@@ -4,72 +4,25 @@
 #include"../exception/ParamException.hpp"
 #include"../../common/CommonDef.hpp"
 #include"../../common/CommonTemplates.hpp"
-
+#include"../containers/Iterator.hpp"
+#include"check/CharLike.hpp"
 namespace aMazing
 {
-	template<typename type>
+	template<typename Type>
 	class VirtualString_t
 	{
-		template<typename itType>
-		class vsIterator : public std::iterator<std::random_access_iterator_tag, itType>
-		{
-		private:
-			itType* p;
-		public:
-			vsIterator(itType* _p = nullptr) : p(_p){}
-			vsIterator<itType> operator + (size_t i) const
-			{
-				return p + i;
-			}
-			vsIterator<itType> operator - (size_t i) const
-			{
-				return p - i;
-			}
-			itType operator * () const
-			{
-				return *p;
-			}
-			vsIterator<itType>& operator ++ ()
-			{
-				++p;
-				return *this;
-			}
-			vsIterator<itType>& operator -- ()
-			{
-				--p;
-				return *this;
-			}
-			vsIterator<itType>& operator += (size_t i)
-			{
-				p += i;
-				return *this;
-			}
-			vsIterator<itType>& operator -= (size_t i)
-			{
-				p -= i;
-				return *this;
-			}
-			friend bool operator != (const vsIterator& lhs, const vsIterator& rhs)
-			{
-				return lhs.p != rhs.p;
-			}
-			friend bool operator == (const vsIterator& lhs, const vsIterator& rhs)
-			{
-				return lhs.p == rhs.p;
-			}
-		};
 	public:
-		typedef vsIterator<type> iterator;
-		typedef vsIterator<const type> const_iterator;
+		typedef aRandomAccessIterator<Type> iterator;
+		typedef aRandomAccessIterator<const Type> const_iterator;
 		typedef size_t size_type;
 		/*
-		@brief VirtualString imitates a period of type 'type' from a real string as a string.
+		@brief VirtualString imitates a period of type 'Type' from a real string as a string.
 		Via generating VirtualString can accelerate substring procedure(s).
 		@param st  the start position of string
 		@param length the length of substring. 
 		If the requested substring extends past the end of the string.the return substring is[pos,size())
 		*/
-		VirtualString_t(const std::basic_string<type>& cppString, size_t st, size_t length)
+		VirtualString_t(const std::basic_string<Type>& cppString, size_t st, size_t length)
 		{
 			if (aSTL_OUT_OF_RANGE(st, cppString))
 			{
@@ -84,7 +37,7 @@ namespace aMazing
 			rawString = &cppString[st];
 		}
 		
-		VirtualString_t(const VritualString_t<type>& vString, size_t st, size_t length)
+		VirtualString_t(const VritualString_t<Type>& vString, size_t st, size_t length)
 		{
 			if (aSTL_OUT_OF_RANGE(st, cppString))
 			{
@@ -100,7 +53,7 @@ namespace aMazing
 		}
 
 		VirtualString_t() = delete;
-		VirtualString_t(typename std::remove_reference<std::basic_string<type> >::type&&, size_t,size_t) = delete;
+		VirtualString_t(typename std::remove_reference<std::basic_string<Type> >::type&&, size_t,size_t) = delete;
 		
 		//Get the begin itor of the virtual substr.
 		const const_iterator& begin() const
@@ -123,19 +76,19 @@ namespace aMazing
 		{
 			return vSize;
 		}
-		const type& operator [] (size_t index) const
+		const Type& operator [] (size_t index) const
 		{
 			return rawString[index];
 		}
 
-		VirtualString_t<type> subString(size_t st, size_t len = -1) const throw (ParamException)
+		VirtualString_t<Type> subString(size_t st, size_t len = -1) const throw (ParamException)
 		{
-			return VirtualString_t<type>(rawString, st, len);
+			return VirtualString_t<Type>(rawString, st, len);
 		}
 		//split the string by character.
-		std::vector<VirtualString_t<type> > splitString(char ch) const
+		std::vector<VirtualString_t<Type> > splitString(char ch) const
 		{
-			std::vector<VirtualString_t<type> > result;
+			std::vector<VirtualString_t<Type> > result;
 			int start = 0;
 			int i = start;
 			for (; i < str.vSize; i++)
@@ -155,12 +108,12 @@ namespace aMazing
 			return result;
 		}
 		//split the string by regular expression.
-		std::vector<VirtualString_t<type> > splitString(const char* reg) const
+		std::vector<VirtualString_t<Type> > splitString(const char* reg) const
 		{
-			std::vector<VirtualString_t<type> > result;
+			std::vector<VirtualString_t<Type> > result;
 			return result;
 		}
-		const type& back() const
+		const Type& back() const
 		{
 			return rawString[vSize - 1];
 		}
@@ -173,9 +126,9 @@ namespace aMazing
 		/*
 		get the stl string of this virtual string
 		*/
-		std::basic_string<type> toStlString()
+		std::basic_string<Type> toStlString()
 		{
-			std::basic_string<type> result;
+			std::basic_string<Type> result;
 			for (size_t cur = 0; cur < vSize; ++cur)
 			{
 				result += rawString[cur];
@@ -186,7 +139,7 @@ namespace aMazing
 		/*
 		Trim out blank characters on both sides.
 		*/
-		const VirtualString_t<type>& trim() const
+		const VirtualString_t<Type>& trim() const
 		{
 			size_t startPos = 0;
 			size_t endPos = vSize - 1;
@@ -209,7 +162,7 @@ namespace aMazing
 			return *this;
 		}
 
-		friend std::ostream& operator << (std::ostream &o, const VirtualString_t<type> &a)
+		friend std::ostream& operator << (std::ostream &o, const VirtualString_t<Type> &a)
 		{
 			for (size_t i = 0; i < a.size(); i++)
 			{
@@ -218,8 +171,9 @@ namespace aMazing
 			return o;
 		}
 	private:
-		const type* rawString;
+		const Type* rawString;
 		size_t vSize;
+		static_assert(aIsCharLike<Type>::value, "Element is not char-like object.");
 	};
 
 	typedef VirtualString_t<char> VirtualString;

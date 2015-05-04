@@ -87,13 +87,14 @@ HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow )
     if( !g_hWnd )
         return E_FAIL;
 	GLOBAL_WINDOW.setWindowHandler(g_hWnd);
-	aString v( "2587");
-	v.push_back('a');
-	if (v.find('a') == v.end())
+	aString v( "555,87,25123123123123,sadfdsasdfsadf,a");
+	if (v.replace(aString("55"),aString("5")))
 		aDBG("Not Found");
-	for (auto x : v)
+	aDBG(v);
+	auto xv = v.splitString(',');
+	for (auto x : xv)
 	{
-		aDBG(x <<" " << v.size());
+		aDBG(x);
 	}
     ShowWindow( g_hWnd, nCmdShow );
     return S_OK;

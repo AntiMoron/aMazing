@@ -94,17 +94,21 @@ namespace aMazing
 		}
 		void swap(aVector<T>& other) aNOEXCEPT
 		{
-			aVector::swap(std::forward<aVector<T>(other));
+			aSwap(mData, other.mData);
+			aSwap(mSize, other.mSize);
+			aSwap(mCapacity, other.mCapacity);
 		}
+		
 		void swap(aVector<T>&& other) aNOEXCEPT
 		{
 			aSwap(mData, other.mData);
 			aSwap(mSize, other.mSize);
 			aSwap(mCapacity, other.mCapacity);
 		}
+
 		iterator find(rawType& e) aNOEXCEPT
 		{
-			return find(std::move(e));
+			return find(static_cast<rawType&&>(e));
 		}
 
 		iterator find(rawType&& e) aNOEXCEPT
@@ -121,7 +125,7 @@ namespace aMazing
 
 		const_iterator find(rawType& e) const aNOEXCEPT
 		{
-			return find(std::move(e));
+			return find(static_cast<rawType&&>(e));
 		}
 
 		const_iterator find(rawType&& e) const aNOEXCEPT
@@ -140,6 +144,7 @@ namespace aMazing
 		{
 			return rfind(std::move(e));
 		}
+		
 		iterator rfind(rawType&& e) aNOEXCEPT
 		{
 			for (long cur = mSize - 1; cur >= 0; --cur)
@@ -155,7 +160,7 @@ namespace aMazing
 		//If the element is not found then return end()
 		const_iterator rfind(rawType& e) const aNOEXCEPT
 		{
-			return rfind(std::move(e));
+			return rfind(static_cast<rawType&&>(e));
 		}
 		//find the element in a reversed ordered.
 		//If the element is not found then return end()
@@ -173,7 +178,7 @@ namespace aMazing
 		//Append an element into the vector at the end.
 		void push_back(rawType& val) aNOEXCEPT
 		{
-			push_back(std::move(val));
+			push_back(static_cast<rawType&&>(val));
 		}
 
 		//Append an element into the vector at the end.
@@ -245,7 +250,7 @@ namespace aMazing
 		//Insert an element into given position.
 		void insert(iterator pos, T& key)
 		{
-			insert(pos, std::move(key));
+			insert(pos, static_cast<T&&>(key));
 		}
 		//Insert an element into given position.
 		void insert(iterator pos, T&& key)
@@ -260,12 +265,12 @@ namespace aMazing
 		//Insert an element into given position.
 		void insert(const_iterator pos, T& key)
 		{
-			insert(pos, std::forward<T>(std::move(key)));
-		}
-		//Insert an element into given position.		
-		void insert(const_iterator pos, T&& key)
-		{
-			insert(iterator(pos),key);
+			push_back(key);
+			for (auto it = end() - 1; it != pos; --it)
+			{
+				*it = *(it - 1);
+			}
+			*(begin() + (pos - cbegin()));
 		}
 		//Erase an element at given position.
 		iterator erase(iterator pos)
@@ -289,15 +294,11 @@ namespace aMazing
 			}
 			return pos;
 		}
-		//Erase the element at given position.
-		iterator erase(const_iterator pos)
-		{
-			return erase(iterator(pos));
-		}
 		//Erase elements in range [bg,ed).
 		iterator erase(iterator bg,iterator ed)
 		{
 			auto& allocator = get_allocator();
+			iterator returnVal = bg;
 			for (; bg != end() && ed != end(); ++bg, ++ed)
 			{
 				*bg = *ed;
@@ -307,12 +308,7 @@ namespace aMazing
 				}
 			}
 			mSize -= (ed - bg);
-			return bg;
-		}
-		//Erase elements in range [bg,ed)
-		iterator erase(const_iterator bg, const_iterator ed)
-		{
-			return erase(iterator(bg), iterator(ed));
+			return returnVal;
 		}
 		iterator begin() aNOEXCEPT
 		{
