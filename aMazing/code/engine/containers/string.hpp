@@ -29,7 +29,7 @@ namespace aMazing
 				bool found = false;
 				for (size_type i = 0; i < str.size(); ++i)
 				{
-					if (mData[cur + i] != str.mData[i])
+					if (mData[cur + i] != str.mData[i] && ((cur + i) >= ed))
 					{
 						found = true;
 						break;
@@ -52,7 +52,7 @@ namespace aMazing
 				bool found = false;
 				for (size_type i = 0; i < str.size(); ++i)
 				{
-					if (mData[cur + i] != str.mData[i])
+					if (mData[cur + i] != str.mData[i] || ((cur + i) >= ed))
 					{
 						found = true;
 						break;
@@ -337,24 +337,31 @@ namespace aMazing
 
 		bool replace(self_type& oldVal, self_type& newVal) aNOEXCEPT
 		{
+			return replace(std::move(oldVal), std::move(newVal));
+		}
+
+		bool replace(self_type&& oldVal, self_type&& newVal) aNOEXCEPT
+		{
 			bool ret = false;
-			iterator pos = findInRange(static_cast<self_type&&>(oldVal), 0, size());
+			iterator pos = findInRange(std::forward<self_type>(oldVal), 0, size());
+			size_type oldSize = oldVal.size();
 			while (pos != end())
 			{
 				ret = true;
-				pos = erase(pos, pos + oldVal.size());
+				pos = erase(pos, pos + oldSize);
 				insert(pos, newVal);
-				pos = findInRange(static_cast<self_type&&>(oldVal), pos - begin() + newVal.size(), size());
+				pos = findInRange(std::forward<self_type>(oldVal), pos - begin() + newVal.size(), size());
 			}
 			return ret;
 		}
 
 		bool replaceFirst(self_type&& oldVal, self_type&& newVal) aNOEXCEPT
 		{
-			iterator pos = findInRange(oldVal, 0, size());
+			iterator pos = findInRange(std::forward<self_type>(oldVal), 0, size());
+			size_type oldSize = oldVal.size();
 			if (pos != end())
 			{
-				pos = erase(pos, pos + oldVal.size());
+				pos = erase(pos, pos + oldSize);
 				insert(pos, newVal);
 				return true;
 			}
@@ -362,11 +369,41 @@ namespace aMazing
 		}
 		bool replaceLast(self_type&& oldVal, self_type&& newVal) aNOEXCEPT
 		{
-			return false;//unfinished
+			size_type oldSize = oldVal.size();
+			iterator pos;
+			for (int cur = size() - oldSize; cur >= 0; --cur)
+			{
+				pos = findInRange(std::forward<self_type>(oldVal), cur, cur + oldSize);
+				if (pos != end())
+				{
+					pos = erase(pos, pos + oldSize);
+					insert(pos, newVal);
+					return true;
+				}
+			}
+			return false;
 		}
 		bool replaceIndex(size_type index, self_type&& oldVal, self_type&& newVal) aNOEXCEPT
 		{
-			return false;//unfinished
+			size_type oldSize = oldVal.size();
+			size_type limit = size() - oldSize;
+			size_type valCount = 0;
+			iterator pos;
+			for (size_type cur = 0; cur < limit; ++cur)
+			{
+				pos = findInRange(std::forward<self_type>(oldVal), cur, cur + oldSize);
+				if (pos != end())
+				{
+					if (valCount == index)
+					{
+						pos = erase(pos, pos + oldSize);
+						insert(pos, newVal);
+						return true;
+					}
+					++valCount;
+				}
+			}
+			return false;
 		}
 		iterator begin() aNOEXCEPT
 		{

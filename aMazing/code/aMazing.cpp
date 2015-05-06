@@ -87,8 +87,8 @@ HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow )
     if( !g_hWnd )
         return E_FAIL;
 	GLOBAL_WINDOW.setWindowHandler(g_hWnd);
-	aString v( "555,87,25123123123123,sadfdsasdfsadf,a");
-	if (v.replace(aString("55"),aString("5")))
+	aString v = "555,878787,25123123123123,sadfdsasdfsadf,a";
+	if (v.replaceIndex(1,'5','6'))
 		aDBG("Not Found");
 	aDBG(v);
 	auto xv = v.splitString(',');
