@@ -467,9 +467,6 @@
     <ClCompile Include="code\engine\system\CameraClass.cpp">
       <Filter>Engine\system</Filter>
     </ClCompile>
-    <ClCompile Include="code\engine\system\FrameBuffer.cpp">
-      <Filter>Engine\system</Filter>
-    </ClCompile>
     <ClCompile Include="code\engine\system\FrustumClass.cpp">
       <Filter>Engine\system</Filter>
     </ClCompile>

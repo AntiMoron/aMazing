@@ -12,35 +12,28 @@ HRESULT aMazingScene::Initialize(HWND hwnd, ID3D11Device* device,
 	HRESULT hr;
 	//Initialize collision world.
 	//must be called before generating a maze
-	collisionWorld.reset(new CollisionWorld);
+	collisionWorld = std::make_shared<CollisionWorld>();
 	collisionWorld->Initialize();
 
 	//Generate a maze
 	maze = MAZEFACTORY.genMaze(50, collisionWorld);
 
-	camera.reset(new WrappedCamera);
+	camera = std::make_shared<WrappedCamera>();
 	hr = camera->Initialize(device, context);
 	if (FAILED(hr))
 	{
 		return hr;
 	}
 	
-	glow.reset(new GlowEffect);
-	hr = glow->Initialize(device, context);
-	if (FAILED(hr))
-	{
-		return hr;
-	}
-
-	dayTime.reset(new DayNightClass);
+	dayTime = std::make_shared<DayNightClass>();
 	hr = dayTime->Initialize(device, context);
 	if (FAILED(hr))
 	{
 		return hr;
 	}
 
-	shadow.reset(new ShadowMap);
-	hr = shadow->Initialize(device, context);
+	fb = std::make_shared<FrameBuffer>();
+	hr = fb->Initialize(device, context, 3000, 3000);
 	if (FAILED(hr))
 	{
 		return hr;
@@ -52,8 +45,7 @@ HRESULT aMazingScene::Initialize(HWND hwnd, ID3D11Device* device,
 	camera->setFov(60.0f);
 
 
-	model.reset(new ModelObject);
-	/*hr = model->Initialize(device, context, "C:/Users/Think/Desktop/DEMO/scene/kyjn/kyjn01/1-2/3_2.obj");*/
+	model = std::make_shared<ModelObject>();
 	hr = model->Initialize(device, context, "3dModel/figure.fbx");
 	if (FAILED(hr))
 	{
@@ -74,7 +66,7 @@ void aMazingScene::Render(ID3D11Device* device, ID3D11DeviceContext* context)
 	cbdata.directLighting.vLightColor = { 1.0f, 1.0f, 1.0f };
 	cbdata.directLighting.vLightDir = { 1.0f, 1.0f, 1.0f, 1.0f };
 	cbdata.environmentLighting.isEnable = true;
-	cbdata.environmentLighting.vLightColor = { 1.0f, 1.0f, 1.0f };
+	cbdata.environmentLighting.vLightColor = { 0.0f, 0.6353f, 0.910f };
 	cbdata.material.iSpecFactor = 128;
 	cbdata.material.vColor = { 0.5f, 0.5f, 0.5f };
 	classInstanceBuffer->UpdateData(&cbdata);
@@ -110,14 +102,15 @@ void aMazingScene::Render(ID3D11Device* device, ID3D11DeviceContext* context)
 		model->setScaling(XMFLOAT3(0.1f, 0.1f, 0.1f));
 		model->Render(device, context);
 	};
+	fb->clearRenderTarget(device, context);
+	fb->setRenderTarget(device, context);
 	mazeRender(device,context);
 	//glow->Render(device, context, mazeRender);
-	////glow->Render(device, context, shadowRender);
+	//glow->Render(device, context, shadowRender);
 	//d3dkit->setRenderTarget();
-
-	//SHADERS.bindPair("Basic2D", device, context);
-	//shadow->bindPS(device, context, 0);
-	//GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
+//	context->OMSetRenderTargets(1, DeviceManager, );
+	fb->bindPS(device, context, 0);
+	GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 }
 
 const std::shared_ptr<WrappedCamera>& aMazingScene::getWrappedCamera()

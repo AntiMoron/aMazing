@@ -170,46 +170,6 @@ HRESULT InitDevice()
 		"Shader/BasicSky.fx", "Shader/BasicSky.fx",
 		layout, numElements, "BasicSky"));
 
-	/*aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
-		"Shader/FireWork.fx", "Shader/FireWork.fx",
-		layout,numElements,"FireWork"));
-
-	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
-		"Shader/hblur/hblur.fx", "Shader/hblur/hblur.fx",
-		layout, numElements, "Hblur"));
-
-	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
-		"Shader/vblur/vblur.fx", "Shader/vblur/vblur.fx",
-		layout, numElements, "Vblur"));
-
-	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
-		"Shader/wires/line.fx", "Shader/wires/line.fx",
-		layout, numElements, "BasicLine"));
-	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
-		"Shader/depthMap/depthMap.fx", "Shader/depthMap/depthMap.fx",
-		layout, numElements, "DepthMap"));
-	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
-		"Shader/depthMap/lightDepthMap.fx", "Shader/depthMap/lightDepthMap.fx",
-		layout, numElements, "LightDepthMap"));
-	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
-		"Shader/texture/ProjectionTex.fx", "Shader/texture/ProjectionTex.fx",
-		layout, numElements, "ProjectionTex"));
-	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
-	"Shader/ShadowMap/ShadowMap.fx", "Shader/ShadowMap/ShadowMap.fx",
-	layout, numElements, "ShadowMap"));
-	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
-		"Shader/texture/AA/MSAA4x4.fx", "Shader/texture/AA/MSAA4x4.fx",
-		layout, numElements, "MSAA4x4"));
-	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
-		"Shader/HighLight/HighLight.fx", "Shader/HighLight/HighLight.fx",
-		layout, numElements, "HighLight"));
-	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
-		"Shader/Glow/GlowMerge.fx", "Shader/Glow/GlowMerge.fx",
-		layout, numElements, "GlowMerge"));
-	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
-		"Shader/DepthField/DepthFieldMerge.fx", "Shader/DepthField/DepthFieldMerge.fx",
-		layout, numElements, "DepthFieldMerge"));
-		*/
 	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
 		"Shader/skinAnim/skinAnim.fx", "Shader/skinAnim/skinAnim.fx",
 		animLayout, animElements, "SkinAnim"));

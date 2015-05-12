@@ -182,6 +182,7 @@ void CameraClass::Render(ID3D11Device* device,
 	m_matrices.UpdateData(&shaderMatricesData);
 	m_matrices.UpdateGpu(device, context);
 	m_matrices.BindVertexShader(device, context);
+	m_matrices.BindPixelShader(device, context);
 
 	m_frustum->ConstructFrustum(50.0f, m_matriceData.projection, m_matriceData.view);
 }

@@ -22,7 +22,7 @@ float3 cDirectionalLight::illuminateDiffuse(float3 vNormal)
 
 float3 cDirectionalLight::illuminateSpecular(float3 vNormal, int specularFactor)
 {
-	float3 highLights = normalize(eyeDirection.xyz) + vLightDir.xyz;
+	float3 highLights = -normalize(eyeDirection.xyz) + vLightDir.xyz;
 	float3 halfAngle = normalize(highLights);
 	float specular = pow(max(0, dot(halfAngle, normalize(vNormal))), specularFactor);
 	return ((float3)specular * vLightColor * isEnable);
@@ -33,7 +33,7 @@ float3 cOmniLight::illuminateDiffuse(float3 vNormal)
 	return (float3)0.0f;
 }
 
-float3 cEnvironmentLight::illuminateSpecular(float3 vNormal,int specularFactor)
+float3 cEnvironmentLight::illuminateSpecular(float3 vNormal, int specularFactor)
 {
 	float3 N = normalize(vNormal);
 	float3 E = normalize(eyeDirection.xyz);

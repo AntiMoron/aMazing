@@ -67,10 +67,10 @@ float4 PSEntry(PS_INPUT input) : SV_Target
 		Diffuse += material.getDiffuseColor(input.Tex) * directLighting.illuminateDiffuse(input.Nor);
 	// Compute the Specular contribution
 	float3   Specular = (float3)0.0f;
-		Specular += directLighting.illuminateSpecular(input.Nor, 2);
+	Specular += directLighting.illuminateSpecular(input.Nor, material.getSpecularFactor());
 	Specular += environmentLighting.illuminateSpecular(input.Nor, material.getSpecularFactor());
 
 	// Accumulate the lighting with saturation
-	float3 Lighting = saturate(Ambient + Diffuse);
-		return float4(Lighting, 1.0f);
+	float3 Lighting = saturate(Ambient + Diffuse + Specular);
+	return float4(Lighting, 1.0f);
 }

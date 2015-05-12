@@ -30,10 +30,9 @@ private:
 	std::shared_ptr<ModelObject> model;
 	std::shared_ptr<WrappedCamera> camera;
 	std::shared_ptr<DayNightClass> dayTime;
-	std::shared_ptr<GlowEffect> glow;
-	std::shared_ptr<ShadowMap> shadow;
 	std::shared_ptr<Maze> maze;
 	std::shared_ptr<CollisionWorld> collisionWorld;
+	std::shared_ptr<FrameBuffer> fb;
 	struct ClassInstance
 	{
 		aMazing::shaderObjects::cAmbientLight ambientLighting;
