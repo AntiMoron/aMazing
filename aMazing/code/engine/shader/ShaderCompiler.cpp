@@ -281,10 +281,6 @@ HRESULT ShaderCompiler::compileFromFile(const char* filename,
 	{
 		return hr;
 	}
-	// Check if the file is in the current working directory
-	wcscpy_s(filePath, MAX_PATH, str);
-	std::wstring wFilePath = filePath;
-	SetCurrentDirectoryW(wFilePath.c_str());
 
 	std::shared_ptr<ShaderInclude> pIncludeHandler = std::make_shared<ShaderInclude>();
 	ID3DBlob* errorMsg = nullptr;

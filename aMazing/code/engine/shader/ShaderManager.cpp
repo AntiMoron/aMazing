@@ -28,14 +28,14 @@ HRESULT ShaderManager::addPair(ID3D11Device* device,
 	hr = v->createShaderFromFile(device,context,vfilename,layout,layoutCount);
 	if (FAILED(hr))
 	{
-		std::printf("Error At : %s\n",vfilename);
+		aDBG("Error At : " << vfilename);
 		return hr;
 	}
 	PixelShaderObject* p = new PixelShaderObject;
 	hr = p->createShaderFromFile(device,context,pfilename);
 	if (FAILED(hr))
 	{
-		std::printf("Error At : %s\n", pfilename);
+		aDBG("Error At : " << pfilename);
 		return hr;
 	}
 	std::shared_ptr<ShaderPair> newpair(new ShaderPair(&v,&p,std::move(shadername)));
@@ -100,7 +100,7 @@ void ShaderManager::DisableShaderBind()
 {
 	if (bind_enabled == false)
 	{
-		printf("ShaderBinding Already Disabled.\r\n");
+		aDBG("ShaderBinding Already Disabled.\r\n");
 	}
 	bind_enabled = false;
 }
@@ -108,7 +108,7 @@ void ShaderManager::EnableShaderBind()
 {
 	if (bind_enabled == true)
 	{
-		printf("ShaderBinding Already Enabled.\r\n");
+		aDBG("ShaderBinding Already Enabled.\r\n");
 	}
 	bind_enabled = true;
 }
