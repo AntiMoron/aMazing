@@ -176,9 +176,6 @@
     <ClInclude Include="code\engine\effect\Fog.hpp">
       <Filter>Engine\effect</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\system\BasicPrimitive.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
     <ClInclude Include="code\engine\system\BlockClass.hpp">
       <Filter>Engine\system</Filter>
     </ClInclude>
