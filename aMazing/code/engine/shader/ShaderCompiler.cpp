@@ -253,6 +253,7 @@ int ShaderCompiler::shaderInitialize(
 	}
 	catch (const FailureException&)
 	{
+		//deal with those files that can't be found.
 		fileLevelMap[fileName] = INT_MAX;
 	}
 	return retDepth;
@@ -330,7 +331,6 @@ HRESULT ShaderCompiler::compileFromFile(const char* filename,
 			i = maxDepth;
 		else 
 			--i;
-
 	}
 
 	hr = D3DCompile(sumContent.c_str(),
