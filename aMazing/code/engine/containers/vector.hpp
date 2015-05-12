@@ -110,7 +110,6 @@ namespace aMazing
 		{
 			return find(static_cast<rawType&&>(e));
 		}
-
 		iterator find(rawType&& e) aNOEXCEPT
 		{
 			for (size_type cur = 0; cur < mSize; ++cur)
@@ -135,6 +134,50 @@ namespace aMazing
 				if (mData[cur] == e)
 				{
 					return mData + cur;
+				}
+			}
+			return end();
+		}
+
+		iterator findByIndex(size_type index, rawType& e) aNOEXCEPT
+		{
+			return findByIndex(index, static_cast<rawType&&>(e));
+		}
+
+		iterator findByIndex(size_type index, rawType&& e) aNOEXCEPT
+		{
+			size_type valCnt = 0;
+			for (size_type cur = 0; cur < mSize; ++cur)
+			{
+				if (mData[cur] == e)
+				{
+					if (valCnt == index)
+					{
+						return mData + cur;
+					}
+					++valCnt;
+				}
+			}
+			return end();
+		}
+
+		const_iterator findByIndex(size_type index, rawType& e) const aNOEXCEPT
+		{
+			return findByIndex(index, static_cast<rawType&&>(e));
+		}
+
+		const_iterator findByIndex(size_type index, rawType&& e) const aNOEXCEPT
+		{
+			size_type valCnt = 0;
+			for (size_type cur = 0; cur < mSize; ++cur)
+			{
+				if (mData[cur] == e)
+				{
+					if (valCnt == index)
+					{
+						return mData + cur;
+					}
+					++valCnt;
 				}
 			}
 			return end();
@@ -176,9 +219,9 @@ namespace aMazing
 			return end();
 		}
 		//Append an element into the vector at the end.
-		void push_back(rawType& val) aNOEXCEPT
+		void push_back(const rawType& val) aNOEXCEPT
 		{
-			push_back(static_cast<rawType&&>(val));
+			push_back(static_cast<rawType&&>(const_cast<rawType&>(val)));
 		}
 
 		//Append an element into the vector at the end.

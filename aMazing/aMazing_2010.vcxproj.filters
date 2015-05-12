@@ -72,9 +72,6 @@
     <Filter Include="Engine\system\lang">
       <UniqueIdentifier>{d741636a-e656-4e66-8f8d-3025ee736b0a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\file">
-      <UniqueIdentifier>{b746475e-0d20-4b40-b44c-97f640b7f80e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\containers">
       <UniqueIdentifier>{d65f3ccf-1717-4f93-91bc-d91459e79e3f}</UniqueIdentifier>
     </Filter>
@@ -83,6 +80,9 @@
     </Filter>
     <Filter Include="Engine\system\memory">
       <UniqueIdentifier>{31eddceb-846a-4c2c-85a2-81091879d788}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\system\file">
+      <UniqueIdentifier>{b746475e-0d20-4b40-b44c-97f640b7f80e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -245,9 +245,6 @@
     <ClInclude Include="code\engine\system\CameraClass.hpp">
       <Filter>Engine\system</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\system\FileTracker.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
     <ClInclude Include="code\aMazingScene.hpp" />
     <ClInclude Include="code\engine\system\FrustumClass.hpp">
       <Filter>Engine\system</Filter>
@@ -287,9 +284,6 @@
     </ClInclude>
     <ClInclude Include="Shader\Buffers.hlsl">
       <Filter>Shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\shader\ShaderCompilerClass.hpp">
-      <Filter>Engine\shader</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\shader\ShaderInclude.hpp">
       <Filter>Engine\shader</Filter>
@@ -421,7 +415,7 @@
       <Filter>Engine\system</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\system\file\FileSystem.hpp">
-      <Filter>Engine\file</Filter>
+      <Filter>Engine\system\file</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\Config.hpp">
       <Filter>Engine</Filter>
@@ -453,6 +447,12 @@
     <ClInclude Include="code\engine\containers\check\CharLike.hpp">
       <Filter>Engine\containers\check</Filter>
     </ClInclude>
+    <ClInclude Include="code\engine\shader\ShaderCompiler.hpp">
+      <Filter>Engine\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\containers\Directory.hpp">
+      <Filter>Engine\containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\collision\CollisionIntersection.cpp">
@@ -468,9 +468,6 @@
       <Filter>Engine\system</Filter>
     </ClCompile>
     <ClCompile Include="code\engine\system\CameraClass.cpp">
-      <Filter>Engine\system</Filter>
-    </ClCompile>
-    <ClCompile Include="code\engine\system\FileTracker.cpp">
       <Filter>Engine\system</Filter>
     </ClCompile>
     <ClCompile Include="code\engine\system\FrameBuffer.cpp">
@@ -505,9 +502,6 @@
     <ClCompile Include="code\Maze.cpp" />
     <ClCompile Include="code\MazeGenerator.cpp" />
     <ClCompile Include="code\WrappedCamera.cpp" />
-    <ClCompile Include="code\engine\shader\ShaderCompilerClass.cpp">
-      <Filter>Engine\shader</Filter>
-    </ClCompile>
     <ClCompile Include="code\engine\shader\ShaderManager.cpp">
       <Filter>Engine\shader</Filter>
     </ClCompile>
@@ -528,6 +522,12 @@
     </ClCompile>
     <ClCompile Include="code\engine\system\TextureObject.cpp">
       <Filter>Engine\system</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\shader\ShaderCompiler.cpp">
+      <Filter>Engine\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\containers\Directory.cpp">
+      <Filter>Engine\containers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

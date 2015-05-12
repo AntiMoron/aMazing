@@ -385,8 +385,9 @@
     <ClCompile Include="code\collision\CollisionIntersection.cpp" />
     <ClCompile Include="code\common\CommonFunction.cpp" />
     <ClCompile Include="code\engine\animate\ModelObject.cpp" />
+    <ClCompile Include="code\engine\containers\Directory.cpp" />
     <ClCompile Include="code\engine\shader\PixelShaderObject.cpp" />
-    <ClCompile Include="code\engine\shader\ShaderCompilerClass.cpp" />
+    <ClCompile Include="code\engine\shader\ShaderCompiler.cpp" />
     <ClCompile Include="code\engine\shader\ShaderManager.cpp" />
     <ClCompile Include="code\engine\shader\ShaderPair.cpp" />
     <ClCompile Include="code\engine\shader\VertexShaderObject.cpp" />
@@ -394,7 +395,6 @@
     <ClCompile Include="code\engine\system\BasicObject.cpp" />
     <ClCompile Include="code\engine\system\CameraClass.cpp" />
     <ClCompile Include="code\engine\system\D3DManager.cpp" />
-    <ClCompile Include="code\engine\system\FileTracker.cpp" />
     <ClCompile Include="code\engine\system\FrameBuffer.cpp" />
     <ClCompile Include="code\engine\system\FrustumClass.cpp" />
     <ClCompile Include="code\engine\system\InputClass.cpp" />
@@ -435,6 +435,7 @@
     <ClInclude Include="code\engine\containers\check\Common.hpp" />
     <ClInclude Include="code\engine\containers\check\Insertable.hpp" />
     <ClInclude Include="code\engine\containers\CommonContainer.hpp" />
+    <ClInclude Include="code\engine\containers\Directory.hpp" />
     <ClInclude Include="code\engine\containers\Iterator.hpp" />
     <ClInclude Include="code\engine\containers\String.hpp" />
     <ClInclude Include="code\engine\containers\Vector.hpp" />
@@ -486,7 +487,7 @@
     <ClInclude Include="code\engine\shader\shaderclass\cSpotLight.hpp" />
     <ClInclude Include="code\engine\shader\ShaderObject.hpp" />
     <ClInclude Include="code\engine\shader\ShaderClassInstance.hpp" />
-    <ClInclude Include="code\engine\shader\ShaderCompilerClass.hpp" />
+    <ClInclude Include="code\engine\shader\ShaderCompiler.hpp" />
     <ClInclude Include="code\engine\shader\ShaderInclude.hpp" />
     <ClInclude Include="code\engine\shader\ShaderManager.hpp" />
     <ClInclude Include="code\engine\shader\ShaderPair.hpp" />
@@ -498,7 +499,6 @@
     <ClInclude Include="code\engine\system\BlockClass.hpp" />
     <ClInclude Include="code\engine\system\CameraClass.hpp" />
     <ClInclude Include="code\engine\system\D3DManager.hpp" />
-    <ClInclude Include="code\engine\system\FileTracker.hpp" />
     <ClInclude Include="code\engine\system\file\FileSystem.hpp" />
     <ClInclude Include="code\engine\system\FrameBuffer.hpp" />
     <ClInclude Include="code\engine\system\FrustumClass.hpp" />

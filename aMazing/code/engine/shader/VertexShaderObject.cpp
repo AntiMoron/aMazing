@@ -29,7 +29,7 @@ HRESULT VertexShaderObject::createShaderFromFile(ID3D11Device* device,
 	}
 	HRESULT hr;
 	bIsInited = false;
-	hr = ShaderCompilerClass::compileFromFile(fileName, "VSEntry", "vs_5_0", &pShaderContextBuffer);
+	hr = ShaderCompiler::compileFromFile(fileName, "VSEntry", "vs_5_0", &pShaderContextBuffer);
 	if (FAILED(hr))
 	{
 		return E_FAIL;
@@ -83,7 +83,7 @@ HRESULT VertexShaderObject::createShaderFromMemory(ID3D11Device* device,
 	}
 	HRESULT hr;
 	bIsInited = false;
-	hr = ShaderCompilerClass::compileString(slsource, "VSEntry", "vs_5_0", &pShaderContextBuffer);
+	hr = ShaderCompiler::compileString(slsource, "VSEntry", "vs_5_0", &pShaderContextBuffer);
 	if (FAILED(hr))
 	{
 		return E_FAIL;

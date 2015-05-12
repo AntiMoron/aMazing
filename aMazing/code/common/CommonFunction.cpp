@@ -1,6 +1,6 @@
 #include"CommonFunction.hpp"
 
-bool isBlank(char ch)
+bool aMazing::isBlank(char ch)
 {
 	return ch == ' ' ||
 		ch == '\t' ||

@@ -1,11 +1,10 @@
 #include "resource.h"
-#include<string>
 #include <windows.h>
 #include "engine/system/InputClass.hpp"
 #include "engine/system/GlobalWindow.hpp"
 #include "engine/system/D3DManager.hpp"
 #include "aMazingScene.hpp"
-#include "engine/containers/String.hpp"
+#include "engine/containers/Directory.hpp"
 using namespace aMazing;
 HINSTANCE g_hInst = nullptr;
 HWND g_hWnd = nullptr;
@@ -94,9 +93,10 @@ HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow )
 	auto xv = v.splitString(',');
 	for (auto x : xv)
 	{
-		aDBG(x);
+		aDBG(x.c_str());
 	}
     ShowWindow( g_hWnd, nCmdShow );
+	aDBG(minimizeDirectory("./46"));
     return S_OK;
 }
 

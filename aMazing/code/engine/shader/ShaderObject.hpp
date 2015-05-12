@@ -2,7 +2,7 @@
 #include"../system/MutableString.hpp"
 #include"../../common/CommonDef.hpp"
 #include"../system/D3DManager.hpp"
-#include"ShaderCompilerClass.hpp"
+#include"ShaderCompiler.hpp"
 #include"ShaderClassInstance.hpp"
 namespace aMazing
 {

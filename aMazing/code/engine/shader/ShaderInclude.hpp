@@ -1,14 +1,15 @@
 #pragma once
-#include<Windows.h>
-#include<string>
-#include"../../common/CommonDxSupport.hpp"
+#include <Windows.h>
+#include "../../common/CommonDxSupport.hpp"
+#include "../system/file/FileSystem.hpp"
+#include "../containers/string.hpp"
 
 namespace aMazing
 {
 	class ShaderInclude : public ID3DInclude
 	{
 	private:
-		const static unsigned int MAX_INCLUDES = 9U;
+		const static unsigned int MAX_INCLUDES = 18U;
 		struct sInclude
 		{
 			HANDLE         hFile;
@@ -20,11 +21,37 @@ namespace aMazing
 		struct sInclude   m_includeFiles[MAX_INCLUDES];
 		unsigned int      m_nIncludes;
 
-		wchar_t filePath[MAX_PATH];
-
-		void recursivelyOpen()
+		void recursivelyOpen(const char* currentDir, const char* fileName)
 		{
-			;
+			aString fileContent(FileSystem::readFileA(fileName).c_str());
+			aVector<aString> includePaths;
+			const static aString indicatorStr = "#include";
+			aString::size_type cnt = 0;
+			aString::iterator pos = fileContent.findByIndex(cnt, indicatorStr);
+			do{
+				aString includePath = "";
+				pos += indicatorStr.length();
+				while (pos != fileContent.end() && isBlank(*pos))
+					++pos;
+				++pos;
+				while (pos != fileContent.end() && !isBlank(*pos) && ((*pos) != '\"'))
+				{
+					includePath += *pos;
+					++pos;
+				}
+				includePaths.push_back(includePath);
+				++cnt;
+				pos = fileContent.findByIndex(cnt, indicatorStr);
+			} while (pos != fileContent.end());
+			for (aString& includePath : includePaths)
+			{
+				std::string nextFilePath = cutFilePath(currentDir) + '/';
+				nextFilePath += cutFilePath(includePath.c_str());
+				SetCurrentDirectoryA(nextFilePath.c_str());
+				;
+				recursivelyOpen(nextFilePath.c_str(), fileName);
+			}
+			SetCurrentDirectoryA(currentDir);
 		}
 
 	public:
@@ -51,7 +78,6 @@ namespace aMazing
 				if (m_includeFiles[i].hFile != INVALID_HANDLE_VALUE)
 					CloseHandle(m_includeFiles[i].hFile);
 			}
-			SetCurrentDirectory(filePath);
 			m_nIncludes = 0;
 		}
 		//get file directory from file path.
@@ -62,7 +88,7 @@ namespace aMazing
 			int index = max(aindex, bindex);
 			if (index < 0)
 			{
-				return src;
+				return "";
 			}
 			return src.substr(0, index);
 		}
@@ -75,9 +101,9 @@ namespace aMazing
 			UINT *pBytes
 			))
 		{
+			char filePath[MAX_PATH];
 			unsigned int   incIndex = m_nIncludes + 1;
-			aDBG(pFileName);
-			auto nBytes = GetCurrentDirectoryW(MAX_PATH, filePath);
+			auto nBytes = GetCurrentDirectoryA(MAX_PATH, filePath);
 			if (nBytes >= MAX_PATH)
 			{
 				return E_FAIL;
@@ -85,7 +111,8 @@ namespace aMazing
 			
 			std::string cutedFilePath = cutFilePath(pFileName);
 			SetCurrentDirectoryA(cutedFilePath.c_str());
-			aDBG(cutedFilePath);
+//			std::string currentFilePath = std::string(filePath) + cutedFilePath;
+//			recursivelyOpen(currentFilePath.c_str(), pFileName);
 
 			// Make sure we have enough room for this include file
 			if (incIndex >= MAX_INCLUDES)
@@ -117,15 +144,13 @@ namespace aMazing
 
 			// Success - Increment the include file count
 			m_nIncludes = incIndex;
-
+			SetCurrentDirectoryA(filePath);
 			return S_OK;
 		}
 
 		STDMETHOD(Close(LPCVOID pData))
 		{
 			// Defer Closure until the container destructor 
-			SetCurrentDirectoryW(filePath);
-			aDBG(filePath);
 			return S_OK;
 		}
 	};

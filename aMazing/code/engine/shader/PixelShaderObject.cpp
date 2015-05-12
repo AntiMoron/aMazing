@@ -42,7 +42,7 @@ HRESULT PixelShaderObject::createShaderFromFile(ID3D11Device* device,
 	}
 	HRESULT hr;
 	bIsInited = false;
-	hr = ShaderCompilerClass::compileFromFile(fileName, "PSEntry", "ps_5_0", &pShaderContextBuffer);
+	hr = ShaderCompiler::compileFromFile(fileName, "PSEntry", "ps_5_0", &pShaderContextBuffer);
 	if (FAILED(hr))
 	{
 		return E_FAIL;
@@ -88,7 +88,7 @@ HRESULT PixelShaderObject::createShaderFromMemory(ID3D11Device* device,
 	}
 	HRESULT hr;
 	bIsInited = false;
-	hr = ShaderCompilerClass::compileString(slsource, "PSEntry", "ps_5_0", &pShaderContextBuffer);
+	hr = ShaderCompiler::compileString(slsource, "PSEntry", "ps_5_0", &pShaderContextBuffer);
 	if (FAILED(hr))
 	{
 		return E_FAIL;

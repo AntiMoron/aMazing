@@ -16,12 +16,13 @@ namespace aMazing
 		typedef typename aVector<Type, Allocator>::iterator iterator;
 		typedef typename aVector<Type, Allocator>::const_iterator const_iterator;
 	private:
-		typedef aString_t<Type,Allocator> self_type;
+		typedef aString_t<Type, Allocator> self_type;
 		typedef typename std::remove_const<typename std::remove_reference<Type>::type>::type rawType;
-		const_iterator findInRange(self_type&& str,size_type bg,size_type ed) const aNOEXCEPT
+
+		const_iterator findInRange(self_type&& str, size_type bg, size_type ed) const aNOEXCEPT
 		{
 			if ((ed - bg) < str.size())
-				return end();
+			return end();
 			for (size_type cur = bg; cur < ed; ++cur)
 			{
 				if (cur + str.size() > size())
@@ -63,9 +64,14 @@ namespace aMazing
 			}
 			return end();
 		}
+		static Type*& getStaticPtr() aNOEXCEPT
+		{
+			static Type* ptr = nullptr;
+			return ptr;
+		}
 	public:
 		aString_t(){}
-		aString_t(Type* arr)
+		aString_t(const Type* arr)
 		{
 			size_type cur = 0;
 			while (arr[cur] != 0)
@@ -74,39 +80,67 @@ namespace aMazing
 				cur++;
 			}
 		}
-		~aString_t(){}
-
+		~aString_t()
+		{
+			Type* p = getStaticPtr();
+			if (p != nullptr)
+			{
+				delete[] p;
+				p = nullptr;
+			}
+		}
+		const Type* c_str() const aNOEXCEPT
+		{
+			Type* ret = getStaticPtr();
+			if (ret != nullptr)
+			{
+				delete[] ret;
+				ret = nullptr;
+			}
+			ret = new Type[mData.size() + 1];
+			for (size_type cur = 0; cur < mData.size(); ++cur)
+			{
+				ret[cur] = mData[cur];
+			}
+			ret[mData.size()] = 0;
+			return ret;
+		}
 		bool empty() const aNOEXCEPT
 		{
 			return mData.empty();
 		}
+
 		void clear() aNOEXCEPT
 		{
 			mData.clear();
 		}
+
 		void resize(size_type newSize) aNOEXCEPT
 		{
 			mData.resize(newSize);
 		}
+
 		size_type size() const aNOEXCEPT
 		{
 			return mData.size();
 		}
+
 		size_type length() const aNOEXCEPT
 		{
 			return mData.size();
 		}
+
 		size_type capacity() const aNOEXCEPT
 		{
 			return mData.capacity();
 		}
 
-		self_type subString(size_type start,size_type sizeCnt = -1) const aNOEXCEPT
+		self_type subString(size_type start, size_type sizeCnt = -1) const aNOEXCEPT
 		{
 			self_type ret;
 			size_type endPos = start + sizeCnt;
-			if (sizeCnt == -1 || 
-				endPos < start || 
+			if (sizeCnt == -1 ||
+				endPos < start ||
 				endPos > size())
 			{
 				endPos = size();
@@ -117,7 +151,42 @@ namespace aMazing
 			}
 			return ret;
 		}
-
+		
+		aMazing::aVector<self_type> splitString(aVector<Type> chs) const aNOEXCEPT
+		{
+			aMazing::aVector<self_type> ret;
+			size_type last = 0;
+			size_type cur = 0;
+			auto checkIsIn = [&](char curCh)->bool
+			{
+				for (auto ch : chs)
+				{
+					if(ch == curCh)
+						return true;
+				}
+				return false;
+			};
+			while (cur < size())
+			{
+				if (cur < size() &&
+					last == cur &&
+					checkIsIn(mData[cur]))
+				{
+					cur++;
+				}
+				for (; cur < size() && !checkIsIn(mData[cur]); cur++);
+				self_type sub;
+				if (checkIsIn(mData[last]))
+					sub = subString(last + 1, cur - last - 1);
+				else
+					sub = subString(last, cur - last);
+				if (!sub.empty())
+					ret.push_back(sub);
+				last = cur;
+			}
+			return ret;
+		}
+		
 		aMazing::aVector<self_type> splitString(Type ch) const aNOEXCEPT
 		{
 			aMazing::aVector<self_type> ret;
@@ -267,6 +336,71 @@ namespace aMazing
 			}
 			return end();
 		}
+		//find a character by index
+		iterator findByIndex(size_type index, Type ch) aNOEXCEPT
+		{
+			return mData.findByIndex(index, ch);
+		}
+
+		const_iterator findByIndex(size_type index, Type ch) const aNOEXCEPT
+		{
+			return mData.findByIndex(index, ch);
+		}
+		//find a string by index
+		iterator findByIndex(size_type index, const self_type& str) aNOEXCEPT
+		{
+			return findByIndex(index, static_cast<self_type&&>(const_cast<self_type&>(str)));
+		}
+	
+		iterator findByIndex(size_type index, self_type&& str) aNOEXCEPT
+		{
+			size_type strSize = str.size();
+			size_type limit = size() - strSize;
+			size_type valCount = 0;
+			iterator pos;
+			for (size_type cur = 0; cur < limit; ++cur)
+			{
+				pos = findInRange(std::forward<self_type>(str), cur, cur + strSize);
+				if (pos != end())
+				{
+					if (valCount == index)
+					{
+						return pos;
+					}
+					if (valCount > index)
+						return end();
+					++valCount;
+				}
+			}
+			return end();
+		}
+		const_iterator findByIndex(size_type index, const self_type& str) const aNOEXCEPT
+		{
+			return findByIndex(index, static_cast<self_type&&>(const_cast<self_type&>(str)));
+		}
+		const_iterator findByIndex(size_type index, self_type&& str) const aNOEXCEPT
+		{ 
+			size_type strSize = str.size();
+			size_type limit = size() - strSize;
+			size_type valCount = 0;
+			iterator pos;
+			for (size_type cur = 0; cur < limit; ++cur)
+			{
+				pos = findInRange(std::forward<self_type>(str), cur, cur + strSize);
+				if (pos != end())
+				{
+					if (valCount == index)
+					{
+						return pos;
+					}
+					if (valCount > index)
+						return end();
+					++valCount;
+				}
+			}
+			return end();
+		}
+
 		bool contain(Type ch) const aNOEXCEPT
 		{
 			return find(ch) != end();
@@ -277,7 +411,7 @@ namespace aMazing
 		}
 		bool contain(self_type&& str) const aNOEXCEPT
 		{
-			return find(str) != end();
+			return find(std::forward<self_type>(str)) != end();
 		}
 
 		bool replace(Type oldVal, Type newVal) aNOEXCEPT
@@ -329,12 +463,36 @@ namespace aMazing
 						mData[cur] = newVal;
 						return true;
 					}
+					if (valCount > index)
+						return false;
 					++valCount;
 				}
 			}
 			return false;
 		}
 
+		bool replaceIndex(size_type index, self_type&& oldVal, self_type&& newVal) aNOEXCEPT
+		{
+			size_type oldSize = oldVal.size();
+			size_type limit = size() - oldSize;
+			size_type valCount = 0;
+			iterator pos;
+			for (size_type cur = 0; cur < limit; ++cur)
+			{
+				pos = findInRange(std::forward<self_type>(oldVal), cur, cur + oldSize);
+				if (pos != end())
+				{
+					if (valCount == index)
+					{
+						pos = erase(pos, pos + oldSize);
+						insert(pos, newVal);
+						return true;
+					}
+					++valCount;
+				}
+			}
+			return false;
+		}
 		bool replace(self_type& oldVal, self_type& newVal) aNOEXCEPT
 		{
 			return replace(std::move(oldVal), std::move(newVal));
@@ -383,28 +541,6 @@ namespace aMazing
 			}
 			return false;
 		}
-		bool replaceIndex(size_type index, self_type&& oldVal, self_type&& newVal) aNOEXCEPT
-		{
-			size_type oldSize = oldVal.size();
-			size_type limit = size() - oldSize;
-			size_type valCount = 0;
-			iterator pos;
-			for (size_type cur = 0; cur < limit; ++cur)
-			{
-				pos = findInRange(std::forward<self_type>(oldVal), cur, cur + oldSize);
-				if (pos != end())
-				{
-					if (valCount == index)
-					{
-						pos = erase(pos, pos + oldSize);
-						insert(pos, newVal);
-						return true;
-					}
-					++valCount;
-				}
-			}
-			return false;
-		}
 		iterator begin() aNOEXCEPT
 		{
 			return mData.begin();
@@ -443,7 +579,18 @@ namespace aMazing
 			}
 			return *this;
 		}
-
+		self_type operator + (Type ch) const aNOEXCEPT
+		{
+			aString ret(*this);
+			ret.push_back(ch);
+			return 	ret;
+		}
+		self_type operator + (const self_type& other) const aNOEXCEPT
+		{
+			aString ret(*this);
+			ret += other;
+			return ret;
+		}
 		self_type& operator += (Type ch) aNOEXCEPT
 		{
 			push_back(ch);
@@ -496,6 +643,19 @@ namespace aMazing
 			}
 			return o;
 		}
+		struct hash
+		{
+			size_t operator() (const self_type& s) const aNOEXCEPT
+			{
+				size_t ret = 0;
+				for (size_type cur = 0; cur < s.length(); ++cur)
+				{
+					ret *= 29;
+					ret += s[cur];
+				}
+				return ret;
+			}
+		};
 	private:
 		aVector<Type,Allocator> mData;
 		static_assert(aIsCharLike<Type>::value,

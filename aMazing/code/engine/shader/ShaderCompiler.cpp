@@ -1,4 +1,4 @@
-#include "ShaderCompilerClass.hpp"
+#include "ShaderCompiler.hpp"
 using namespace aMazing;
 
 WCHAR* aMediaSearchPath()
@@ -195,17 +195,70 @@ HRESULT aFindMediaFileCch(WCHAR* strDestPath, int cchDest,
 	return E_FAIL;
 }
 
-
-ShaderCompilerClass::ShaderCompilerClass()
+int ShaderCompiler::shaderInitialize(
+	int recuresiveLevel,
+	FileLevelMap& fileLevelMap,
+	const aString& fileName)
 {
+	int retDepth = recuresiveLevel;
+	try
+	{
+		aString standardFileName = transformSplashes(fileName);
+		aString fileDirectory = standardFileName.subString(0, fileName.rfind('/') - fileName.begin()) + '/';
+		aString ret(FileSystem::readFileA(fileName.c_str()).c_str());
+		aVector<aString> includePaths;
+		const static aString indicatorStr = "#include";
+		aString::size_type cnt = 0;
+		aString::iterator pos = ret.findByIndex(cnt, indicatorStr);
+		do{
+			aString includePath = "";
+			pos += indicatorStr.length();
+			while (pos != ret.end() && isBlank(*pos))
+				++pos;
+			if (pos == ret.end())
+				break;
+			if (*pos == '\"')
+				++pos;
+			else
+				break;
+			while (pos != ret.end() && !isBlank(*pos) && ((*pos) != '\"'))
+			{
+				includePath += *pos;
+				++pos;
+			}
+			includePaths.push_back(includePath);
+			++cnt;
+			pos = ret.findByIndex(cnt, indicatorStr);
+		} while (pos != ret.end());
+		if (!includePaths.empty())
+		{
+			for (aString& includePath : includePaths)
+			{
+				includePath = fileDirectory + includePath;
+				includePath = aMazing::minimizeDirectory(includePath);
+				if (fileLevelMap.find(includePath) == fileLevelMap.end())
+				{
+					fileLevelMap[includePath] = recuresiveLevel;
+				}
+				else
+				{
+					int lv = fileLevelMap[includePath];
+					fileLevelMap[includePath] = aMax(lv, recuresiveLevel);
+				}
+				retDepth = aMax(retDepth, shaderInitialize(recuresiveLevel + 1,
+					fileLevelMap,
+					includePath));
+			}
+		}
+	}
+	catch (const FailureException&)
+	{
+		fileLevelMap[fileName] = INT_MAX;
+	}
+	return retDepth;
 }
 
-ShaderCompilerClass::~ShaderCompilerClass()
-{
-	;
-}
-
-HRESULT ShaderCompilerClass::compileFromFile(const char* filename,
+HRESULT ShaderCompiler::compileFromFile(const char* filename,
 	const char* entryPoint,
 	const char* shaderTarget,
 	ID3DBlob** output)
@@ -232,60 +285,61 @@ HRESULT ShaderCompilerClass::compileFromFile(const char* filename,
 	std::wstring wFilePath = filePath;
 	SetCurrentDirectoryW(wFilePath.c_str());
 
-	// open the file
-	HANDLE hFile = CreateFile(str, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING,
-		FILE_FLAG_SEQUENTIAL_SCAN, NULL);
-	if (INVALID_HANDLE_VALUE == hFile)
-		return E_FAIL;
-
-	// Get the file size
-	LARGE_INTEGER FileSize;
-	GetFileSizeEx(hFile, &FileSize);
-
-	// create enough space for the file data
-	BYTE* pFileData = new BYTE[FileSize.LowPart];
-	if (!pFileData)
-		return E_OUTOFMEMORY;
-
-	// read the data in
-	DWORD BytesRead;
-	if (!ReadFile(hFile, pFileData, FileSize.LowPart, &BytesRead, NULL))
-		return E_FAIL;
-
-	CloseHandle(hFile);
-
-	std::unique_ptr<ShaderInclude> pIncludeHandler = std::make_unique<ShaderInclude>();
+	std::shared_ptr<ShaderInclude> pIncludeHandler = std::make_shared<ShaderInclude>();
 	ID3DBlob* errorMsg = nullptr;
 
-	auto lastSplashInd = wFilePath.rfind(TEXT('\\'));
-	auto lastSplashInd2 = wFilePath.rfind(TEXT('/'));
-
-	if (lastSplashInd != std::wstring::npos || lastSplashInd2 != std::wstring::npos)
+	std::string sumContent;
+	FileLevelMap fileLevelMap;
+	fileLevelMap.insert(std::pair<aString, int>(filename, 0));
+	int maxDepth = shaderInitialize(1, fileLevelMap, filename);
+	for (int i = INT_MAX; i >= 0;)
 	{
-		if (lastSplashInd == std::wstring::npos)
+		auto it = fileLevelMap.begin();
+		while(it != fileLevelMap.end())
 		{
-			lastSplashInd = lastSplashInd2;
+			//reach the same level's header file.
+			if (it->second == i)
+			{
+				std::string content = FileSystem::readFileA(it->first.c_str());
+				const static std::string headerIndicator = "#include";
+				auto firstEndPos = content.find(headerIndicator);
+				auto secondStartPos = content.rfind(headerIndicator);
+				//jump the header file name.
+				if (secondStartPos != std::string::npos)
+				{
+					while (secondStartPos < content.length() &&
+						(content[secondStartPos] != '\"'))
+						++secondStartPos;
+					++secondStartPos;
+					while (secondStartPos < content.length() &&
+						(content[secondStartPos] != '\"'))
+						++secondStartPos;
+					++secondStartPos;
+				}
+				std::string first, second;
+				first = content.substr(0, firstEndPos);
+				if (secondStartPos != std::string::npos)
+					second = content.substr(secondStartPos);
+				sumContent += first + second + '\n';
+				it = fileLevelMap.erase(it);
+			}
+			else
+				++it;
 		}
-		else if (lastSplashInd2 != std::wstring::npos)
-		{
-			lastSplashInd = aMin<decltype(lastSplashInd)>(lastSplashInd, lastSplashInd2);
-		}
-		wFilePath = wFilePath.substr(0, lastSplashInd);
-		SetCurrentDirectoryW(wFilePath.c_str());
-		resetCurrentDir = true;
+		if (i == INT_MAX)
+			i = maxDepth;
+		else 
+			--i;
+
 	}
 
-	hr = D3DCompile(pFileData, 
-		FileSize.LowPart, 
+	hr = D3DCompile(sumContent.c_str(),
+		sumContent.length(),
 		NULL, NULL, 
 		static_cast<ID3DInclude*> (pIncludeHandler.get()),
 		entryPoint, shaderTarget, 
 		0, D3DCOMPILE_EFFECT_ALLOW_SLOW_OPS, 
 		output, &errorMsg);
-	if (!!pFileData)
-	{
-		delete[] pFileData;
-	}
 	if (resetCurrentDir)
 	{
 		SetCurrentDirectoryW(workingPath);
@@ -301,7 +355,7 @@ HRESULT ShaderCompilerClass::compileFromFile(const char* filename,
 	return S_OK;
 }
 
-HRESULT ShaderCompilerClass::compileString(const char* str
+HRESULT ShaderCompiler::compileString(const char* str
 	, const char* entryPoint,
 	const char* shaderTarget,
 	ID3DBlob** output)
