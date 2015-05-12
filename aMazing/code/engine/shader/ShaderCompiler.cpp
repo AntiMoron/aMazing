@@ -329,12 +329,22 @@ HRESULT ShaderCompiler::compileFromFile(const char* filename,
 			--i;
 	}
 
+	DWORD dwShaderFlags = D3DCOMPILE_ENABLE_STRICTNESS |
+		D3DCOMPILE_OPTIMIZATION_LEVEL3 |
+		D3DCOMPILE_EFFECT_ALLOW_SLOW_OPS;
+#if defined( DEBUG ) || defined( _DEBUG )
+	// Set the D3DCOMPILE_DEBUG flag to embed debug information in the shaders.
+	// Setting this flag improves the shader debugging experience, but still allows 
+	// the shaders to be optimized and to run exactly the way they will run in 
+	// the release configuration of this program.
+	dwShaderFlags |= D3DCOMPILE_DEBUG;
+#endif
 	hr = D3DCompile(sumContent.c_str(),
 		sumContent.length(),
 		NULL, NULL, 
 		static_cast<ID3DInclude*> (pIncludeHandler.get()),
 		entryPoint, shaderTarget, 
-		0, D3DCOMPILE_EFFECT_ALLOW_SLOW_OPS, 
+		0, dwShaderFlags,
 		output, &errorMsg);
 	if (resetCurrentDir)
 	{
