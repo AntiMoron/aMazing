@@ -24,7 +24,7 @@ namespace aMazing
 		explicit SceneAnimator(const aiScene* pScene, size_t pAnimIndex = 0)
 		{
 			mScene = pScene;
-			mCurrentAnimIndex = -1;
+			mCurrentAnimIndex = size_t(-1);
 			mAnimEvaluator = nullptr;
 			mRootNode = nullptr;
 
@@ -211,7 +211,7 @@ namespace aMazing
 			// find the index of the animation track affecting this node, if any
 			if (mCurrentAnimIndex < mScene->mNumAnimations)
 			{
-				internalNode->channelIndex = -1;
+				internalNode->channelIndex = size_t(-1);
 				const aiAnimation* currentAnim = mScene->mAnimations[mCurrentAnimIndex];
 				for (unsigned int a = 0; a < currentAnim->mNumChannels; a++)
 				{

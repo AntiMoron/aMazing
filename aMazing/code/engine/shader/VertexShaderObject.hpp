@@ -1,6 +1,4 @@
 #pragma once
-#include<D3D11.h>
-#include<D3DX11.h>
 #include"ShaderCompiler.hpp"
 #include "ShaderObject.hpp"
 namespace aMazing

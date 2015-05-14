@@ -46,7 +46,7 @@ public:
 			float tn = timeNow;
 			if (timeNow > (TIME_DAY / 2.0f))
 			{
-				tn = TIME_DAY - timeNow;
+				tn = float(TIME_DAY - timeNow);
 			}
 			XMFLOAT4 data = { 2.0f * float(tn) / TIME_DAY,
 				2.0f * float(tn) / TIME_DAY,

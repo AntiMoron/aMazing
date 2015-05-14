@@ -94,11 +94,11 @@ namespace aMazing
 		}
 
 		STDMETHOD(Open(
-			D3D_INCLUDE_TYPE IncludeType,
+			D3D_INCLUDE_TYPE,
 			LPCSTR pFileName,
-			LPCVOID pParentData,
+			LPCVOID ,
 			LPCVOID *ppData,
-			UINT *pBytes
+			UINT * pBytes
 			))
 		{
 			char filePath[MAX_PATH];
@@ -111,9 +111,6 @@ namespace aMazing
 			
 			std::string cutedFilePath = cutFilePath(pFileName);
 			SetCurrentDirectoryA(cutedFilePath.c_str());
-//			std::string currentFilePath = std::string(filePath) + cutedFilePath;
-//			recursivelyOpen(currentFilePath.c_str(), pFileName);
-
 			// Make sure we have enough room for this include file
 			if (incIndex >= MAX_INCLUDES)
 				return E_FAIL;
@@ -148,7 +145,7 @@ namespace aMazing
 			return S_OK;
 		}
 
-		STDMETHOD(Close(LPCVOID pData))
+		STDMETHOD(Close(LPCVOID))
 		{
 			// Defer Closure until the container destructor 
 			return S_OK;

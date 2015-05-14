@@ -105,8 +105,8 @@ HRESULT InitDevice()
     HRESULT hr = S_OK;
     RECT rc;
     GetClientRect( g_hWnd, &rc );
-    UINT width = rc.right - rc.left;
-    UINT height = rc.bottom - rc.top;
+    unsigned short width(rc.right - rc.left);
+	unsigned short height(rc.bottom - rc.top);
 
 	GLOBAL_WINDOW.setWidth(width);
 	GLOBAL_WINDOW.setHeight(height);

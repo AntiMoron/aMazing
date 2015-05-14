@@ -105,7 +105,7 @@ HRESULT ModelObject::Initialize(ID3D11Device* device,
 	}
 	else
 	{
-		for (int i = 0; i < animationVertices.size(); i++)
+		for (size_t i = 0; i < animationVertices.size(); i++)
 		{
 			auto& currentBuffer = animationVertexBuffer[i];
 			hr = currentBuffer->Initialize(device, context,
@@ -125,7 +125,7 @@ HRESULT ModelObject::Initialize(ID3D11Device* device,
 void ModelObject::loadTextures(ID3D11Device* device,
 	ID3D11DeviceContext* context, 
 	const aiScene* pScene,
-	const char* modelPath)
+	const char*)
 {
 	if (!(pScene->HasMaterials()))
 	{
@@ -188,7 +188,7 @@ void ModelObject::loadMeshes(const aiScene* pScene)
 		{
 			staticVertices.push_back(std::unique_ptr<std::vector<Vertex> >(new std::vector<Vertex>));
 			staticVertexBuffer.push_back(std::unique_ptr<GPUVerticesBuffer<Vertex> >(new GPUVerticesBuffer<Vertex>));
-			for (int j = 0; j < pMesh->mNumVertices; j++)
+			for (size_t j = 0; j < pMesh->mNumVertices; j++)
 			{
 				auto& pos = pMesh->mVertices[j];
 				auto& nor = pMesh->mNormals[j];
@@ -211,7 +211,7 @@ void ModelObject::loadMeshes(const aiScene* pScene)
 			animationVertices.push_back(std::unique_ptr<std::vector<SkinVertex> >(new std::vector<SkinVertex>));
 			animationVertexBuffer.push_back(std::unique_ptr<GPUMutableVerticeBuffer<SkinVertex> >(new GPUMutableVerticeBuffer<SkinVertex>));
 			std::vector<std::size_t> vertexBoneBindCnt;
-			for (int j = 0; j < pMesh->mNumVertices; j++)
+			for (size_t j = 0; j < pMesh->mNumVertices; j++)
 			{
 				auto& pos = pMesh->mVertices[j];
 				auto& nor = pMesh->mNormals[j];
@@ -230,10 +230,10 @@ void ModelObject::loadMeshes(const aiScene* pScene)
 				}
 			}
 		
-			for (int k = 0; k < pMesh->mNumBones; k++)
+			for (size_t k = 0; k < pMesh->mNumBones; k++)
 			{
 				const auto pBone = pMesh->mBones[k];
-				for (int l = 0; l < pBone->mNumWeights; l++)
+				for (size_t l = 0; l < pBone->mNumWeights; l++)
 				{
 					const auto weights = pBone->mWeights[l];
 					if (weights.mWeight == 0.0f)
@@ -345,7 +345,7 @@ void ModelObject::Render(ID3D11Device* device,
 		pNode = scene->mRootNode;
 	}
 	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	for (int i = 0; i < pNode->mNumMeshes; i++)
+	for (size_t i = 0; i < pNode->mNumMeshes; i++)
 	{
 		std::size_t meshIndex = pNode->mMeshes[i];
 		bindBonesToGPU(device, context, pNode, render_time);
@@ -356,7 +356,7 @@ void ModelObject::Render(ID3D11Device* device,
 			animationVertexBuffer[meshIndex]->Render(device, context);
 	}
 	
-	for (int i = 0; i < pNode->mNumChildren; i++)
+	for (size_t i = 0; i < pNode->mNumChildren; i++)
 	{
 		Render(device, context, pNode->mChildren[i]);
 	}

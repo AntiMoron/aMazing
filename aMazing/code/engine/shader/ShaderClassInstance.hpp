@@ -10,7 +10,6 @@ namespace aMazing
 		//parameter
 		explicit ShaderClassInstance(ID3D11ShaderReflection* pShaderReflector, const char* varName) throw(FailureException)
 		{
-			HRESULT hr = E_FAIL;
 			if (!pShaderReflector)
 			{
 				throw FailureException("Reflector hasn't been inited.");

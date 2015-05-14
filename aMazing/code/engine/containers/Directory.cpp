@@ -8,8 +8,8 @@ aString aMazing::minimizeDirectory(const aString& dir)
 	splashes.push_back('/');
 	splashes.push_back('\\');
 	auto splitedString = dir.splitString(splashes);
-	size_t lastCur = -1;
-	size_t nextCur = -1;
+	size_t lastCur = size_t(-1);
+	size_t nextCur = size_t(-1);
 	for (size_t cur = 0; (cur + 1) < splitedString.size(); ++cur)
 	{
 		if (splitedString[cur] == ".")

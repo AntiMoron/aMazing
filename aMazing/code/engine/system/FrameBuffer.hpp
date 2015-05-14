@@ -111,7 +111,7 @@ namespace aMazing
 			return S_OK;
 		}
 
-		void setRenderTarget(ID3D11Device* device, ID3D11DeviceContext* context)
+		void setRenderTarget(ID3D11Device* , ID3D11DeviceContext* context)
 		{
 			context->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
 		}

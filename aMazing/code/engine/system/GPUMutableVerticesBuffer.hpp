@@ -12,8 +12,8 @@ public:
 	{
 		vertices = nullptr;
 		indices = nullptr;
-		vertexCount = -1;
-		indexCount = -1;
+		vertexCount = size_t(-1);
+		indexCount = size_t(-1);
 		is_inited = false;
 	}
 	~GPUMutableVerticeBuffer()

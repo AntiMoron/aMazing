@@ -1,8 +1,6 @@
 #pragma once
-#include<D3D11.h>
-#include<D3DX11.h>
-#include<cstdio>
 #include"../../common/CommonDef.hpp"
+#include"../../common/CommonDxSupport.hpp"
 
 template<typename source_type>
 class GPUConstantBuffer

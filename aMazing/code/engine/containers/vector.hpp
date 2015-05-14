@@ -60,7 +60,6 @@ namespace aMazing
 
 		~aVector()
 		{
-			auto& allocator = get_allocator();
 			deleteMemory(mData);
 		}
 
@@ -475,7 +474,6 @@ namespace aMazing
 	private:
 		void expandSpace()
 		{
-			auto& allocator = get_allocator();
 			size_type newCapacity = mCapacity + VECTOR_INCREMENT;
 			T* newPtr = createMemory(newCapacity);
 			for (size_type i = 0; i < mCapacity; i++)

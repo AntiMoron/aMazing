@@ -12,19 +12,19 @@ namespace aMazing
 	public:
 		SceneAnimNode() 
 		{
-			channelIndex = -1;
+			channelIndex = size_t(-1);
 		}
 
 		SceneAnimNode(const std::string& name)
 		{
 			this->name = name;
-			channelIndex = -1;
+			channelIndex = size_t(-1);
 		}
 
 		SceneAnimNode(std::string&& name)
 		{
 			this->name = name;
-			channelIndex = -1;
+			channelIndex = size_t(-1);
 		}
 
 		std::string name;

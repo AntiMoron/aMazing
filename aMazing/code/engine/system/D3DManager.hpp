@@ -294,7 +294,7 @@ namespace aMazing
 		static void present(bool vSync)
 		{
 			auto nowTime = clock.now();
-			static const size_t singleCount = std::chrono::seconds(1).count();
+			static const __int64 singleCount = std::chrono::seconds(1).count();
 			if (std::chrono::duration_cast<std::chrono::seconds>(nowTime - lastTime).count() >= singleCount)
 			{
 				framePerSecond = frameCounter;

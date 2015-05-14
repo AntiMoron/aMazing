@@ -79,11 +79,10 @@ bool ShaderManager::bindPair(const std::string& str,
 		return -1;
 	};
 	long index = f(str);
-	if (index >= vec.size() 
+	if (size_t(index) >= vec.size() 
 		|| (index < 0))
 	{
 		throw std::out_of_range("Shader Manager access out of range.");
-		return false;
 	}
 	if (bind_enabled == true)
 	{

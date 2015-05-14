@@ -33,7 +33,6 @@ namespace aMazing
 				{
 					printf("can't open file '%s' at 'LoadFile' function.\r\n", filename);
 					throw bad_file_exception("this is not a .tga file.\r\n");
-					return false;
 				}
 
 				FILE* file_ptr = nullptr;
@@ -136,15 +135,15 @@ namespace aMazing
 							if (bytesPerPixel >= 1)
 								pOut->pColor[processIndex].g = temColorData[1];
 							else
-								pOut->pColor[processIndex].g = 0.0f;
+								pOut->pColor[processIndex].g = unsigned char(0);
 							if (bytesPerPixel >= 2)
 								pOut->pColor[processIndex].r = temColorData[2];
 							else
-								pOut->pColor[processIndex].r = 0.0f;
+								pOut->pColor[processIndex].r = unsigned char(0);
 							if (bytesPerPixel >= 3)
 								pOut->pColor[processIndex].a = temColorData[3];
 							else
-								pOut->pColor[processIndex].a = 0.0f;
+								pOut->pColor[processIndex].a = unsigned char(0);
 							++processIndex;
 						}
 					}
@@ -161,15 +160,15 @@ namespace aMazing
 							if (bytesPerPixel >= 1)
 								pOut->pColor[processIndex].g = temColorData[1];
 							else
-								pOut->pColor[processIndex].g = 0.0f;
+								pOut->pColor[processIndex].g = unsigned char(0);
 							if (bytesPerPixel >= 2)
 								pOut->pColor[processIndex].r = temColorData[2];
 							else
-								pOut->pColor[processIndex].r = 0.0f;
+								pOut->pColor[processIndex].r = unsigned char(0);
 							if (bytesPerPixel >= 3)
 								pOut->pColor[processIndex].a = temColorData[3];
 							else
-								pOut->pColor[processIndex].a = 0.0f;
+								pOut->pColor[processIndex].a = unsigned char(0);
 							++processIndex;
 						}
 					}

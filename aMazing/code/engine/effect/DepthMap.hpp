@@ -1,6 +1,5 @@
 #pragma once
-#include<D3D11.h>
-#include<D3DX11.h>
+#include"../../common/CommonDxSupport.hpp"
 #include"EffectClass.hpp"
 namespace aMazing
 {

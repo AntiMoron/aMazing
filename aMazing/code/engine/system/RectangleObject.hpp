@@ -1,9 +1,6 @@
 #pragma once
-
-#include<D3D11.h>
-#include<D3DX11.h>
+#include"../../common/CommonDxSupport.hpp"
 #include<D3DX10math.h>
-#include<xnamath.h>
 #include"GlobalWindow.hpp"
 #include"GPUMutableVerticesBuffer.hpp"
 #include"../../engine/data/Vertex.hpp"
@@ -27,10 +24,10 @@ namespace aMazing
 			right = left + 100.0f;
 			top = (float)(WINHEIGHT / 2.0f) + 0.0f;
 			bottom = top - 50.0f;
-			left = 2.0 * left / WINWIDTH;
-			right = 2.0 * right / WINWIDTH;
-			top = 2.0 * top / WINHEIGHT;
-			bottom = 2.0 * bottom / WINHEIGHT;
+			left = 2.0f * left / WINWIDTH;
+			right = 2.0f * right / WINWIDTH;
+			top = 2.0f * top / WINHEIGHT;
+			bottom = 2.0f * bottom / WINHEIGHT;
 			Vertex vertices[6];
 			vertices[0].position.x = left;
 			vertices[0].position.y = top;
@@ -88,10 +85,10 @@ namespace aMazing
 			right = left + (iright - ileft);
 			top = (float)(WINHEIGHT / 2.0f) - itop;
 			bottom = top - (ibottom - itop);
-			left = 2.0 * left / WINWIDTH;
-			right = 2.0 * right / WINWIDTH;
-			top = 2.0 * top / WINHEIGHT;
-			bottom = 2.0 * bottom / WINHEIGHT;
+			left = 2.0f * left / WINWIDTH;
+			right = 2.0f * right / WINWIDTH;
+			top = 2.0f * top / WINHEIGHT;
+			bottom = 2.0f * bottom / WINHEIGHT;
 
 			Vertex vertices[6];
 			vertices[0].position.x = left;

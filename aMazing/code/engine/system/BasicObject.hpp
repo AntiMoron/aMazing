@@ -1,8 +1,5 @@
 #pragma once
-
-#include<D3D11.h>
-#include<D3DX11.h>
-#include<xnamath.h>
+#include"../../common/CommonDxSupport.hpp"
 #include"../data/Vertex.hpp"
 #include"InstanceObj.hpp"
 #include"GPUConstantBuffer.hpp"
