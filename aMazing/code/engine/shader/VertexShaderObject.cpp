@@ -144,7 +144,7 @@ HRESULT VertexShaderObject::bindShader(ID3D11Device* device,
 	{
 		return E_FAIL;
 	}
-	context->VSSetShader(shader, dynamicLinkageArray.get(), shaderInterfaceCount);
+	context->VSSetShader(shader, /*dynamicLinkageArray.get()*/nullptr, shaderInterfaceCount);
 	context->IASetInputLayout(layout);
 	return S_OK;
 }

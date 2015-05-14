@@ -20,5 +20,6 @@ ID3D11BlendState* D3DManager::pEnableBlending = nullptr;
 ID3D11BlendState* D3DManager::pDisableBlending = nullptr;
 std::chrono::high_resolution_clock  D3DManager::clock;
 std::chrono::time_point<std::chrono::high_resolution_clock> D3DManager::lastTime;
+D3D11_VIEWPORT D3DManager::viewPort;
 size_t D3DManager::framePerSecond = 0;
 size_t D3DManager::frameCounter = 0;

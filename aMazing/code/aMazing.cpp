@@ -147,9 +147,20 @@ HRESULT InitDevice()
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, aOffsetof(Vertex, texture), D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 
+	LPCSTR SemanticName;
+	UINT SemanticIndex;
+	DXGI_FORMAT Format;
+	UINT InputSlot;
+	UINT AlignedByteOffset;
+	D3D11_INPUT_CLASSIFICATION InputSlotClass;
+	UINT InstanceDataStepRate;
+
 	D3D11_INPUT_ELEMENT_DESC animLayout[] =
 	{
-		{ "BONEINDICES", 0, DXGI_FORMAT_R32G32B32A32_UINT, 0, aOffsetof(SkinVertex, boneIndices), D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "BONEINDICES", 0, 
+		DXGI_FORMAT_R32G32B32A32_UINT, 0, 
+		aOffsetof(SkinVertex, boneIndices), 
+		D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "WEIGHTS", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, aOffsetof(SkinVertex, weights), D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, aOffsetof(SkinVertex, position), D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, aOffsetof(SkinVertex, normal), D3D11_INPUT_PER_VERTEX_DATA, 0 },

@@ -33,7 +33,7 @@ HRESULT aMazingScene::Initialize(HWND hwnd, ID3D11Device* device,
 	}
 
 	fb = std::make_shared<FrameBuffer>();
-	hr = fb->Initialize(device, context, 3000, 3000);
+	hr = fb->Initialize(device, context, 800, 600);
 	if (FAILED(hr))
 	{
 		return hr;
@@ -43,7 +43,6 @@ HRESULT aMazingScene::Initialize(HWND hwnd, ID3D11Device* device,
 	XMFLOAT3 camerInitialPosition = { twoDPosition.x ,Maze::blockSize , twoDPosition.y};
 	camera->setPosition(camerInitialPosition);
 	camera->setFov(60.0f);
-
 
 	model = std::make_shared<ModelObject>();
 	hr = model->Initialize(device, context, "3dModel/figure.fbx");
@@ -102,14 +101,17 @@ void aMazingScene::Render(ID3D11Device* device, ID3D11DeviceContext* context)
 		model->setScaling(XMFLOAT3(0.1f, 0.1f, 0.1f));
 		model->Render(device, context);
 	};
-//	fb->clearRenderTarget(device, context);
-//	fb->setRenderTarget(device, context);
+	fb->clearRenderTarget(device, context);
+	fb->setRenderTarget(device, context);
 	mazeRender(device,context);
 	//glow->Render(device, context, mazeRender);
 	//glow->Render(device, context, shadowRender);
-//	D3DManager::setMainRenderTarget();
-//	fb->bindPS((D3DManager::getDevice(), D3DManager::getContext(), 0);
-//	GRAPHICS.RenderRectangle(0, 0, WINWIDTH / 2, WINHEIGHT / 2);
+	fb->bindPS(D3DManager::getDevice(MANAGED_DEVICE_TYPE::DEFAULT_DEVICE),
+		D3DManager::getContext(MANAGED_CONTEXT_TYPE::DEFAULT_CONTEXT),
+		0);
+	D3DManager::setMainRenderTarget();
+	SHADERS.bindPair("Basic2D", device, context);
+	GRAPHICS.RenderRectangle(0, 0, WINWIDTH / 2, WINHEIGHT / 2);
 }
 
 const std::shared_ptr<WrappedCamera>& aMazingScene::getWrappedCamera()

@@ -111,14 +111,14 @@ namespace aMazing
 				&pRenderTargetView, pDepthStencilView);
 
 			// Setup the viewport
-			D3D11_VIEWPORT vp;
-			vp.Width = (FLOAT)WINWIDTH;
-			vp.Height = (FLOAT)WINHEIGHT;
-			vp.MinDepth = 0.0f;
-			vp.MaxDepth = 1.0f;
-			vp.TopLeftX = 0;
-			vp.TopLeftY = 0;
-			pImmediateContext->RSSetViewports(1, &vp);
+			viewPort.Width = (FLOAT)WINWIDTH;
+			viewPort.Height = (FLOAT)WINHEIGHT;
+			viewPort.MinDepth = 0.0f;
+			viewPort.MaxDepth = 1.0f;
+			viewPort.TopLeftX = 0;
+			viewPort.TopLeftY = 0;
+
+			pImmediateContext->RSSetViewports(1, &viewPort);
 
 			if (FAILED(hr))
 				return hr;
@@ -283,6 +283,7 @@ namespace aMazing
 		{
 			pImmediateContext->OMSetRenderTargets(1, 
 				&pRenderTargetView, pDepthStencilView);
+			pImmediateContext->RSSetViewports(1, &viewPort);
 		}
 
 		static void clearRenderTarget()
@@ -348,6 +349,7 @@ namespace aMazing
 		static ID3D11BlendState* pDisableBlending;
 		static std::chrono::high_resolution_clock  clock;
 		static std::chrono::time_point<std::chrono::high_resolution_clock> lastTime;
+		static D3D11_VIEWPORT viewPort; 
 		static size_t framePerSecond;
 		static size_t frameCounter;
 	};

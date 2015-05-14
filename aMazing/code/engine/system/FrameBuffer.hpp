@@ -18,7 +18,6 @@ namespace aMazing
 			m_shaderResourceView = nullptr;
 			m_pDepthStencil = nullptr;
 			m_depthStencilView = nullptr;
-			m_renderTargetTextureMS = nullptr;
 		}
 		~FrameBuffer()
 		{
@@ -27,7 +26,6 @@ namespace aMazing
 			aSAFE_RELEASE(m_renderTargetView);
 			aSAFE_RELEASE(m_pDepthStencil);
 			aSAFE_RELEASE(m_depthStencilView);
-			aSAFE_RELEASE(m_renderTargetTextureMS);
 		}
 
 		HRESULT Initialize(ID3D11Device* device, 
@@ -36,10 +34,16 @@ namespace aMazing
 			unsigned short imageHeight = -1)
 		{
 			HRESULT hr;
-			if (imageWidth == -1)
+			if (imageWidth == unsigned short(-1))
 				imageWidth = RESWIDTH;
-			if (imageHeight == -1)
+			if (imageHeight == unsigned short(-1))
 				imageHeight = RESHEIGHT;
+			m_viewPort.MaxDepth = 1.0f;
+			m_viewPort.MinDepth = 0.0f;
+			m_viewPort.TopLeftX = 0.0f;
+			m_viewPort.TopLeftY = 0.0f;
+			m_viewPort.Width = imageWidth;
+			m_viewPort.Height = imageHeight;
 			D3D11_TEXTURE2D_DESC textureDesc;
 			D3D11_RENDER_TARGET_VIEW_DESC renderTargetViewDesc;
 			D3D11_SHADER_RESOURCE_VIEW_DESC shaderResourceViewDesc;
@@ -65,7 +69,8 @@ namespace aMazing
 			renderTargetViewDesc.Format = textureDesc.Format;
 			renderTargetViewDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
 			renderTargetViewDesc.Texture2D.MipSlice = 0;
-			hr = device->CreateRenderTargetView(m_renderTargetTexture, &renderTargetViewDesc, &m_renderTargetView);
+			hr = device->CreateRenderTargetView(m_renderTargetTexture, 
+				&renderTargetViewDesc, &m_renderTargetView);
 			if (FAILED(hr))
 			{
 				return hr;
@@ -103,7 +108,8 @@ namespace aMazing
 			descDSV.Format = descDepth.Format;
 			descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 			descDSV.Texture2D.MipSlice = 0;
-			hr = device->CreateDepthStencilView(m_pDepthStencil, &descDSV, &m_depthStencilView);
+			hr = device->CreateDepthStencilView(m_pDepthStencil, 
+				&descDSV, &m_depthStencilView);
 			if (FAILED(hr))
 				return hr;
 
@@ -113,12 +119,16 @@ namespace aMazing
 
 		void setRenderTarget(ID3D11Device* , ID3D11DeviceContext* context)
 		{
-			context->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
+			static ID3D11ShaderResourceView* null[] = {nullptr};
+			context->PSSetShaderResources(0, 1, null);
+			context->OMSetRenderTargets(1,
+				&m_renderTargetView, m_depthStencilView);
+			context->RSSetViewports(1, &m_viewPort);
 		}
 
 		void clearRenderTarget(ID3D11Device* device, ID3D11DeviceContext* context)
 		{
-			float clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+			static float clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 			context->ClearRenderTargetView(m_renderTargetView, clearColor);
 			context->ClearDepthStencilView(m_depthStencilView,
 				D3D11_CLEAR_DEPTH, 1.0f, NULL);
@@ -139,6 +149,8 @@ namespace aMazing
 			//	m_renderTargetTexture, 
 			//	0, 
 			//	DXGI_FORMAT_R32G32B32A32_FLOAT);
+			static ID3D11RenderTargetView* null[] = {nullptr};
+			context->OMSetRenderTargets(1, null, nullptr);
 			context->PSSetShaderResources(textureSlot, 1, &m_shaderResourceView);
 		}
 
@@ -157,10 +169,10 @@ namespace aMazing
 		volatile bool is_inited;
 		bool multiSampling;
 		ID3D11Texture2D* m_renderTargetTexture;
-		ID3D11Texture2D* m_renderTargetTextureMS;//Multi-sampled
 		ID3D11RenderTargetView* m_renderTargetView;
 		ID3D11ShaderResourceView* m_shaderResourceView;
 		ID3D11Texture2D* m_pDepthStencil;
 		ID3D11DepthStencilView* m_depthStencilView;
+		D3D11_VIEWPORT m_viewPort;
 	};
 }
