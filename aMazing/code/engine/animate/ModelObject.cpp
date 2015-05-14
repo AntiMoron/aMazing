@@ -324,7 +324,7 @@ void ModelObject::Render(ID3D11Device* device,
 {
 	BasicObject::UpdatePRS(device, context);
 
-	render_time += 0.01f;
+	render_time += 0.001f;
 	if (render_time > 20.0f)
 	{
 		render_time = 0.0f;

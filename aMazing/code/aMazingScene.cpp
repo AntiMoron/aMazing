@@ -103,14 +103,13 @@ void aMazingScene::Render(ID3D11Device* device, ID3D11DeviceContext* context)
 		model->Render(device, context);
 	};
 	fb->clearRenderTarget(device, context);
-	fb->setRenderTarget(device, context);
+//	fb->setRenderTarget(device, context);
 	mazeRender(device,context);
 	//glow->Render(device, context, mazeRender);
 	//glow->Render(device, context, shadowRender);
-	//d3dkit->setRenderTarget();
-//	context->OMSetRenderTargets(1, DeviceManager, );
-	fb->bindPS(device, context, 0);
-	GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
+	D3DManager::setMainRenderTarget();
+	fb->bindPS((D3DManager::getDevice(), D3DManager::getContext(), 0);
+	GRAPHICS.RenderRectangle(0, 0, WINWIDTH / 2, WINHEIGHT / 2);
 }
 
 const std::shared_ptr<WrappedCamera>& aMazingScene::getWrappedCamera()
