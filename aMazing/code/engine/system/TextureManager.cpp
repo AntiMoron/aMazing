@@ -2,13 +2,12 @@
 using namespace aMazing;
 
 HRESULT TextureManager::addTexture(ID3D11Device* device,
-	ID3D11DeviceContext* context,
 	MutableString&& filename)
 	//add a brand new texture into texture manager class.
 {
 	TextureObject* texture = new TextureObject;
 	std::string path = filename.getMultiByteString();
-	if (FAILED(texture->LoadFile(device, context, path)))
+	if (FAILED(texture->LoadFile(device, path)))
 	{
 		return E_FAIL;
 	}
@@ -16,11 +15,10 @@ HRESULT TextureManager::addTexture(ID3D11Device* device,
 	return S_OK;
 }
 
-HRESULT TextureManager::addChessBoardTexture(ID3D11Device* device,
-	ID3D11DeviceContext* context)
+HRESULT TextureManager::addChessBoardTexture(ID3D11Device* device)
 {
 	TextureObject* texture = new TextureObject;
-	if (FAILED(texture->beChessBoard(device,context)))
+	if (FAILED(texture->beChessBoard(device)))
 	{
 		return E_FAIL;
 	}

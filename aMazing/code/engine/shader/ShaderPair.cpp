@@ -46,20 +46,19 @@ bool ShaderPair::operator == (const std::string& other)const
 	return shaderName == other;
 }
 
-HRESULT ShaderPair::bindShader(ID3D11Device* device,
-	ID3D11DeviceContext* context)
+HRESULT ShaderPair::bindShader(ID3D11DeviceContext* context)
 {
 	HRESULT hr;
 	if (pVert == nullptr || pPixl == nullptr)
 	{
 		return E_FAIL;
 	}
-	hr = pVert->bindShader(device,context);
+	hr = pVert->bindShader(context);
 	if (FAILED(hr))
 	{
 		return hr;
 	}
-	hr = pPixl->bindShader(device, context);
+	hr = pPixl->bindShader(context);
 	if (FAILED(hr))
 	{
 		return hr;

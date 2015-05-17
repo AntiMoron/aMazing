@@ -10,10 +10,10 @@ namespace aMazing
 	public:
 		Fog(){}
 		~Fog(){}
-		HRESULT Initialize(ID3D11Device* device, ID3D11DeviceContext* context)
+		HRESULT initialize(ID3D11Device* device, ID3D11DeviceContext* context)
 		{
 			HRESULT hr = E_FAIL;
-			hr = EffectClass::Initialize(device, context);
+			hr = EffectClass::initialize(device, context);
 			if (FAILED(hr))
 			{
 				return hr;

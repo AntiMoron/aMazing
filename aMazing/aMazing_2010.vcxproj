@@ -105,7 +105,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <GenerateManifest>true</GenerateManifest>
-    <ExecutablePath>$(DXSDK_DIR)Utilities\bin\x86;$(ExecutablePath)</ExecutablePath>
+    <ExecutablePath>$(ExecutablePath);$(DXSDK_DIR)Utilities\bin\x86;</ExecutablePath>
     <IncludePath>$(IncludePath);$(DXSDK_DIR)Include;</IncludePath>
     <LibraryPath>$(LibraryPath);$(DXSDK_DIR)Lib\x86;</LibraryPath>
   </PropertyGroup>
@@ -386,19 +386,18 @@
     <ClCompile Include="code\common\CommonFunction.cpp" />
     <ClCompile Include="code\engine\animate\ModelObject.cpp" />
     <ClCompile Include="code\engine\containers\Directory.cpp" />
+    <ClCompile Include="code\engine\containers\MutableString.cpp" />
     <ClCompile Include="code\engine\shader\PixelShaderObject.cpp" />
     <ClCompile Include="code\engine\shader\ShaderCompiler.cpp" />
     <ClCompile Include="code\engine\shader\ShaderManager.cpp" />
     <ClCompile Include="code\engine\shader\ShaderPair.cpp" />
     <ClCompile Include="code\engine\shader\VertexShaderObject.cpp" />
-    <ClCompile Include="code\engine\system\AmbientLight.cpp" />
     <ClCompile Include="code\engine\system\BasicObject.cpp" />
     <ClCompile Include="code\engine\system\CameraClass.cpp" />
     <ClCompile Include="code\engine\system\D3DManager.cpp" />
     <ClCompile Include="code\engine\system\FrustumClass.cpp" />
     <ClCompile Include="code\engine\system\InputClass.cpp" />
     <ClCompile Include="code\engine\system\LineClass.cpp" />
-    <ClCompile Include="code\engine\system\MutableString.cpp" />
     <ClCompile Include="code\engine\system\PrimitivePipeline.cpp" />
     <ClCompile Include="code\engine\system\SoundClass.cpp" />
     <ClCompile Include="code\engine\system\TextureObject.cpp" />
@@ -436,6 +435,7 @@
     <ClInclude Include="code\engine\containers\CommonContainer.hpp" />
     <ClInclude Include="code\engine\containers\Directory.hpp" />
     <ClInclude Include="code\engine\containers\Iterator.hpp" />
+    <ClInclude Include="code\engine\containers\MutableString.hpp" />
     <ClInclude Include="code\engine\containers\String.hpp" />
     <ClInclude Include="code\engine\containers\Vector.hpp" />
     <ClInclude Include="code\engine\containers\VirtualString.hpp" />
@@ -492,7 +492,6 @@
     <ClInclude Include="code\engine\shader\ShaderPair.hpp" />
     <ClInclude Include="code\engine\shader\ShaderVariable.hpp" />
     <ClInclude Include="code\engine\shader\VertexShaderObject.hpp" />
-    <ClInclude Include="code\engine\system\AmbientLight.hpp" />
     <ClInclude Include="code\engine\system\BasicObject.hpp" />
     <ClInclude Include="code\engine\system\BlockClass.hpp" />
     <ClInclude Include="code\engine\system\CameraClass.hpp" />
@@ -515,7 +514,6 @@
     <ClInclude Include="code\engine\system\MaterialType.hpp" />
     <ClInclude Include="code\engine\system\memory\Memory.hpp" />
     <ClInclude Include="code\engine\system\MutableMesh.hpp" />
-    <ClInclude Include="code\engine\system\MutableString.hpp" />
     <ClInclude Include="code\engine\system\ParticleObject.hpp" />
     <ClInclude Include="code\engine\system\PrimitivePipeline.hpp" />
     <ClInclude Include="code\engine\system\RectangleObject.hpp" />

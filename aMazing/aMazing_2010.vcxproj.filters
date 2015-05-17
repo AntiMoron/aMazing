@@ -227,9 +227,6 @@
     <ClInclude Include="code\engine\system\LineClass.hpp">
       <Filter>Engine\system</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\system\MutableString.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
     <ClInclude Include="code\engine\system\PrimitivePipeline.hpp">
       <Filter>Engine\system</Filter>
     </ClInclude>
@@ -250,9 +247,6 @@
       <Filter>Engine\system</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\system\BasicObject.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\AmbientLight.hpp">
       <Filter>Engine\system</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\system\FrameBuffer.hpp">
@@ -450,6 +444,9 @@
     <ClInclude Include="code\engine\containers\Directory.hpp">
       <Filter>Engine\containers</Filter>
     </ClInclude>
+    <ClInclude Include="code\engine\containers\MutableString.hpp">
+      <Filter>Engine\containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\collision\CollisionIntersection.cpp">
@@ -457,9 +454,6 @@
     </ClCompile>
     <ClCompile Include="code\common\CommonFunction.cpp">
       <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="code\engine\system\AmbientLight.cpp">
-      <Filter>Engine\system</Filter>
     </ClCompile>
     <ClCompile Include="code\engine\system\BasicObject.cpp">
       <Filter>Engine\system</Filter>
@@ -474,9 +468,6 @@
       <Filter>Engine\system</Filter>
     </ClCompile>
     <ClCompile Include="code\engine\system\LineClass.cpp">
-      <Filter>Engine\system</Filter>
-    </ClCompile>
-    <ClCompile Include="code\engine\system\MutableString.cpp">
       <Filter>Engine\system</Filter>
     </ClCompile>
     <ClCompile Include="code\engine\system\PrimitivePipeline.cpp">
@@ -521,6 +512,9 @@
       <Filter>Engine\shader</Filter>
     </ClCompile>
     <ClCompile Include="code\engine\containers\Directory.cpp">
+      <Filter>Engine\containers</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\containers\MutableString.cpp">
       <Filter>Engine\containers</Filter>
     </ClCompile>
   </ItemGroup>

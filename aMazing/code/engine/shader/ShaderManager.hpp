@@ -3,7 +3,7 @@
 #include<vector>
 #include<algorithm>
 #include"ShaderPair.hpp"
-#include"../system/MutableString.hpp"
+#include"../containers/MutableString.hpp"
 namespace aMazing
 {
 	class ShaderManager
@@ -12,7 +12,6 @@ namespace aMazing
 		static ShaderManager& getInstance();
 
 		HRESULT addPair(ID3D11Device* device,
-			ID3D11DeviceContext* context,
 			const char* vfilename,
 			const char* pfilename,
 			D3D11_INPUT_ELEMENT_DESC layout[],
@@ -20,7 +19,6 @@ namespace aMazing
 			std::string&& shadername);
 
 		bool bindPair(const std::string& str,
-			ID3D11Device* device,
 			ID3D11DeviceContext* context);
 	
 		void DisableShaderBind();

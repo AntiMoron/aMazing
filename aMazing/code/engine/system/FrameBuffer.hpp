@@ -28,8 +28,7 @@ namespace aMazing
 			aSAFE_RELEASE(m_depthStencilView);
 		}
 
-		HRESULT Initialize(ID3D11Device* device, 
-			ID3D11DeviceContext* context, 
+		HRESULT initialize(ID3D11Device* device,
 			unsigned short imageWidth = -1, 
 			unsigned short imageHeight = -1)
 		{
@@ -117,7 +116,7 @@ namespace aMazing
 			return S_OK;
 		}
 
-		void setRenderTarget(ID3D11Device* , ID3D11DeviceContext* context)
+		void setRenderTarget(ID3D11DeviceContext* context)
 		{
 			static ID3D11ShaderResourceView* null[] = {nullptr};
 			context->PSSetShaderResources(0, 1, null);
@@ -126,7 +125,7 @@ namespace aMazing
 			context->RSSetViewports(1, &m_viewPort);
 		}
 
-		void clearRenderTarget(ID3D11Device* device, ID3D11DeviceContext* context)
+		void clearRenderTarget(ID3D11DeviceContext* context)
 		{
 			static float clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 			context->ClearRenderTargetView(m_renderTargetView, clearColor);
@@ -134,14 +133,12 @@ namespace aMazing
 				D3D11_CLEAR_DEPTH, 1.0f, NULL);
 		}
 
-		void bindVS(ID3D11Device* device,
-			ID3D11DeviceContext* context,
+		void bindVS(ID3D11DeviceContext* context,
 			unsigned int textureSlot)
 		{
 			context->VSSetShaderResources(textureSlot, 1, &m_shaderResourceView);
 		}
-		void bindPS(ID3D11Device* device,
-			ID3D11DeviceContext* context,
+		void bindPS(ID3D11DeviceContext* context,
 			unsigned int textureSlot)
 		{
 			//context->ResolveSubresource(m_renderTargetTextureMS,

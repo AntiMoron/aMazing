@@ -17,12 +17,11 @@ bool ModelObject::isStatic() const
 	return isStaticModel;
 }
 
-HRESULT ModelObject::Initialize(ID3D11Device* device,
-	ID3D11DeviceContext* context,
+HRESULT ModelObject::initialize(ID3D11Device* device,
 	MutableString&& string)
 {
 	HRESULT hr = E_FAIL;
-	hr = BasicObject::Initialize(device, context);
+	hr = BasicObject::initialize(device);
 	if (FAILED(hr))
 	{
 		return hr;
@@ -70,14 +69,14 @@ HRESULT ModelObject::Initialize(ID3D11Device* device,
 	if (!isStaticModel)
 	{
 		sceneAnimator.reset(new SceneAnimator(scene));
-		hr = boneTransformations.Initialize(device, context, 3);
+		hr = boneTransformations.initialize(device, 3);
 		if (FAILED(hr))
 		{
 			return hr;
 		}
 	}
 	//load the texturess of this model.
-	loadTextures(device, context, scene, string.getMultiByteString().c_str());
+	loadTextures(device, scene, string.getMultiByteString().c_str());
 
 	//load the meshes of this model.
 	loadMeshes(scene);
@@ -92,7 +91,7 @@ HRESULT ModelObject::Initialize(ID3D11Device* device,
 		for (int i = 0; i < staticVertices.size(); i++)
 		{
 			auto& currentBuffer = staticVertexBuffer[i];
-			hr = currentBuffer->Initialize(device, context,
+			hr = currentBuffer->initialize(device,
 				staticVertices[i]->data(),
 				staticVertices[i]->size(),
 				indices[i]->data(),
@@ -108,7 +107,7 @@ HRESULT ModelObject::Initialize(ID3D11Device* device,
 		for (size_t i = 0; i < animationVertices.size(); i++)
 		{
 			auto& currentBuffer = animationVertexBuffer[i];
-			hr = currentBuffer->Initialize(device, context,
+			hr = currentBuffer->initialize(device,
 				animationVertices[i]->data(),
 				animationVertices[i]->size(),
 				indices[i]->data(),
@@ -123,7 +122,6 @@ HRESULT ModelObject::Initialize(ID3D11Device* device,
 }
 
 void ModelObject::loadTextures(ID3D11Device* device,
-	ID3D11DeviceContext* context, 
 	const aiScene* pScene,
 	const char*)
 {
@@ -146,7 +144,7 @@ void ModelObject::loadTextures(ID3D11Device* device,
 			textures.push_back(std::unique_ptr<TextureObject>(new TextureObject));
 			try
 			{
-				HRESULT hr = textures.back()->LoadFile(device, context, filepath.c_str());
+				HRESULT hr = textures.back()->LoadFile(device, filepath.c_str());
 				if (FAILED(hr))
 				{
 					return ;
@@ -154,14 +152,14 @@ void ModelObject::loadTextures(ID3D11Device* device,
 			}
 			catch (const std::exception& e)
 			{
-				printf("%s\n",e.what());
-				textures.back()->beChessBoard(device, context);
+				aDBG(e.what());
+				textures.back()->beChessBoard(device);
 			}
 		}
 		else
 		{
 			textures.push_back(std::unique_ptr<TextureObject>(new TextureObject));
-			textures.back()->beChessBoard(device, context);
+			textures.back()->beChessBoard(device);
 		}
 	}
 }
@@ -296,8 +294,7 @@ std::string ModelObject::getModelLocation(const char* filename)
 	return std::move(result);
 }
 
-void ModelObject::bindBonesToGPU(ID3D11Device* device,
-	ID3D11DeviceContext* context, 
+void ModelObject::bindBonesToGPU(ID3D11DeviceContext* context,
 	aiNode* pNode,
 	float animationTime)
 {
@@ -309,9 +306,9 @@ void ModelObject::bindBonesToGPU(ID3D11Device* device,
 	{
 		boneCbData.boneMatrices[cur] = boneData[cur];
 	}
-	boneTransformations.UpdateData(&boneCbData);
-	boneTransformations.UpdateGpu(device, context);
-	boneTransformations.BindVertexShader(device, context);
+	boneTransformations.updateData(&boneCbData);
+	boneTransformations.updateGpu(context);
+	boneTransformations.BindVertexShader(context);
 }
 
 bool ModelObject::isInited()const
@@ -319,25 +316,23 @@ bool ModelObject::isInited()const
 	return is_inited;
 }
 
-void ModelObject::Render(ID3D11Device* device,
-	ID3D11DeviceContext* context)
+void ModelObject::render(ID3D11DeviceContext* context)
 {
-	BasicObject::UpdatePRS(device, context);
+	BasicObject::updatePRS(context);
 
 	render_time += 0.001f;
 	if (render_time > 20.0f)
 	{
 		render_time = 0.0f;
 	}
-	Render(device, context, nullptr);
+	render(context, nullptr);
 }
 
 /*
 * if pNode is nullptr ,
 * then it begin with rootNode
 */
-void ModelObject::Render(ID3D11Device* device,
-	ID3D11DeviceContext* context,
+void ModelObject::render(ID3D11DeviceContext* context,
 	aiNode* pNode)
 {
 	if (pNode == nullptr)
@@ -348,16 +343,16 @@ void ModelObject::Render(ID3D11Device* device,
 	for (size_t i = 0; i < pNode->mNumMeshes; i++)
 	{
 		std::size_t meshIndex = pNode->mMeshes[i];
-		bindBonesToGPU(device, context, pNode, render_time);
-		textures[textureIndices[meshIndex]]->bindPS(device, context, 0);
+		bindBonesToGPU(context, pNode, render_time);
+		textures[textureIndices[meshIndex]]->bindPS(context, 0);
 		if (isStaticModel)
-			staticVertexBuffer[meshIndex]->Render(device, context);
+			staticVertexBuffer[meshIndex]->render(context);
 		else
-			animationVertexBuffer[meshIndex]->Render(device, context);
+			animationVertexBuffer[meshIndex]->render(context);
 	}
 	
 	for (size_t i = 0; i < pNode->mNumChildren; i++)
 	{
-		Render(device, context, pNode->mChildren[i]);
+		render(context, pNode->mChildren[i]);
 	}
 }

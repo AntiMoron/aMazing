@@ -5,7 +5,7 @@
 #include<dsound.h>
 #include<vector>
 #include<thread>
-#include"MutableString.hpp"
+#include"../containers/MutableString.hpp"
 #include"../../3rd-party/audiere/include/audiere.h"
 using namespace audiere;
 #pragma comment(lib, "3rd-party/audiere/lib/audiere.lib")
@@ -20,7 +20,7 @@ namespace aMazing
 		SoundClass();
 		~SoundClass();
 
-		HRESULT Initialize(HWND hwnd, MutableString&& path);
+		HRESULT initialize(HWND hwnd, MutableString&& path);
 
 		bool Play();
 		bool Stop();

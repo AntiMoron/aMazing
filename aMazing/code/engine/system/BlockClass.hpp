@@ -9,12 +9,11 @@ namespace aMazing
 		BlockClass(){}
 		~BlockClass(){}
 	
-		HRESULT Initialize(ID3D11Device* device,
-			ID3D11DeviceContext* context)
+		HRESULT initialize(ID3D11Device* device)
 		{
 			HRESULT hr = E_FAIL;
-			//Initialize PRS & PRS buffer
-			hr = BasicObject::Initialize(device, context);
+			//initialize PRS & PRS buffer
+			hr = BasicObject::initialize(device);
 			if (FAILED(hr))
 			{
 				return hr;
@@ -76,7 +75,7 @@ namespace aMazing
 				vertices[i].normal = nor[normalIndices[i] - 1];
 				vertices[i].texture = tex[textureIndices[i] - 1];
 			}
-			hr = verticesMesh.Initialize(device, context, vertices, 36);
+			hr = verticesMesh.initialize(device, vertices, 36);
 			if (FAILED(hr))
 			{
 				return hr;
@@ -85,13 +84,12 @@ namespace aMazing
 		}
 
 
-		void Render(ID3D11Device* device,
-			ID3D11DeviceContext* context)
+		void render(ID3D11DeviceContext* context)
 		{
 			//Update PRS data
 			context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-			BasicObject::UpdatePRS(device, context);
-			verticesMesh.Render(device, context);
+			BasicObject::updatePRS(context);
+			verticesMesh.render(context);
 		}
 
 	private:

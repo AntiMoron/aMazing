@@ -3,7 +3,7 @@ using namespace aMazing;
 SoundClass::SoundClass(){}
 SoundClass::~SoundClass(){}
 
-HRESULT SoundClass::Initialize(HWND hwnd , MutableString&& path)
+HRESULT SoundClass::initialize(HWND hwnd , MutableString&& path)
 {
 	HRESULT hr = S_OK;
 	m_hWnd = hwnd;

@@ -13,7 +13,7 @@ namespace aMazing
 	public:
 		D3DManager() = delete;
 
-		static HRESULT Initialize(HWND hwnd)
+		static HRESULT initialize(HWND hwnd)
 		{
 			HRESULT hr = E_FAIL;
 			lastTime = clock.now();

@@ -86,17 +86,7 @@ HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow )
     if( !g_hWnd )
         return E_FAIL;
 	GLOBAL_WINDOW.setWindowHandler(g_hWnd);
-	aString v = "555,878787,25123123123123,sadfdsasdfsadf,a";
-	if (v.replaceIndex(1,'5','6'))
-		aDBG("Not Found");
-	aDBG(v);
-	auto xv = v.splitString(',');
-	for (auto x : xv)
-	{
-		aDBG(x.c_str());
-	}
     ShowWindow( g_hWnd, nCmdShow );
-	aDBG(minimizeDirectory("./46"));
     return S_OK;
 }
 
@@ -110,35 +100,35 @@ HRESULT InitDevice()
 
 	GLOBAL_WINDOW.setWidth(width);
 	GLOBAL_WINDOW.setHeight(height);
-	//Initialize all the thing we need to prepare for rendering work.
-	D3DManager::Initialize(GLOBAL_WINDOW.getWindowHandler());
+	//initialize all the thing we need to prepare for rendering work.
+	D3DManager::initialize(GLOBAL_WINDOW.getWindowHandler());
 	//From now on device's marco access is enabled.
 #define DEVICE (D3DManager::getDevice(DEFAULT_DEVICE))
 #define CONTEXT (D3DManager::getContext(DEFAULT_CONTEXT))
 #define DEPTH (D3DManager::getDepthStencilView(DEFAULT_DEPTH_STENCIL_VIEW))
 	// Load the Texture
-	hr = TEXTURE.addTexture(DEVICE, CONTEXT, "seafloor.dds");
+	hr = TEXTURE.addTexture(DEVICE, "seafloor.dds");
 	if (FAILED(hr))
 		return hr;
 
-	hr = TEXTURE.addTexture(DEVICE, CONTEXT, "glowstone.png");
+	hr = TEXTURE.addTexture(DEVICE, "glowstone.png");
 	if (FAILED(hr))
 		return hr;
 
-	hr = TEXTURE.addTexture(DEVICE, CONTEXT, "leaves.png");
+	hr = TEXTURE.addTexture(DEVICE, "leaves.png");
 	if (FAILED(hr))
 		return hr;
 
-	hr = TEXTURE.addTexture(DEVICE, CONTEXT, "sky.png");
+	hr = TEXTURE.addTexture(DEVICE, "sky.png");
 	if (FAILED(hr))
 		return hr;
 
-	hr = TEXTURE.addChessBoardTexture(DEVICE, CONTEXT);
+	hr = TEXTURE.addChessBoardTexture(DEVICE);
 	if (FAILED(hr))
 		return hr;
 
 	//aditional operations.
-	GRAPHICS.Initialize(DEVICE,CONTEXT);
+	GRAPHICS.initialize(DEVICE,CONTEXT);
 	// Define the input layout
 	D3D11_INPUT_ELEMENT_DESC layout[] =
 	{
@@ -169,23 +159,25 @@ HRESULT InitDevice()
 
 	UINT animElements = ARRAYSIZE(animLayout);
 	UINT numElements = ARRAYSIZE(layout);
-	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
+	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE,
 		"Shader/Basic3D.fx", "Shader/Basic3D.fx",
 		layout, numElements, "Basic3D"));
 
-	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
+	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE,
 		"Shader/Basic2D.fx", "Shader/Basic2D.fx",
 		layout, numElements, "Basic2D"));
 
-	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
+	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE,
 		"Shader/BasicSky.fx", "Shader/BasicSky.fx",
 		layout, numElements, "BasicSky"));
-
-	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE, CONTEXT,
+	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE,
+		"Shader/wires/line.fx", "Shader/wires/line.fx",
+		animLayout, animElements, "BasicLine"));
+	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE,
 		"Shader/skinAnim/skinAnim.fx", "Shader/skinAnim/skinAnim.fx",
 		animLayout, animElements, "SkinAnim"));
 	scene = new aMazingScene;
-	scene->Initialize(g_hWnd, DEVICE, CONTEXT);
+	scene->initialize(g_hWnd, DEVICE);
 	return S_OK;
 }
 
@@ -299,6 +291,6 @@ void Render()
 {
 	CameraProc();
 	D3DManager::clearRenderTarget();
-	scene->Render(DEVICE, CONTEXT);
+	scene->render(CONTEXT);
 	D3DManager::present(true);//V-Sync
 }

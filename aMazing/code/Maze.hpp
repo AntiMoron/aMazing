@@ -6,8 +6,7 @@
 class Maze
 {
 public:
-	void Render(ID3D11Device* device,
-		ID3D11DeviceContext* context,
+	void Render(ID3D11DeviceContext* context,
 		const std::shared_ptr<aMazing::CameraClass>& camera);
 
 	bool& get(std::size_t x,std::size_t y);

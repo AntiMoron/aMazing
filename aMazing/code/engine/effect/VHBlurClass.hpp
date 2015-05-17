@@ -11,25 +11,25 @@ namespace aMazing
 		VHBlurClass(){}
 		~VHBlurClass(){}
 
-		HRESULT Initialize(ID3D11Device* device,
+		HRESULT initialize(ID3D11Device* device,
 			ID3D11DeviceContext* context)
 		{
 			HRESULT hr;
 			m_vbuffer.reset(new FrameBuffer);
 			m_hbuffer.reset(new FrameBuffer);
-			hr = m_vbuffer->Initialize(device, context);
+			hr = m_vbuffer->initialize(device, context);
 			if (FAILED(hr))
 			{
 				return hr;
 			}
 
-			hr = m_hbuffer->Initialize(device, context);
+			hr = m_hbuffer->initialize(device, context);
 			if (FAILED(hr))
 			{
 				return hr;
 			}
 
-			hr = EffectClass::Initialize(device, context);		//must last
+			hr = EffectClass::initialize(device, context);		//must last
 			if (FAILED(hr))
 			{
 				return hr;

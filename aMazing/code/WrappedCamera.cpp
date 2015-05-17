@@ -52,11 +52,11 @@ XMFLOAT3 WrappedCamera::getPosition()
 	return camera->getPosition();
 }
 
-HRESULT WrappedCamera::Initialize(ID3D11Device* device, ID3D11DeviceContext* context)
+HRESULT WrappedCamera::initialize(ID3D11Device* device)
 {
 	HRESULT hr;
 	camera.reset(new CameraClass);
-	hr = camera->Initialize(device, context);
+	hr = camera->initialize(device);
 	if (FAILED(hr))
 	{
 		return hr;
@@ -123,7 +123,7 @@ void WrappedCamera::moveRightward(bool keyDown)
 	}
 }
 
-void WrappedCamera::Render(ID3D11Device* device, ID3D11DeviceContext* context)
+void WrappedCamera::render(ID3D11DeviceContext* context)
 {
 	XMFLOAT3 _speed = speed;
 	_speed.x += negativeSpeed.x;
@@ -164,7 +164,7 @@ void WrappedCamera::Render(ID3D11Device* device, ID3D11DeviceContext* context)
 	XMFLOAT3 pos = camera->getPosition();
 //	pos.y = Maze::blockSize * 1.05f;
 //	camera->setPosition(pos);
-	camera->Render(device, context);
+	camera->render(context);
 	//reset rotation to origin for next calculation
 	camera->setRotation(rotation);
 }

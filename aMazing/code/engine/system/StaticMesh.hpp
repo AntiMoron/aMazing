@@ -11,7 +11,7 @@ namespace aMazing
 		StaticMesh(){}
 		~StaticMesh(){}
 
-		HRESULT Initialize(ID3D11Device* device,
+		HRESULT initialize(ID3D11Device* device,
 			ID3D11DeviceContext* context,
 			T* verticesData,
 			std::size_t verticesCount,
@@ -19,7 +19,7 @@ namespace aMazing
 			std::size_t indicesCount = 0)
 		{
 			HRESULT hr;
-			hr = vertices.Initialize(device, context, verticesData, verticesCount, indices, indicesCount);
+			hr = vertices.initialize(device, context, verticesData, verticesCount, indices, indicesCount);
 			if (FAILED(hr))
 			{
 				return hr;

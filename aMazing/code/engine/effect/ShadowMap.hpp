@@ -7,18 +7,18 @@ namespace aMazing
 	class ShadowMap : public EffectClass
 	{
 	public:
-		HRESULT Initialize(ID3D11Device* device,
+		HRESULT initialize(ID3D11Device* device,
 			ID3D11DeviceContext* context)
 		{
 			HRESULT hr;
 			depthBuffer.reset(new FrameBuffer);
-			hr = depthBuffer->Initialize(device, context, WINWIDTH, WINHEIGHT); 
+			hr = depthBuffer->initialize(device, context, WINWIDTH, WINHEIGHT); 
 			if (FAILED(hr))
 			{
 				return hr;
 			}
 
-			hr = EffectClass::Initialize(device, context);
+			hr = EffectClass::initialize(device, context);
 			if (FAILED(hr))
 			{
 				return hr;

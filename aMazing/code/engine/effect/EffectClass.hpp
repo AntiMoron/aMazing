@@ -17,12 +17,12 @@ namespace aMazing
 		}
 		virtual ~EffectClass(){}
 
-		HRESULT Initialize(ID3D11Device* device,
+		HRESULT initialize(ID3D11Device* device,
 			ID3D11DeviceContext* context)
 		{
 			HRESULT hr;
 			fbo.reset(new FrameBuffer);
-			hr = fbo->Initialize(device, context);
+			hr = fbo->initialize(device);
 			if (FAILED(hr))
 			{
 				return hr;
@@ -34,27 +34,27 @@ namespace aMazing
 		void clearRenderTarget(ID3D11Device* device,
 			ID3D11DeviceContext* context)
 		{
-			fbo->clearRenderTarget(device, context);
+			fbo->clearRenderTarget(context);
 		}
 
 		void setRenderTarget(ID3D11Device* device,
 			ID3D11DeviceContext* context)
 		{
-			fbo->setRenderTarget(device, context);
+			fbo->setRenderTarget(context);
 		}
 
 		void bindVS(ID3D11Device* device,
 			ID3D11DeviceContext* context,
 			unsigned int textureSlot)
 		{
-			fbo->bindVS(device, context, textureSlot);
+			fbo->bindVS(context, textureSlot);
 		}
 
 		void bindPS(ID3D11Device* device,
 			ID3D11DeviceContext* context,
 			unsigned int textureSlot)
 		{
-			fbo->bindPS(device, context, textureSlot);
+			fbo->bindPS(context, textureSlot);
 		}
 
 		void clearDepthStencil(ID3D11Device* device,

@@ -21,8 +21,7 @@ bool& Maze::get(std::size_t x, std::size_t y)
 	return m_map[x * width + y];
 }
 
-void Maze::Render(ID3D11Device* device,
-	ID3D11DeviceContext* context,
+void Maze::Render(ID3D11DeviceContext* context,
 	const std::shared_ptr<aMazing::CameraClass>& camera)
 {
 	float xOffSet = blockSize * width / 2.0f;
@@ -45,9 +44,9 @@ void Maze::Render(ID3D11Device* device,
 //				scaling.x , scaling.y, scaling.z))
 			{
 				if (position.y > 0.0f)
-					TEXTURE.getTexture(1)->bindPS(device, context, 0);
+					TEXTURE.getTexture(1)->bindPS(context, 0);
 				else
-					TEXTURE.getTexture(4)->bindPS(device, context, 0);
+					TEXTURE.getTexture(4)->bindPS(context, 0);
 				GRAPHICS.RenderBox(position.x, position.y, position.z,
 					rotation.x, rotation.y, rotation.z,
 					scaling.x, scaling.y, scaling.z);

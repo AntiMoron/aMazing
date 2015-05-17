@@ -15,17 +15,17 @@ namespace aMazing
 			;
 		}
 
-		HRESULT Initialize(ID3D11Device* device,
+		HRESULT initialize(ID3D11Device* device,
 			ID3D11DeviceContext* context)
 		{
 			HRESULT hr;
 			vertBuffer.reset(new FrameBuffer);
-			hr = vertBuffer->Initialize(device, context);
+			hr = vertBuffer->initialize(device, context);
 			if (FAILED(hr))
 			{
 				return hr;
 			}
-			hr = EffectClass::Initialize(device, context);
+			hr = EffectClass::initialize(device, context);
 			if (FAILED(hr))
 			{
 				return hr;

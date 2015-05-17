@@ -15,7 +15,6 @@ TextureObject::~TextureObject()
 }
 
 HRESULT TextureObject::LoadFile(ID3D11Device* device,
-	ID3D11DeviceContext* context,
 	MutableString&& filename)
 {
 	HRESULT hr;
@@ -30,7 +29,7 @@ HRESULT TextureObject::LoadFile(ID3D11Device* device,
 		TGALOAD(filePath.c_str(), &data);
 		long pixelCount = long(data.getHeight()) * long(data.getWidth());
 
-		hr = LoadMemory(device, context, data.getWidth(), data.getHeight(), 
+		hr = LoadMemory(device, data.getWidth(), data.getHeight(), 
 			data.getColDataPtr(),
 			sizeof(XMFLOAT4)* pixelCount);
 		if (FAILED(hr))
@@ -57,7 +56,6 @@ HRESULT TextureObject::LoadFile(ID3D11Device* device,
 }
 
 HRESULT TextureObject::LoadMemory(ID3D11Device* device,
-	ID3D11DeviceContext* context,
 	std::size_t width,
 	std::size_t height,
 	void* ptr,
@@ -116,14 +114,13 @@ HRESULT TextureObject::LoadMemory(ID3D11Device* device,
 	return S_OK;
 }
 
-HRESULT TextureObject::beChessBoard(ID3D11Device* device,
-	ID3D11DeviceContext* context)
+HRESULT TextureObject::beChessBoard(ID3D11Device* device)
 {
 	HRESULT hr;
-	hr = LoadMemory(device, context,
+	hr = LoadMemory(device,
 		defaultWidth,
 		defaultHeight,
-		(void*)defaultData.chessBoardData,
+		reinterpret_cast<void*>(const_cast<unsigned char*>(defaultData.chessBoardData)),
 		sizeof(unsigned char) * defaultWidth * defaultHeight * 4);
 	if (FAILED(hr))
 	{
@@ -134,16 +131,14 @@ HRESULT TextureObject::beChessBoard(ID3D11Device* device,
 }
 
 
-bool TextureObject::bindVS(ID3D11Device* device,
-	ID3D11DeviceContext* context, 
+bool TextureObject::bindVS(ID3D11DeviceContext* context, 
 	unsigned int textureSlot)
 {
 	context->VSSetShaderResources(textureSlot, 1, &SRV);
 	return true;
 }
 
-bool TextureObject::bindPS(ID3D11Device* device,
-	ID3D11DeviceContext* context,
+bool TextureObject::bindPS(ID3D11DeviceContext* context,
 	unsigned int textureSlot)
 {
 	context->PSSetShaderResources(textureSlot, 1, &SRV);

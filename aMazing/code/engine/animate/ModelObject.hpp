@@ -24,26 +24,22 @@ namespace aMazing
 	public:
 		ModelObject();
 
-		HRESULT Initialize(ID3D11Device* device,
-			ID3D11DeviceContext* context,
+		HRESULT initialize(ID3D11Device* device,
 			MutableString&& string);
 
 		bool isInited()const;
 
 
-		void Render(ID3D11Device* device,
-			ID3D11DeviceContext* context);
+		void render(ID3D11DeviceContext* context);
 
 		bool isStatic() const;
 	private:
 
-		void Render(ID3D11Device* device,
-			ID3D11DeviceContext* context,
+		void render(ID3D11DeviceContext* context,
 			aiNode* pNode);
 
 		//load all the textures from resource files.
 		void loadTextures(ID3D11Device* device,
-			ID3D11DeviceContext* context,
 			const aiScene* pScene,
 			const char* modelPath);
 		//load mesh data from asset.
@@ -54,8 +50,7 @@ namespace aMazing
 		std::string getModelLocation(const char* filename);
 	
 		//bind bones from CPU to GPU.
-		void bindBonesToGPU(ID3D11Device* device,
-			ID3D11DeviceContext* context, 
+		void bindBonesToGPU(ID3D11DeviceContext* context, 
 			aiNode* pNode,
 			float animationTime);
 

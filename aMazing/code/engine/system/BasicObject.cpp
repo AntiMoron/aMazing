@@ -11,8 +11,7 @@ BasicObject::~BasicObject()
 {
 }
 
-HRESULT BasicObject::Initialize(ID3D11Device* device,
-	ID3D11DeviceContext* context)
+HRESULT BasicObject::initialize(ID3D11Device* device)
 {
 	HRESULT hr;
 	position = { .0f, .0f, .0f };
@@ -33,27 +32,11 @@ HRESULT BasicObject::Initialize(ID3D11Device* device,
 	XMStoreFloat4x4(&(m_prsData->rotation), prsData.rotation);
 	XMStoreFloat4x4(&(m_prsData->scaling), prsData.scaling);
 
-	hr = m_prsBuffer.Initialize(device, context, 1);	//PRS info is bind to Vertex shader slot 1
+	hr = m_prsBuffer.initialize(device, 1);	//PRS info is bind to Vertex shader slot 1
 	if (FAILED(hr))
 	{
 		return hr;
 	}
-	hr = m_prsBuffer.UpdateData(&prsData);
-	if (FAILED(hr))
-	{
-		return hr;
-	}
-	hr = m_prsBuffer.UpdateGpu(device, context);
-	if (FAILED(hr))
-	{
-		return hr;
-	}
-	hr = m_prsBuffer.BindVertexShader(device, context);
-	if (FAILED(hr))
-	{
-		return hr;
-	}
-
 	return S_OK;
 }
 
@@ -88,8 +71,7 @@ void BasicObject::setScaling(XMFLOAT3&& val)
 }
 
 
-HRESULT BasicObject::UpdatePRS(ID3D11Device* device,
-	ID3D11DeviceContext* context)
+HRESULT BasicObject::updatePRS(ID3D11DeviceContext* context)
 {
 	HRESULT hr;
 	PRSShaderData prsData;
@@ -107,17 +89,17 @@ HRESULT BasicObject::UpdatePRS(ID3D11Device* device,
 	XMStoreFloat4x4(&(m_prsData->scaling), prsData.scaling);
 
 
-	hr = m_prsBuffer.UpdateData(&prsData);
+	hr = m_prsBuffer.updateData(&prsData);
 	if (FAILED(hr))
 	{
 		return hr; 
 	}
-	hr = m_prsBuffer.UpdateGpu(device, context);
+	hr = m_prsBuffer.updateGpu(context);
 	if (FAILED(hr))
 	{
 		return hr;
 	}
-	hr = m_prsBuffer.BindVertexShader(device, context);
+	hr = m_prsBuffer.BindVertexShader(context);
 	if (FAILED(hr))
 	{
 		return hr;

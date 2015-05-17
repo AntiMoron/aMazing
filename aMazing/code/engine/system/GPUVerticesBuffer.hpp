@@ -20,7 +20,11 @@ public:
 	}
 
 	//If the indices pointer is nullptr,then no index buffer would be initialized
-	HRESULT Initialize(ID3D11Device* device, ID3D11DeviceContext* context, source_type* verticesData, int verticesCount, WORD* indices = nullptr, std::size_t indicesCount = 0)
+	HRESULT initialize(ID3D11Device* device,
+		source_type* verticesData, 
+		int verticesCount,
+		WORD* indices = nullptr, 
+		std::size_t indicesCount = 0)
 	{
 		HRESULT hr = S_OK;
 		m_inited = false;
@@ -44,13 +48,10 @@ public:
 		hr = device->CreateBuffer(&bd, &InitData, &m_vertices);
 		if (FAILED(hr))
 		{
-			printf("Vertex Buffer Create Failed\r\n");
+			aDBG("Vertex Buffer Create Failed\r\n");
 			return hr;
 		}
 		// Set Vertex buffer
-		UINT stride = sizeof(source_type);
-		UINT offset = 0;
-		context->IASetVertexBuffers(0, 1, &m_vertices, &stride, &offset);
 
 		if (nullptr != indices)
 		{
@@ -65,10 +66,9 @@ public:
 			hr = device->CreateBuffer(&bd, &InitData, &m_index);
 			if (FAILED(hr))
 			{
-				printf("Index buffer Create Failed\r\n");
+				aDBG("Index buffer Create Failed.");
 				return hr;
 			}
-			context->IASetIndexBuffer(m_index, DXGI_FORMAT_R16_UINT, 0);
 			m_hasIndex = true;
 		}
 
@@ -76,7 +76,7 @@ public:
 		return S_OK;
 	}
 
-	HRESULT Bind(ID3D11Device* device, ID3D11DeviceContext* context)
+	HRESULT bind(ID3D11DeviceContext* context)
 		//Bind the vertice buffer and the index buffer(if it has one)
 	{
 		UINT stride = sizeof(source_type);
@@ -89,10 +89,10 @@ public:
 		return S_OK;
 	}
 
-	void Render(ID3D11Device* device, ID3D11DeviceContext* context)
+	void render(ID3D11DeviceContext* context)
 	{
 		context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-		Bind(device, context);
+		bind(context);
 		if (m_hasIndex == true)
 		{
 			context->DrawIndexed(m_indicesCount, 0, 0);

@@ -6,34 +6,33 @@ aMazingScene::aMazingScene()
 }
 
 
-HRESULT aMazingScene::Initialize(HWND hwnd, ID3D11Device* device,
-	ID3D11DeviceContext* context)
+HRESULT aMazingScene::initialize(HWND hwnd, ID3D11Device* device)
 {
 	HRESULT hr;
-	//Initialize collision world.
+	//initialize collision world.
 	//must be called before generating a maze
 	collisionWorld = std::make_shared<CollisionWorld>();
-	collisionWorld->Initialize();
+	collisionWorld->initialize();
 
 	//Generate a maze
 	maze = MAZEFACTORY.genMaze(50, collisionWorld);
 
 	camera = std::make_shared<WrappedCamera>();
-	hr = camera->Initialize(device, context);
+	hr = camera->initialize(device);
 	if (FAILED(hr))
 	{
 		return hr;
 	}
 	
 	dayTime = std::make_shared<DayNightClass>();
-	hr = dayTime->Initialize(device, context);
+	hr = dayTime->initialize(device);
 	if (FAILED(hr))
 	{
 		return hr;
 	}
 
 	fb = std::make_shared<FrameBuffer>();
-	hr = fb->Initialize(device, context, 800, 600);
+	hr = fb->initialize(device, 800, 600);
 	if (FAILED(hr))
 	{
 		return hr;
@@ -45,18 +44,18 @@ HRESULT aMazingScene::Initialize(HWND hwnd, ID3D11Device* device,
 	camera->setFov(60.0f);
 
 	model = std::make_shared<ModelObject>();
-	hr = model->Initialize(device, context, "3dModel/figure.fbx");
+	hr = model->initialize(device, "3dModel/figure.fbx");
 	if (FAILED(hr))
 	{
 		return hr;
 	}
 
 	classInstanceBuffer.reset(new GPUConstantBuffer<ClassInstance>);
-	classInstanceBuffer->Initialize(device, context, 11);
+	classInstanceBuffer->initialize(device, 11);
 	return S_OK;
 }
 
-void aMazingScene::Render(ID3D11Device* device, ID3D11DeviceContext* context)
+void aMazingScene::render(ID3D11DeviceContext* context)
 {
 
 	ClassInstance cbdata;
@@ -68,49 +67,49 @@ void aMazingScene::Render(ID3D11Device* device, ID3D11DeviceContext* context)
 	cbdata.environmentLighting.vLightColor = { 0.0f, 0.6353f, 0.910f };
 	cbdata.material.iSpecFactor = 128;
 	cbdata.material.vColor = { 0.5f, 0.5f, 0.5f };
-	classInstanceBuffer->UpdateData(&cbdata);
-	classInstanceBuffer->UpdateGpu(device, context);
-	classInstanceBuffer->BindPixelShader(device, context);
+	classInstanceBuffer->updateData(&cbdata);
+	classInstanceBuffer->updateGpu(context);
+	classInstanceBuffer->bindPixelShader(context);
 
 
-	camera->Render(device, context);
-	dayTime->UpdateTime(device, context);
+	camera->render(context);
+	dayTime->UpdateTime(context);
 
 	XMFLOAT3 pos = camera->getPosition();
 	//collisionWorld->updateCameraPos(pos.x, pos.z, 0.0f);
 	//collisionWorld->getNewState();
 	
-	auto mazeRender = [&](ID3D11Device* device, ID3D11DeviceContext* context)
+	auto mazeRender = [&](ID3D11DeviceContext* context)
 	{
-		SHADERS.bindPair("BasicSky", device, context);
-		TEXTURE.getTexture(3)->bindPS(device, context, 0);
+		SHADERS.bindPair("BasicSky", context);
+		TEXTURE.getTexture(3)->bindPS(context, 0);
 		GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
-		SHADERS.bindPair("Basic3D", device, context);
-		maze->Render(device, context, camera->getCamera());
+		SHADERS.bindPair("Basic3D", context);
+		maze->Render(context, camera->getCamera());
 		//bind shader which skin animation need.
 
 		if (model->isStatic())
 		{
-			SHADERS.bindPair("Basic3D", device, context);
+			SHADERS.bindPair("Basic3D", context);
 		}
 		else
 		{
-			SHADERS.bindPair("SkinAnim", device, context);
+			SHADERS.bindPair("SkinAnim", context);
 		}
 		model->setRotation(XMFLOAT3(1.57, 0, 0));
 		model->setScaling(XMFLOAT3(0.1f, 0.1f, 0.1f));
-		model->Render(device, context);
+		model->render(context);
+		GRAPHICS.RenderLine(10.0f, 10.0f, 10.0f, 0.0f, 0.0f, 0.0f);
 	};
-	fb->clearRenderTarget(device, context);
-	fb->setRenderTarget(device, context);
-	mazeRender(device,context);
+	fb->clearRenderTarget(context);
+	fb->setRenderTarget(context);
+	mazeRender(context);
 	//glow->Render(device, context, mazeRender);
 	//glow->Render(device, context, shadowRender);
-	fb->bindPS(D3DManager::getDevice(MANAGED_DEVICE_TYPE::DEFAULT_DEVICE),
-		D3DManager::getContext(MANAGED_CONTEXT_TYPE::DEFAULT_CONTEXT),
+	fb->bindPS(D3DManager::getContext(DEFAULT_CONTEXT),
 		0);
 	D3DManager::setMainRenderTarget();
-	SHADERS.bindPair("Basic2D", device, context);
+	SHADERS.bindPair("Basic2D", context);
 	GRAPHICS.RenderRectangle(0, 0, WINWIDTH / 2, WINHEIGHT / 2);
 }
 

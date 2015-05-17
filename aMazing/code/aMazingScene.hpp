@@ -22,10 +22,9 @@ class aMazingScene
 public:
 	aMazingScene();
 
-	HRESULT Initialize(HWND hwnd,
-		ID3D11Device* device,
-		ID3D11DeviceContext* context);
-	void Render(ID3D11Device* device,ID3D11DeviceContext* context);
+	HRESULT initialize(HWND hwnd,
+		ID3D11Device* device);
+	void render(ID3D11DeviceContext* context);
 	const std::shared_ptr<WrappedCamera>& getWrappedCamera();
 private:
 	std::shared_ptr<ModelObject> model;

@@ -22,8 +22,7 @@ public:
 		aSAFE_RELEASE(indices);
 	}
 	
-	HRESULT Initialize(ID3D11Device* device,
-		ID3D11DeviceContext* context,
+	HRESULT initialize(ID3D11Device* device,
 		source_type* vexticesPtr,
 		std::size_t vertexCount,
 		WORD* indicesPtr = nullptr,
@@ -73,8 +72,7 @@ public:
 		return S_OK;
 	}
 
-	HRESULT UpdateVertices(ID3D11Device* device,
-		ID3D11DeviceContext* context,
+	HRESULT updateVertices(ID3D11DeviceContext* context,
 		source_type* _vertices,
 		std::size_t vertexCount)
 	{
@@ -93,8 +91,7 @@ public:
 		return S_OK;
 	}
 
-	HRESULT UpdateIndices(ID3D11Device* device,
-		ID3D11DeviceContext* context, 
+	HRESULT UpdateIndices(ID3D11DeviceContext* context, 
 		WORD* _indices,
 		std::size_t indicesCount)
 	{
@@ -116,8 +113,7 @@ public:
 		return is_inited;
 	}
 
-	void Bind(ID3D11Device* device,
-		ID3D11DeviceContext* context)
+	void bind(ID3D11DeviceContext* context)
 	{
 		UINT stride = sizeof(source_type);
 		UINT offset = 0;
@@ -128,10 +124,9 @@ public:
 		context->IASetVertexBuffers(0, 1, &vertices, &stride, &offset);
 	}
 
-	void Render(ID3D11Device* device,
-		ID3D11DeviceContext* context)
+	void render(ID3D11DeviceContext* context)
 	{
-		Bind(device, context);
+		bind(context);
 		if (indices != nullptr)
 		{
 			context->DrawIndexed(indexCount,0,0);

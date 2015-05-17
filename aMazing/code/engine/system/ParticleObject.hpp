@@ -17,7 +17,7 @@ namespace aMazing
 			;
 		}
 
-		HRESULT Initialize(ID3D11Device* device,
+		HRESULT initialize(ID3D11Device* device,
 			ID3D11DeviceContext* context)
 		{
 			return S_OK;

@@ -3,7 +3,7 @@
 #include <string>
 #include "../../../engine/Config.hpp"
 #include "../../exception/FailureException.hpp"
-#include "../../system/MutableString.hpp"
+#include "../../containers/MutableString.hpp"
 
 namespace aMazing
 {

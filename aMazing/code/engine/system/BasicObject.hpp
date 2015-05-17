@@ -13,8 +13,7 @@ public:
 	BasicObject();
 	virtual ~BasicObject();
 
-	HRESULT Initialize(ID3D11Device* device,
-		ID3D11DeviceContext* context);
+	HRESULT initialize(ID3D11Device* device);
 
 	void setPosition(const XMFLOAT3& val);
 	void setPosition(XMFLOAT3&& val);
@@ -25,8 +24,7 @@ public:
 	void setScaling(const XMFLOAT3& val);
 	void setScaling(XMFLOAT3&& val);
 
-	HRESULT UpdatePRS(ID3D11Device* device,
-		ID3D11DeviceContext* context);
+	HRESULT updatePRS(ID3D11DeviceContext* context);
 
 	XMFLOAT3 getPosition() const;
 	XMFLOAT3 getRotation() const;

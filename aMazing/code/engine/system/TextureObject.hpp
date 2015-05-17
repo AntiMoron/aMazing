@@ -5,7 +5,7 @@
 #include"GPUConstantBuffer.hpp"
 #include"GPUVerticesBuffer.hpp"
 #include"../data/TgaLoader.hpp"
-#include"MutableString.hpp"
+#include"../containers/MutableString.hpp"
 namespace aMazing
 {
 	class TextureObject
@@ -19,7 +19,6 @@ namespace aMazing
 		 * 
 		*/
 		HRESULT LoadFile(ID3D11Device* device,
-			ID3D11DeviceContext* context,
 			MutableString&& filename);
 		/*
 		 * Load Texture from a period of memory.
@@ -31,20 +30,16 @@ namespace aMazing
 		 * @param size the size of the texture data.
 		*/
 		HRESULT LoadMemory(ID3D11Device* device,
-			ID3D11DeviceContext* context, 
 			std::size_t width,
 			std::size_t height,
 			void* ptr, 
 			std::size_t size);
 		//make current texture chess board.
-		HRESULT beChessBoard(ID3D11Device* device,
-			ID3D11DeviceContext* context);
+		HRESULT beChessBoard(ID3D11Device* device);
 
-		bool bindVS(ID3D11Device* device,
-			ID3D11DeviceContext* context, 
+		bool bindVS(ID3D11DeviceContext* context, 
 			unsigned int textureSlot);
-		bool bindPS(ID3D11Device* device,
-			ID3D11DeviceContext* context, 
+		bool bindPS(ID3D11DeviceContext* context, 
 			unsigned int textureSlot);
 		bool isInited() const;
 	private:

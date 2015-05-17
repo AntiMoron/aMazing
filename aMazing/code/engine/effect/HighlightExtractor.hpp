@@ -7,17 +7,17 @@ namespace aMazing
 	class HighlightExtractor : public EffectClass
 	{
 	public:
-		HRESULT Initialize(ID3D11Device* device, ID3D11DeviceContext* context)
+		HRESULT initialize(ID3D11Device* device, ID3D11DeviceContext* context)
 		{
 			HRESULT hr;
 			highlight.reset(new FrameBuffer);
-			hr = highlight->Initialize(device, context);
+			hr = highlight->initialize(device, context);
 			if (FAILED(hr))
 			{
 				return hr;
 			}
 
-			hr = EffectClass::Initialize(device, context);
+			hr = EffectClass::initialize(device, context);
 			if (FAILED(hr))
 			{
 				return hr;

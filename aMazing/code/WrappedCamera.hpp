@@ -24,7 +24,7 @@ public:
 	/*
 	To initialize the camera.
 	*/
-	HRESULT Initialize(ID3D11Device* device,ID3D11DeviceContext* context);
+	HRESULT initialize(ID3D11Device* device);
 	/*
 	To set the camera's fov value.
 	*/
@@ -46,7 +46,7 @@ public:
 	void moveBackward(bool keyDown);
 	void moveLeftward(bool keyDown);
 	void moveRightward(bool keyDown);
-	void Render(ID3D11Device* device, ID3D11DeviceContext* context);
+	void render(ID3D11DeviceContext* context);
 private:
 	float step;
 	XMFLOAT3 speed;

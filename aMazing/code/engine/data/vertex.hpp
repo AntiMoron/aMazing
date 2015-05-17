@@ -1,6 +1,5 @@
 #pragma once
 #include"../../common/CommonDxSupport.hpp"
-
 namespace aMazing
 {
 	//POD vertex for static model

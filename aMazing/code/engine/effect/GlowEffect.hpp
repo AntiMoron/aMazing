@@ -10,19 +10,19 @@ namespace aMazing
 	class GlowEffect :public EffectClass
 	{
 	public:
-		HRESULT Initialize(ID3D11Device* device, ID3D11DeviceContext* context)
+		HRESULT initialize(ID3D11Device* device, ID3D11DeviceContext* context)
 		{
 			HRESULT hr;
 
 			blur.reset(new VHBlurClass);
-			hr = blur->Initialize(device, context);
+			hr = blur->initialize(device, context);
 			if (FAILED(hr))
 			{
 				return hr;
 			}
 
 			highlight.reset(new FrameBuffer);
-			hr = highlight->Initialize(device, context);
+			hr = highlight->initialize(device, context);
 			if (FAILED(hr))
 			{
 				return hr;
@@ -30,13 +30,13 @@ namespace aMazing
 
 
 			tex2d.reset(new FrameBuffer);
-			hr = tex2d->Initialize(device, context);
+			hr = tex2d->initialize(device, context);
 			if (FAILED(hr))
 			{
 				return hr;
 			}
 
-			hr = EffectClass::Initialize(device, context);
+			hr = EffectClass::initialize(device, context);
 			if (FAILED(hr))
 			{
 				return hr;

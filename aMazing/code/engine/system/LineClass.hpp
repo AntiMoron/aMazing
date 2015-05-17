@@ -13,15 +13,12 @@ namespace aMazing
 		LineClass();
 		~LineClass();
 
-		HRESULT Initialize(ID3D11Device* device,
-			ID3D11DeviceContext* context);
+		HRESULT initialize(ID3D11Device* device);
 
-		void setLineColor(ID3D11Device* device,
-			ID3D11DeviceContext* context, 
+		void setLineColor(ID3D11DeviceContext* context, 
 			float r, float g, float b, float a);
 
-		void Render(ID3D11Device* device,
-			ID3D11DeviceContext* context,
+		void render(ID3D11DeviceContext* context,
 			float sx,float sy,float sz,
 			float ex,float ey,float ez);
 		bool isInited()const;

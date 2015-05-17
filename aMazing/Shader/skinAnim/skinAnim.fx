@@ -1,13 +1,17 @@
 #include"../LightImpl.hlsl"
 #include"../MaterialImpl.hlsl"
-
+//#define BONE_UINT4_INDEX
 struct VS_INPUT
 {
-	uint boneIndices : BONEINDICES;
 	float4 Weights : WEIGHTS;
 	float4 Pos : POSITION;
 	float4 Nor : NORMAL;
 	float4 Tex : TEXCOORD0;
+#ifdef BONE_UINT4_INDEX
+	uint4 boneIndices : BONEINDICES;
+#else
+	uint boneIndices : BONEINDICES;
+#endif
 };
 
 struct PS_INPUT
@@ -32,11 +36,14 @@ cbuffer classInstance : register(b11)
 PS_INPUT VSEntry(VS_INPUT input)
 {
 	PS_INPUT output = (PS_INPUT)0;
+#ifdef BONE_UINT4_INDEX
+	uint4 boneIndices = input.boneIndices;
+#else
 	uint4 boneIndices = uint4(input.boneIndices & 0x000000ff,
 		(input.boneIndices & 0x0000ff00) >> 8, 
 		(input.boneIndices & 0x00ff0000) >> 16,
 		(input.boneIndices & 0xff000000) >> 24);
-//	uint4 boneIndices = input.boneIndices;
+#endif
 	matrix boneTransform = (input.Weights.r * bones[boneIndices[0]])
 		+ (input.Weights.g * bones[boneIndices[1]])
 		+ (input.Weights.b * bones[boneIndices[2]])

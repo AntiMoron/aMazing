@@ -11,8 +11,7 @@ CameraClass::~CameraClass()
 }
 
 
-HRESULT CameraClass::Initialize(ID3D11Device* device,
-	ID3D11DeviceContext* context)
+HRESULT CameraClass::initialize(ID3D11Device* device)
 {
 	position = { 0.0f, 0.0f, 0.0f };
 	rotation = { 0.0f, 0.0f, 0.0f };
@@ -50,12 +49,9 @@ HRESULT CameraClass::Initialize(ID3D11Device* device,
 	cbData.projection = XMMatrixTranspose(cbData.projection);
 
 	//Update Buffer
-	m_matrices.Initialize(device, context, 0);
-	m_matrices.UpdateData(&cbData);
-	m_matrices.UpdateGpu(device, context);
-	m_matrices.BindVertexShader(device, context);
+	m_matrices.initialize(device, 0);
 
-	m_frustum.reset(new FrustumClass);
+	m_frustum = std::make_shared<FrustumClass>();
 	m_frustum->ConstructFrustum(near_far.y,m_matriceData.projection,m_matriceData.view);
 	return S_OK;
 }
@@ -150,8 +146,7 @@ float CameraClass::getFov()const
 	return fov / 0.017453292f;
 }
 
-void CameraClass::Render(ID3D11Device* device,
-	ID3D11DeviceContext* context)
+void CameraClass::render(ID3D11DeviceContext* context)
 {
 	D3DXMATRIX rotationMatrix;
 	D3DXVECTOR3 lookDir = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
@@ -179,10 +174,10 @@ void CameraClass::Render(ID3D11Device* device,
 	shaderMatricesData.world = XMMatrixTranspose(shaderMatricesData.world);
 	shaderMatricesData.view = XMMatrixTranspose(shaderMatricesData.view);
 	shaderMatricesData.projection = XMMatrixTranspose(shaderMatricesData.projection);
-	m_matrices.UpdateData(&shaderMatricesData);
-	m_matrices.UpdateGpu(device, context);
-	m_matrices.BindVertexShader(device, context);
-	m_matrices.BindPixelShader(device, context);
+	m_matrices.updateData(&shaderMatricesData);
+	m_matrices.updateGpu(context);
+	m_matrices.BindVertexShader(context);
+	m_matrices.bindPixelShader(context);
 
 	m_frustum->ConstructFrustum(50.0f, m_matriceData.projection, m_matriceData.view);
 }

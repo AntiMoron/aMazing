@@ -16,7 +16,6 @@ ShaderManager::ShaderManager()
 ShaderManager::~ShaderManager(){}
 
 HRESULT ShaderManager::addPair(ID3D11Device* device,
-	ID3D11DeviceContext* context, 
 	const char* vfilename,
 	const char* pfilename,
 	D3D11_INPUT_ELEMENT_DESC layout[],
@@ -25,14 +24,14 @@ HRESULT ShaderManager::addPair(ID3D11Device* device,
 {
 	HRESULT hr;
 	VertexShaderObject* v = new VertexShaderObject;
-	hr = v->createShaderFromFile(device,context,vfilename,layout,layoutCount);
+	hr = v->createShaderFromFile(device,vfilename,layout,layoutCount);
 	if (FAILED(hr))
 	{
 		aDBG("Error At : " << vfilename);
 		return hr;
 	}
 	PixelShaderObject* p = new PixelShaderObject;
-	hr = p->createShaderFromFile(device,context,pfilename);
+	hr = p->createShaderFromFile(device,pfilename);
 	if (FAILED(hr))
 	{
 		aDBG("Error At : " << pfilename);
@@ -46,7 +45,6 @@ HRESULT ShaderManager::addPair(ID3D11Device* device,
 }
 
 bool ShaderManager::bindPair(const std::string& str, 
-	ID3D11Device* device, 
 	ID3D11DeviceContext* context)
 {
 	auto f = [&](const std::string& str)->long
@@ -86,7 +84,7 @@ bool ShaderManager::bindPair(const std::string& str,
 	}
 	if (bind_enabled == true)
 	{
-		vec[index]->bindShader(device, context);
+		vec[index]->bindShader(context);
 	}
 	else
 	{

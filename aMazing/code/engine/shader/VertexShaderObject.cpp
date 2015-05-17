@@ -16,7 +16,6 @@ VertexShaderObject::~VertexShaderObject()
 }
 
 HRESULT VertexShaderObject::createShaderFromFile(ID3D11Device* device,
-	ID3D11DeviceContext* context,
 	const char* fileName,
 	D3D11_INPUT_ELEMENT_DESC layoutDesc[],
 	unsigned int numElements)
@@ -70,7 +69,6 @@ HRESULT VertexShaderObject::createShaderFromFile(ID3D11Device* device,
 }
 
 HRESULT VertexShaderObject::createShaderFromMemory(ID3D11Device* device,
-	ID3D11DeviceContext* context,
 	const char* slsource,
 	D3D11_INPUT_ELEMENT_DESC layoutDesc[],
 	unsigned int numElements)
@@ -114,31 +112,28 @@ HRESULT VertexShaderObject::createShaderFromMemory(ID3D11Device* device,
 
 
 HRESULT VertexShaderObject::createShaderFromFile(ID3D11Device* device,
-	ID3D11DeviceContext* context,
 	const wchar_t* fileName,
 	D3D11_INPUT_ELEMENT_DESC layoutDesc[],
 	unsigned int numElements)
 {
-	return createShaderFromFile(device,context,
+	return createShaderFromFile(device,
 		MutableString(fileName).getMultiByteString().c_str(),
 		layoutDesc,
 		numElements);
 }
 
 HRESULT VertexShaderObject::createShaderFromMemory(ID3D11Device* device,
-	ID3D11DeviceContext* context,
 	const wchar_t* slsource,
 	D3D11_INPUT_ELEMENT_DESC layoutDesc[],
 	unsigned int numElements)
 {
-	return createShaderFromMemory(device,context,
+	return createShaderFromMemory(device,
 		MutableString(slsource).getMultiByteString().c_str(),
 		layoutDesc,
 		numElements);
 }
 
-HRESULT VertexShaderObject::bindShader(ID3D11Device* device,
-	ID3D11DeviceContext* context)
+HRESULT VertexShaderObject::bindShader(ID3D11DeviceContext* context)
 {
 	if (bIsInited == false)
 	{

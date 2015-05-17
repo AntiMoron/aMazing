@@ -11,7 +11,7 @@ namespace aMazing
 		MutableMesh(){}
 		~MutableMesh(){}
 
-		HRESULT Initialize(ID3D11Device* device, 
+		HRESULT initialize(ID3D11Device* device, 
 			ID3D11DeviceContext* context,
 			T* vertices,
 			std::size_t vertexCount,
@@ -19,7 +19,7 @@ namespace aMazing
 			std::size_t indexCount = 0)
 		{
 			HRESULT hr;
-			hr = vertices.Initialize(device, context,vertices,vertexCount,indices,indexCount);
+			hr = vertices.initialize(device, context,vertices,vertexCount,indices,indexCount);
 			if (FAILED(hr))
 			{
 				return hr;

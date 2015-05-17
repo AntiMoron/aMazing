@@ -14,7 +14,8 @@ public:
 	{
 		aSAFE_RELEASE(buffer);
 	}
-	HRESULT Initialize(ID3D11Device* device, ID3D11DeviceContext* context, int startSlot)
+	HRESULT initialize(ID3D11Device* device, 
+		int startSlot)
 	{
 		HRESULT hr;
 		m_statSlotInGpu = startSlot;
@@ -33,24 +34,24 @@ public:
 		return S_OK;
 	}
 
-	HRESULT UpdateData(source_type* p)
+	HRESULT updateData(source_type* p)
 	{
 		memcpy(&data, p, sizeof(source_type));
 		return S_OK;
 	}
 
-	HRESULT UpdateGpu(ID3D11Device* device, ID3D11DeviceContext* context)
+	HRESULT updateGpu(ID3D11DeviceContext* context)
 	{
 		context->UpdateSubresource(buffer, 0, NULL, &data, 0, 0);
 		return S_OK;
 	}
-	HRESULT BindVertexShader(ID3D11Device* device, ID3D11DeviceContext* context)
+	HRESULT BindVertexShader(ID3D11DeviceContext* context)
 	{
 		context->VSSetConstantBuffers(m_statSlotInGpu, 1, &buffer);
 		return S_OK;
 	}
 
-	HRESULT BindPixelShader(ID3D11Device* device, ID3D11DeviceContext* context)
+	HRESULT bindPixelShader(ID3D11DeviceContext* context)
 	{
 		context->PSSetConstantBuffers(m_statSlotInGpu, 1, &buffer);
 		return S_OK;

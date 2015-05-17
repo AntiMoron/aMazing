@@ -15,8 +15,7 @@ namespace aMazing
 			;
 		}
 
-		HRESULT Initialize(ID3D11Device* device,
-			ID3D11DeviceContext* context)
+		HRESULT initialize(ID3D11Device* device)
 		{
 			HRESULT hr;
 			float left, right, top, bottom;
@@ -65,7 +64,7 @@ namespace aMazing
 			vertices[5].texture.x = 1.0f;
 			vertices[5].texture.y = 1.0f;
 
-			hr = verts.Initialize(device, context, vertices, 6, nullptr, 0);
+			hr = verts.initialize(device, vertices, 6, nullptr, 0);
 			if (FAILED(hr))
 			{
 				return hr;
@@ -73,8 +72,7 @@ namespace aMazing
 			return S_OK;
 		}
 
-		void Render(ID3D11Device* device,
-			ID3D11DeviceContext* context,
+		void Render(ID3D11DeviceContext* context,
 			unsigned short ileft,
 			unsigned short itop,
 			unsigned short iright,
@@ -127,8 +125,8 @@ namespace aMazing
 			vertices[5].texture.x = 1.0f;
 			vertices[5].texture.y = 1.0f;
 			context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-			verts.UpdateVertices(device, context, vertices, 6);
-			verts.Render(device, context);
+			verts.updateVertices(context, vertices, 6);
+			verts.render(context);
 		}
 
 	private:

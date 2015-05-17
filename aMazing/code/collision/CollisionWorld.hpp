@@ -15,7 +15,7 @@ namespace aMazing
 		}
 		~CollisionWorld(){}
 
-		HRESULT Initialize()
+		HRESULT initialize()
 		{
 			camera.reset(new CollisionCircle);
 			setUpCamera(0.0f, 0.0f, 0.0005f);

@@ -14,8 +14,13 @@ namespace aMazing
 	private:
 		friend class aThreadSafeSingleton<PrimitivePipeline>;
 		PrimitivePipeline(){}
+		~PrimitivePipeline()
+		{
+			aSAFE_RELEASE(devicePtr);
+			aSAFE_RELEASE(contextPtr);
+		}
 	public:
-		HRESULT Initialize(ID3D11Device* device, 
+		HRESULT initialize(ID3D11Device* device, 
 			ID3D11DeviceContext* context);
 
 		void RenderRectangle(unsigned short l,unsigned short t,
@@ -28,9 +33,9 @@ namespace aMazing
 	private:
 		std::shared_ptr<ID3D11Device> devicePtr;
 		std::shared_ptr<ID3D11DeviceContext> contextPtr;
-		std::unique_ptr<LineClass> line;
-		std::unique_ptr<BlockClass> blk;
-		std::unique_ptr<RectangleObject> rec;
+		std::shared_ptr<LineClass> line;
+		std::shared_ptr<BlockClass> blk;
+		std::shared_ptr<RectangleObject> rec;
 	};
 }
 #define GRAPHICS (aMazing::PrimitivePipeline::getInstance())

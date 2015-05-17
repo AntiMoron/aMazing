@@ -10,31 +10,31 @@ namespace aMazing
 	class DepthField :public EffectClass
 	{
 	public:
-		HRESULT Initialize(ID3D11Device* device, ID3D11DeviceContext* context)
+		HRESULT initialize(ID3D11Device* device, ID3D11DeviceContext* context)
 		{
 			HRESULT hr;
 			tex2d.reset(new FrameBuffer);
-			hr = tex2d->Initialize(device, context);
+			hr = tex2d->initialize(device, context);
 			if (FAILED(hr))
 			{
 				return hr;
 			}
 
 			blur.reset(new VHBlurClass);
-			hr = blur->Initialize(device, context);
+			hr = blur->initialize(device, context);
 			if (FAILED(hr))
 			{
 				return hr;
 			}
 
 			depthMap.reset(new DepthMap);
-			hr = depthMap->Initialize(device, context);
+			hr = depthMap->initialize(device, context);
 			if (FAILED(hr))
 			{
 				return hr;
 			}
 
-			hr = EffectClass::Initialize(device, context);
+			hr = EffectClass::initialize(device, context);
 			if (FAILED(hr))
 			{
 				return hr;

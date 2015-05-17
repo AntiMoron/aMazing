@@ -15,8 +15,7 @@ namespace aMazing
 		CameraClass();
 		~CameraClass();
 
-		HRESULT Initialize(ID3D11Device* device,
-			ID3D11DeviceContext* context);
+		HRESULT initialize(ID3D11Device* device);
 
 		void setAspectRatio(float ratio);
 		void setPosition(const XMFLOAT3& pos);
@@ -33,8 +32,7 @@ namespace aMazing
 		void setFov(const float ang);
 		float getFov() const;
 
-		void Render(ID3D11Device* device,
-			ID3D11DeviceContext* context);
+		void render(ID3D11DeviceContext* context);
 
 
 		void moveLeft(float step);
@@ -74,6 +72,6 @@ namespace aMazing
 		};
 		struct cameraMatrices m_matriceData;
 		GPUConstantBuffer<cameraMatrices> m_matrices;
-		std::unique_ptr<FrustumClass> m_frustum;
+		std::shared_ptr<FrustumClass> m_frustum;
 	};
 }
