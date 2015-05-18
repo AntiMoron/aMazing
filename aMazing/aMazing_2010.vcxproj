@@ -387,11 +387,7 @@
     <ClCompile Include="code\engine\animate\ModelObject.cpp" />
     <ClCompile Include="code\engine\containers\Directory.cpp" />
     <ClCompile Include="code\engine\containers\MutableString.cpp" />
-    <ClCompile Include="code\engine\shader\PixelShaderObject.cpp" />
     <ClCompile Include="code\engine\shader\ShaderCompiler.cpp" />
-    <ClCompile Include="code\engine\shader\ShaderManager.cpp" />
-    <ClCompile Include="code\engine\shader\ShaderPair.cpp" />
-    <ClCompile Include="code\engine\shader\VertexShaderObject.cpp" />
     <ClCompile Include="code\engine\system\BasicObject.cpp" />
     <ClCompile Include="code\engine\system\CameraClass.cpp" />
     <ClCompile Include="code\engine\system\D3DManager.cpp" />
@@ -484,6 +480,7 @@
     <ClInclude Include="code\engine\shader\shaderclass\cSmoothMaterial.hpp" />
     <ClInclude Include="code\engine\shader\shaderclass\cSmoothTexturedMaterial.hpp" />
     <ClInclude Include="code\engine\shader\shaderclass\cSpotLight.hpp" />
+    <ClInclude Include="code\engine\shader\ShaderLiteral.hpp" />
     <ClInclude Include="code\engine\shader\ShaderObject.hpp" />
     <ClInclude Include="code\engine\shader\ShaderClassInstance.hpp" />
     <ClInclude Include="code\engine\shader\ShaderCompiler.hpp" />

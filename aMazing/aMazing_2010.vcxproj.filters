@@ -447,6 +447,9 @@
     <ClInclude Include="code\engine\containers\MutableString.hpp">
       <Filter>Engine\containers</Filter>
     </ClInclude>
+    <ClInclude Include="code\engine\shader\ShaderLiteral.hpp">
+      <Filter>Engine\shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\collision\CollisionIntersection.cpp">
@@ -487,20 +490,8 @@
     <ClCompile Include="code\Maze.cpp" />
     <ClCompile Include="code\MazeGenerator.cpp" />
     <ClCompile Include="code\WrappedCamera.cpp" />
-    <ClCompile Include="code\engine\shader\ShaderManager.cpp">
-      <Filter>Engine\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="code\engine\shader\ShaderPair.cpp">
-      <Filter>Engine\shader</Filter>
-    </ClCompile>
     <ClCompile Include="code\engine\system\D3DManager.cpp">
       <Filter>Engine\system</Filter>
-    </ClCompile>
-    <ClCompile Include="code\engine\shader\PixelShaderObject.cpp">
-      <Filter>Engine\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="code\engine\shader\VertexShaderObject.cpp">
-      <Filter>Engine\shader</Filter>
     </ClCompile>
     <ClCompile Include="code\engine\animate\ModelObject.cpp">
       <Filter>Engine\animate</Filter>

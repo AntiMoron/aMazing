@@ -151,31 +151,39 @@ HRESULT InitDevice()
 		DXGI_FORMAT_R32G32B32A32_UINT, 0, 
 		aOffsetof(SkinVertex, boneIndices), 
 		D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "WEIGHTS", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, aOffsetof(SkinVertex, weights), D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, aOffsetof(SkinVertex, position), D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, aOffsetof(SkinVertex, normal), D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, aOffsetof(SkinVertex, texture), D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "WEIGHTS", 0, DXGI_FORMAT_R32G32B32A32_FLOAT,
+		0, aOffsetof(SkinVertex, weights), 
+		D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 
+		0, aOffsetof(SkinVertex, position), 
+		D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 
+		0, aOffsetof(SkinVertex, normal), 
+		D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32B32A32_FLOAT,
+		0, aOffsetof(SkinVertex, texture), 
+		D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 
 	UINT animElements = ARRAYSIZE(animLayout);
 	UINT numElements = ARRAYSIZE(layout);
 	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE,
 		"Shader/Basic3D.fx", "Shader/Basic3D.fx",
-		layout, numElements, "Basic3D"));
+		layout, "Basic3D"));
 
 	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE,
 		"Shader/Basic2D.fx", "Shader/Basic2D.fx",
-		layout, numElements, "Basic2D"));
+		layout, "Basic2D"));
 
 	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE,
 		"Shader/BasicSky.fx", "Shader/BasicSky.fx",
-		layout, numElements, "BasicSky"));
+		layout, "BasicSky"));
 	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE,
 		"Shader/wires/line.fx", "Shader/wires/line.fx",
-		animLayout, animElements, "BasicLine"));
+		animLayout, "BasicLine"));
 	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE,
 		"Shader/skinAnim/skinAnim.fx", "Shader/skinAnim/skinAnim.fx",
-		animLayout, animElements, "SkinAnim"));
+		animLayout, "SkinAnim"));
 	scene = new aMazingScene;
 	scene->initialize(g_hWnd, DEVICE);
 	return S_OK;

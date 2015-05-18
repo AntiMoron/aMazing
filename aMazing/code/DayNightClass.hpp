@@ -11,14 +11,13 @@ public:
 	DayNightClass()
 	{
 		timeNow = rand() % TIME_DAY;
-		lastTick = GetTickCount();
+		lastTick = GetTickCount64();
 	}
 
 	HRESULT initialize(ID3D11Device* device)
 	{
 		HRESULT hr;
-		dayColorAlpha.reset(new GPUConstantBuffer<XMFLOAT4>);
-		hr = dayColorAlpha->initialize(device, 4);
+		hr = dayColorAlpha.initialize(device, 4);
 		if (FAILED(hr))
 		{
 			return hr;
@@ -27,7 +26,7 @@ public:
 	}
 	void UpdateTime(ID3D11DeviceContext* context)
 	{
-		std::size_t t = GetTickCount();
+		auto t = GetTickCount64();
 		if (t - lastTick >= 1000)
 		{
 			timeNow += (t - lastTick) / 1000;
@@ -49,9 +48,9 @@ public:
 			//ambientLight->setTarget(XMFLOAT3(0.0f, 0.0f, 0.0f));
 			//ambientLight->Render(device, context);
 
-			dayColorAlpha->updateData(&data);
-			dayColorAlpha->updateGpu(context);
-			dayColorAlpha->bindPixelShader(context);
+			dayColorAlpha.updateData(&data);
+			dayColorAlpha.updateGpu(context);
+			dayColorAlpha.bindPixelShader(context);
 		}
 	}
 
@@ -62,7 +61,7 @@ public:
 			(timeNow <= (0.875 * TIME_DAY)));
 	}
 private:
-	std::size_t lastTick;
-	std::size_t timeNow;
-	std::unique_ptr<GPUConstantBuffer<XMFLOAT4> > dayColorAlpha;
+	unsigned long long lastTick;
+	unsigned long long timeNow;
+	GPUConstantBuffer<XMFLOAT4> dayColorAlpha;
 };

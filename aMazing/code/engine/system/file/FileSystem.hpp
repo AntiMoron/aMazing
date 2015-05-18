@@ -10,7 +10,7 @@ namespace aMazing
 	class FileSystem
 	{
 	public:
-		static std::basic_string<char> readFileA(const char* fileName) throw(FailureException)
+		static std::string readFileA(const char* fileName) throw(FailureException)
 		{
 			std::ifstream fStream(fileName);
 			if (!fStream.is_open())
@@ -20,7 +20,7 @@ namespace aMazing
 			return std::string(std::istreambuf_iterator<char>(fStream),
 				std::istreambuf_iterator<char>());
 		}
-		static std::basic_string<char> readFileW(const wchar_t* fileName)
+		static std::string readFileW(const wchar_t* fileName)
 		{
 			return readFileA(MutableString(fileName).getMultiByteString().c_str());
 		}
