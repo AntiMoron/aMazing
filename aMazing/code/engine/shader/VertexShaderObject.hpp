@@ -18,10 +18,11 @@ namespace aMazing
 			aSAFE_RELEASE(layout);
 		}
 
+		template<size_t numElements>
 		HRESULT createShaderFromFile(ID3D11Device* device,
 			const char* fileName,
-			D3D11_INPUT_ELEMENT_DESC layoutDesc[],
-			unsigned int numElements){
+			D3D11_INPUT_ELEMENT_DESC(&layoutDesc)[numElements])
+		{
 			//Create Vertex Shader.If isInited is true,that means the class has already been initialized.
 			//return fail.
 			if (bIsInited == true)
@@ -49,7 +50,6 @@ namespace aMazing
 			// Create the input layout
 			hr = device->CreateInputLayout(layoutDesc, numElements, pShaderContextBuffer->GetBufferPointer(),
 				pShaderContextBuffer->GetBufferSize(), &layout);
-
 			if (FAILED(hr))
 			{
 				return hr;
@@ -70,10 +70,10 @@ namespace aMazing
 			return S_OK;
 		}
 
+		template<size_t numElements>
 		HRESULT createShaderFromMemory(ID3D11Device* device,
 			const char* slsource,
-			D3D11_INPUT_ELEMENT_DESC layoutDesc[],
-			unsigned int numElements)
+			D3D11_INPUT_ELEMENT_DESC(&layoutDesc)[numElements])
 		{
 			//Create Vertex Shader.If isInited is true,that means the class has already been initialized.
 			//return fail.
@@ -112,29 +112,25 @@ namespace aMazing
 			return S_OK;
 		}
 
-
+		template<size_t numElements>
 		HRESULT createShaderFromFile(ID3D11Device* device,
 			const wchar_t* fileName,
-			D3D11_INPUT_ELEMENT_DESC layoutDesc[],
-			unsigned int numElements)
+			D3D11_INPUT_ELEMENT_DESC (&layoutDesc)[numElements])
 		{
 			return createShaderFromFile(device,
 				MutableString(fileName).getMultiByteString().c_str(),
-				layoutDesc,
-				numElements);
+				layoutDesc);
 		}
 
+		template<size_t numElements>
 		HRESULT createShaderFromMemory(ID3D11Device* device,
 			const wchar_t* slsource,
-			D3D11_INPUT_ELEMENT_DESC layoutDesc[],
-			unsigned int numElements)
+			D3D11_INPUT_ELEMENT_DESC (&layoutDesc)[numElements])
 		{
 			return createShaderFromMemory(device,
 				MutableString(slsource).getMultiByteString().c_str(),
-				layoutDesc,
-				numElements);
+				layoutDesc);
 		}
-
 
 		HRESULT bindShader(ID3D11DeviceContext* context) const
 		{

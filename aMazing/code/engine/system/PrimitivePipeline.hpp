@@ -13,26 +13,59 @@ namespace aMazing
 	{
 	private:
 		friend class aThreadSafeSingleton<PrimitivePipeline>;
-		PrimitivePipeline(){}
-		~PrimitivePipeline()
-		{
-			aSAFE_RELEASE(devicePtr);
-			aSAFE_RELEASE(contextPtr);
-		}
 	public:
-		HRESULT initialize(ID3D11Device* device, 
-			ID3D11DeviceContext* context);
+		HRESULT initialize()
+		{
+			HRESULT hr;
+			blk = std::make_shared<BlockClass>();
+			rec = std::make_shared<RectangleObject>();
+			line = std::make_shared<LineClass>();
+			ID3D11Device* device = D3DManager::getDevice(MANAGED_DEVICE_TYPE::DEFAULT_DEVICE);
+			hr = blk->initialize(device);
+			if (FAILED(hr))
+			{
+				return hr;
+			}
+			hr = rec->initialize(device);
+			if (FAILED(hr))
+			{
+				return hr;
+			}
+			hr = line->initialize(device);
+			if (FAILED(hr))
+			{
+				return hr;
+			}
+			return S_OK;
+		}
+
 
 		void RenderRectangle(unsigned short l,unsigned short t,
-			unsigned short r, unsigned short b);
+			unsigned short r, unsigned short b)
+		{
+			ID3D11DeviceContext* context = D3DManager::getContext(MANAGED_CONTEXT_TYPE::DEFAULT_CONTEXT);
+			D3DManager::disableDepth(context);
+			rec->Render(context, l, t, r, b);
+			D3DManager::enableDepth(context);
+		}
+
 		void RenderBox(float x,float y,float z,
 			float rx,float ry,float rz,
-			float sx,float sy,float sz);
+			float sx,float sy,float sz)
+		{
+			blk->setPosition(XMFLOAT3(x, y, z));
+			blk->setRotation(XMFLOAT3(rx, ry, rz));
+			blk->setScaling(XMFLOAT3(sx, sy, sz));
+			blk->render(D3DManager::getContext(MANAGED_CONTEXT_TYPE::DEFAULT_CONTEXT));
+		}
+
 		void RenderLine(float sx, float sy, float sz,
-			float ex, float ey, float ez);
+			float ex, float ey, float ez)
+		{
+			line->render(D3DManager::getContext(MANAGED_CONTEXT_TYPE::DEFAULT_CONTEXT),
+				sx, sy, sz, ex, ey, ez);
+		}
 	private:
-		std::shared_ptr<ID3D11Device> devicePtr;
-		std::shared_ptr<ID3D11DeviceContext> contextPtr;
 		std::shared_ptr<LineClass> line;
 		std::shared_ptr<BlockClass> blk;
 		std::shared_ptr<RectangleObject> rec;

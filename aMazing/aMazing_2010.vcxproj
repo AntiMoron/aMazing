@@ -388,13 +388,13 @@
     <ClCompile Include="code\engine\containers\Directory.cpp" />
     <ClCompile Include="code\engine\containers\MutableString.cpp" />
     <ClCompile Include="code\engine\shader\ShaderCompiler.cpp" />
+    <ClCompile Include="code\engine\shader\ShaderLiteral.cpp" />
     <ClCompile Include="code\engine\system\BasicObject.cpp" />
     <ClCompile Include="code\engine\system\CameraClass.cpp" />
     <ClCompile Include="code\engine\system\D3DManager.cpp" />
     <ClCompile Include="code\engine\system\FrustumClass.cpp" />
     <ClCompile Include="code\engine\system\InputClass.cpp" />
     <ClCompile Include="code\engine\system\LineClass.cpp" />
-    <ClCompile Include="code\engine\system\PrimitivePipeline.cpp" />
     <ClCompile Include="code\engine\system\SoundClass.cpp" />
     <ClCompile Include="code\engine\system\TextureObject.cpp" />
     <ClCompile Include="code\engine\system\TextureManager.cpp" />

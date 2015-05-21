@@ -11,32 +11,47 @@ namespace aMazing
 	{
 	private:
 		friend class aThreadSafeSingleton<ShaderManager>;
+		ShaderManager(){}
+
+		std::vector<std::shared_ptr<ShaderPair> > vec;
+		size_t basicShaderCount;
 	public:
 		template<size_t layoutCount>
-		HRESULT addPair(ID3D11Device* device,
+		HRESULT addPairFromMemory(ID3D11Device* device,
+			const char* vContent,
+			const char* pContent,
+			D3D11_INPUT_ELEMENT_DESC(&layout)[layoutCount],
+			std::string&& shaderName)
+		{
+			HRESULT hr = E_FAIL;
+			std::shared_ptr<ShaderPair> newpair = 
+				aMakeShaderPairFromFile(device, vContent, pContent, layout, shaderName);
+			if (!newpair->isValid())
+			{
+				return E_FAIL;
+			}
+			vec.insert(std::upper_bound(vec.begin(), vec.end(), newpair,
+				[](const std::shared_ptr<ShaderPair>& a, const std::shared_ptr<ShaderPair>& b)->bool{return (*a) < (*b); })
+				, newpair);
+			return S_OK;
+		}
+
+		template<size_t layoutCount>
+		HRESULT addPairFromFile(ID3D11Device* device,
 			const char* vFileName,
 			const char* pFileName,
 			D3D11_INPUT_ELEMENT_DESC(&layout)[layoutCount],
-			std::string&& shadername)
+			std::string&& shaderName)
 		{
-			HRESULT hr;
-			VertexShaderObject* v = new VertexShaderObject;
-			hr = v->createShaderFromFile(device, vFileName, layout, layoutCount);
-			if (FAILED(hr))
+			HRESULT hr = E_FAIL;
+			std::shared_ptr<ShaderPair> newpair = 
+				aMakeShaderPairFromFile(device, vFileName, pFileName, layout,shaderName);
+			if (!newpair->isValid())
 			{
-				aDBG("Error At : " << vFileName);
-				return hr;
+				return E_FAIL;
 			}
-			PixelShaderObject* p = new PixelShaderObject;
-			hr = p->createShaderFromFile(device, pFileName);
-			if (FAILED(hr))
-			{
-				aDBG("Error At : " << pFileName);
-				return hr;
-			}
-			std::shared_ptr<ShaderPair> newpair(new ShaderPair(&v, &p, std::move(shadername)));
 			vec.insert(std::upper_bound(vec.begin(), vec.end(), newpair,
-				[&](const std::shared_ptr<ShaderPair>& a, const std::shared_ptr<ShaderPair>& b)->bool{return (*a) < (*b); })
+				[](const std::shared_ptr<ShaderPair>& a, const std::shared_ptr<ShaderPair>& b)->bool{return (*a) < (*b); })
 				, newpair);
 			return S_OK;
 		}
@@ -44,7 +59,7 @@ namespace aMazing
 		const ShaderPair& getShaderPairByTag(const std::string& tag) 
 			throw(std::out_of_range)
 		{
-			auto f = [&](const std::string& str)->long
+			auto f = [this](const std::string& str)->long
 			{
 				long l = 0, r = vec.size() - 1, mid;
 				while (l <= r)
@@ -104,17 +119,12 @@ namespace aMazing
 		{
 			if (vec.size() < basicShaderCount)
 			{
-				aDBG("invalid pop.Push times is not the same as pop times");
+				aDBG("invalid pop.Push & Pop not match");
 				throw;
 			}
 			vec.pop_back();
 			return true;
 		}
-	private:
-		ShaderManager(){}
-
-		std::vector<std::shared_ptr<ShaderPair> > vec;
-		size_t basicShaderCount;
 	};
 }
 

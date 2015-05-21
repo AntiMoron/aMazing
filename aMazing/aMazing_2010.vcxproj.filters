@@ -473,9 +473,6 @@
     <ClCompile Include="code\engine\system\LineClass.cpp">
       <Filter>Engine\system</Filter>
     </ClCompile>
-    <ClCompile Include="code\engine\system\PrimitivePipeline.cpp">
-      <Filter>Engine\system</Filter>
-    </ClCompile>
     <ClCompile Include="code\engine\system\SoundClass.cpp">
       <Filter>Engine\system</Filter>
     </ClCompile>
@@ -507,6 +504,9 @@
     </ClCompile>
     <ClCompile Include="code\engine\containers\MutableString.cpp">
       <Filter>Engine\containers</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\shader\ShaderLiteral.cpp">
+      <Filter>Engine\shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

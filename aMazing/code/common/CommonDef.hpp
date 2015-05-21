@@ -1,6 +1,7 @@
 #pragma once
 #include"../engine/Config.hpp"
 #include<iostream>
+#include<typeinfo>
 #pragma warning(disable : 4127)
 //Configures
 #if  defined(_MSC_VER)
@@ -27,15 +28,29 @@
 } while (false)
 #else
 #define MULTI_LINE_MACRO_BEGIN do {  
-#define MULTI_LINE_MACRO_END } while (bool(false))
+#define MULTI_LINE_MACRO_END } while (false)
 #endif
+
+#define CODE_FILENAME __FILE__
+#define CODE_LINENUM __LINE__
 
 #define aSAFE_RELEASE(x) \
 MULTI_LINE_MACRO_BEGIN\
 	if (!!(x)){ (x)->Release(); \
-	aDBG("address at[" << (x) <<"] released.");\
+	aDBG(CODE_FILENAME << '(' << CODE_LINENUM << ") : \n\'" << typeid(x).name() << "\' Object address at[" << (x) << "] released."); \
 	(x) = nullptr;}\
 MULTI_LINE_MACRO_END
+
+#define aSAFE_DELETE(x) \
+MULTI_LINE_MACRO_BEGIN\
+	if (!!x){\
+		delete (x);\
+		aDBG(CODE_FILENAME << '(' << CODE_LINENUM << ") : \n\'" << typeid(x).name() << "\' Object address at[" << (x) << "] deleted."); \
+		(x) = nullptr;\
+	}\
+MULTI_LINE_MACRO_END
+
+
 #define aRETURN_ON_FAIL(x) if(FAILED(x)){ return E_FAIL;}
 #define aOffsetof(s,x) ((std::size_t)&reinterpret_cast<const volatile char&>(((s*)nullptr)->x))
 #define aRADIAN_TO_ANGLE(x) (x * 180.0 / (aPI))

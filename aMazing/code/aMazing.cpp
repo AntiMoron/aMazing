@@ -128,7 +128,7 @@ HRESULT InitDevice()
 		return hr;
 
 	//aditional operations.
-	GRAPHICS.initialize(DEVICE,CONTEXT);
+	GRAPHICS.initialize();
 	// Define the input layout
 	D3D11_INPUT_ELEMENT_DESC layout[] =
 	{
@@ -167,21 +167,21 @@ HRESULT InitDevice()
 
 	UINT animElements = ARRAYSIZE(animLayout);
 	UINT numElements = ARRAYSIZE(layout);
-	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE,
+	aRETURN_ON_FAIL(SHADERS.addPairFromFile(DEVICE,
 		"Shader/Basic3D.fx", "Shader/Basic3D.fx",
 		layout, "Basic3D"));
 
-	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE,
+	aRETURN_ON_FAIL(SHADERS.addPairFromFile(DEVICE,
 		"Shader/Basic2D.fx", "Shader/Basic2D.fx",
 		layout, "Basic2D"));
 
-	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE,
+	aRETURN_ON_FAIL(SHADERS.addPairFromFile(DEVICE,
 		"Shader/BasicSky.fx", "Shader/BasicSky.fx",
 		layout, "BasicSky"));
-	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE,
+	aRETURN_ON_FAIL(SHADERS.addPairFromFile(DEVICE,
 		"Shader/wires/line.fx", "Shader/wires/line.fx",
 		animLayout, "BasicLine"));
-	aRETURN_ON_FAIL(SHADERS.addPair(DEVICE,
+	aRETURN_ON_FAIL(SHADERS.addPairFromFile(DEVICE,
 		"Shader/skinAnim/skinAnim.fx", "Shader/skinAnim/skinAnim.fx",
 		animLayout, "SkinAnim"));
 	scene = new aMazingScene;
