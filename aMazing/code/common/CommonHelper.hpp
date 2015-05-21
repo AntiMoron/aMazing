@@ -6,14 +6,26 @@
 
 namespace aMazing
 {
-	class aiStringLess
+	namespace detail
 	{
-	public:
-		bool operator()(const aiString& aiA, const aiString& aiB)const
+		struct yes_type
 		{
-			std::string a = aiA.C_Str();
-			std::string b = aiB.C_Str();
-			return a < b;
-		}
-	};
+			char f[1];
+		};
+		struct no_type
+		{
+			char f[2];
+		};
+
+		class aiStringLess
+		{
+		public:
+			bool operator()(const aiString& aiA, const aiString& aiB)const
+			{
+				std::string a = aiA.C_Str();
+				std::string b = aiB.C_Str();
+				return a < b;
+			}
+		};
+	}
 }

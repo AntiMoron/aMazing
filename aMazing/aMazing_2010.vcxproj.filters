@@ -508,6 +508,9 @@
     <ClCompile Include="code\engine\shader\ShaderLiteral.cpp">
       <Filter>Engine\shader</Filter>
     </ClCompile>
+    <ClCompile Include="code\engine\data\vertex.cpp">
+      <Filter>Engine\data</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">

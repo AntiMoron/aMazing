@@ -16,16 +16,16 @@ namespace aMazing
 		std::vector<std::shared_ptr<ShaderPair> > vec;
 		size_t basicShaderCount;
 	public:
-		template<size_t layoutCount>
-		HRESULT addPairFromMemory(ID3D11Device* device,
+		template<typename VertexType>
+		typename std::enable_if<std::is_base_of<detail::VirtualVertexBase, VertexType>::value, HRESULT>::type
+			addPairFromMemory(ID3D11Device* device,
 			const char* vContent,
 			const char* pContent,
-			D3D11_INPUT_ELEMENT_DESC(&layout)[layoutCount],
 			std::string&& shaderName)
 		{
 			HRESULT hr = E_FAIL;
 			std::shared_ptr<ShaderPair> newpair = 
-				aMakeShaderPairFromFile(device, vContent, pContent, layout, shaderName);
+				aMakeShaderPairFromMemory(device, vContent, pContent, VertexType::input_layout, shaderName);
 			if (!newpair->isValid())
 			{
 				return E_FAIL;
@@ -36,16 +36,16 @@ namespace aMazing
 			return S_OK;
 		}
 
-		template<size_t layoutCount>
-		HRESULT addPairFromFile(ID3D11Device* device,
+		template<typename VertexType>
+		typename std::enable_if<std::is_base_of<detail::VirtualVertexBase, VertexType>::value, HRESULT>::type
+			addPairFromFile(ID3D11Device* device,
 			const char* vFileName,
 			const char* pFileName,
-			D3D11_INPUT_ELEMENT_DESC(&layout)[layoutCount],
 			std::string&& shaderName)
 		{
 			HRESULT hr = E_FAIL;
-			std::shared_ptr<ShaderPair> newpair = 
-				aMakeShaderPairFromFile(device, vFileName, pFileName, layout,shaderName);
+			std::shared_ptr<ShaderPair> newpair =
+				aMakeShaderPairFromFile(device, vFileName, pFileName, VertexType::input_layout, shaderName);
 			if (!newpair->isValid())
 			{
 				return E_FAIL;

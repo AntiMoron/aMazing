@@ -145,45 +145,18 @@ HRESULT InitDevice()
 	D3D11_INPUT_CLASSIFICATION InputSlotClass;
 	UINT InstanceDataStepRate;
 
-	D3D11_INPUT_ELEMENT_DESC animLayout[] =
-	{
-		{ "BONEINDICES", 0, 
-		DXGI_FORMAT_R32G32B32A32_UINT, 0, 
-		aOffsetof(SkinVertex, boneIndices), 
-		D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "WEIGHTS", 0, DXGI_FORMAT_R32G32B32A32_FLOAT,
-		0, aOffsetof(SkinVertex, weights), 
-		D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 
-		0, aOffsetof(SkinVertex, position), 
-		D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 
-		0, aOffsetof(SkinVertex, normal), 
-		D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32B32A32_FLOAT,
-		0, aOffsetof(SkinVertex, texture), 
-		D3D11_INPUT_PER_VERTEX_DATA, 0 },
-	};
+	aRETURN_ON_FAIL(SHADERS.addPairFromFile<Vertex>(DEVICE,
+		"Shader/Basic3D.fx", "Shader/Basic3D.fx", "Basic3D"));
 
-	UINT animElements = ARRAYSIZE(animLayout);
-	UINT numElements = ARRAYSIZE(layout);
-	aRETURN_ON_FAIL(SHADERS.addPairFromFile(DEVICE,
-		"Shader/Basic3D.fx", "Shader/Basic3D.fx",
-		layout, "Basic3D"));
+	aRETURN_ON_FAIL(SHADERS.addPairFromFile<Vertex>(DEVICE,
+		"Shader/Basic2D.fx", "Shader/Basic2D.fx", "Basic2D"));
 
-	aRETURN_ON_FAIL(SHADERS.addPairFromFile(DEVICE,
-		"Shader/Basic2D.fx", "Shader/Basic2D.fx",
-		layout, "Basic2D"));
-
-	aRETURN_ON_FAIL(SHADERS.addPairFromFile(DEVICE,
-		"Shader/BasicSky.fx", "Shader/BasicSky.fx",
-		layout, "BasicSky"));
-	aRETURN_ON_FAIL(SHADERS.addPairFromFile(DEVICE,
-		"Shader/wires/line.fx", "Shader/wires/line.fx",
-		animLayout, "BasicLine"));
-	aRETURN_ON_FAIL(SHADERS.addPairFromFile(DEVICE,
-		"Shader/skinAnim/skinAnim.fx", "Shader/skinAnim/skinAnim.fx",
-		animLayout, "SkinAnim"));
+	aRETURN_ON_FAIL(SHADERS.addPairFromFile<Vertex>(DEVICE,
+		"Shader/BasicSky.fx", "Shader/BasicSky.fx", "BasicSky"));
+	aRETURN_ON_FAIL(SHADERS.addPairFromFile<Vertex>(DEVICE,
+		"Shader/wires/line.fx", "Shader/wires/line.fx", "BasicLine"));
+	aRETURN_ON_FAIL(SHADERS.addPairFromFile<SkinVertex>(DEVICE,
+		"Shader/skinAnim/skinAnim.fx", "Shader/skinAnim/skinAnim.fx", "SkinAnim"));
 	scene = new aMazingScene;
 	scene->initialize(g_hWnd, DEVICE);
 	return S_OK;

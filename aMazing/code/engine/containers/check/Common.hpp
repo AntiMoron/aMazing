@@ -1,19 +1,11 @@
 #pragma once
+#include"../../../common/CommonHelper.hpp"
 #include<type_traits>
 
 namespace aMazing
 {
 	namespace detail
 	{
-		struct yes_type
-		{
-			char f[1];
-		};
-		struct no_type
-		{
-			char f[2];
-		};
-
 		template<typename T>
 		class aHasAllocatorType
 		{

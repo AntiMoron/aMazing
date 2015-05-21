@@ -387,6 +387,7 @@
     <ClCompile Include="code\engine\animate\ModelObject.cpp" />
     <ClCompile Include="code\engine\containers\Directory.cpp" />
     <ClCompile Include="code\engine\containers\MutableString.cpp" />
+    <ClCompile Include="code\engine\data\vertex.cpp" />
     <ClCompile Include="code\engine\shader\ShaderCompiler.cpp" />
     <ClCompile Include="code\engine\shader\ShaderLiteral.cpp" />
     <ClCompile Include="code\engine\system\BasicObject.cpp" />

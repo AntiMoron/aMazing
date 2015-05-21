@@ -1,18 +1,47 @@
 #pragma once
+#include"../../common/CommonHelper.hpp"
 #include"../../common/CommonDxSupport.hpp"
+#include"../../common/CommonDef.hpp"
 namespace aMazing
 {
-	//POD vertex for static model
-	struct Vertex
+	namespace detail
+	{
+		struct VirtualVertexBase{};
+
+		template<typename Vertex>
+		class aHasStaticInputLayout
+		{
+		private:
+			template<typename C>
+			const static yes_type& test(typename std::enable_if<std::is_const<decltype(C::input_layout)>::value, int*>::type);
+			template<typename C>
+			const static no_type& test(...);
+		public:
+			const static bool value = (sizeof(test(nullptr)) == sizeof(yes_type));
+		};
+	}
+
+	//Must be base class of all vertex types.
+	//!!!note : Need to contain type input_layout.
+	template<typename Vertex, bool Enable = true>
+	struct BaseVertex : detail::VirtualVertexBase{};
+
+	template<typename Vertex>
+	struct BaseVertex<Vertex, false>;
+
+	struct Vertex : BaseVertex<Vertex>
 	{
 	public:
 		XMFLOAT3 position;
 		XMFLOAT3 normal;
 		XMFLOAT2 texture;
+
+		const static D3D11_INPUT_ELEMENT_DESC input_layout[3];
 	};
 
-	//POD vertex for skinning animation model
-	struct SkinVertex
+
+	//vertex for skinning animation model
+	struct SkinVertex : BaseVertex<SkinVertex>
 	{
 	public:
 		//must call this function to modify bone Index.
@@ -46,5 +75,6 @@ namespace aMazing
 #else
 		unsigned int boneIndices;
 #endif
+		const static D3D11_INPUT_ELEMENT_DESC input_layout[5];
 	};
 }

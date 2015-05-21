@@ -21,7 +21,7 @@ namespace aMazing
 		template<size_t numElements>
 		HRESULT createShaderFromFile(ID3D11Device* device,
 			const char* fileName,
-			D3D11_INPUT_ELEMENT_DESC(&layoutDesc)[numElements])
+			const D3D11_INPUT_ELEMENT_DESC(&layoutDesc)[numElements])
 		{
 			//Create Vertex Shader.If isInited is true,that means the class has already been initialized.
 			//return fail.
@@ -73,7 +73,7 @@ namespace aMazing
 		template<size_t numElements>
 		HRESULT createShaderFromMemory(ID3D11Device* device,
 			const char* slsource,
-			D3D11_INPUT_ELEMENT_DESC(&layoutDesc)[numElements])
+			const D3D11_INPUT_ELEMENT_DESC(&layoutDesc)[numElements])
 		{
 			//Create Vertex Shader.If isInited is true,that means the class has already been initialized.
 			//return fail.
@@ -115,7 +115,7 @@ namespace aMazing
 		template<size_t numElements>
 		HRESULT createShaderFromFile(ID3D11Device* device,
 			const wchar_t* fileName,
-			D3D11_INPUT_ELEMENT_DESC (&layoutDesc)[numElements])
+			const D3D11_INPUT_ELEMENT_DESC (&layoutDesc)[numElements])
 		{
 			return createShaderFromFile(device,
 				MutableString(fileName).getMultiByteString().c_str(),
@@ -125,7 +125,7 @@ namespace aMazing
 		template<size_t numElements>
 		HRESULT createShaderFromMemory(ID3D11Device* device,
 			const wchar_t* slsource,
-			D3D11_INPUT_ELEMENT_DESC (&layoutDesc)[numElements])
+			const D3D11_INPUT_ELEMENT_DESC (&layoutDesc)[numElements])
 		{
 			return createShaderFromMemory(device,
 				MutableString(slsource).getMultiByteString().c_str(),

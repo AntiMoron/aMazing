@@ -7,15 +7,27 @@ namespace aMazing
 {
 	class ShaderPair
 	{
+	private:
+		template<size_t cnt>
+		friend std::shared_ptr<ShaderPair> aMakeShaderPairFromMemory(ID3D11Device* device,
+			const char* vsContent,
+			const char* psContent,
+			D3D11_INPUT_ELEMENT_DESC(&layoutDesc)[cnt],
+			const std::string& name);
+		template<size_t cnt>
+		friend std::shared_ptr<ShaderPair> aMakeShaderPairFromFile(ID3D11Device* device,
+			const char* vsFilePath,
+			const char* psFilePath,
+			D3D11_INPUT_ELEMENT_DESC(&layoutDesc)[cnt],
+			const std::string& name);
 	public:
 		ShaderPair(VertexShaderObject** pv,
-			PixelShaderObject** pp,const std::string& shaderName)
+			PixelShaderObject** pp, const std::string& shaderName)
 		{
 			pVert = *pv;
 			pPixl = *pp;
 			this->shaderName = shaderName;
 		}
-
 		~ShaderPair()
 		{
 			if (pVert != nullptr)
@@ -78,10 +90,10 @@ namespace aMazing
 	};
 
 	template<size_t cnt>
-	ShaderPair aMakeShaderPairFromMemory(ID3D11Device* device,
+	std::shared_ptr<ShaderPair> aMakeShaderPairFromMemory(ID3D11Device* device,
 		const char* vsContent,
 		const char* psContent,
-		D3D11_INPUT_ELEMENT_DESC (&layoutDesc)[cnt],
+		const D3D11_INPUT_ELEMENT_DESC (&layoutDesc)[cnt],
 		const std::string& name)
 	{
 		HRESULT hr = E_FAIL;
@@ -106,7 +118,7 @@ namespace aMazing
 	std::shared_ptr<ShaderPair> aMakeShaderPairFromFile(ID3D11Device* device,
 		const char* vsFilePath,
 		const char* psFilePath,
-		D3D11_INPUT_ELEMENT_DESC(&layoutDesc)[cnt],
+		const D3D11_INPUT_ELEMENT_DESC(&layoutDesc)[cnt],
 		const std::string& name)
 	{
 		HRESULT hr = E_FAIL;

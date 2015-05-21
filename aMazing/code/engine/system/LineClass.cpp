@@ -19,10 +19,14 @@ HRESULT LineClass::initialize(ID3D11Device* device)
 		return hr;
 	}
 	
-	Vertex verts[] = { 
-		{ XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(), XMFLOAT2(0.0f, 0.0f) },
-		{ XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT3(), XMFLOAT2(0.0f, 0.0f) }
-	};
+	Vertex verts[2];
+	verts[0].position = XMFLOAT3(0.0f, 0.0f, 0.0f);
+	verts[0].normal = XMFLOAT3();
+	verts[0].texture = XMFLOAT2(0.0f, 0.0f);
+	verts[1].position = XMFLOAT3(1.0f, 1.0f, 1.0f);
+	verts[1].normal = XMFLOAT3();
+	verts[1].texture = XMFLOAT2(0.0f, 0.0f);
+
 	hr = m_vertices.initialize(device, verts, 2);
 	if (FAILED(hr))
 	{	
@@ -71,10 +75,13 @@ void LineClass::render(ID3D11DeviceContext* context,
 		lastPosX[1] = ex;
 		lastPosY[1] = ey;
 		lastPosZ[1] = ez;	
-		Vertex verts[] = {
-			{ XMFLOAT3(sx, sy, sz),XMFLOAT3(), XMFLOAT2(0.0f, 0.0f) },
-			{ XMFLOAT3(ex, ey, ez), XMFLOAT3(), XMFLOAT2(0.0f, 0.0f) }
-		};
+		Vertex verts[2];
+		verts[0].position = XMFLOAT3(sx, sy, sz);
+		verts[0].normal = XMFLOAT3();
+		verts[0].texture = XMFLOAT2(0.0f, 0.0f);
+		verts[1].position = XMFLOAT3(ex, ey, ez);
+		verts[1].normal = XMFLOAT3();
+		verts[1].texture = XMFLOAT2(0.0f, 0.0f);
 		m_vertices.updateVertices(context, verts, 2);
 	}
 	SHADERS.bindPair("BasicLine", context);
