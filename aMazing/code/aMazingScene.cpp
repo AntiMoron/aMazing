@@ -32,7 +32,7 @@ HRESULT aMazingScene::initialize(HWND hwnd, ID3D11Device* device)
 	}
 
 	fb = std::make_shared<FrameBuffer>();
-	hr = fb->initialize(device, 800, 600);
+	hr = fb->initialize(device, 1024, 768);
 	if (FAILED(hr))
 	{
 		return hr;
@@ -71,7 +71,6 @@ void aMazingScene::render(ID3D11DeviceContext* context)
 	classInstanceBuffer->updateGpu(context);
 	classInstanceBuffer->bindPixelShader(context);
 
-
 	camera->render(context);
 	dayTime->UpdateTime(context);
 
@@ -81,36 +80,35 @@ void aMazingScene::render(ID3D11DeviceContext* context)
 	
 	auto mazeRender = [&](ID3D11DeviceContext* context)
 	{
-		SHADERS.bindPair("BasicSky", context);
+		SHADERS.push("BasicSky", context);
 		TEXTURE.getTexture(3)->bindPS(context, 0);
 		GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
-		SHADERS.bindPair("Basic3D", context);
+		SHADERS.push("Basic3D", context);
 		maze->Render(context, camera->getCamera());
 		//bind shader which skin animation need.
-
 		if (model->isStatic())
 		{
-			SHADERS.bindPair("Basic3D", context);
+			SHADERS.push("Basic3D", context);
 		}
 		else
 		{
-			SHADERS.bindPair("SkinAnim", context);
+			SHADERS.push("SkinAnim", context);
 		}
 		model->setRotation(XMFLOAT3(1.57, 0, 0));
 		model->setScaling(XMFLOAT3(0.1f, 0.1f, 0.1f));
 		model->render(context);
 		GRAPHICS.RenderLine(10.0f, 10.0f, 10.0f, 0.0f, 0.0f, 0.0f);
+		SHADERS.pop(context);
+		SHADERS.pop(context);
+		SHADERS.pop(context);
 	};
 	fb->clearRenderTarget(context);
 	fb->setRenderTarget(context);
 	mazeRender(context);
-	//glow->Render(device, context, mazeRender);
-	//glow->Render(device, context, shadowRender);
 	fb->bindPS(D3DManager::getContext(DEFAULT_CONTEXT),
 		0);
 	D3DManager::setMainRenderTarget();
-	SHADERS.bindPair("Basic2D", context);
-	GRAPHICS.RenderRectangle(0, 0, WINWIDTH / 2, WINHEIGHT / 2);
+	GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 }
 
 const std::shared_ptr<WrappedCamera>& aMazingScene::getWrappedCamera()

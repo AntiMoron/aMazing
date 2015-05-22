@@ -22,11 +22,10 @@ namespace aMazing
 			const std::string& name);
 	public:
 		ShaderPair(VertexShaderObject** pv,
-			PixelShaderObject** pp, const std::string& shaderName)
+			PixelShaderObject** pp)
 		{
 			pVert = *pv;
 			pPixl = *pp;
-			this->shaderName = shaderName;
 		}
 		~ShaderPair()
 		{
@@ -67,22 +66,6 @@ namespace aMazing
 		{
 			return !((pVert == nullptr) || (pPixl == nullptr));
 		}
-		bool operator < (const ShaderPair& other)const
-		{
-			return shaderName < other.shaderName;
-		}
-
-		bool operator < (const std::string& other)const
-		{
-			return shaderName < other;
-		}
-
-		bool operator == (const std::string& other)const
-		{
-			return shaderName == other;
-		}
-
-
 	private:
 		std::string shaderName;
 		VertexShaderObject* pVert;
@@ -93,8 +76,7 @@ namespace aMazing
 	std::shared_ptr<ShaderPair> aMakeShaderPairFromMemory(ID3D11Device* device,
 		const char* vsContent,
 		const char* psContent,
-		const D3D11_INPUT_ELEMENT_DESC (&layoutDesc)[cnt],
-		const std::string& name)
+		const D3D11_INPUT_ELEMENT_DESC (&layoutDesc)[cnt])
 	{
 		HRESULT hr = E_FAIL;
 		VertexShaderObject* v = new VertexShaderObject;
@@ -111,15 +93,14 @@ namespace aMazing
 			aDBG("Error in content: " << psContent);
 			aSAFE_DELETE(p);
 		}
-		return std::make_shared<ShaderPair>(&v, &p, name);
+		return std::make_shared<ShaderPair>(&v, &p);
 	}
 
 	template<size_t cnt>
 	std::shared_ptr<ShaderPair> aMakeShaderPairFromFile(ID3D11Device* device,
 		const char* vsFilePath,
 		const char* psFilePath,
-		const D3D11_INPUT_ELEMENT_DESC(&layoutDesc)[cnt],
-		const std::string& name)
+		const D3D11_INPUT_ELEMENT_DESC(&layoutDesc)[cnt])
 	{
 		HRESULT hr = E_FAIL;
 		VertexShaderObject* v = new VertexShaderObject;
@@ -136,6 +117,6 @@ namespace aMazing
 			aDBG("Error At: " << vsFilePath);
 			aSAFE_DELETE(p);
 		}
-		return std::make_shared<ShaderPair>(&v, &p, name);
+		return std::make_shared<ShaderPair>(&v, &p);
 	}
 }

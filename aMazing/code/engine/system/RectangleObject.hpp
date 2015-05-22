@@ -1,20 +1,15 @@
 #pragma once
-#include"../../common/CommonDxSupport.hpp"
-#include<D3DX10math.h>
 #include"GlobalWindow.hpp"
+#include"../../common/CommonDef.hpp"
+#include"../shader/ShaderManager.hpp"
 #include"GPUMutableVerticesBuffer.hpp"
 #include"../../engine/data/Vertex.hpp"
-#include"../../common/CommonDef.hpp"
+#include"../../common/CommonDxSupport.hpp"
 namespace aMazing
 {
 	class RectangleObject
 	{
 	public:
-		RectangleObject()
-		{
-			;
-		}
-
 		HRESULT initialize(ID3D11Device* device)
 		{
 			HRESULT hr;
@@ -72,12 +67,13 @@ namespace aMazing
 			return S_OK;
 		}
 
-		void Render(ID3D11DeviceContext* context,
+		void render(ID3D11DeviceContext* context,
 			unsigned short ileft,
 			unsigned short itop,
 			unsigned short iright,
 			unsigned short ibottom)
 		{
+			SHADERS.push("Basic2D", context);
 			float left, right, top, bottom;
 			left = (float)(WINWIDTH / -2.0f) + ileft;
 			right = left + (iright - ileft);
@@ -127,6 +123,7 @@ namespace aMazing
 			context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 			verts.updateVertices(context, vertices, 6);
 			verts.render(context);
+			SHADERS.pop(context);
 		}
 
 	private:

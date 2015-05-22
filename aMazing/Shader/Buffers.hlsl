@@ -25,8 +25,6 @@ cbuffer PRS : register(b1)
 
 cbuffer light : register(b2)
 {
-	float4 lightDirection;
-	float4 lightPosition;
 	matrix viewMatrix;
 	matrix projectionMatrix;
 }

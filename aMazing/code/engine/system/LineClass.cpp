@@ -84,10 +84,11 @@ void LineClass::render(ID3D11DeviceContext* context,
 		verts[1].texture = XMFLOAT2(0.0f, 0.0f);
 		m_vertices.updateVertices(context, verts, 2);
 	}
-	SHADERS.bindPair("BasicLine", context);
+	SHADERS.push("BasicLine", context);
 	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 	m_color.bindPixelShader(context);
 	m_vertices.render(context);
+	SHADERS.pop(context);
 }
 
 bool LineClass::isInited() const

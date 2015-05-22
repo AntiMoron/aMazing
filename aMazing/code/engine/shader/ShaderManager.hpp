@@ -1,19 +1,25 @@
 #pragma once
-
-#include<vector>
+#include<stack>
+#include<unordered_map>
 #include"ShaderPair.hpp"
 #include"../../common/CommonDef.hpp"
 #include"../containers/MutableString.hpp"
 #include"../system/thread/aThreadSafeSingleton.hpp"
+
 namespace aMazing
 {
 	class ShaderManager : public aThreadSafeSingleton<ShaderManager>
 	{
 	private:
 		friend class aThreadSafeSingleton<ShaderManager>;
-		ShaderManager(){}
+		ShaderManager()
+		{
+			//TODO: need to config from XML config file
+			runtimeShaderStack.push("Basic3D");
+		}
 
-		std::vector<std::shared_ptr<ShaderPair> > vec;
+		std::unordered_map<std::string, std::shared_ptr<ShaderPair> > shaderStorage;
+		std::stack<std::string> runtimeShaderStack;
 		size_t basicShaderCount;
 	public:
 		template<typename VertexType>
@@ -24,15 +30,18 @@ namespace aMazing
 			std::string&& shaderName)
 		{
 			HRESULT hr = E_FAIL;
+			auto it = shaderStorage.find(shaderName);
+			if (it != shaderStorage.end())
+			{
+				return E_FAIL;
+			}
 			std::shared_ptr<ShaderPair> newpair = 
-				aMakeShaderPairFromMemory(device, vContent, pContent, VertexType::input_layout, shaderName);
+				aMakeShaderPairFromMemory(device, vContent, pContent, VertexType::input_layout);
 			if (!newpair->isValid())
 			{
 				return E_FAIL;
 			}
-			vec.insert(std::upper_bound(vec.begin(), vec.end(), newpair,
-				[](const std::shared_ptr<ShaderPair>& a, const std::shared_ptr<ShaderPair>& b)->bool{return (*a) < (*b); })
-				, newpair);
+			shaderStorage[shaderName] = newpair;
 			return S_OK;
 		}
 
@@ -44,85 +53,46 @@ namespace aMazing
 			std::string&& shaderName)
 		{
 			HRESULT hr = E_FAIL;
+			auto it = shaderStorage.find(shaderName);
+			if (it != shaderStorage.end())
+			{
+				return E_FAIL;
+			}
 			std::shared_ptr<ShaderPair> newpair =
-				aMakeShaderPairFromFile(device, vFileName, pFileName, VertexType::input_layout, shaderName);
+				aMakeShaderPairFromFile(device, vFileName, pFileName, VertexType::input_layout);
 			if (!newpair->isValid())
 			{
 				return E_FAIL;
 			}
-			vec.insert(std::upper_bound(vec.begin(), vec.end(), newpair,
-				[](const std::shared_ptr<ShaderPair>& a, const std::shared_ptr<ShaderPair>& b)->bool{return (*a) < (*b); })
-				, newpair);
+			shaderStorage[shaderName] = newpair;
 			return S_OK;
 		}
 
 		const ShaderPair& getShaderPairByTag(const std::string& tag) 
 			throw(std::out_of_range)
 		{
-			auto f = [this](const std::string& str)->long
+			auto it = shaderStorage.find(tag);
+			if (it == shaderStorage.end())
 			{
-				long l = 0, r = vec.size() - 1, mid;
-				while (l <= r)
-				{
-					mid = (l + r) / 2;
-					if (*vec[l] == str)
-					{
-						return l;
-					}
-					if (*vec[r] == str)
-					{
-						return r;
-					}
-					if (*vec[mid] == str)
-					{
-						return mid;
-					}
-					if (*vec[mid] < str)
-					{
-						l = mid + 1;
-					}
-					else
-					{
-						r = mid - 1;
-					}
-				}
-				return -1;
-			};
-			long index = f(tag);
-			if (size_t(index) >= vec.size()
-				|| (index < 0))
-			{
-				throw std::out_of_range("Shader Manager access out of range.");
+				throw std::out_of_range("This Shader Tag is Not included.");
 			}
-			return *vec[index];
+			return *(it->second);
 		}
 
-		void bindPair(const std::string& tag,
-			ID3D11DeviceContext* context)
+		void push(const std::string& name, ID3D11DeviceContext* context)
 		{
-			getShaderPairByTag(tag).bindShader(context);
+			runtimeShaderStack.push(name);
+			getShaderPairByTag(name).bindShader(context);
 		}
 
-		void push(const std::string& name)
+		bool pop(ID3D11DeviceContext* context)
 		{
-			vec.push_back(
-				std::make_shared<ShaderPair>(getShaderPairByTag(name)));
-		}
-
-		void push(const ShaderPair& p)
-		{
-			vec.push_back(std::make_shared<ShaderPair>(p));
-		}
-
-
-		bool pop()
-		{
-			if (vec.size() < basicShaderCount)
+			if (runtimeShaderStack.size() <= 1)
 			{
-				aDBG("invalid pop.Push & Pop not match");
-				throw;
+				assert("invalid pop.Push & Pop not match");
 			}
-			vec.pop_back();
+			runtimeShaderStack.pop();
+			getShaderPairByTag(runtimeShaderStack.top()).bindShader(context);
 			return true;
 		}
 	};

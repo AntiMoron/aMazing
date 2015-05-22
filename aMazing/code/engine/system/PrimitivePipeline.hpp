@@ -13,6 +13,7 @@ namespace aMazing
 	{
 	private:
 		friend class aThreadSafeSingleton<PrimitivePipeline>;
+		PrimitivePipeline(){}
 	public:
 		HRESULT initialize()
 		{
@@ -39,13 +40,12 @@ namespace aMazing
 			return S_OK;
 		}
 
-
 		void RenderRectangle(unsigned short l,unsigned short t,
 			unsigned short r, unsigned short b)
 		{
 			ID3D11DeviceContext* context = D3DManager::getContext(MANAGED_CONTEXT_TYPE::DEFAULT_CONTEXT);
 			D3DManager::disableDepth(context);
-			rec->Render(context, l, t, r, b);
+			rec->render(context, l, t, r, b);
 			D3DManager::enableDepth(context);
 		}
 

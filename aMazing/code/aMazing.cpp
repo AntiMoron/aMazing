@@ -2,9 +2,7 @@
 #include <windows.h>
 #include "engine/system/InputClass.hpp"
 #include "engine/system/GlobalWindow.hpp"
-#include "engine/system/D3DManager.hpp"
 #include "aMazingScene.hpp"
-#include "engine/containers/Directory.hpp"
 using namespace aMazing;
 HINSTANCE g_hInst = nullptr;
 HWND g_hWnd = nullptr;

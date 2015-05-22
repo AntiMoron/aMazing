@@ -1,7 +1,7 @@
 #pragma once
 #include"aJsonHelper.hpp"
 #include"aJsonData.hpp"
-#include"../VirtualString.hpp"
+#include"../../containers/VirtualString.hpp"
 #include"../../../common/CommonFunction.hpp"
 
 namespace aMazing

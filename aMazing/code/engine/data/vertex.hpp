@@ -1,6 +1,6 @@
 #pragma once
-#include"../../common/CommonHelper.hpp"
 #include"../../common/CommonDxSupport.hpp"
+#include"../../common/CommonHelper.hpp"
 #include"../../common/CommonDef.hpp"
 namespace aMazing
 {
