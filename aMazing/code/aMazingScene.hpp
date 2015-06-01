@@ -9,12 +9,11 @@
 #include"collision/CollisionWorld.hpp"
 #include"DayNightClass.hpp"
 #include"WrappedCamera.hpp"
-#include"engine/animate/ModelObject.hpp"
+#include"engine/asset/ModelObject.hpp"
 #include"engine/shader/shaderclass/cAmbientLight.hpp"
 #include"engine/shader/shaderclass/cDirectionalLight.hpp"
 #include"engine/shader/shaderclass/cEnvironmentLight.hpp"
 #include"engine/shader/shaderclass/cSmoothTexturedMaterial.hpp"
-
 using namespace aMazing;
 
 class aMazingScene

@@ -254,5 +254,5 @@ void Render()
 	CameraProc();
 	D3DManager::clearRenderTarget();
 	scene->render(CONTEXT);
-	D3DManager::present(true);//V-Sync
+	D3DManager::present(false);//V-Sync
 }

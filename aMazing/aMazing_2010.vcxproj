@@ -222,6 +222,7 @@
       <AdditionalIncludeDirectories>DXUT\Core;DXUT\Optional;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;D3DXFX_LARGEADDRESS_HANDLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
@@ -256,6 +257,9 @@
     <FxCompile>
       <ShaderModel>5.0</ShaderModel>
     </FxCompile>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|X64'">
     <ClCompile>
@@ -384,7 +388,7 @@
     <ClCompile Include="code\aMazingScene.cpp" />
     <ClCompile Include="code\collision\CollisionIntersection.cpp" />
     <ClCompile Include="code\common\CommonFunction.cpp" />
-    <ClCompile Include="code\engine\animate\ModelObject.cpp" />
+    <ClCompile Include="code\engine\asset\ModelObject.cpp" />
     <ClCompile Include="code\engine\containers\Directory.cpp" />
     <ClCompile Include="code\engine\containers\MutableString.cpp" />
     <ClCompile Include="code\engine\data\vertex.cpp" />
@@ -421,10 +425,10 @@
     <ClInclude Include="code\common\CommonTemplates.hpp" />
     <ClInclude Include="code\common\CommonUtil.hpp" />
     <ClInclude Include="code\DayNightClass.hpp" />
-    <ClInclude Include="code\engine\animate\AnimEvaluator.hpp" />
-    <ClInclude Include="code\engine\animate\ModelObject.hpp" />
-    <ClInclude Include="code\engine\animate\SceneAnimator.hpp" />
-    <ClInclude Include="code\engine\animate\SceneAnimNode.hpp" />
+    <ClInclude Include="code\engine\asset\AnimEvaluator.hpp" />
+    <ClInclude Include="code\engine\asset\ModelObject.hpp" />
+    <ClInclude Include="code\engine\asset\SceneAnimator.hpp" />
+    <ClInclude Include="code\engine\asset\SceneAnimNode.hpp" />
     <ClInclude Include="code\engine\Config.hpp" />
     <ClInclude Include="code\engine\containers\check\CharLike.hpp" />
     <ClInclude Include="code\engine\containers\check\Common.hpp" />
@@ -468,6 +472,7 @@
     <ClInclude Include="code\engine\render\CommonPipeLine.hpp" />
     <ClInclude Include="code\engine\render\effect\RenderPipeline.hpp" />
     <ClInclude Include="code\engine\render\material\MaterialPipeline.hpp" />
+    <ClInclude Include="code\engine\render\RenderStateManager.hpp" />
     <ClInclude Include="code\engine\shader\PixelShaderObject.hpp" />
     <ClInclude Include="code\engine\shader\shaderclass\cAmbientLight.hpp" />
     <ClInclude Include="code\engine\shader\shaderclass\cBaseMaterial.hpp" />

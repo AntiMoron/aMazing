@@ -1,8 +1,8 @@
 #pragma once
 
-#include"../../common/CommonDxSupport.hpp"
 #include"../../common/CommonDef.hpp"
-#include<iostream>
+#include"../../common/CommonDxSupport.hpp"
+#include"../render/RenderStateManager.hpp"
 
 template<typename source_type>
 class GPUMutableVerticeBuffer
@@ -126,6 +126,14 @@ public:
 
 	void render(ID3D11DeviceContext* context)
 	{
+		if (RENDER_STATE_MANAGER.isWireframe())
+		{
+			context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
+		}
+		else
+		{
+			context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		}
 		bind(context);
 		if (indices != nullptr)
 		{

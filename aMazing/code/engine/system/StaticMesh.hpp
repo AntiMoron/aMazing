@@ -8,9 +8,6 @@ namespace aMazing
 	class StaticMesh
 	{
 	public:
-		StaticMesh(){}
-		~StaticMesh(){}
-
 		HRESULT initialize(ID3D11Device* device,
 			ID3D11DeviceContext* context,
 			T* verticesData,
@@ -19,7 +16,7 @@ namespace aMazing
 			std::size_t indicesCount = 0)
 		{
 			HRESULT hr;
-			hr = vertices.initialize(device, context, verticesData, verticesCount, indices, indicesCount);
+			hr = vertices.initialize(device, verticesData, verticesCount, indices, indicesCount);
 			if (FAILED(hr))
 			{
 				return hr;
@@ -27,9 +24,9 @@ namespace aMazing
 			return S_OK;
 		}
 
-		void Render(ID3D11Device* device, ID3D11DeviceContext* context)
+		void render(ID3D11DeviceContext* context)
 		{
-			vertices.Render(device, context);
+			vertices.render(context);
 		}
 	private:
 		GPUVerticesBuffer<T> vertices;

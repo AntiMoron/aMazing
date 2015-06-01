@@ -81,7 +81,6 @@ namespace aMazing
 					{
 						presentPosition = key.mValue;
 					}
-
 					std::get<0>(mLastPositions[a]) = frame;
 				}
 

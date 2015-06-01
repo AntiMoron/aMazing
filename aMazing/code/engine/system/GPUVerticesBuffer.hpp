@@ -1,7 +1,7 @@
 #pragma once
 #include"../../common/CommonDef.hpp"
 #include"../../common/CommonDxSupport.hpp"
-
+#include"../render/RenderStateManager.hpp"
 template<typename source_type>
 class GPUVerticesBuffer
 {
@@ -91,7 +91,14 @@ public:
 
 	void render(ID3D11DeviceContext* context)
 	{
-		context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		if (RENDER_STATE_MANAGER.isWireframe())
+		{
+			context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
+		}
+		else
+		{
+			context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		}
 		bind(context);
 		if (m_hasIndex == true)
 		{

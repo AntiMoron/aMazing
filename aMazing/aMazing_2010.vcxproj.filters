@@ -51,9 +51,6 @@
     <Filter Include="Engine\data">
       <UniqueIdentifier>{44962ac5-fdfe-4245-bf6d-b6ce734a2c7e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\animate">
-      <UniqueIdentifier>{063db111-3662-41f2-83dd-5e8418452b92}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\system">
       <UniqueIdentifier>{7edd9bc4-69ba-4cbf-ad47-f5d5b9826564}</UniqueIdentifier>
     </Filter>
@@ -83,6 +80,9 @@
     </Filter>
     <Filter Include="Engine\system\file">
       <UniqueIdentifier>{b746475e-0d20-4b40-b44c-97f640b7f80e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\asset">
+      <UniqueIdentifier>{063db111-3662-41f2-83dd-5e8418452b92}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -121,15 +121,6 @@
     </ClInclude>
     <ClInclude Include="code\common\CommonUtil.hpp">
       <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\animate\AnimEvaluator.hpp">
-      <Filter>Engine\animate</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\animate\SceneAnimator.hpp">
-      <Filter>Engine\animate</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\animate\SceneAnimNode.hpp">
-      <Filter>Engine\animate</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\data\BonesBindData.hpp">
       <Filter>Engine\data</Filter>
@@ -360,9 +351,6 @@
     <ClInclude Include="code\engine\math\avector.hpp">
       <Filter>Engine\math</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\animate\ModelObject.hpp">
-      <Filter>Engine\animate</Filter>
-    </ClInclude>
     <ClInclude Include="code\engine\data\json\aJsonData.hpp">
       <Filter>Engine\data\json</Filter>
     </ClInclude>
@@ -450,6 +438,21 @@
     <ClInclude Include="code\engine\shader\ShaderLiteral.hpp">
       <Filter>Engine\shader</Filter>
     </ClInclude>
+    <ClInclude Include="code\engine\render\RenderStateManager.hpp">
+      <Filter>Engine\render</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\asset\AnimEvaluator.hpp">
+      <Filter>Engine\asset</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\asset\ModelObject.hpp">
+      <Filter>Engine\asset</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\asset\SceneAnimator.hpp">
+      <Filter>Engine\asset</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\asset\SceneAnimNode.hpp">
+      <Filter>Engine\asset</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\collision\CollisionIntersection.cpp">
@@ -490,9 +493,6 @@
     <ClCompile Include="code\engine\system\D3DManager.cpp">
       <Filter>Engine\system</Filter>
     </ClCompile>
-    <ClCompile Include="code\engine\animate\ModelObject.cpp">
-      <Filter>Engine\animate</Filter>
-    </ClCompile>
     <ClCompile Include="code\engine\system\TextureObject.cpp">
       <Filter>Engine\system</Filter>
     </ClCompile>
@@ -510,6 +510,9 @@
     </ClCompile>
     <ClCompile Include="code\engine\data\vertex.cpp">
       <Filter>Engine\data</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\asset\ModelObject.cpp">
+      <Filter>Engine\asset</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

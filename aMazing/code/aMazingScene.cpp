@@ -57,7 +57,6 @@ HRESULT aMazingScene::initialize(HWND hwnd, ID3D11Device* device)
 
 void aMazingScene::render(ID3D11DeviceContext* context)
 {
-
 	ClassInstance cbdata;
 	cbdata.ambientLighting.vLightColor = { 1.0f, 1.0f, 1.0f };
 	cbdata.directLighting.isEnable = true;
@@ -77,7 +76,6 @@ void aMazingScene::render(ID3D11DeviceContext* context)
 	XMFLOAT3 pos = camera->getPosition();
 	//collisionWorld->updateCameraPos(pos.x, pos.z, 0.0f);
 	//collisionWorld->getNewState();
-	
 	auto mazeRender = [&](ID3D11DeviceContext* context)
 	{
 		SHADERS.push("BasicSky", context);
@@ -105,8 +103,7 @@ void aMazingScene::render(ID3D11DeviceContext* context)
 	fb->clearRenderTarget(context);
 	fb->setRenderTarget(context);
 	mazeRender(context);
-	fb->bindPS(D3DManager::getContext(DEFAULT_CONTEXT),
-		0);
+	fb->bindPS(D3DManager::getContext(DEFAULT_CONTEXT),0);
 	D3DManager::setMainRenderTarget();
 	GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 }

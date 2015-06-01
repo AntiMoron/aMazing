@@ -12,9 +12,6 @@ namespace aMazing
 	class CameraClass
 	{
 	public:
-		CameraClass();
-		~CameraClass();
-
 		HRESULT initialize(ID3D11Device* device);
 
 		void setAspectRatio(float ratio);
