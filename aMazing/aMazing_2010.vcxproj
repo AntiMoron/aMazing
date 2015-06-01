@@ -534,6 +534,11 @@
     <ClInclude Include="code\MazeGenerator.hpp" />
     <ClInclude Include="code\Resource.h" />
     <ClInclude Include="code\util\any.hpp" />
+    <ClInclude Include="code\util\regex\DFA.hpp" />
+    <ClInclude Include="code\util\regex\FSM.hpp" />
+    <ClInclude Include="code\util\regex\NFA.hpp" />
+    <ClInclude Include="code\util\regex\Nodes.hpp" />
+    <ClInclude Include="code\util\regex\regex.hpp" />
     <ClInclude Include="code\WrappedCamera.hpp" />
     <CLInclude Include="resource.h" />
     <ClInclude Include="Shader\Buffers.hlsl" />

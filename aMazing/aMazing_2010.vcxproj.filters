@@ -84,6 +84,9 @@
     <Filter Include="Engine\asset">
       <UniqueIdentifier>{063db111-3662-41f2-83dd-5e8418452b92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="util\regex">
+      <UniqueIdentifier>{fd19795d-9167-4ad8-950c-e5a2470bd912}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\collision\shapecategory\CollisionCircle.hpp">
@@ -452,6 +455,21 @@
     </ClInclude>
     <ClInclude Include="code\engine\asset\SceneAnimNode.hpp">
       <Filter>Engine\asset</Filter>
+    </ClInclude>
+    <ClInclude Include="code\util\regex\regex.hpp">
+      <Filter>util\regex</Filter>
+    </ClInclude>
+    <ClInclude Include="code\util\regex\DFA.hpp">
+      <Filter>util\regex</Filter>
+    </ClInclude>
+    <ClInclude Include="code\util\regex\NFA.hpp">
+      <Filter>util\regex</Filter>
+    </ClInclude>
+    <ClInclude Include="code\util\regex\Nodes.hpp">
+      <Filter>util\regex</Filter>
+    </ClInclude>
+    <ClInclude Include="code\util\regex\FSM.hpp">
+      <Filter>util\regex</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
