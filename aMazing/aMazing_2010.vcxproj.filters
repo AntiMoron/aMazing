@@ -471,6 +471,9 @@
     <ClInclude Include="code\util\regex\FSM.hpp">
       <Filter>util\regex</Filter>
     </ClInclude>
+    <ClInclude Include="code\util\dynamic_matrix.hpp">
+      <Filter>util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\collision\CollisionIntersection.cpp">

@@ -534,6 +534,7 @@
     <ClInclude Include="code\MazeGenerator.hpp" />
     <ClInclude Include="code\Resource.h" />
     <ClInclude Include="code\util\any.hpp" />
+    <ClInclude Include="code\util\dynamic_matrix.hpp" />
     <ClInclude Include="code\util\regex\DFA.hpp" />
     <ClInclude Include="code\util\regex\FSM.hpp" />
     <ClInclude Include="code\util\regex\NFA.hpp" />

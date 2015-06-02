@@ -3,10 +3,10 @@
 #include<memory>
 namespace aMazing
 {
-	template<typename T>
+	template<typename Type>
 	class DynamicMatrix
 	{
-		static_assert(std::is_pod<T>::value,"Template argument must be pod type.");
+		static_assert(std::is_pod<Type>::value,"Template argument must be pod type.");
 	public:
 		explicit DynamicMatrix() = delete;
 		explicit DynamicMatrix(int w, int h) aNOEXCEPT
@@ -15,9 +15,18 @@ namespace aMazing
 			width = w;
 			height = h;
 		}
-		inline Type* operator [](int index) const aNOEXCEPT
+		Type* operator [](int index) const aNOEXCEPT
 		{
-			return data[index * height];
+			return &data[index * height];
+		}
+		
+		int getWidth() const aNOEXCEPT
+		{
+			return width;
+		}
+		int getHeight() const aNOEXCEPT
+		{
+			return height;
 		}
 	private:
 		int width;

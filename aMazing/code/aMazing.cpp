@@ -3,6 +3,7 @@
 #include "engine/system/InputClass.hpp"
 #include "engine/system/GlobalWindow.hpp"
 #include "aMazingScene.hpp"
+#include "util/regex/DFA.hpp"
 using namespace aMazing;
 HINSTANCE g_hInst = nullptr;
 HWND g_hWnd = nullptr;
@@ -84,8 +85,16 @@ HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow )
     if( !g_hWnd )
         return E_FAIL;
 	GLOBAL_WINDOW.setWindowHandler(g_hWnd);
-    ShowWindow( g_hWnd, nCmdShow );
-    return S_OK;
+	ShowWindow( g_hWnd, nCmdShow );
+
+	DFA d;
+	for (int i = 0; i < 7; i++) d.addNode(i);
+	d.setStartState(0);
+	d.addEndState(1);
+	d.display();
+	d.minimize();
+	d.display();
+	return S_OK;
 }
 
 HRESULT InitDevice()

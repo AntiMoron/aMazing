@@ -60,55 +60,37 @@ namespace aMazing
 			}
 			//adapt the result table.
 			//when cell's vaule is false,the nodes that cell's column and row stands can be merged. 
-			std::vector<std::pair<int,int> > idsToMerge;
 			for (int i = 1; i < distinct.getWidth(); i++)
 			{
 				for (int j = 0; j < distinct.getHeight() - 1; ++j)
 				{
 					if (distinct[i][j] == false)
 					{
-						idsToMerge.push_back(std::pair<int, int>(nodes[i]->getIdentifer(),
-							nodes[j]->getIdentifer()));
+						std::vector<Bridge> asStart, asEnd;
+						getNodeTransitions(nodes[j]->getIdentifer(), asStart, asEnd);
 					}
 				}
 			}
-			//Merge ids.
-			for (int i = 0; i < idsToMerge.size(); i++)
+			//
+		}
+	private:
+		void getNodeTransitions(int id,std::vector<Bridge>& asStart,std::vector<Bridge>& asEnd)
+		{
+			for (AlphaType a : alphabet)
 			{
-				if (idsToMerge[i].first == idsToMerge[i].second)
+				auto& trans = transitions[a];
+				for (int i = 0; i < trans.size(); ++i)
 				{
-					continue;
-				}
-				if (idsToMerge[i].second != startState)
-				{
-					std::vector<Bridge> asStart, asEnd;
-					getNodeTransitions(idsToMerge[i].second, asStart, asEnd);
-					for (Bridge bg : asStart)
+					if (trans[i].start == id)
 					{
-						bindA2B(idsToMerge[i].first, bg.end, bg.alpha);
+						asStart.push_back(trans[i]);
 					}
-					for (Bridge bg : asEnd)
+					if (trans[i].end == id)
 					{
-						bindA2B(bg.start, idsToMerge[i].first, bg.alpha);
+						asEnd.push_back(trans[i]);
 					}
-					eraseNode(idsToMerge[i].second);
-				}
-				else
-				{
-					std::vector<Bridge> asStart, asEnd;
-					getNodeTransitions(idsToMerge[i].first, asStart, asEnd);
-					for (Bridge bg : asStart)
-					{
-						bindA2B(idsToMerge[i].second, bg.end, bg.alpha);
-					}
-					for (Bridge bg : asEnd)
-					{
-						bindA2B(bg.start, idsToMerge[i].second, bg.alpha);
-					}
-					eraseNode(idsToMerge[i].first);
 				}
 			}
-			//Finish job.
 		}
 	};
 }
