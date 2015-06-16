@@ -152,8 +152,7 @@ HRESULT InitDevice()
 	scene->initialize(g_hWnd, DEVICE);
 
 	aXmlParser p;
-	auto ret = p.parseFile("test.xml");
-	auto ret2 = p.parserString("<A>123</A>");
+	auto ret = p.parseFile("config.xml");
 	return S_OK;
 }
 

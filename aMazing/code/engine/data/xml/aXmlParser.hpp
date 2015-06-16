@@ -28,13 +28,6 @@ namespace aMazing
 	class aXmlParser
 	{
 	public:
-		aXmlParser()
-		{
-		}
-		~aXmlParser()
-		{
-		}
-
 		std::shared_ptr<aXmlNode> parseFile(const std::string& fileName) 
 			throw (FailureException)
 		{
@@ -89,30 +82,31 @@ namespace aMazing
 		static void XMLCALL dataHandler(void *userData, const char *content, int length)
 		{
 			aXmlNode** ppNode = reinterpret_cast<aXmlNode**>(userData);
-			aXmlNode* pNode = *ppNode;
-			pNode->content = std::string(content, content + length);
+			aXmlNode*& pNode = *ppNode;
+			for (size_t i = 0; i < length; i++)
+			{
+				if (!aMazing::isBlank(content[i]))
+					pNode->content += content[i];
+			}
 		}
 		static void XMLCALL startElement(void *userData, const char *name, const char **atts)
 		{
 			aXmlNode** ppNode = reinterpret_cast<aXmlNode**>(userData);
-			aXmlNode* pNode;
+			aXmlNode*& pNode = *ppNode;
 			if (*ppNode == nullptr)
 			{
-				*ppNode = new aXmlNode;
-				pNode = *ppNode;
+				pNode = new aXmlNode;
 			}
 			else
 			{
-				(*ppNode)->children.push_back(new aXmlNode);
-				pNode = *ppNode;
-				ppNode = &(pNode->children.back());
-				(*ppNode)->parent = pNode;
-				pNode = *ppNode;
+				aXmlNode* parent = pNode;
+				pNode->children.push_back(new aXmlNode);
+				pNode = pNode->children.back();
+				pNode->parent = parent;
 			}
 
  			pNode->key = name;
 			
-			aDBG_OLD_LINE(name << ",");
 			int i = 0;
 			while (atts[i] != nullptr)
 			{
@@ -130,11 +124,11 @@ namespace aMazing
 		static void XMLCALL endElement(void *userData, const char *name)
 		{
 			aXmlNode** ppNode = reinterpret_cast<aXmlNode**>(userData);
-			aXmlNode* pNode = *ppNode;
-			ppNode = &(pNode->parent);
+			aXmlNode*& pNode = *ppNode;
+			if (pNode->parent != nullptr)
+				pNode = pNode->parent;
 		}
 
-		int depth;
 		char buf[BUFSIZ];
 		int done;
 	};

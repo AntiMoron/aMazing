@@ -4,6 +4,7 @@
 #include <string>
 #include "aXmlConfig.hpp"
 #include "../../../common/CommonDef.hpp"
+#include "../../../common/CommonFunction.hpp"
 
 namespace aMazing
 {
