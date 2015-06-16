@@ -4,6 +4,7 @@
 #include "engine/system/GlobalWindow.hpp"
 #include "aMazingScene.hpp"
 #include "util/regex/DFA.hpp"
+#include "engine/data/xml/aXmlParser.hpp"
 using namespace aMazing;
 HINSTANCE g_hInst = nullptr;
 HWND g_hWnd = nullptr;
@@ -149,6 +150,10 @@ HRESULT InitDevice()
 		"Shader/skinAnim/skinAnim.fx", "Shader/skinAnim/skinAnim.fx", "SkinAnim"));
 	scene = new aMazingScene;
 	scene->initialize(g_hWnd, DEVICE);
+
+	aXmlParser p;
+	auto ret = p.parseFile("test.xml");
+	auto ret2 = p.parserString("<A>123</A>");
 	return S_OK;
 }
 

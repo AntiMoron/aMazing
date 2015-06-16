@@ -37,6 +37,15 @@ MULTI_LINE_MACRO_BEGIN\
 	}\
 MULTI_LINE_MACRO_END
 
+#define aSAFE_DELETE_ARRAY(x) \
+MULTI_LINE_MACRO_BEGIN\
+	if (!!x){\
+		delete [] (x); \
+		aDBG(CODE_FILENAME << '(' << CODE_LINENUM << ") : \n\'" << typeid(x).name() << "\' Object address at[" << (x) << "] deleted."); \
+		(x) = nullptr; \
+	}\
+MULTI_LINE_MACRO_END
+
 
 #define aRETURN_ON_FAIL(x) if(FAILED(x)){ return E_FAIL;}
 #define aOffsetof(s,x) ((std::size_t)&reinterpret_cast<const volatile char&>(((s*)nullptr)->x))
@@ -47,11 +56,11 @@ MULTI_LINE_MACRO_END
 #ifdef OPEN_DEBUG_OPTION
 #define aDBG_OLD_LINE(x) \
 MULTI_LINE_MACRO_BEGIN\
-	std::cout << x << " "; \
+	std::cout << "" << x << " "; \
 MULTI_LINE_MACRO_END
 #define aDBG_NEW_LINE(x) \
 MULTI_LINE_MACRO_BEGIN\
-	std::cout << x << std::endl;\
+	std::cout << "" << x << std::endl;\
 MULTI_LINE_MACRO_END
 #define aDBG(x)  aDBG_NEW_LINE(x)
 #else

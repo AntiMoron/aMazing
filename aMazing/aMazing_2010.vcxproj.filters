@@ -474,6 +474,9 @@
     <ClInclude Include="code\util\dynamic_matrix.hpp">
       <Filter>util</Filter>
     </ClInclude>
+    <ClInclude Include="code\engine\data\xml\aXmlConfig.hpp">
+      <Filter>Engine\data\xml</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\collision\CollisionIntersection.cpp">
@@ -534,6 +537,12 @@
     </ClCompile>
     <ClCompile Include="code\engine\asset\ModelObject.cpp">
       <Filter>Engine\asset</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\data\xml\aXmlData.cpp">
+      <Filter>Engine\data\xml</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\data\xml\aXmlParser.cpp">
+      <Filter>Engine\data\xml</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
