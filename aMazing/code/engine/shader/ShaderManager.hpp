@@ -5,6 +5,7 @@
 #include"../../common/CommonDef.hpp"
 #include"../containers/MutableString.hpp"
 #include"../system/thread/aThreadSafeSingleton.hpp"
+#include"../data/vertex.hpp"
 
 namespace aMazing
 {
@@ -23,7 +24,7 @@ namespace aMazing
 		size_t basicShaderCount;
 	public:
 		template<typename VertexType>
-		typename std::enable_if<std::is_base_of<detail::VirtualVertexBase, VertexType>::value, HRESULT>::type
+		typename std::enable_if<std::is_base_of<aMazing::detail::VirtualVertexBase, VertexType>::value, HRESULT>::type
 			addPairFromMemory(ID3D11Device* device,
 			const char* vContent,
 			const char* pContent,
@@ -46,7 +47,7 @@ namespace aMazing
 		}
 
 		template<typename VertexType>
-		typename std::enable_if<std::is_base_of<detail::VirtualVertexBase, VertexType>::value, HRESULT>::type
+		typename std::enable_if<std::is_base_of<aMazing::detail::VirtualVertexBase, VertexType>::value, HRESULT>::type
 			addPairFromFile(ID3D11Device* device,
 			const char* vFileName,
 			const char* pFileName,

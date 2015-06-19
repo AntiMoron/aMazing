@@ -5,7 +5,7 @@
 #include "aXmlConfig.hpp"
 #include "../../../common/CommonDef.hpp"
 #include "../../../common/CommonFunction.hpp"
-
+#include "../../exception/FailureException.hpp"
 namespace aMazing
 {
 	enum aXmlEncoding
@@ -29,7 +29,7 @@ namespace aMazing
 			parent = nullptr;
 		}
 #ifdef EXPAT_IMPL
-		aXmlNode(const char* name, 
+		aXmlNode(const char* name,
 			const char** atts)
 		{
 			parent = nullptr;
@@ -43,6 +43,35 @@ namespace aMazing
 				aSAFE_DELETE(child);
 			}
 		}
+
+		aXmlAttribute& operator [] (const std::string& key) throw(FailureException)
+		{
+			for (aXmlAttribute& a : attributes)
+			{
+				if (a.key == key)
+				{
+					return a;
+				}
+			}
+			std::string errorNote = "No such attribute :";
+			errorNote += key;
+			errorNote += ".";
+			throw FailureException(errorNote.c_str());
+		}
+
+		std::vector<aXmlNode*> getChildren(const std::string& key)
+		{
+			std::vector<aXmlNode*> result;
+			for (aXmlNode* p : children)
+			{
+				if (p->key == key)
+				{
+					result.push_back(p);
+				}
+			}
+			return result;
+		}
+		
 		aXmlNode* parent;
 		std::vector<aXmlNode* > children;
 		std::vector<aXmlAttribute > attributes;

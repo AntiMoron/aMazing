@@ -2,9 +2,8 @@
 #include <windows.h>
 #include "engine/system/InputClass.hpp"
 #include "engine/system/GlobalWindow.hpp"
+#include "engine/LoadConfig.hpp"
 #include "aMazingScene.hpp"
-#include "util/regex/DFA.hpp"
-#include "engine/data/xml/aXmlParser.hpp"
 using namespace aMazing;
 HINSTANCE g_hInst = nullptr;
 HWND g_hWnd = nullptr;
@@ -87,14 +86,6 @@ HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow )
         return E_FAIL;
 	GLOBAL_WINDOW.setWindowHandler(g_hWnd);
 	ShowWindow( g_hWnd, nCmdShow );
-
-	DFA d;
-	for (int i = 0; i < 7; i++) d.addNode(i);
-	d.setStartState(0);
-	d.addEndState(1);
-	d.display();
-	d.minimize();
-	d.display();
 	return S_OK;
 }
 
@@ -137,17 +128,33 @@ HRESULT InitDevice()
 
 	//aditional operations.
 	GRAPHICS.initialize();
-
-	aRETURN_ON_FAIL(SHADERS.addPairFromFile<Vertex>(DEVICE,
-		"Shader/Basic3D.fx", "Shader/Basic3D.fx", "Basic3D"));
-	aRETURN_ON_FAIL(SHADERS.addPairFromFile<Vertex>(DEVICE,
-		"Shader/Basic2D.fx", "Shader/Basic2D.fx", "Basic2D"));
-	aRETURN_ON_FAIL(SHADERS.addPairFromFile<Vertex>(DEVICE,
-		"Shader/BasicSky.fx", "Shader/BasicSky.fx", "BasicSky"));
-	aRETURN_ON_FAIL(SHADERS.addPairFromFile<Vertex>(DEVICE,
-		"Shader/wires/line.fx", "Shader/wires/line.fx", "BasicLine"));
-	aRETURN_ON_FAIL(SHADERS.addPairFromFile<SkinVertex>(DEVICE,
-		"Shader/skinAnim/skinAnim.fx", "Shader/skinAnim/skinAnim.fx", "SkinAnim"));
+	try
+	{
+		CONFIG.loadConfig();
+	}
+	catch (const FailureException& e)
+	{
+		MessageBoxA(nullptr,e.what(),"Config Error",MB_OK);
+		return E_FAIL;
+	} 
+	catch (const ConfigException& e)
+	{
+		MessageBoxA(nullptr, e.what(), "Config Error", MB_OK);
+		return E_FAIL;
+	}
+	catch (...)
+	{
+		MessageBoxA(nullptr, "Unknown Exception", "Config Error", MB_OK);
+		return E_FAIL;
+	}
+	//aRETURN_ON_FAIL(SHADERS.addPairFromFile<Vertex>(DEVICE,
+	//	"Shader/Basic2D.fx", "Shader/Basic2D.fx", "Basic2D"));
+	//aRETURN_ON_FAIL(SHADERS.addPairFromFile<Vertex>(DEVICE,
+	//	"Shader/BasicSky.fx", "Shader/BasicSky.fx", "BasicSky"));
+	//aRETURN_ON_FAIL(SHADERS.addPairFromFile<Vertex>(DEVICE,
+	//	"Shader/wires/line.fx", "Shader/wires/line.fx", "BasicLine"));
+	//aRETURN_ON_FAIL(SHADERS.addPairFromFile<SkinVertex>(DEVICE,
+	//	"Shader/skinAnim/skinAnim.fx", "Shader/skinAnim/skinAnim.fx", "SkinAnim"));
 	scene = new aMazingScene;
 	scene->initialize(g_hWnd, DEVICE);
 

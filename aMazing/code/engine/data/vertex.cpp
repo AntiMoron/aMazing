@@ -1,6 +1,17 @@
 #include"vertex.hpp"
 using namespace aMazing;
 
+aMazing::VertexType aMazing::detail::getVertexTypeByLayoutName(const std::string& layoutName)
+throw(FailureException)
+{
+	if (vertexTypeMapper.find(layoutName) != vertexTypeMapper.end())
+	{
+		return vertexTypeMapper[layoutName];
+	}
+	throw FailureException("Config Error:Invalid Layout Name");
+}
+
+
 const D3D11_INPUT_ELEMENT_DESC Vertex::input_layout[] =
 {
 	{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, aOffsetof(Vertex, position), D3D11_INPUT_PER_VERTEX_DATA, 0 },

@@ -477,6 +477,9 @@
     <ClInclude Include="code\engine\data\xml\aXmlConfig.hpp">
       <Filter>Engine\data\xml</Filter>
     </ClInclude>
+    <ClInclude Include="code\engine\LoadConfig.hpp">
+      <Filter>Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\collision\CollisionIntersection.cpp">

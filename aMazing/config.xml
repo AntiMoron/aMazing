@@ -2,23 +2,28 @@
 	<shaders>
 		<shader vsrc="Shader/Basic3D.fx"
 				psrc="Shader/Basic3D.fx"
-				isDefault = "default">
+				layoutName="Vertex"
+				isDefault = "true">
 				Basic3D
-				</shader>
+		</shader>
 		<shader vsrc="Shader/Basic2D.fx"
-				psrc="Shader/Basic2D.fx">
+				psrc="Shader/Basic2D.fx"
+				layoutName="Vertex">
 				Basic2D
 		</shader>
 		<shader vsrc="Shader/BasicSky.fx"
-				psrc="Shader/BasicSky.fx">
+				psrc="Shader/BasicSky.fx"
+				layoutName="Vertex">
 				BasicSky
 		</shader>
 		<shader vsrc="Shader/wires/line.fx"
-				psrc="Shader/wires/line.fx">
+				psrc="Shader/wires/line.fx"
+				layoutName="Vertex">
 				BasicLine
 		</shader>
 		<shader vsrc="Shader/skinAnim/skinAnim.fx"
-				psrc="Shader/skinAnim/skinAnim.fx">
+				psrc="Shader/skinAnim/skinAnim.fx"
+				layoutName="SkinVertex">
 				SkinAnim
 		</shader>
 	</shaders>

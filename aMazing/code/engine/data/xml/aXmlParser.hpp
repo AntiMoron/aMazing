@@ -37,6 +37,10 @@ namespace aMazing
 			aXmlNode* ret = nullptr;
 			XML_SetUserData(parser, reinterpret_cast<void*>(&ret));
 			std::FILE* fp = std::fopen(fileName.c_str(), "r");
+			if (fp == nullptr)
+			{
+				throw FailureException("File not exist");
+			}
 			do
 			{
 				size_t len = fread(buf, 1, sizeof(buf), fp);

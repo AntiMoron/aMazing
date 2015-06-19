@@ -2,8 +2,16 @@
 #include"../../common/CommonDxSupport.hpp"
 #include"../../common/CommonHelper.hpp"
 #include"../../common/CommonDef.hpp"
+#include"../exception/FailureException.hpp"
+#include<unordered_map>
+
 namespace aMazing
 {
+	enum VertexType
+	{
+		VERTEX_TYPE,
+		SKIN_VERTEX_TYPE,
+	};
 	namespace detail
 	{
 		struct VirtualVertexBase{};
@@ -19,6 +27,17 @@ namespace aMazing
 		public:
 			const static bool value = (sizeof(test(nullptr)) == sizeof(yes_type));
 		};
+	
+		namespace
+		{
+			static std::unordered_map<std::string, VertexType> vertexTypeMapper = {
+				{ "Vertex", VERTEX_TYPE },
+				{ "SkinVertex", SKIN_VERTEX_TYPE }
+			};
+		}
+
+		extern VertexType getVertexTypeByLayoutName(const std::string& layoutName)
+			throw(FailureException);
 	}
 
 	//Must be base class of all vertex types.
@@ -46,7 +65,7 @@ namespace aMazing
 	public:
 		//must call this function to modify bone Index.
 		//!!!do not modify value of boneIndices directly.
-		void setBoneIndex(unsigned int slot,unsigned char value)
+		void setBoneIndex(unsigned int slot, unsigned char value)
 		{
 #ifdef BONE_UINT4_INDEX
 			boneIndices[slot] = value;

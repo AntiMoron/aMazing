@@ -471,6 +471,7 @@
     <ClInclude Include="code\engine\exception\FailureException.hpp" />
     <ClInclude Include="code\engine\exception\MemoryException.hpp" />
     <ClInclude Include="code\engine\exception\ParamException.hpp" />
+    <ClInclude Include="code\engine\LoadConfig.hpp" />
     <ClInclude Include="code\engine\math\amath.hpp" />
     <ClInclude Include="code\engine\math\amatrix.hpp" />
     <ClInclude Include="code\engine\math\autil.hpp" />
