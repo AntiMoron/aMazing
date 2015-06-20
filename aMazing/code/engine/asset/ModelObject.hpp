@@ -81,5 +81,5 @@ namespace aMazing
 		//saves the location of model in file systems.
 		std::unique_ptr<std::string> modelLocation;
 		float render_time;
-};
+	};
 }

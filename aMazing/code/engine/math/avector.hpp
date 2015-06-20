@@ -60,8 +60,8 @@ namespace aMazing
 		{
 			return (x * other.x) + (y * other.y);
 		}
-		//To do det calculation
-		type det(const aVec2_t<type>& other) const aNOEXCEPT
+		//To do cross calculation
+		type cross(const aVec2_t<type>& other) const aNOEXCEPT
 		{
 			return x * other.y - (y * other.x);
 		}
