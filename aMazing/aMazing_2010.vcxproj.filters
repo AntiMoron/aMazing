@@ -489,6 +489,9 @@
     <ClInclude Include="code\collision\math\Math3D.hpp">
       <Filter>Collision\math</Filter>
     </ClInclude>
+    <ClInclude Include="code\engine\render\SemanticTexture.hpp">
+      <Filter>Engine\render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\collision\CollisionIntersection.cpp">

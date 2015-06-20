@@ -486,6 +486,7 @@
     <ClInclude Include="code\engine\render\effect\RenderPipeline.hpp" />
     <ClInclude Include="code\engine\render\material\MaterialPipeline.hpp" />
     <ClInclude Include="code\engine\render\RenderStateManager.hpp" />
+    <ClInclude Include="code\engine\render\SemanticTexture.hpp" />
     <ClInclude Include="code\engine\shader\PixelShaderObject.hpp" />
     <ClInclude Include="code\engine\shader\shaderclass\cAmbientLight.hpp" />
     <ClInclude Include="code\engine\shader\shaderclass\cBaseMaterial.hpp" />
