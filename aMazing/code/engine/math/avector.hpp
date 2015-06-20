@@ -251,6 +251,36 @@ namespace aMazing
 		}
 	};
 
+	template<typename type>
+	aVec2_t<type> aMazing::makeVec(type x, type y)
+	{
+		aVec2_t<type> result;
+		result.x = x;
+		result.y = y;
+		return result;
+	}
+
+	template<typename type>
+	aVec3_t<type> aMazing::makeVec(type x, type y, type z)
+	{
+		aVec3_t<type> result;
+		result.x = x;
+		result.y = y;
+		result.z = z;
+		return result;
+	}
+
+	template<typename type>
+	aVec4_t<type> aMazing::makeVec(type x, type y, type z, type w)
+	{
+		aVec4_t<type> result;
+		result.x = x;
+		result.y = y;
+		result.z = z;
+		result.w = w;
+		return result;
+	}
+
 	typedef aVec2_t<int> aIntVec2;
 	typedef aVec2_t<float> aFloatVec2;
 	typedef aVec2_t<double> aDoubleVec2;

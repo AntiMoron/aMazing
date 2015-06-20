@@ -87,6 +87,9 @@
     <Filter Include="util\regex">
       <UniqueIdentifier>{fd19795d-9167-4ad8-950c-e5a2470bd912}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Collision\math">
+      <UniqueIdentifier>{ba52cc6c-dda9-4974-8b60-a628b2c6da8b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\collision\shapecategory\CollisionCircle.hpp">
@@ -480,6 +483,12 @@
     <ClInclude Include="code\engine\LoadConfig.hpp">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="code\collision\math\Math2D.hpp">
+      <Filter>Collision\math</Filter>
+    </ClInclude>
+    <ClInclude Include="code\collision\math\Math3D.hpp">
+      <Filter>Collision\math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\collision\CollisionIntersection.cpp">
@@ -546,6 +555,18 @@
     </ClCompile>
     <ClCompile Include="code\engine\data\xml\aXmlParser.cpp">
       <Filter>Engine\data\xml</Filter>
+    </ClCompile>
+    <ClCompile Include="code\collision\math\Math2D.cpp">
+      <Filter>Collision\math</Filter>
+    </ClCompile>
+    <ClCompile Include="code\collision\math\Math3D.cpp">
+      <Filter>Collision\math</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\math\amatrix.cpp">
+      <Filter>Engine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\math\avector.cpp">
+      <Filter>Engine\math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

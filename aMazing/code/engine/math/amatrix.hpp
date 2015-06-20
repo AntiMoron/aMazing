@@ -12,7 +12,8 @@ namespace aMazing
 		struct baseMatrix_t{};
 
 		template<typename T>
-		struct baseMatrix_t<T, typename std::enable_if<aIsNumeric<T>::value >::value >{};
+		struct baseMatrix_t<T,
+			typename std::enable_if<aIsNumeric<T>::value, T>::type >{};
 	}
 
 	template<typename type>
@@ -318,6 +319,42 @@ namespace aMazing
 				(m13 * mat3.determinant()) - (m14 * mat4.determinant());
 		}
 	};
+
+	template<typename type>
+	aMatrix2x2_t<type> makeMatrix(type a11, type a12,
+		type a21, type a22)
+	{
+		aMatrix2x2_t<type> result;
+		result.m11 = a11; result.m12 = a12;
+		result.m21 = a21; result.m22 = a22;
+		return result;
+	}
+
+	template<typename type>
+	aMatrix3x3_t<type> makeMatrix(type a11, type a12, type a13,
+		type a21, type a22, type a23,
+		type a31, type a32, type a33)
+	{
+		aMatrix3x3_t<type> result;
+		result.m11 = a11; result.m12 = a12; result.m13 = a13;
+		result.m21 = a21; result.m22 = a22; result.m23 = a23;
+		result.m31 = a31; result.a32 = a32; result.a33 = a33;
+		return result;
+	}
+
+	template<typename type>
+	aMatrix4x4_t<type> makeMatrix(type a11, type a12, type a13, type a14,
+		type a21, type a22, type a23, type a24,
+		type a31, type a32, type a33, type a34,
+		type a41, type a42, type a43, type a44)
+	{
+		aMatrix4x4_t<type> result;
+		result.m11 = a11; result.m12 = a12; result.m13 = a13; result.m14 = a14;
+		result.m21 = a21; result.m22 = a22; result.m23 = a23; result.m24 = a24;
+		result.m31 = a31; result.m32 = a32; result.m33 = a33; result.m34 = a34;
+		result.m41 = a41; result.m42 = a42; result.m43 = a43; result.m44 = a44;
+		return result;
+	}
 
 	typedef aMatrix4x4_t<int> aIntMatrix4x4;
 	typedef aMatrix4x4_t<float> aFloatMatrix4x4;
