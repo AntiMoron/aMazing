@@ -69,6 +69,29 @@ namespace aMazing
 			}
 		}
 		~LoadConfig(){}
+		HRESULT loadConfigAndPop()
+		{
+			try
+			{
+				loadConfig();
+			}
+			catch (const FailureException& e)
+			{
+				MessageBoxA(nullptr, e.what(), "Config Error", MB_OK);
+				return E_FAIL;
+			}
+			catch (const ConfigException& e)
+			{
+				MessageBoxA(nullptr, e.what(), "Config Error", MB_OK);
+				return E_FAIL;
+			}
+			catch (...)
+			{
+				MessageBoxA(nullptr, "Unknown Exception", "Config Error", MB_OK);
+				return E_FAIL;
+			}
+			return S_OK;
+		}
 	private:
 		void addFileFromFile(VertexType vertexType, const char* vFile, const char* pFile,std::string&& shaderName) throw(FailureException)
 		{

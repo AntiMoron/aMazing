@@ -127,39 +127,10 @@ HRESULT InitDevice()
 		return hr;
 
 	//aditional operations.
-	GRAPHICS.initialize();
-	try
-	{
-		CONFIG.loadConfig();
-	}
-	catch (const FailureException& e)
-	{
-		MessageBoxA(nullptr,e.what(),"Config Error",MB_OK);
-		return E_FAIL;
-	} 
-	catch (const ConfigException& e)
-	{
-		MessageBoxA(nullptr, e.what(), "Config Error", MB_OK);
-		return E_FAIL;
-	}
-	catch (...)
-	{
-		MessageBoxA(nullptr, "Unknown Exception", "Config Error", MB_OK);
-		return E_FAIL;
-	}
-	//aRETURN_ON_FAIL(SHADERS.addPairFromFile<Vertex>(DEVICE,
-	//	"Shader/Basic2D.fx", "Shader/Basic2D.fx", "Basic2D"));
-	//aRETURN_ON_FAIL(SHADERS.addPairFromFile<Vertex>(DEVICE,
-	//	"Shader/BasicSky.fx", "Shader/BasicSky.fx", "BasicSky"));
-	//aRETURN_ON_FAIL(SHADERS.addPairFromFile<Vertex>(DEVICE,
-	//	"Shader/wires/line.fx", "Shader/wires/line.fx", "BasicLine"));
-	//aRETURN_ON_FAIL(SHADERS.addPairFromFile<SkinVertex>(DEVICE,
-	//	"Shader/skinAnim/skinAnim.fx", "Shader/skinAnim/skinAnim.fx", "SkinAnim"));
+	aRETURN_ON_FAIL(GRAPHICS.initialize());
+	aRETURN_ON_FAIL(CONFIG.loadConfigAndPop());
 	scene = new aMazingScene;
 	scene->initialize(g_hWnd, DEVICE);
-
-	aXmlParser p;
-	auto ret = p.parseFile("config.xml");
 	return S_OK;
 }
 
@@ -197,7 +168,6 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
             hdc = BeginPaint( hWnd, &ps );
             EndPaint( hWnd, &ps );
             break;
-
 		case WM_KEYDOWN:
 			INPUT.keys[wParam] = true;
 			break;
@@ -220,17 +190,14 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
 			INPUT.mouse_x = LOWORD(lParam);
 			INPUT.mouse_y = HIWORD(lParam);
 			break;
-
         case WM_DESTROY:
             PostQuitMessage( 0 );
             break;
-
 		case WM_SIZE:
 			//Update window size
 			GetClientRect(g_hWnd, &rc);
 			width = rc.right - rc.left;
 			height = rc.bottom - rc.top;
-
 			GLOBAL_WINDOW.setWidth(width);
 			GLOBAL_WINDOW.setHeight(height);
 			GLOBAL_WINDOW.setResolutionWidth(width);
