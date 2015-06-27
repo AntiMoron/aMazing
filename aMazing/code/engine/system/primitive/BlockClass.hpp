@@ -1,6 +1,5 @@
 #pragma once
-
-#include"StaticMesh.hpp"
+#include"../mesh/StaticMesh.hpp"
 namespace aMazing
 {
 	class BlockClass : public BasicObject

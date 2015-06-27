@@ -1,5 +1,5 @@
 #pragma once
-#include"engine/system/PrimitivePipeline.hpp"
+#include"engine/system/primitive/PrimitivePipeline.hpp"
 #include"engine/system/TextureManager.hpp"
 #include"engine/system/CameraClass.hpp"
 

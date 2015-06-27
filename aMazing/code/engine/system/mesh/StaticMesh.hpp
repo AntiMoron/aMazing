@@ -1,22 +1,25 @@
 #pragma once
-#include"BasicObject.hpp"
-#include"GPUVerticesBuffer.hpp"
+#include"../BasicObject.hpp"
+#include"../GPUVerticesBuffer.hpp"
 
 namespace aMazing
 {
-	template<typename T>
+	template<typename Type>
 	class StaticMesh
 	{
 	public:
 		HRESULT initialize(ID3D11Device* device,
 			ID3D11DeviceContext* context,
-			T* verticesData,
+			Type* verticesData,
 			std::size_t verticesCount,
 			WORD* indices = nullptr,
 			std::size_t indicesCount = 0)
 		{
 			HRESULT hr;
-			hr = vertices.initialize(device, verticesData, verticesCount, indices, indicesCount);
+			hr = vertices.initialize(device, 
+				verticesData, 
+				verticesCount, 
+				indices, indicesCount);
 			if (FAILED(hr))
 			{
 				return hr;
@@ -29,6 +32,6 @@ namespace aMazing
 			vertices.render(context);
 		}
 	private:
-		GPUVerticesBuffer<T> vertices;
+		GPUVerticesBuffer<Type> vertices;
 	};
 }

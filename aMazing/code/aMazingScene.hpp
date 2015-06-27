@@ -1,8 +1,5 @@
 #pragma once
 #include"engine/effect/EffectClass.hpp"
-//#include"engine/effect/ShadowMap.hpp"
-//#include"engine/effect/GlowEffect.hpp"
-//#include"engine/effect/DepthField.hpp"
 #include"engine/system/D3DManager.hpp"
 #include"MazeGenerator.hpp"
 #include"engine/system/SoundClass.hpp"

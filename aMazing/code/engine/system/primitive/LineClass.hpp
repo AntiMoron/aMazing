@@ -1,9 +1,9 @@
 #pragma once
-#include"../../common/CommonDxSupport.hpp"
-#include"../data/Vertex.hpp"
-#include"GPUConstantBuffer.hpp"
-#include"GPUMutableVerticesBuffer.hpp"
-#include"../shader/ShaderManager.hpp"
+#include"../../../common/CommonDxSupport.hpp"
+#include"../../data/Vertex.hpp"
+#include"../GPUConstantBuffer.hpp"
+#include"../GPUMutableVerticesBuffer.hpp"
+#include"../../shader/ShaderManager.hpp"
 
 namespace aMazing
 {

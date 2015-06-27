@@ -68,7 +68,6 @@ namespace aMazing
 					std::forward<std::string>(lsh.content));
 			}
 		}
-		~LoadConfig(){}
 		HRESULT loadConfigAndPop()
 		{
 			try

@@ -1,5 +1,5 @@
 #pragma once
-#include"../system/PrimitivePipeline.hpp"
+#include"../system/primitive/PrimitivePipeline.hpp"
 #include"../system/FrameBuffer.hpp"
 #include"../shader/ShaderManager.hpp"
 #include"../../common/CommonUtil.hpp"

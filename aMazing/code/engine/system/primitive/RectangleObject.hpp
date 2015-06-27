@@ -1,10 +1,10 @@
 #pragma once
-#include"GlobalWindow.hpp"
-#include"../../common/CommonDef.hpp"
-#include"../shader/ShaderManager.hpp"
-#include"GPUMutableVerticesBuffer.hpp"
-#include"../../engine/data/Vertex.hpp"
-#include"../../common/CommonDxSupport.hpp"
+#include"../GlobalWindow.hpp"
+#include"../../../common/CommonDef.hpp"
+#include"../../shader/ShaderManager.hpp"
+#include"../GPUMutableVerticesBuffer.hpp"
+#include"../../../engine/data/Vertex.hpp"
+#include"../../../common/CommonDxSupport.hpp"
 namespace aMazing
 {
 	class RectangleObject

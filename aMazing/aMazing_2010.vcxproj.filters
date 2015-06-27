@@ -63,23 +63,11 @@
     <Filter Include="Engine\data\xml">
       <UniqueIdentifier>{eda2636f-02fe-4554-9f68-a177bf7c4998}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\system\thread">
-      <UniqueIdentifier>{fad9acb7-fa80-4792-91eb-d5f967fd7e60}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\system\lang">
-      <UniqueIdentifier>{d741636a-e656-4e66-8f8d-3025ee736b0a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\containers">
       <UniqueIdentifier>{d65f3ccf-1717-4f93-91bc-d91459e79e3f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\containers\check">
       <UniqueIdentifier>{ca9b31e9-545b-44b8-814d-bc8ecc46b84a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\system\memory">
-      <UniqueIdentifier>{31eddceb-846a-4c2c-85a2-81091879d788}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\system\file">
-      <UniqueIdentifier>{b746475e-0d20-4b40-b44c-97f640b7f80e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\asset">
       <UniqueIdentifier>{063db111-3662-41f2-83dd-5e8418452b92}</UniqueIdentifier>
@@ -89,6 +77,27 @@
     </Filter>
     <Filter Include="Collision\math">
       <UniqueIdentifier>{ba52cc6c-dda9-4974-8b60-a628b2c6da8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\system\file">
+      <UniqueIdentifier>{f750b3d9-f607-48dc-9800-686db4c9c18f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\system\lang">
+      <UniqueIdentifier>{0afe899d-df43-41b0-8b1e-41135555fffb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\system\memory">
+      <UniqueIdentifier>{dffb33db-8eaa-4b00-82c9-325b67d76d09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\system\mesh">
+      <UniqueIdentifier>{8af744b8-b34c-4a0b-8b86-32a28e740689}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\system\particle">
+      <UniqueIdentifier>{cf01d03b-7541-4f90-90ae-faa253b265ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\system\primitive">
+      <UniqueIdentifier>{86e390eb-3eac-492d-b9c2-e9d42d155ef3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\system\thread">
+      <UniqueIdentifier>{d3e40f82-ae39-4188-baf4-e72f443a4d06}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -173,39 +182,6 @@
     <ClInclude Include="code\engine\effect\Fog.hpp">
       <Filter>Engine\effect</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\system\BlockClass.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\FunctionType.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\GPUConstantBuffer.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\GPUMutableVerticesBuffer.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\GPUVerticesBuffer.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\InstanceObj.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\MaterialType.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\MutableMesh.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\ScopeGuard.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\StaticMesh.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\TimeService.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
     <ClInclude Include="code\DayNightClass.hpp" />
     <ClInclude Include="code\Resource.h" />
     <ClInclude Include="code\collision\shapecategory\CollisionRectangle.hpp">
@@ -221,34 +197,7 @@
     <ClInclude Include="code\engine\exception\ParamException.hpp">
       <Filter>Engine\exception</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\system\LineClass.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\PrimitivePipeline.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\TextureManager.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\SoundClass.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\CameraClass.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
     <ClInclude Include="code\aMazingScene.hpp" />
-    <ClInclude Include="code\engine\system\FrustumClass.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\InputClass.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\BasicObject.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\FrameBuffer.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
     <ClInclude Include="code\WrappedCamera.hpp" />
     <ClInclude Include="code\MazeGenerator.hpp" />
     <ClInclude Include="code\Maze.hpp" />
@@ -264,12 +213,6 @@
     <ClInclude Include="code\engine\render\effect\RenderPipeline.hpp">
       <Filter>Engine\render\effect</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\system\LightEnum.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\Lightning.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
     <ClInclude Include="Shader\Buffers.hlsl">
       <Filter>Shaders</Filter>
     </ClInclude>
@@ -281,12 +224,6 @@
     </ClInclude>
     <ClInclude Include="code\engine\shader\ShaderPair.hpp">
       <Filter>Engine\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\D3DManager.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\ManagedTypes.hpp">
-      <Filter>Engine\system</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\shader\ShaderClassInstance.hpp">
       <Filter>Engine\shader</Filter>
@@ -375,33 +312,6 @@
     <ClInclude Include="code\engine\data\xml\aXmlParser.hpp">
       <Filter>Engine\data\xml</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\system\thread\aAtomicObject.hpp">
-      <Filter>Engine\system\thread</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\ParticleObject.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\RectangleObject.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\thread\aThreadSafeSingleton.hpp">
-      <Filter>Engine\system\thread</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\lang\aNoCopyable.hpp">
-      <Filter>Engine\system\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\lang\aNoDefaultConstructor.hpp">
-      <Filter>Engine\system\lang</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\GlobalWindow.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\TextureObject.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\file\FileSystem.hpp">
-      <Filter>Engine\system\file</Filter>
-    </ClInclude>
     <ClInclude Include="code\engine\Config.hpp">
       <Filter>Engine</Filter>
     </ClInclude>
@@ -410,9 +320,6 @@
     </ClInclude>
     <ClInclude Include="code\engine\containers\check\Insertable.hpp">
       <Filter>Engine\containers\check</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\memory\Memory.hpp">
-      <Filter>Engine\system\memory</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\containers\Iterator.hpp">
       <Filter>Engine\containers</Filter>
@@ -489,8 +396,117 @@
     <ClInclude Include="code\collision\math\Math3D.hpp">
       <Filter>Collision\math</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\render\SemanticTexture.hpp">
+    <ClInclude Include="code\engine\font\font.hpp" />
+    <ClInclude Include="code\engine\render\FrameSemantic.hpp">
       <Filter>Engine\render</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\render\RenderProcedure.hpp">
+      <Filter>Engine\render</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\render\RenderStep.hpp">
+      <Filter>Engine\render</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\BasicObject.hpp">
+      <Filter>Engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\CameraClass.hpp">
+      <Filter>Engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\D3DManager.hpp">
+      <Filter>Engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\FrameBuffer.hpp">
+      <Filter>Engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\FrustumClass.hpp">
+      <Filter>Engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\GlobalWindow.hpp">
+      <Filter>Engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\GPUConstantBuffer.hpp">
+      <Filter>Engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\GPUMutableVerticesBuffer.hpp">
+      <Filter>Engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\GPUVerticesBuffer.hpp">
+      <Filter>Engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\InputClass.hpp">
+      <Filter>Engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\InstanceObj.hpp">
+      <Filter>Engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\LightEnum.hpp">
+      <Filter>Engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\Lightning.hpp">
+      <Filter>Engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\ManagedTypes.hpp">
+      <Filter>Engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\MaterialType.hpp">
+      <Filter>Engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\ScopeGuard.hpp">
+      <Filter>Engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\SoundClass.hpp">
+      <Filter>Engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\TextureManager.hpp">
+      <Filter>Engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\TextureObject.hpp">
+      <Filter>Engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\TimeService.hpp">
+      <Filter>Engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\file\FileSystem.hpp">
+      <Filter>Engine\system\file</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\lang\aNoCopyable.hpp">
+      <Filter>Engine\system\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\lang\aNoDefaultConstructor.hpp">
+      <Filter>Engine\system\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\memory\Memory.hpp">
+      <Filter>Engine\system\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\mesh\BaseMesh.hpp">
+      <Filter>Engine\system\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\mesh\MutableMesh.hpp">
+      <Filter>Engine\system\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\mesh\StaticMesh.hpp">
+      <Filter>Engine\system\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\primitive\BlockClass.hpp">
+      <Filter>Engine\system\primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\primitive\PrimitivePipeline.hpp">
+      <Filter>Engine\system\primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\primitive\RectangleObject.hpp">
+      <Filter>Engine\system\primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\thread\aAtomicObject.hpp">
+      <Filter>Engine\system\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\thread\aThreadSafeSingleton.hpp">
+      <Filter>Engine\system\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\particle\ParticleObject.hpp">
+      <Filter>Engine\system\particle</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\LineClass.hpp">
+      <Filter>Engine\system\primitive</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -500,41 +516,11 @@
     <ClCompile Include="code\common\CommonFunction.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="code\engine\system\BasicObject.cpp">
-      <Filter>Engine\system</Filter>
-    </ClCompile>
-    <ClCompile Include="code\engine\system\CameraClass.cpp">
-      <Filter>Engine\system</Filter>
-    </ClCompile>
-    <ClCompile Include="code\engine\system\FrustumClass.cpp">
-      <Filter>Engine\system</Filter>
-    </ClCompile>
-    <ClCompile Include="code\engine\system\InputClass.cpp">
-      <Filter>Engine\system</Filter>
-    </ClCompile>
-    <ClCompile Include="code\engine\system\LineClass.cpp">
-      <Filter>Engine\system</Filter>
-    </ClCompile>
-    <ClCompile Include="code\engine\system\SoundClass.cpp">
-      <Filter>Engine\system</Filter>
-    </ClCompile>
-    <ClCompile Include="code\engine\system\TextureManager.cpp">
-      <Filter>Engine\system</Filter>
-    </ClCompile>
-    <ClCompile Include="code\engine\system\TimeService.cpp">
-      <Filter>Engine\system</Filter>
-    </ClCompile>
     <ClCompile Include="code\aMazing.cpp" />
     <ClCompile Include="code\aMazingScene.cpp" />
     <ClCompile Include="code\Maze.cpp" />
     <ClCompile Include="code\MazeGenerator.cpp" />
     <ClCompile Include="code\WrappedCamera.cpp" />
-    <ClCompile Include="code\engine\system\D3DManager.cpp">
-      <Filter>Engine\system</Filter>
-    </ClCompile>
-    <ClCompile Include="code\engine\system\TextureObject.cpp">
-      <Filter>Engine\system</Filter>
-    </ClCompile>
     <ClCompile Include="code\engine\shader\ShaderCompiler.cpp">
       <Filter>Engine\shader</Filter>
     </ClCompile>
@@ -570,6 +556,36 @@
     </ClCompile>
     <ClCompile Include="code\engine\math\avector.cpp">
       <Filter>Engine\math</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\BasicObject.cpp">
+      <Filter>Engine\system</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\CameraClass.cpp">
+      <Filter>Engine\system</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\D3DManager.cpp">
+      <Filter>Engine\system</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\FrustumClass.cpp">
+      <Filter>Engine\system</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\InputClass.cpp">
+      <Filter>Engine\system</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\SoundClass.cpp">
+      <Filter>Engine\system</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\TextureManager.cpp">
+      <Filter>Engine\system</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\TextureObject.cpp">
+      <Filter>Engine\system</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\TimeService.cpp">
+      <Filter>Engine\system</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\system\primitive\LineClass.cpp">
+      <Filter>Engine\system\primitive</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

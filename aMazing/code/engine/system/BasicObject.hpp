@@ -1,10 +1,9 @@
 #pragma once
-#include"../../common/CommonDxSupport.hpp"
+#include<memory>
 #include"../data/Vertex.hpp"
 #include"InstanceObj.hpp"
 #include"GPUConstantBuffer.hpp"
 #include"GPUVerticesBuffer.hpp"
-#include<memory>
 #include"../../common/CommonDef.hpp" 
 
 class BasicObject

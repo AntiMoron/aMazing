@@ -1,9 +1,9 @@
 #pragma once
-#include "../system/TextureObject.hpp"
+#include"../system/FrameBuffer.hpp"
 
 namespace aMazing
 {
-	enum TEXTURE_SEMANTIC
+	enum FRAME_SEMANTIC
 	{
 		BLUR_VERTICAL_1,
 		BLUR_VERTICAL_2,
@@ -45,21 +45,20 @@ namespace aMazing
 		LIGHT_CAMERA_DEPTH_8,
 		LIGHT_CAMERA_DEPTH_9,
 	};
-	class SemanticTexture
+
+	class SemanticFrame : public FrameBuffer
 	{
 	public:
-		explicit SemanticTexture() = delete;
-		explicit SemanticTexture(TEXTURE_SEMANTIC sem)
+		explicit SemanticFrame() = delete;
+		explicit SemanticFrame(FRAME_SEMANTIC sem)
 		{
 			semantic = sem;
 		}
-		TEXTURE_SEMANTIC getSemantic() const
+		FRAME_SEMANTIC getSemantic() const
 		{
 			return semantic;
 		}
 	private:
-		//Once the semantic is set.It won't change.
-		TEXTURE_SEMANTIC semantic;
-		TextureObject texture;
+		FRAME_SEMANTIC semantic;
 	};
 }

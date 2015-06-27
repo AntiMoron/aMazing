@@ -1,16 +1,12 @@
 #pragma once
-
-#include"BasicObject.h"
 #include"GPUMutableVerticesBuffer.hpp"
+
 namespace aMazing
 {
 	template<typename T>
 	class MutableMesh
 	{
 	public:
-		MutableMesh(){}
-		~MutableMesh(){}
-
 		HRESULT initialize(ID3D11Device* device, 
 			ID3D11DeviceContext* context,
 			T* vertices,

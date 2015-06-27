@@ -1,8 +1,7 @@
 #include"vertex.hpp"
 using namespace aMazing;
 
-aMazing::VertexType aMazing::detail::getVertexTypeByLayoutName(const std::string& layoutName)
-throw(FailureException)
+aMazing::VertexType aMazing::detail::getVertexTypeByLayoutName(const std::string& layoutName) throw(FailureException)
 {
 	if (vertexTypeMapper.find(layoutName) != vertexTypeMapper.end())
 	{

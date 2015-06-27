@@ -1,11 +1,11 @@
 #pragma once
 #include<memory>
-#include"D3DManager.hpp"
+#include"../D3DManager.hpp"
 #include"BlockClass.hpp"
 #include"RectangleObject.hpp"
 #include"LineClass.hpp"
-#include"../../common/CommonDef.hpp"
-#include"../system/thread/aThreadSafeSingleton.hpp"
+#include"../../../common/CommonDef.hpp"
+#include"../../system/thread/aThreadSafeSingleton.hpp"
 
 namespace aMazing
 {

@@ -1,5 +1,4 @@
 #pragma once
-
 #include"GlobalWindow.hpp"
 #include"../system/TextureObject.hpp"
 #include"../../common/CommonDxSupport.hpp"
