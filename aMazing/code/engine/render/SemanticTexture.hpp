@@ -1,8 +1,9 @@
 #pragma once
+#include "../system/TextureObject.hpp"
 
 namespace aMazing
 {
-	enum TextureSemantics
+	enum TEXTURE_SEMANTIC
 	{
 		BLUR_VERTICAL_1,
 		BLUR_VERTICAL_2,
@@ -47,8 +48,18 @@ namespace aMazing
 	class SemanticTexture
 	{
 	public:
-		;
+		explicit SemanticTexture() = delete;
+		explicit SemanticTexture(TEXTURE_SEMANTIC sem)
+		{
+			semantic = sem;
+		}
+		TEXTURE_SEMANTIC getSemantic() const
+		{
+			return semantic;
+		}
 	private:
-		;
+		//Once the semantic is set.It won't change.
+		TEXTURE_SEMANTIC semantic;
+		TextureObject texture;
 	};
 }

@@ -1,7 +1,6 @@
 #pragma once
 #include"../../engine/math/amath.hpp"
 
-
 namespace aMazing
 {
 	namespace Math2D
@@ -37,6 +36,5 @@ namespace aMazing
 				b.x - d.x, b.y - d.y, aSQUARE(b.x - d.x) + aSQUARE(b.y - d.y),
 				c.x - d.x, c.y - d.y, aSQUARE(c.x - d.x) + aSQUARE(c.y - d.y)).determinant();
 		}
-
 	}
 }

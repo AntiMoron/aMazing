@@ -252,7 +252,7 @@ namespace aMazing
 	};
 
 	template<typename type>
-	aVec2_t<type> aMazing::makeVec(type x, type y)
+	aVec2_t<type> makeVec(type x, type y)
 	{
 		aVec2_t<type> result;
 		result.x = x;
@@ -261,7 +261,7 @@ namespace aMazing
 	}
 
 	template<typename type>
-	aVec3_t<type> aMazing::makeVec(type x, type y, type z)
+	aVec3_t<type> makeVec(type x, type y, type z)
 	{
 		aVec3_t<type> result;
 		result.x = x;
@@ -271,7 +271,7 @@ namespace aMazing
 	}
 
 	template<typename type>
-	aVec4_t<type> aMazing::makeVec(type x, type y, type z, type w)
+	aVec4_t<type> makeVec(type x, type y, type z, type w)
 	{
 		aVec4_t<type> result;
 		result.x = x;

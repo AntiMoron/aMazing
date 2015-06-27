@@ -58,12 +58,7 @@ int WINAPI wWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdL
 }
 
 HRESULT InitWindow(HINSTANCE hInstance, int nCmdShow)
-{
-	aVec2_t<double> a; a.x = 0; a.y = 0;
-	aVec2_t<double> b; b.x = 2; b.y = 0;
-	aVec2_t<double> c; c.x = 1; c.y = 1;
-	double testVar = Math2D::aOrient2D<double>(a, b, c);
-	
+{	
 	// Register class
     WNDCLASSEX wcex;
     wcex.cbSize = sizeof( WNDCLASSEX );
