@@ -2,7 +2,7 @@
 #include"../../../common/CommonDxSupport.hpp"
 #include"../../data/Vertex.hpp"
 #include"../GPUConstantBuffer.hpp"
-#include"../GPUMutableVerticesBuffer.hpp"
+#include"../mesh/GPUMutableVerticesBuffer.hpp"
 #include"../../shader/ShaderManager.hpp"
 
 namespace aMazing
@@ -27,6 +27,6 @@ namespace aMazing
 		float r, g, b, a;
 		float lastPosX[2],lastPosY[2],lastPosZ[2];
 		GPUConstantBuffer<XMFLOAT4> m_color;
-		GPUMutableVerticeBuffer<Vertex> m_vertices;
+		GPUMutableVerticesBuffer<Vertex> m_vertices;
 	};
 }

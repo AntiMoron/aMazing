@@ -207,7 +207,7 @@ void ModelObject::loadMeshes(const aiScene* pScene)
 		else
 		{
 			animationVertices.push_back(std::unique_ptr<std::vector<SkinVertex> >(new std::vector<SkinVertex>));
-			animationVertexBuffer.push_back(std::unique_ptr<GPUMutableVerticeBuffer<SkinVertex> >(new GPUMutableVerticeBuffer<SkinVertex>));
+			animationVertexBuffer.push_back(std::unique_ptr<MutableMesh<SkinVertex> >(new MutableMesh<SkinVertex>));
 			std::vector<std::size_t> vertexBoneBindCnt;
 			for (size_t j = 0; j < pMesh->mNumVertices; j++)
 			{

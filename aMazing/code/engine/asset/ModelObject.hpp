@@ -2,8 +2,8 @@
 
 #include <string>
 #include <vector>
-#include "../system/GPUVerticesBuffer.hpp"
-#include "../system/GPUMutableVerticesBuffer.hpp"
+#include "../system/mesh/StaticMesh.hpp"
+#include "../system/mesh/MutableMesh.hpp"
 #include "../data/Vertex.hpp"
 #include "../../common/CommonUtil.hpp"
 #include "../system/BasicObject.hpp"
@@ -72,8 +72,8 @@ namespace aMazing
 		std::vector<std::unique_ptr<std::vector<SkinVertex> > > animationVertices;
 		std::vector<std::unique_ptr<std::vector<Vertex> > > staticVertices;
 		//the queue of buffer that all the parts from model divided from all the vertices 
-		std::vector<std::unique_ptr<GPUMutableVerticeBuffer<SkinVertex> > > animationVertexBuffer;
-		std::vector<std::unique_ptr<GPUVerticesBuffer<Vertex> > > staticVertexBuffer;
+		std::vector<std::unique_ptr<MutableMesh<SkinVertex> > > animationVertexBuffer;
+		std::vector<std::unique_ptr<StaticMesh<Vertex> > > staticVertexBuffer;
 
 		std::unique_ptr<SceneAnimator> sceneAnimator;
 		//the constant buffer that update bones' transformations.

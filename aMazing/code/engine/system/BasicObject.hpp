@@ -3,7 +3,6 @@
 #include"../data/Vertex.hpp"
 #include"InstanceObj.hpp"
 #include"GPUConstantBuffer.hpp"
-#include"GPUVerticesBuffer.hpp"
 #include"../../common/CommonDef.hpp" 
 
 class BasicObject

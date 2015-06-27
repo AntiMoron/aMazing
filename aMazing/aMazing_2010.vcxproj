@@ -520,8 +520,6 @@
     <ClInclude Include="code\engine\system\FrustumClass.hpp" />
     <ClInclude Include="code\engine\system\GlobalWindow.hpp" />
     <ClInclude Include="code\engine\system\GPUConstantBuffer.hpp" />
-    <ClInclude Include="code\engine\system\GPUMutableVerticesBuffer.hpp" />
-    <ClInclude Include="code\engine\system\GPUVerticesBuffer.hpp" />
     <ClInclude Include="code\engine\system\InputClass.hpp" />
     <ClInclude Include="code\engine\system\InstanceObj.hpp" />
     <ClInclude Include="code\engine\system\lang\aNoCopyable.hpp" />
@@ -533,6 +531,8 @@
     <ClInclude Include="code\engine\system\MaterialType.hpp" />
     <ClInclude Include="code\engine\system\memory\Memory.hpp" />
     <ClInclude Include="code\engine\system\mesh\BaseMesh.hpp" />
+    <ClInclude Include="code\engine\system\mesh\GPUMutableVerticesBuffer.hpp" />
+    <ClInclude Include="code\engine\system\mesh\GPUVerticesBuffer.hpp" />
     <ClInclude Include="code\engine\system\mesh\MutableMesh.hpp" />
     <ClInclude Include="code\engine\system\mesh\StaticMesh.hpp" />
     <ClInclude Include="code\engine\system\particle\ParticleObject.hpp" />

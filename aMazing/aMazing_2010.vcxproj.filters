@@ -427,12 +427,6 @@
     <ClInclude Include="code\engine\system\GPUConstantBuffer.hpp">
       <Filter>Engine\system</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\system\GPUMutableVerticesBuffer.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\system\GPUVerticesBuffer.hpp">
-      <Filter>Engine\system</Filter>
-    </ClInclude>
     <ClInclude Include="code\engine\system\InputClass.hpp">
       <Filter>Engine\system</Filter>
     </ClInclude>
@@ -507,6 +501,12 @@
     </ClInclude>
     <ClInclude Include="code\engine\system\LineClass.hpp">
       <Filter>Engine\system\primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\mesh\GPUMutableVerticesBuffer.hpp">
+      <Filter>Engine\system\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\system\mesh\GPUVerticesBuffer.hpp">
+      <Filter>Engine\system\mesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

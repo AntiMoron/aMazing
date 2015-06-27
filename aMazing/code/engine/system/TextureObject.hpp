@@ -2,7 +2,6 @@
 #include"../../common/CommonDxSupport.hpp"
 #include<D3DX11tex.h>
 #include"GPUConstantBuffer.hpp"
-#include"GPUVerticesBuffer.hpp"
 #include"../data/TgaLoader.hpp"
 #include"../containers/MutableString.hpp"
 

@@ -2,7 +2,7 @@
 #include"../GlobalWindow.hpp"
 #include"../../../common/CommonDef.hpp"
 #include"../../shader/ShaderManager.hpp"
-#include"../GPUMutableVerticesBuffer.hpp"
+#include"../mesh/GPUMutableVerticesBuffer.hpp"
 #include"../../../engine/data/Vertex.hpp"
 #include"../../../common/CommonDxSupport.hpp"
 namespace aMazing
@@ -127,6 +127,6 @@ namespace aMazing
 		}
 
 	private:
-		GPUMutableVerticeBuffer<Vertex> verts;
+		GPUMutableVerticesBuffer<Vertex> verts;
 	};
 }
