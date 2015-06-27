@@ -65,7 +65,8 @@ namespace aMazing
 				addFileFromFile(vertexType,
 					vertexPath.c_str(),
 					pixelPath.c_str(),
-					std::forward<std::string>(lsh.content));
+					std::forward<std::string>(lsh.content),
+					isDefault);
 			}
 		}
 		HRESULT loadConfigAndPop()
@@ -92,7 +93,7 @@ namespace aMazing
 			return S_OK;
 		}
 	private:
-		void addFileFromFile(VertexType vertexType, const char* vFile, const char* pFile,std::string&& shaderName) throw(FailureException)
+		void addFileFromFile(VertexType vertexType, const char* vFile, const char* pFile,std::string&& shaderName,bool isDefault) throw(FailureException)
 		{
 			switch (vertexType)
 			{
@@ -100,13 +101,15 @@ namespace aMazing
 					SHADERS.addPairFromFile<Vertex>(D3DManager::getDevice(MANAGED_DEVICE_TYPE::DEFAULT_DEVICE),
 						vFile,
 						pFile,
-						std::move(shaderName));
+						std::move(shaderName),
+						isDefault);
 					return;
 				case SKIN_VERTEX_TYPE:
 					SHADERS.addPairFromFile<SkinVertex>(D3DManager::getDevice(MANAGED_DEVICE_TYPE::DEFAULT_DEVICE),
 						vFile,
 						pFile,
-						std::move(shaderName));
+						std::move(shaderName),
+						isDefault);
 					return;
 			}
 			throw FailureException("Config Error : Invalid Shader Param.");

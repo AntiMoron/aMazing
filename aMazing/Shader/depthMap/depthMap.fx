@@ -1,26 +1,5 @@
-Texture2D txDiffuse : register( t0 );
-SamplerState samLinear : register( s0 );
-
-cbuffer cameraMatrices : register( b0 )
-{
-	matrix World;
-	matrix View;
-    matrix Projection;
-};
-
-cbuffer PRS : register(b1)
-{
-	matrix Pos;
-	matrix Rot;
-	matrix Sca;
-}
-
-cbuffer LightMatrices : register(b2)
-{
-	matrix LightView;
-	matrix LightProjection;
-}
-
+#include"../LightImpl.hlsl"
+#include"../MaterialImpl.hlsl"
 
 struct VS_INPUT
 {
@@ -53,5 +32,5 @@ PS_INPUT VSEntry( VS_INPUT input )
 float4 PSEntry(PS_INPUT input) : SV_Target
 {
     float val = input.depthPosition.z / input.depthPosition.w;
-    return float4(val,val,input.depthPosition.z,input.depthPosition.w);
+    return float4(val,val,val,1.0f);
 }

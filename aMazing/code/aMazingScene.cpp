@@ -81,7 +81,7 @@ void aMazingScene::render(ID3D11DeviceContext* context)
 		SHADERS.push("BasicSky", context);
 		TEXTURE.getTexture(3)->bindPS(context, 0);
 		GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
-		SHADERS.push("Basic3D", context);
+		SHADERS.push("CameraDepth", context);
 		maze->Render(context, camera->getCamera());
 		//bind shader which skin animation need.
 		if (model->isStatic())

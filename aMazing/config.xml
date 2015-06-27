@@ -26,5 +26,10 @@
 				layoutName="SkinVertex">
 				SkinAnim
 		</shader>
+		<shader vsrc="Shader/depthMap/depthMap.fx"
+				psrc="Shader/depthMap/depthMap.fx"
+				layoutName="Vertex">
+				CameraDepth
+		</shader>
 	</shaders>
 </aMazingConfig>

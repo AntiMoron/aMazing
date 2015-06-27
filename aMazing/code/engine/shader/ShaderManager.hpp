@@ -13,12 +13,7 @@ namespace aMazing
 	{
 	private:
 		friend class aThreadSafeSingleton<ShaderManager>;
-		ShaderManager()
-		{
-			//TODO: need to config from XML config file
-			runtimeShaderStack.push("Basic3D");
-		}
-
+		ShaderManager(){}
 		std::unordered_map<std::string, std::shared_ptr<ShaderPair> > shaderStorage;
 		std::stack<std::string> runtimeShaderStack;
 		size_t basicShaderCount;
@@ -28,7 +23,8 @@ namespace aMazing
 			addPairFromMemory(ID3D11Device* device,
 			const char* vContent,
 			const char* pContent,
-			std::string&& shaderName)
+			std::string&& shaderName,
+			bool isDefault)
 		{
 			HRESULT hr = E_FAIL;
 			auto it = shaderStorage.find(shaderName);
@@ -43,6 +39,13 @@ namespace aMazing
 				return E_FAIL;
 			}
 			shaderStorage[shaderName] = newpair;
+			if (isDefault)
+			{
+				if (runtimeShaderStack.empty())
+					runtimeShaderStack.push(shaderName);
+				else
+					return E_FAIL;
+			}
 			return S_OK;
 		}
 
@@ -51,7 +54,8 @@ namespace aMazing
 			addPairFromFile(ID3D11Device* device,
 			const char* vFileName,
 			const char* pFileName,
-			std::string&& shaderName)
+			std::string&& shaderName,
+			bool isDefault)
 		{
 			HRESULT hr = E_FAIL;
 			auto it = shaderStorage.find(shaderName);
@@ -66,6 +70,13 @@ namespace aMazing
 				return E_FAIL;
 			}
 			shaderStorage[shaderName] = newpair;
+			if (isDefault)
+			{
+				if (runtimeShaderStack.empty())
+					runtimeShaderStack.push(shaderName);
+				else
+					return E_FAIL;
+			}
 			return S_OK;
 		}
 
