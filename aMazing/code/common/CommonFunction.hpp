@@ -18,4 +18,6 @@ namespace aMazing
 	extern float increaseByValue(float val, float increasement, float upperBound);
 	//将三维向量单位化
 	extern XMFLOAT3 normalize(XMFLOAT3 src);
+	//get the hash code of c-style string literal
+	extern unsigned long long hashCStringLiteral(const char* lit);
 }

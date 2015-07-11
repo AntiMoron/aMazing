@@ -52,7 +52,6 @@ aString aMazing::minimizeDirectory(const aString& dir)
 	return result;
 }
 
-
 aString aMazing::transformSplashes(const aString& dir)
 {
 	aString ret(dir);

@@ -80,7 +80,7 @@ void aMazingScene::render(ID3D11DeviceContext* context)
 	{
 		SHADERS.push("BasicSky", context);
 		TEXTURE.getTexture(3)->bindPS(context, 0);
-		GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
+		GRAPHICS.renderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 		SHADERS.push("CameraDepth", context);
 		maze->Render(context, camera->getCamera());
 		//bind shader which skin animation need.
@@ -95,7 +95,7 @@ void aMazingScene::render(ID3D11DeviceContext* context)
 		model->setRotation(XMFLOAT3(1.57, 0, 0));
 		model->setScaling(XMFLOAT3(0.1f, 0.1f, 0.1f));
 		model->render(context);
-		GRAPHICS.RenderLine(10.0f, 10.0f, 10.0f, 0.0f, 0.0f, 0.0f);
+		GRAPHICS.renderLine(10.0f, 10.0f, 10.0f, 0.0f, 0.0f, 0.0f);
 		SHADERS.pop(context);
 		SHADERS.pop(context);
 		SHADERS.pop(context);
@@ -105,7 +105,9 @@ void aMazingScene::render(ID3D11DeviceContext* context)
 	mazeRender(context);
 	fb->bindPS(D3DManager::getContext(DEFAULT_CONTEXT),0);
 	D3DManager::setMainRenderTarget();
-	GRAPHICS.RenderRectangle(0, 0, WINWIDTH, WINHEIGHT);
+	GRAPHICS.renderRectangle(0, 0, WINWIDTH, WINHEIGHT);
+
+	GRAPHICS.renderText(0, 0, L"Ã´Ã´ßÕ", 16);
 }
 
 const std::shared_ptr<WrappedCamera>& aMazingScene::getWrappedCamera()

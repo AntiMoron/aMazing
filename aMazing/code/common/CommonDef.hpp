@@ -3,6 +3,8 @@
 #include<iostream>
 #include<typeinfo>
 #pragma warning(disable : 4127)
+#undef max
+#undef min
 //Configures
 #if  defined(_MSC_VER)
 #define VC_COMPILER

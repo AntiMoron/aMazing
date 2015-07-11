@@ -99,6 +99,9 @@
     <Filter Include="Engine\system\thread">
       <UniqueIdentifier>{d3e40f82-ae39-4188-baf4-e72f443a4d06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\font">
+      <UniqueIdentifier>{7770bd10-e721-44ef-bbc4-4ec3d16df783}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\collision\shapecategory\CollisionCircle.hpp">
@@ -396,7 +399,6 @@
     <ClInclude Include="code\collision\math\Math3D.hpp">
       <Filter>Collision\math</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\font\font.hpp" />
     <ClInclude Include="code\engine\render\FrameSemantic.hpp">
       <Filter>Engine\render</Filter>
     </ClInclude>
@@ -507,6 +509,12 @@
     </ClInclude>
     <ClInclude Include="code\engine\system\mesh\GPUVerticesBuffer.hpp">
       <Filter>Engine\system\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\font\font.hpp">
+      <Filter>Engine\font</Filter>
+    </ClInclude>
+    <ClInclude Include="code\util\randomgen.hpp">
+      <Filter>util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

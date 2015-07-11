@@ -68,7 +68,6 @@ namespace aMazing
 		/*
 		 * Load Texture from a period of memory.
 		 * @param device Dx11 Device.
-		 * @param context Dx11 Context.
 		 * @param width width of the texture.
 		 * @param height height of the texture.
 		 * @param ptr  the pointer that points the texture data.

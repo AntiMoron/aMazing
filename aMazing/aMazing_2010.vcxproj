@@ -106,11 +106,11 @@
     <LinkIncremental>false</LinkIncremental>
     <GenerateManifest>true</GenerateManifest>
     <ExecutablePath>$(ExecutablePath);$(DXSDK_DIR)Utilities\bin\x86;</ExecutablePath>
-    <IncludePath>$(IncludePath);$(DXSDK_DIR)Include;3rd-party/Expat_2_1_0/Include;</IncludePath>
-    <LibraryPath>$(LibraryPath);$(DXSDK_DIR)Lib\x86;3rd-party/Expat_2_1_0/Lib;</LibraryPath>
+    <IncludePath>3rd-party/freetype2/Include;$(IncludePath);3rd-party/Expat_2_1_0/Include;</IncludePath>
+    <LibraryPath>$(LibraryPath);$(LibraryPath)/x86;3rd-party/Expat_2_1_0/Lib;3rd-party/freetype2/lib/;</LibraryPath>
     <LibraryWPath>$(WindowsSDK_MetadataPath);</LibraryWPath>
     <SourcePath>$(VC_SourcePath);3rd-party/Expat_2_1_0/Lib;</SourcePath>
-    <ExcludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(MSBuild_ExecutablePath);$(VC_LibraryPath_x86);3rd-party/Expat_2_1_0/Include;</ExcludePath>
+    <ExcludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(MSBuild_ExecutablePath);$(VC_LibraryPath_x86);</ExcludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|X64'">
     <LinkIncremental>false</LinkIncremental>
@@ -552,6 +552,7 @@
     <ClInclude Include="code\Resource.h" />
     <ClInclude Include="code\util\any.hpp" />
     <ClInclude Include="code\util\dynamic_matrix.hpp" />
+    <ClInclude Include="code\util\randomgen.hpp" />
     <ClInclude Include="code\util\regex\DFA.hpp" />
     <ClInclude Include="code\util\regex\FSM.hpp" />
     <ClInclude Include="code\util\regex\NFA.hpp" />

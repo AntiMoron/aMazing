@@ -5,6 +5,7 @@
 #include "engine/LoadConfig.hpp"
 #include "aMazingScene.hpp"
 #include "collision/math/Math2D.hpp"
+#include"engine/font/font.hpp"
 using namespace aMazing;
 HINSTANCE g_hInst = nullptr;
 HWND g_hWnd = nullptr;
@@ -132,6 +133,7 @@ HRESULT InitDevice()
 	aRETURN_ON_FAIL(CONFIG.loadConfigAndPop());
 	scene = new aMazingScene;
 	scene->initialize(g_hWnd, DEVICE);
+
 	return S_OK;
 }
 

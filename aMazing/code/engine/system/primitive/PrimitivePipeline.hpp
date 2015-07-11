@@ -1,11 +1,13 @@
 #pragma once
 #include<memory>
+#include<cstring>
 #include"../D3DManager.hpp"
 #include"BlockClass.hpp"
 #include"RectangleObject.hpp"
 #include"LineClass.hpp"
 #include"../../../common/CommonDef.hpp"
 #include"../../system/thread/aThreadSafeSingleton.hpp"
+#include"../../font/font.hpp"
 
 namespace aMazing
 {
@@ -40,7 +42,7 @@ namespace aMazing
 			return S_OK;
 		}
 
-		void RenderRectangle(unsigned short l,unsigned short t,
+		void renderRectangle(unsigned short l,unsigned short t,
 			unsigned short r, unsigned short b)
 		{
 			ID3D11DeviceContext* context = D3DManager::getContext(MANAGED_CONTEXT_TYPE::DEFAULT_CONTEXT);
@@ -59,11 +61,26 @@ namespace aMazing
 			blk->render(D3DManager::getContext(MANAGED_CONTEXT_TYPE::DEFAULT_CONTEXT));
 		}
 
-		void RenderLine(float sx, float sy, float sz,
+		void renderLine(float sx, float sy, float sz,
 			float ex, float ey, float ez)
 		{
 			line->render(D3DManager::getContext(MANAGED_CONTEXT_TYPE::DEFAULT_CONTEXT),
 				sx, sy, sz, ex, ey, ez);
+		}
+
+		void renderText(
+			int x,int y,
+			const wchar_t* text,
+			size_t size,
+			const char* font = "default.ttf")
+		{
+			int len = wcslen(text);
+			auto bitmaps = FONT.getFontBitmap(font, text, size);
+			std::unique_ptr<TextureObject> texts(new TextureObject[len]);
+			for ()
+			{
+				;
+			}
 		}
 	private:
 		std::shared_ptr<LineClass> line;

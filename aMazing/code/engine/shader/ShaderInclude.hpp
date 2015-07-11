@@ -85,7 +85,7 @@ namespace aMazing
 		{
 			int aindex = src.rfind('\\');
 			int bindex = src.rfind('/');
-			int index = max(aindex, bindex);
+			int index = (std::max) (aindex, bindex);
 			if (index < 0)
 			{
 				return "";

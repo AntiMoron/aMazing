@@ -68,3 +68,20 @@ XMFLOAT3 aMazing::normalize(XMFLOAT3 src)
 	src.z /= length;
 	return src;
 }
+
+unsigned long long aMazing::hashCStringLiteral(const char* lit)
+{
+	if (lit == nullptr)
+	{
+		return 0ULL;
+	}
+	unsigned long long result = 0;
+	size_t cur = 0;
+	while (lit[cur] != '\0')
+	{
+		result ^= lit[cur];
+		result *= 13;
+		++cur;
+	}
+	return ;
+}
