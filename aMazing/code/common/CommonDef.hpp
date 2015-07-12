@@ -34,7 +34,7 @@ MULTI_LINE_MACRO_END
 MULTI_LINE_MACRO_BEGIN\
 	if (!!x){\
 		delete (x);\
-		aDBG(CODE_FILENAME << '(' << CODE_LINENUM << ") : \n\'" << typeid(x).name() << "\' Object address at[" << (x) << "] deleted."); \
+		aDBG(CODE_FILENAME << '(' << CODE_LINENUM << ") : \n\'" << typeid(x).name() << "\' Object address at[" << unsigned int(x) << "] deleted."); \
 		(x) = nullptr;\
 	}\
 MULTI_LINE_MACRO_END
@@ -43,7 +43,7 @@ MULTI_LINE_MACRO_END
 MULTI_LINE_MACRO_BEGIN\
 	if (!!x){\
 		delete [] (x); \
-		aDBG(CODE_FILENAME << '(' << CODE_LINENUM << ") : \n\'" << typeid(x).name() << "\' Object address at[" << (x) << "] deleted."); \
+		aDBG(CODE_FILENAME << '(' << CODE_LINENUM << ") : \n\'" << typeid(x).name() << "\' Object address at[" << unsigned int(x) << "] deleted."); \
 		(x) = nullptr; \
 	}\
 MULTI_LINE_MACRO_END

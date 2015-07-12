@@ -1,13 +1,6 @@
 #pragma once
-#include<ft2build.h>
-#include FT_FREETYPE_H 
-
-#if defined(_DEBUG)
-#pragma comment(lib,"freetype253_D.lib")
-#else
-#pragma comment(lib,"freetype253.lib")
-#endif
-
+#include"../../common/CommonDef.hpp"
+#include"../../common/CommonFunction.hpp"
 
 namespace aMazing
 {

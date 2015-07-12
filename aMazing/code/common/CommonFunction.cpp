@@ -83,5 +83,5 @@ unsigned long long aMazing::hashCStringLiteral(const char* lit)
 		result *= 13;
 		++cur;
 	}
-	return ;
+	return result;
 }

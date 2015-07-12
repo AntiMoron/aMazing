@@ -516,6 +516,18 @@
     <ClInclude Include="code\util\randomgen.hpp">
       <Filter>util</Filter>
     </ClInclude>
+    <ClInclude Include="code\engine\font\fontface.hpp">
+      <Filter>Engine\font</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\font\fontglobal.hpp">
+      <Filter>Engine\font</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\font\facecache.hpp">
+      <Filter>Engine\font</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\font\textcache.hpp">
+      <Filter>Engine\font</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\collision\CollisionIntersection.cpp">
@@ -594,6 +606,9 @@
     </ClCompile>
     <ClCompile Include="code\engine\system\primitive\LineClass.cpp">
       <Filter>Engine\system\primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\font\fontglobal.cpp">
+      <Filter>Engine\font</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

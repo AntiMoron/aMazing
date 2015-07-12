@@ -43,7 +43,7 @@ namespace aMazing
 		}
 
 		void renderRectangle(unsigned short l,unsigned short t,
-			unsigned short r, unsigned short b)
+			unsigned short r, unsigned short b) const aNOEXCEPT
 		{
 			ID3D11DeviceContext* context = D3DManager::getContext(MANAGED_CONTEXT_TYPE::DEFAULT_CONTEXT);
 			D3DManager::disableDepth(context);
@@ -51,9 +51,9 @@ namespace aMazing
 			D3DManager::enableDepth(context);
 		}
 
-		void RenderBox(float x,float y,float z,
+		void renderBox(float x,float y,float z,
 			float rx,float ry,float rz,
-			float sx,float sy,float sz)
+			float sx, float sy, float sz) const aNOEXCEPT
 		{
 			blk->setPosition(XMFLOAT3(x, y, z));
 			blk->setRotation(XMFLOAT3(rx, ry, rz));
@@ -62,24 +62,27 @@ namespace aMazing
 		}
 
 		void renderLine(float sx, float sy, float sz,
-			float ex, float ey, float ez)
+			float ex, float ey, float ez) const aNOEXCEPT
 		{
 			line->render(D3DManager::getContext(MANAGED_CONTEXT_TYPE::DEFAULT_CONTEXT),
 				sx, sy, sz, ex, ey, ez);
 		}
 
 		void renderText(
-			int x,int y,
+			int x, int y,
 			const wchar_t* text,
-			size_t size,
-			const char* font = "default.ttf")
+			size_t size = 16,
+			const char* font = "./default.ttf",
+			int resX = 72, int resY = 72) const aNOEXCEPT
 		{
-			int len = wcslen(text);
-			auto bitmaps = FONT.getFontBitmap(font, text, size);
-			std::unique_ptr<TextureObject> texts(new TextureObject[len]);
-			for ()
+			auto& bitmaps = FONT.getFontBitmap(text, size, font, resX, resY);
+			int penX = x, penY = y;
+			for (size_t cur = 0; cur < bitmaps.size(); ++cur)
 			{
-				;
+				bitmaps[cur]->bindPS(D3DManager::getContext(MANAGED_CONTEXT_TYPE::DEFAULT_CONTEXT),
+					0);
+				renderRectangle(penX, penY, penX + bitmaps[cur]->getWidth(), penY + bitmaps[cur]->getHeight());
+				penX += bitmaps[cur]->getWidth();
 			}
 		}
 	private:

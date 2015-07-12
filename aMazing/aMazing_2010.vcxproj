@@ -399,6 +399,7 @@
     <ClCompile Include="code\engine\data\vertex.cpp" />
     <ClCompile Include="code\engine\data\xml\aXmlData.cpp" />
     <ClCompile Include="code\engine\data\xml\aXmlParser.cpp" />
+    <ClCompile Include="code\engine\font\fontglobal.cpp" />
     <ClCompile Include="code\engine\math\amatrix.cpp" />
     <ClCompile Include="code\engine\math\avector.cpp" />
     <ClCompile Include="code\engine\shader\ShaderCompiler.cpp" />
@@ -477,7 +478,11 @@
     <ClInclude Include="code\engine\exception\FailureException.hpp" />
     <ClInclude Include="code\engine\exception\MemoryException.hpp" />
     <ClInclude Include="code\engine\exception\ParamException.hpp" />
+    <ClInclude Include="code\engine\font\facecache.hpp" />
     <ClInclude Include="code\engine\font\font.hpp" />
+    <ClInclude Include="code\engine\font\fontface.hpp" />
+    <ClInclude Include="code\engine\font\fontglobal.hpp" />
+    <ClInclude Include="code\engine\font\textcache.hpp" />
     <ClInclude Include="code\engine\LoadConfig.hpp" />
     <ClInclude Include="code\engine\math\amath.hpp" />
     <ClInclude Include="code\engine\math\amatrix.hpp" />

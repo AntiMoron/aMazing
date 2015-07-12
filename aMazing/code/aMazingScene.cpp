@@ -107,7 +107,7 @@ void aMazingScene::render(ID3D11DeviceContext* context)
 	D3DManager::setMainRenderTarget();
 	GRAPHICS.renderRectangle(0, 0, WINWIDTH, WINHEIGHT);
 
-	GRAPHICS.renderText(0, 0, L"么么哒", 16);
+	GRAPHICS.renderText(0, 0, L"么么哒dadadada~", 72);
 }
 
 const std::shared_ptr<WrappedCamera>& aMazingScene::getWrappedCamera()

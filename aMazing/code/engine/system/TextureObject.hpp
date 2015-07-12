@@ -41,8 +41,7 @@ namespace aMazing
 				long pixelCount = long(data.getHeight()) * long(data.getWidth());
 
 				hr = LoadMemory(device, data.getWidth(), data.getHeight(),
-					data.getColDataPtr(),
-					sizeof(XMFLOAT4)* pixelCount);
+					data.getColDataPtr());
 				if (FAILED(hr))
 				{
 					return E_FAIL;
@@ -71,15 +70,15 @@ namespace aMazing
 		 * @param width width of the texture.
 		 * @param height height of the texture.
 		 * @param ptr  the pointer that points the texture data.
-		 * @param size the size of the texture data.
 		*/
 		HRESULT LoadMemory(ID3D11Device* device,
 			std::size_t width,
 			std::size_t height,
-			void* ptr, 
-			std::size_t size)
+			void* ptr)
 		{
 			HRESULT hr;
+			this->width = width;
+			this->height = height;
 			if (shaderResourceView != nullptr)
 			{
 				return E_FAIL;
@@ -139,8 +138,7 @@ namespace aMazing
 			hr = LoadMemory(device,
 				defaultWidth,
 				defaultHeight,
-				reinterpret_cast<void*>(const_cast<unsigned char*>(defaultData.chessBoardData)),
-				sizeof(unsigned char)* defaultWidth * defaultHeight * 4);
+				reinterpret_cast<void*>(const_cast<unsigned char*>(defaultData.chessBoardData)));
 			if (FAILED(hr))
 			{
 				return hr;
@@ -165,8 +163,19 @@ namespace aMazing
 		{
 			return bIsInit;
 		}
+
+		size_t getWidth() const aNOEXCEPT
+		{
+			return width;
+		}
+		size_t getHeight() const aNOEXCEPT
+		{
+			return height;
+		}
 	protected:
 		bool bIsInit;
+		size_t width;
+		size_t height;
 		ID3D11ShaderResourceView* shaderResourceView;
 	private:
 		const static unsigned short defaultWidth = 512;

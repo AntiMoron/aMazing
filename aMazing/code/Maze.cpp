@@ -47,7 +47,7 @@ void Maze::Render(ID3D11DeviceContext* context,
 					TEXTURE.getTexture(1)->bindPS(context, 0);
 				else
 					TEXTURE.getTexture(4)->bindPS(context, 0);
-				GRAPHICS.RenderBox(position.x, position.y, position.z,
+				GRAPHICS.renderBox(position.x, position.y, position.z,
 					rotation.x, rotation.y, rotation.z,
 					scaling.x, scaling.y, scaling.z);
 			}

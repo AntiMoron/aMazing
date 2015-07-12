@@ -12,9 +12,9 @@ namespace aMazing
 	template<typename T>
 	void aSwap(T& a, T& b)
 	{
-		T t = a;
-		a = b;
-		b = t;
+		T t = std::move(a);
+		a = std::move(b);
+		b = std::move(t);
 	}
 
 
@@ -23,11 +23,12 @@ namespace aMazing
 	 *@param T  template argument
 	 *@return T*   get the pointer of an reference value of type T
 	*/
-	template<typename T>
-	T* aAddressof(T& lval)
+	template< class T >
+	T* aAddressof(T& arg)
 	{
-		return reinterpret_cast<T*>(&const_cast<T>(
-			reinterpret_cast<const volatile char&>(lval)));
+		return reinterpret_cast<T*>(
+			&const_cast<char&>(
+			reinterpret_cast<const volatile char&>(arg)));
 	}
 
 	/*
