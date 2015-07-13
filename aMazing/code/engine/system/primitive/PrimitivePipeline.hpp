@@ -42,8 +42,8 @@ namespace aMazing
 			return S_OK;
 		}
 
-		void renderRectangle(unsigned short l,unsigned short t,
-			unsigned short r, unsigned short b) const aNOEXCEPT
+		void renderRectangle(int l,int t,
+			int r, int b) const aNOEXCEPT
 		{
 			ID3D11DeviceContext* context = D3DManager::getContext(MANAGED_CONTEXT_TYPE::DEFAULT_CONTEXT);
 			D3DManager::disableDepth(context);
@@ -75,14 +75,25 @@ namespace aMazing
 			const char* font = "./default.ttf",
 			int resX = 72, int resY = 72) const aNOEXCEPT
 		{
-			auto& bitmaps = FONT.getFontBitmap(text, size, font, resX, resY);
 			int penX = x, penY = y;
-			for (size_t cur = 0; cur < bitmaps.size(); ++cur)
+			size_t cur = 0;
+			while(text[cur] != L'\0')
 			{
-				bitmaps[cur]->bindPS(D3DManager::getContext(MANAGED_CONTEXT_TYPE::DEFAULT_CONTEXT),
+				if (penX > RESWIDTH || penY > RESHEIGHT)
+				{
+					return;
+				}
+				const FontTexture* bitmap = FONT.getFontBitmap(text[cur], size, font, resX, resY);
+				bitmap->bindPS(D3DManager::getContext(MANAGED_CONTEXT_TYPE::DEFAULT_CONTEXT),
 					0);
-				renderRectangle(penX, penY, penX + bitmaps[cur]->getWidth(), penY + bitmaps[cur]->getHeight());
-				penX += bitmaps[cur]->getWidth();
+				int l = penX + bitmap->getBitmapLeft();
+				int t = penY + bitmap->getBitmapTop();
+				int r = l + bitmap->getWidth();
+				int b = t + bitmap->getHeight();
+				renderRectangle(l, t, r, b);
+				penX += bitmap->getNextPenX();
+				penY += bitmap->getNextPenY();
+				++cur;
 			}
 		}
 	private:

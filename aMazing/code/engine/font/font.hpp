@@ -28,25 +28,20 @@ namespace aMazing
 		{
 			FT_Done_FreeType(fontLibrary);
 		}
-		std::vector<const TextureObject*> getFontBitmap(const wchar_t* text,
+		const FontTexture* getFontBitmap(wchar_t ch,
 			int size,
 			const char* fontName,
 			int resX, int resY) aNOEXCEPT
 		{
-			std::vector<const TextureObject*> result;
 			size_t cur = 0;
-			while(text[cur] != L'\0')
+			if (textCache.findCharacter(ch, fontName) == -1)
 			{
-				if (textCache.findCharacter(text[cur], fontName) == -1)
-				{
-					FontBitmap* fontBitmap = getRawFontBitmap(text[cur],fontName, size, resX, resY);
-					textCache.applyCharacter(text[cur], fontName, fontBitmap);
-					delete fontBitmap;
-				}
-				result.push_back(textCache.getFontResult(text[cur], fontName));
-				++cur;
+				FontBitmap* fontBitmap = getRawFontBitmap(ch,
+					fontName, size, resX, resY);
+				textCache.applyCharacter(ch, fontName, fontBitmap);
+				delete fontBitmap;
 			}
-			return result;
+			return textCache.getFontResult(ch, fontName);
 		}
 
 		//fontName where the font exist.
@@ -58,7 +53,6 @@ namespace aMazing
 			int size,
 			int resX, int resY) aNOEXCEPT
 		{
-			int penX = 0, penY = 0;
 			FT_Face face = faceCache[fontName];
 			FontBitmap* result = new FontBitmap;
 			ftError = FT_Set_Char_Size(face, 0, size * 64, resX, resY);
@@ -78,8 +72,8 @@ namespace aMazing
 			ret.size = size;
 			ret.width = slot->bitmap.width;
 			ret.height = slot->bitmap.rows;
-			ret.penX = penX + slot->bitmap_left;
-			ret.penY = penY + slot->bitmap_top;
+			ret.bitmapLeft = slot->metrics.horiBearingX / 64;
+			ret.bitmapTop = slot->metrics.vertBearingY / 64;
 			ret.buffer = new unsigned char[ret.width * ret.height * 4];
 			size_t totalPixels = ret.width * ret.height;
 			for (size_t cur = 0; cur < totalPixels; ++cur)
@@ -89,8 +83,8 @@ namespace aMazing
 				ret.buffer[cur * 4 + 2] = slot->bitmap.buffer[cur];
 				ret.buffer[cur * 4 + 3] = slot->bitmap.buffer[cur];
 			}
-			penX += slot->advance.x >> 6;
-			penY += slot->advance.y >> 6;
+			ret.nextPenX = slot->advance.x >> 6;
+			ret.nextPenY = slot->advance.y >> 6;
 			return result;
 		}
 	};

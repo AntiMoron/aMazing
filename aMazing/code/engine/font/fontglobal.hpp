@@ -31,8 +31,10 @@ namespace aMazing
 		unsigned char* buffer;
 		size_t width;
 		size_t height;
-		size_t penX;
-		size_t penY;
+		int bitmapLeft;
+		int bitmapTop;
+		int nextPenX;
+		int nextPenY;
 		size_t size;
 	};
 	typedef FontBitmap* FontResults;

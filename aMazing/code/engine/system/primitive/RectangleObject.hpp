@@ -14,14 +14,14 @@ namespace aMazing
 		{
 			HRESULT hr;
 			float left, right, top, bottom;
-			left = (float)(WINWIDTH / -2.0f) + 0.0f;
+			left = (float)(RESWIDTH / -2.0f) + 0.0f;
 			right = left + 100.0f;
-			top = (float)(WINHEIGHT / 2.0f) + 0.0f;
+			top = (float)(RESHEIGHT / 2.0f) + 0.0f;
 			bottom = top - 50.0f;
-			left = 2.0f * left / WINWIDTH;
-			right = 2.0f * right / WINWIDTH;
-			top = 2.0f * top / WINHEIGHT;
-			bottom = 2.0f * bottom / WINHEIGHT;
+			left = 2.0f * left / RESWIDTH;
+			right = 2.0f * right / RESWIDTH;
+			top = 2.0f * top / RESHEIGHT;
+			bottom = 2.0f * bottom / RESHEIGHT;
 			Vertex vertices[6];
 			vertices[0].position.x = left;
 			vertices[0].position.y = top;
@@ -68,21 +68,21 @@ namespace aMazing
 		}
 
 		void render(ID3D11DeviceContext* context,
-			unsigned short ileft,
-			unsigned short itop,
-			unsigned short iright,
-			unsigned short ibottom)
+			int ileft,
+			int itop,
+			int iright,
+			int ibottom)
 		{
 			SHADERS.push("Basic2D", context);
 			float left, right, top, bottom;
-			left = (float)(WINWIDTH / -2.0f) + ileft;
+			left = (float)(RESWIDTH / -2.0f) + ileft;
 			right = left + (iright - ileft);
-			top = (float)(WINHEIGHT / 2.0f) - itop;
+			top = (float)(RESHEIGHT / 2.0f) - itop;
 			bottom = top - (ibottom - itop);
-			left = 2.0f * left / WINWIDTH;
-			right = 2.0f * right / WINWIDTH;
-			top = 2.0f * top / WINHEIGHT;
-			bottom = 2.0f * bottom / WINHEIGHT;
+			left = 2.0f * left / RESWIDTH;
+			right = 2.0f * right / RESWIDTH;
+			top = 2.0f * top / RESHEIGHT;
+			bottom = 2.0f * bottom / RESHEIGHT;
 
 			Vertex vertices[6];
 			vertices[0].position.x = left;

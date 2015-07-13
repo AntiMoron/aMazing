@@ -101,6 +101,8 @@ HRESULT InitDevice()
 
 	GLOBAL_WINDOW.setWidth(width);
 	GLOBAL_WINDOW.setHeight(height);
+	GLOBAL_WINDOW.setResolutionWidth(width);
+	GLOBAL_WINDOW.setResolutionHeight(height);
 	//initialize all the thing we need to prepare for rendering work.
 	D3DManager::initialize(GLOBAL_WINDOW.getWindowHandler());
 	//From now on device's marco access is enabled.

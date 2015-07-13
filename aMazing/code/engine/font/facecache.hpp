@@ -34,17 +34,7 @@ namespace aMazing
 				{
 					if (faceCache.size() + 1 >= limit)
 					{
-						int count = 0;
-						int id = Random.getInteger32(0, faceCache.size());
-						for (auto it = faceCache.begin(); it != faceCache.end(); ++count, ++it)
-						{
-							if (count == id)
-							{
-								FT_Done_Face(it->second);
-								faceCache.erase(it);
-								break;
-							}
-						}
+						faceCache.erase(faceCache.begin());
 					}
 					FT_Face aFace;
 					aDBG(fontLibrary);
