@@ -68,7 +68,7 @@ namespace aMazing
 			XMFLOAT3 eyeDirection;
 		};
 		struct cameraMatrices m_matriceData;
-		GPUConstantBuffer<cameraMatrices> m_matrices;
+		static GPUConstantBuffer<cameraMatrices> m_matrices;
 		std::shared_ptr<FrustumClass> m_frustum;
 	};
 }

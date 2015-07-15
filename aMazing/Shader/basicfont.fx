@@ -1,6 +1,11 @@
 #include"LightImpl.hlsl"
 #include"MaterialImpl.hlsl"
 
+cbuffer classInstance : register(b12)
+{
+	float4 fontColor;
+}
+
 struct VS_INPUT
 {
     float4 Pos : POSITION;
@@ -21,13 +26,14 @@ PS_INPUT VSEntry( VS_INPUT input )
 
     output.Pos = float4(input.Pos.xy,0.0f,1.0f);
     output.Nor = normalize(input.Nor);
-    output.Tex = input.Tex;    
+    output.Tex = input.Tex;
     return output;
 }
 
 float4 PSEntry(PS_INPUT input) : SV_Target
 {
 	float4 color = txDiffuse.Sample(samplerLinear, input.Tex);
+	color *= fontColor;
 	clip(color.a == 0.0f ? -1 : 1);
 	return color;
 }

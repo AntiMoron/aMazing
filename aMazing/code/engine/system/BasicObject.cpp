@@ -1,14 +1,10 @@
 #include "BasicObject.hpp"
 using namespace aMazing;
+GPUConstantBuffer<PRSShaderData> BasicObject::m_prsBuffer;
 
 BasicObject::BasicObject()
 {
 	m_prsData.reset(new PRS);
-}
-
-
-BasicObject::~BasicObject()
-{
 }
 
 HRESULT BasicObject::initialize(ID3D11Device* device)

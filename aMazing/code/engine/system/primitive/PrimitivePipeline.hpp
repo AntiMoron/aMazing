@@ -75,6 +75,7 @@ namespace aMazing
 			const char* font = "./default.ttf",
 			int resX = 72, int resY = 72) const aNOEXCEPT
 		{
+			ID3D11DeviceContext* context = D3DManager::getContext(MANAGED_CONTEXT_TYPE::DEFAULT_CONTEXT);
 			int penX = x, penY = y;
 			size_t cur = 0;
 			while (text[cur] != L'\0')
@@ -92,7 +93,9 @@ namespace aMazing
 					int t = penY + bitmap->getBitmapTop();
 					int r = l + bitmap->getWidth();
 					int b = t + bitmap->getHeight();
-					renderRectangle(l, t, r, b);
+					D3DManager::disableDepth(context);
+					rec->render(context, l, t, r, b);
+					D3DManager::enableDepth(context);
 				}
 				if (text[cur] != '\n')
 				{

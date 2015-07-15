@@ -1,6 +1,8 @@
 #include "CameraClass.hpp"
 using namespace aMazing;
 
+GPUConstantBuffer<CameraClass::cameraMatrices> CameraClass::m_matrices;
+
 HRESULT CameraClass::initialize(ID3D11Device* device)
 {
 	position = { 0.0f, 0.0f, 0.0f };

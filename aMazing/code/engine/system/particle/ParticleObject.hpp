@@ -35,6 +35,6 @@ namespace aMazing
 			XMMATRIX inverseMatrix;
 			XMFLOAT4 particleColor;
 		};
-		std::unique_ptr<GPUConstantBuffer<ParticleMatrices> > particleMatrices;
+		GPUConstantBuffer<ParticleMatrices> particleMatrices;
 	};
 }

@@ -9,7 +9,10 @@ class BasicObject
 {
 public:
 	BasicObject();
-	virtual ~BasicObject();
+	virtual ~BasicObject()
+	{
+		;
+	}
 
 	HRESULT initialize(ID3D11Device* device);
 
@@ -33,5 +36,5 @@ protected:
 	XMFLOAT3 rotation;
 	XMFLOAT3 scaling;
 	std::unique_ptr<PRS> m_prsData;
-	GPUConstantBuffer<PRSShaderData> m_prsBuffer;
+	static GPUConstantBuffer<PRSShaderData> m_prsBuffer;
 };

@@ -77,7 +77,7 @@ namespace aMazing
 
 		std::unique_ptr<SceneAnimator> sceneAnimator;
 		//the constant buffer that update bones' transformations.
-		GPUConstantBuffer<BonesBindData> boneTransformations;
+		static GPUConstantBuffer<BonesBindData> boneTransformations;
 		//saves the location of model in file systems.
 		std::unique_ptr<std::string> modelLocation;
 		float render_time;

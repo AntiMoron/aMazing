@@ -393,6 +393,7 @@
     <ClCompile Include="code\collision\math\Math2D.cpp" />
     <ClCompile Include="code\collision\math\Math3D.cpp" />
     <ClCompile Include="code\common\CommonFunction.cpp" />
+    <ClCompile Include="code\DayNightClass.cpp" />
     <ClCompile Include="code\engine\asset\ModelObject.cpp" />
     <ClCompile Include="code\engine\containers\Directory.cpp" />
     <ClCompile Include="code\engine\containers\MutableString.cpp" />

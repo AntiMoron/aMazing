@@ -63,5 +63,5 @@ public:
 private:
 	unsigned long long lastTick;
 	unsigned long long timeNow;
-	GPUConstantBuffer<XMFLOAT4> dayColorAlpha;
+	static GPUConstantBuffer<XMFLOAT4> dayColorAlpha;
 };

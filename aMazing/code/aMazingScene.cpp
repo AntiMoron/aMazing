@@ -106,7 +106,6 @@ void aMazingScene::render(ID3D11DeviceContext* context)
 	fb->bindPS(D3DManager::getContext(DEFAULT_CONTEXT),0);
 	D3DManager::setMainRenderTarget();
 	GRAPHICS.renderRectangle(0, 0, WINWIDTH, WINHEIGHT);
-
 	GRAPHICS.renderText(0, 10, L"1 2 3 4\tTest_≤‚ ‘\nªª––", 36);
 }
 
