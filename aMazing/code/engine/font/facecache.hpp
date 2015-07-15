@@ -18,7 +18,7 @@ namespace aMazing
 			{
 				limit = lim;
 			}
-			void addFace(const char* fileName)
+			bool addFace(const char* fileName)
 			{
 				aString _fileName = transformSplashes(fileName);
 				_fileName = minimizeDirectory(_fileName);
@@ -34,7 +34,8 @@ namespace aMazing
 				{
 					if (faceCache.size() + 1 >= limit)
 					{
-						faceCache.erase(faceCache.begin());
+						//abort the operation
+						return false;
 					}
 					FT_Face aFace;
 					aDBG(fontLibrary);
@@ -43,12 +44,14 @@ namespace aMazing
 					{
 						aDBG("freetype failed with error code£º" << ftError);
 						faceCache.erase(hashCode);
+						return false;
 					}
 					else
 					{
 						faceCache.insert(std::pair<size_t, FT_Face>(hashCode, aFace));
 					}
 				}
+				return true;
 			}
 
 			FT_Face operator [] (const char* fontName) aNOEXCEPT
@@ -57,7 +60,10 @@ namespace aMazing
 				_fileName = minimizeDirectory(_fileName);
 				size_t hashCode = hashCStringLiteral(_fileName.c_str());
 				if (faceCache.find(hashCode) == faceCache.end())
-					addFace(_fileName.c_str());
+				{
+					if (!addFace(_fileName.c_str()))
+						return faceCache[0];
+				}
 				return faceCache[hashCode];
 			}
 		private:

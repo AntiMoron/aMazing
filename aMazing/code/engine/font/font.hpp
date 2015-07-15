@@ -75,6 +75,8 @@ namespace aMazing
 			ret.bitmapLeft = slot->metrics.horiBearingX / 64;
 			ret.bitmapTop = slot->metrics.vertBearingY / 64;
 			ret.buffer = new unsigned char[ret.width * ret.height * 4];
+			ret.outlineX = slot->metrics.horiAdvance / 64;
+			ret.outlineY = slot->metrics.vertAdvance / 64;
 			size_t totalPixels = ret.width * ret.height;
 			for (size_t cur = 0; cur < totalPixels; ++cur)
 			{

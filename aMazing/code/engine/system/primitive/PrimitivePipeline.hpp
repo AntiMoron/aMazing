@@ -77,22 +77,33 @@ namespace aMazing
 		{
 			int penX = x, penY = y;
 			size_t cur = 0;
-			while(text[cur] != L'\0')
+			while (text[cur] != L'\0')
 			{
 				if (penX > RESWIDTH || penY > RESHEIGHT)
 				{
 					return;
 				}
 				const FontTexture* bitmap = FONT.getFontBitmap(text[cur], size, font, resX, resY);
-				bitmap->bindPS(D3DManager::getContext(MANAGED_CONTEXT_TYPE::DEFAULT_CONTEXT),
-					0);
-				int l = penX + bitmap->getBitmapLeft();
-				int t = penY + bitmap->getBitmapTop();
-				int r = l + bitmap->getWidth();
-				int b = t + bitmap->getHeight();
-				renderRectangle(l, t, r, b);
-				penX += bitmap->getNextPenX();
-				penY += bitmap->getNextPenY();
+				if (!aMazing::isBlank(text[cur]))
+				{
+					bitmap->bindPS(D3DManager::getContext(MANAGED_CONTEXT_TYPE::DEFAULT_CONTEXT),
+						0);
+					int l = penX + bitmap->getBitmapLeft();
+					int t = penY + bitmap->getBitmapTop();
+					int r = l + bitmap->getWidth();
+					int b = t + bitmap->getHeight();
+					renderRectangle(l, t, r, b);
+				}
+				if (text[cur] != '\n')
+				{
+					penX += bitmap->getNextPenX();
+					penY += bitmap->getNextPenY();
+				}
+				else
+				{
+					penX = 0;
+					penY += bitmap->getOutlineY();
+				}
 				++cur;
 			}
 		}

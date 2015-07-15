@@ -35,6 +35,8 @@ namespace aMazing
 		int bitmapTop;
 		int nextPenX;
 		int nextPenY;
+		int outlineX;
+		int outlineY;
 		size_t size;
 	};
 	typedef FontBitmap* FontResults;

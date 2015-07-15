@@ -10,6 +10,22 @@ namespace aMazing
 	class FontTexture : public TextureObject
 	{
 	public:
+		void setOutlineX(int x) aNOEXCEPT
+		{
+			outlineX = x;
+		}
+		int getOutlineX() const aNOEXCEPT
+		{
+			return outlineX;
+		}
+		void setOutlineY(int y) aNOEXCEPT
+		{
+			outlineY = y;
+		}
+		int getOutlineY() const aNOEXCEPT
+		{
+			return outlineY;
+		}
 		int getBitmapLeft() const aNOEXCEPT
 		{
 			  return bitmapLeft;
@@ -47,6 +63,8 @@ namespace aMazing
 		int bitmapTop;
 		int nextPenX;
 		int nextPenY;
+		int outlineX;
+		int outlineY;
 	};
 
 	namespace detail
@@ -90,6 +108,8 @@ namespace aMazing
 					tex.LoadMemory(D3DManager::getDevice(DEFAULT_DEVICE),
 						bitmap->width, bitmap->height,
 						bitmap->buffer);
+					tex.setOutlineX(bitmap->outlineX);
+					tex.setOutlineY(bitmap->outlineY);
 					tex.setBitmapLeft(bitmap->bitmapLeft);
 					tex.setBitmapTop(bitmap->bitmapTop);
 					tex.setNextPenX(bitmap->nextPenX);
